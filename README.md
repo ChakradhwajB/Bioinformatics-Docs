@@ -1,4 +1,4 @@
-# Bioinformatics Library
+# Bioinformatics Docs
 
 A desktop-grade local web application for sequence alignment, genetics operations, sequence distances, and pattern mapping.
 
