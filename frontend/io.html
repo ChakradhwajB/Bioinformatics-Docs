@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FASTA File IO Workbench</title>
+  <link rel="stylesheet" href="./dist/output.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .font-mono-seq {
+      font-family: 'Fira Code', monospace;
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-900 min-h-screen h-screen flex flex-col overflow-hidden">
+  
+  <!-- Header Bar -->
+  <header class="bg-white border-b border-slate-200 py-3 px-6 flex justify-between items-center select-none z-50">
+    <div class="flex items-center space-x-3">
+      <a href="./index.html" class="flex items-center space-x-2 text-slate-500 hover:text-slate-800 transition-colors">
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        <span class="text-xs font-semibold">Dashboard</span>
+      </a>
+      <span class="text-slate-300">/</span>
+      <span class="text-sm font-bold tracking-tight text-slate-800">FASTA File IO Workbench</span>
+    </div>
+    <div class="flex items-center bg-slate-50 px-2.5 py-1 rounded border border-slate-200">
+      <span id="server-status-dot" class="h-2 w-2 rounded-full bg-slate-400 mr-2"></span>
+      <span id="server-status-text" class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Checking...</span>
+    </div>
+  </header>
+
+  <!-- Workspace Shell -->
+  <div class="flex-grow flex h-[calc(100vh-45px)] overflow-hidden">
+    
+    <!-- Left Sidebar (Inputs & Controls) -->
+    <aside class="w-80 bg-slate-50 border-r border-slate-200 p-4 flex flex-col justify-between overflow-y-auto select-none">
+      <div class="space-y-4">
+        
+        <!-- Tool Navigation list -->
+        <div>
+          <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Modules List</span>
+          <nav class="space-y-0.5">
+            <a href="./needleman_wunsch.html" class="block px-2.5 py-1.5 text-[11px] font-medium rounded text-slate-600 hover:bg-slate-200 transition-colors">
+              Needleman-Wunsch Global
+            </a>
+            <a href="./smith_waterman.html" class="block px-2.5 py-1.5 text-[11px] font-medium rounded text-slate-600 hover:bg-slate-200 transition-colors">
+              Smith-Waterman Local
+            </a>
+            <a href="./distances.html" class="block px-2.5 py-1.5 text-[11px] font-medium rounded text-slate-600 hover:bg-slate-200 transition-colors">
+              Sequence Distances
+            </a>
+            <a href="./genetics.html" class="block px-2.5 py-1.5 text-[11px] font-medium rounded text-slate-600 hover:bg-slate-200 transition-colors">
+              Genetics Workbench
+            </a>
+            <a href="./find_motif.html" class="block px-2.5 py-1.5 text-[11px] font-medium rounded text-slate-600 hover:bg-slate-200 transition-colors">
+              Motif Finder
+            </a>
+          </nav>
+        </div>
+
+        <!-- Drag & Drop Zone -->
+        <div class="space-y-2 pt-3 border-t border-slate-200">
+          <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">File Ingestion</span>
+          <div id="drop-zone" class="border border-dashed border-slate-350 rounded-md p-6 text-center cursor-pointer bg-white hover:bg-slate-100 transition-colors">
+            <span class="text-[10px] font-semibold text-slate-500 block">Drag & Drop FASTA File</span>
+            <input type="file" id="file-input" class="hidden" accept=".fasta,.fa,.txt">
+            <button id="browse-btn" class="mt-2.5 px-3 py-1 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded text-[10px] transition-colors">
+              Browse Files
+            </button>
+          </div>
+        </div>
+
+        <!-- JSON Exporter Card -->
+        <div class="space-y-2 pt-3 border-t border-slate-200">
+          <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">Server JSON Exporter</span>
+          <label class="block text-[9px] font-semibold text-slate-500">Output File Path</label>
+          <input type="text" id="output-path" class="w-full text-xs px-2.5 py-1.5 border border-slate-200 rounded-md bg-white font-mono" placeholder="C:/temp/sequences.json">
+        </div>
+
+      </div>
+
+      <div class="pt-4 border-t border-slate-200">
+        <button id="export-btn" class="w-full py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-md text-xs transition-colors tracking-wide select-none">
+          Export JSON Records
+        </button>
+      </div>
+    </aside>
+
+    <!-- Right Panels (Data Views & Visualizations) -->
+    <main class="flex-grow flex flex-col overflow-hidden bg-slate-100">
+      
+      <!-- Top Section: Console overview -->
+      <section class="h-2/5 min-h-[220px] bg-white border-b border-slate-200 p-5 flex flex-col justify-between overflow-y-auto">
+        <div class="flex justify-between items-center mb-3 select-none">
+          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Parsed Header Records</span>
+          <div class="flex items-center space-x-2 text-[10px] font-semibold text-slate-500">
+            <span>Ingested: <span id="record-count" class="font-bold text-slate-900">-</span></span>
+          </div>
+        </div>
+
+        <!-- High-density Monospace console block -->
+        <div class="flex-grow bg-slate-55 border border-slate-150 rounded p-4 overflow-auto custom-scrollbar flex flex-col justify-start">
+          <div id="output-console" class="w-full h-full flex flex-col justify-start font-mono-seq text-xs leading-normal select-all bg-slate-900 text-slate-300 p-4 border border-slate-950 rounded overflow-y-auto">
+            Uploaded FASTA file parsed header statistics output here.
+          </div>
+        </div>
+      </section>
+
+      <!-- Bottom Section: Records Table -->
+      <section class="flex-grow bg-white p-5 flex flex-col overflow-hidden">
+        <div class="flex justify-between items-center mb-3 select-none">
+          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">FASTA Records Table</span>
+          <span class="text-[9px] font-semibold text-slate-400 bg-slate-50 px-2 py-0.5 rounded border border-slate-150">Copy / Inject actions</span>
+        </div>
+
+        <div id="visualizer-container" class="flex-grow border border-slate-150 rounded overflow-auto custom-scrollbar bg-slate-50 flex items-center justify-center relative p-4">
+          <div class="text-slate-400 text-xs font-semibold">
+            Sequence records details table renders here.
+          </div>
+        </div>
+      </section>
+    </main>
+
+  </div>
+
+  <script src="./app.js"></script>
+  <script src="./io.js"></script>
+</body>
+</html>

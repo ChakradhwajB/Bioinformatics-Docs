@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bioinformatics Library</title>
+    <link rel="stylesheet" href="./dist/output.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-slate-100 text-slate-900 min-h-screen h-screen flex flex-col overflow-hidden"
+  >
+    <!-- Header Bar -->
+    <header
+      class="bg-white border-b border-slate-200 py-3 px-6 flex justify-between items-center select-none z-50"
+    >
+      <div class="flex items-center space-x-3">
+        <span class="text-sm font-bold tracking-tight text-slate-800"
+          >Bioinformatics Library</span
+        >
+      </div>
+      <div
+        class="flex items-center bg-slate-50 px-2.5 py-1 rounded border border-slate-200"
+      >
+        <span
+          id="server-status-dot"
+          class="h-2 w-2 rounded-full bg-slate-400 mr-2"
+        ></span>
+        <span
+          id="server-status-text"
+          class="text-[10px] font-bold text-slate-500 uppercase tracking-wider"
+          >Checking...</span
+        >
+      </div>
+    </header>
+
+    <!-- Workspace Shell -->
+    <div class="flex-grow flex h-[calc(100vh-45px)] overflow-hidden">
+      <!-- Left Navigation Sidebar -->
+      <aside
+        class="w-80 bg-slate-50 border-r border-slate-200 p-4 flex flex-col justify-between overflow-y-auto select-none"
+      >
+        <div class="space-y-6">
+          <div>
+            <span
+              class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2"
+              >Available Modules</span
+            >
+            <nav class="space-y-1">
+              <a
+                href="./needleman_wunsch.html"
+                class="block px-3 py-2 text-xs font-semibold rounded-md border border-transparent text-slate-700 hover:bg-slate-200 transition-colors"
+              >
+                Needleman-Wunsch Global
+              </a>
+              <a
+                href="./smith_waterman.html"
+                class="block px-3 py-2 text-xs font-semibold rounded-md border border-transparent text-slate-700 hover:bg-slate-200 transition-colors"
+              >
+                Smith-Waterman Local
+              </a>
+              <a
+                href="./distances.html"
+                class="block px-3 py-2 text-xs font-semibold rounded-md border border-transparent text-slate-700 hover:bg-slate-200 transition-colors"
+              >
+                Sequence Distance Metrics
+              </a>
+              <a
+                href="./genetics.html"
+                class="block px-3 py-2 text-xs font-semibold rounded-md border border-transparent text-slate-700 hover:bg-slate-200 transition-colors"
+              >
+                Genetics Operations
+              </a>
+              <a
+                href="./find_motif.html"
+                class="block px-3 py-2 text-xs font-semibold rounded-md border border-transparent text-slate-700 hover:bg-slate-200 transition-colors"
+              >
+                Motif Spotlight Finder
+              </a>
+              <a
+                href="./io.html"
+                class="block px-3 py-2 text-xs font-semibold rounded-md border border-transparent text-slate-700 hover:bg-slate-200 transition-colors"
+              >
+                FASTA File IO
+              </a>
+            </nav>
+          </div>
+
+          <div class="pt-4 border-t border-slate-200">
+            <span
+              class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2"
+              >System Manual</span
+            >
+            <p class="text-[11px] text-slate-500 leading-relaxed">
+              Select a module to perform alignments, distance scoring, or
+              genetics transformations. Ensure the API server is online before
+              executing computations.
+            </p>
+          </div>
+        </div>
+
+        <div class="text-[10px] text-slate-400 border-t border-slate-200 pt-4">
+          Host: 127.0.0.1:8000 | Active session
+        </div>
+      </aside>
+
+      <!-- Main Workspace (Desktop Launch Board) -->
+      <main class="flex-grow bg-slate-100 p-6 overflow-y-auto">
+        <div class="mb-6">
+          <h2 class="text-lg font-bold text-slate-900">Analysis Modules Hub</h2>
+          <p class="text-xs text-slate-500 mt-1">
+            Select an analysis package below to open the corresponding workflow
+            view.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- NW -->
+          <div
+            class="bg-white border border-slate-200 rounded-md p-5 flex flex-col justify-between shadow-sm"
+          >
+            <div>
+              <h3
+                class="text-xs font-bold text-slate-955 uppercase tracking-wider"
+              >
+                Needleman-Wunsch Alignment
+              </h3>
+              <p class="text-xs text-slate-500 mt-2 leading-normal">
+                Computes optimal global sequence alignment. Renders calculation
+                matrix tracebacks with hover path identifiers.
+              </p>
+            </div>
+            <a
+              href="./needleman_wunsch.html"
+              class="mt-4 inline-flex items-center justify-center px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white font-medium rounded-md text-xs transition-colors select-none"
+            >
+              Open Global Alignment
+            </a>
+          </div>
+
+          <!-- SW -->
+          <div
+            class="bg-white border border-slate-200 rounded-md p-5 flex flex-col justify-between shadow-sm"
+          >
+            <div>
+              <h3
+                class="text-xs font-bold text-slate-955 uppercase tracking-wider"
+              >
+                Smith-Waterman Alignment
+              </h3>
+              <p class="text-xs text-slate-500 mt-2 leading-normal">
+                Performs local sequence alignment to identify highly homologous
+                segments. Visualizes optimal score pathways down to zero.
+              </p>
+            </div>
+            <a
+              href="./smith_waterman.html"
+              class="mt-4 inline-flex items-center justify-center px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white font-medium rounded-md text-xs transition-colors select-none"
+            >
+              Open Local Alignment
+            </a>
+          </div>
+
+          <!-- Distances -->
+          <div
+            class="bg-white border border-slate-200 rounded-md p-5 flex flex-col justify-between shadow-sm"
+          >
+            <div>
+              <h3
+                class="text-xs font-bold text-slate-955 uppercase tracking-wider"
+              >
+                Distance Calculator
+              </h3>
+              <p class="text-xs text-slate-500 mt-2 leading-normal">
+                Calculates Hamming mismatch counts and Levenshtein edit distance
+                values. Displays insertion, deletion, and substitution costs.
+              </p>
+            </div>
+            <a
+              href="./distances.html"
+              class="mt-4 inline-flex items-center justify-center px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white font-medium rounded-md text-xs transition-colors select-none"
+            >
+              Open Distance Calculator
+            </a>
+          </div>
+
+          <!-- Genetics -->
+          <div
+            class="bg-white border border-slate-200 rounded-md p-5 flex flex-col justify-between shadow-sm"
+          >
+            <div>
+              <h3
+                class="text-xs font-bold text-slate-955 uppercase tracking-wider"
+              >
+                Genetics Workbench
+              </h3>
+              <p class="text-xs text-slate-500 mt-2 leading-normal">
+                Translates RNA codons, transcribes DNA templates, and generates
+                strand complementations. Includes codon map summaries.
+              </p>
+            </div>
+            <a
+              href="./genetics.html"
+              class="mt-4 inline-flex items-center justify-center px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white font-medium rounded-md text-xs transition-colors select-none"
+            >
+              Open Genetics Workbench
+            </a>
+          </div>
+
+          <!-- Motif -->
+          <div
+            class="bg-white border border-slate-200 rounded-md p-5 flex flex-col justify-between shadow-sm"
+          >
+            <div>
+              <h3
+                class="text-xs font-bold text-slate-955 uppercase tracking-wider"
+              >
+                Motif Finder
+              </h3>
+              <p class="text-xs text-slate-500 mt-2 leading-normal">
+                Finds matches for short sequence motifs inside genomes. Renders
+                highlighting and relative index heatmap maps.
+              </p>
+            </div>
+            <a
+              href="./find_motif.html"
+              class="mt-4 inline-flex items-center justify-center px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white font-medium rounded-md text-xs transition-colors select-none"
+            >
+              Open Motif Finder
+            </a>
+          </div>
+
+          <!-- FASTA IO -->
+          <div
+            class="bg-white border border-slate-200 rounded-md p-5 flex flex-col justify-between shadow-sm"
+          >
+            <div>
+              <h3
+                class="text-xs font-bold text-slate-955 uppercase tracking-wider"
+              >
+                File Ingestion & FASTA
+              </h3>
+              <p class="text-xs text-slate-500 mt-2 leading-normal">
+                Drag-and-drop parse FASTA sequence files. Exporter dumps parsed
+                records into local server JSON storage paths.
+              </p>
+            </div>
+            <a
+              href="./io.html"
+              class="mt-4 inline-flex items-center justify-center px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white font-medium rounded-md text-xs transition-colors select-none"
+            >
+              Open FASTA File IO
+            </a>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+    <script>
+      checkServerStatus();
+      setInterval(checkServerStatus, 5000);
+    </script>
+  </body>
+</html>
