@@ -11,7 +11,7 @@ This guide outlines the exact integration checklist required when adding a new b
   - [genetics.py](file:///C:/Users/gamer/OneDrive/Documents/Bioinformatics-project/core_lib/genetics.py) (mutations, complements, transcriptions)
   - [io.py](file:///C:/Users/gamer/OneDrive/Documents/Bioinformatics-project/core_lib/io.py) (file parsing, output formatting)
 - **Export Function**: Import the new function and append its name to the `__all__` list in [core_lib/\_\_init\_\_.py](file:///C:/Users/gamer/OneDrive/Documents/Bioinformatics-project/core_lib/__init__.py).
-- **Write Unit Tests**: Add test coverage inside the `core_lib/tests/` folder (e.g. `test_alignments.py`). Run the test suite:
+- **Write Unit Tests**: Add test coverage inside the [tests/](file:///C:/Users/gamer/OneDrive/Documents/Bioinformatics-project/tests) folder (e.g. `test_alignments.py`). Run the test suite:
   ```bash
   pytest
   ```
@@ -22,12 +22,12 @@ This guide outlines the exact integration checklist required when adding a new b
 
 ### 3. Frontend Integration
 
-- **Create View Page**: Create a new `.html` file inside the `frontend/` directory (e.g. `frontend/new_tool.html`). Use the same visual CSS/layout structure:
+- **Create View Page**: Create a new `.html` file inside the `frontend/pages/` directory (e.g. `frontend/pages/new_tool.html`). Use the same visual CSS/layout structure:
   - Include the `<header>` dashboard bar.
   - Include the sidebar navigation list (Modules List).
-- **Link Sidebar Navigation**: Add a navigation anchor `<a href="./new_tool.html">` to the sidebar menu of all other HTML views (e.g. `index.html`, `needleman_wunsch.html`, etc.).
+- **Link Sidebar Navigation**: Add a navigation anchor `<a href="./new_tool.html">` to the sidebar menu of all other HTML views (e.g. `needleman_wunsch.html`, etc.).
 - **Launch Card**: Add a module launcher card inside the `modules-grid` container on the homepage [frontend/index.html](file:///C:/Users/gamer/OneDrive/Documents/Bioinformatics-project/frontend/index.html).
-- **JavaScript Bindings**: Update [frontend/app.js](file:///C:/Users/gamer/OneDrive/Documents/Bioinformatics-project/frontend/app.js) to:
+- **JavaScript Bindings**: Update [frontend/src/app.js](file:///C:/Users/gamer/OneDrive/Documents/Bioinformatics-project/frontend/src/app.js) and create a corresponding `new_tool.js` in `frontend/src/` to:
   - Write the fetch callbacks that query your new backend FastAPI endpoint.
   - Bind UI inputs (buttons, input fields) to query triggers and update the output containers.
 
@@ -35,11 +35,7 @@ This guide outlines the exact integration checklist required when adding a new b
 
 - **Create Markdown Reference**: Write an educational markdown guide explaining the logic, equations, and complexity of the new algorithm inside the `docs/` folder (e.g. `docs/alignments/new_tool.md`).
   - _Note: Use native GitHub ```math code blocks for block equations to bypass Markdown compiler overrides._
-- **Synchronize Docs Folder**: Copy the new markdown file to the frontend assets folder:
-  ```bash
-  Copy-Item -Path "docs" -Destination "frontend\" -Recurse -Force
-  ```
-- **Inject Navigation Link**: Register the new file link in [frontend/docs.html](file:///C:/Users/gamer/OneDrive/Documents/Bioinformatics-project/frontend/docs.html) inside its navigation sidebar `<nav>` menu.
+- **Inject Navigation Link**: Register the new file link in [frontend/pages/docs.html](file:///C:/Users/gamer/OneDrive/Documents/Bioinformatics-project/frontend/pages/docs.html) inside its navigation sidebar `<nav>` menu.
 
 ### 5. Performance Benchmarking
 
@@ -54,7 +50,7 @@ This guide outlines the exact integration checklist required when adding a new b
   ```bash
   python benchmarks/generate_graphs.py
   ```
-- **Sync Benchmarks**: Copy the newly updated charts and files to your site docs assets:
+- **Sync Benchmarks**: Copy the newly updated charts and files directly to your root docs:
   ```bash
-  Copy-Item -Path "benchmarks\linear_algorithms.png", "benchmarks\quadratic_algorithms_linear.png", "benchmarks\quadratic_algorithms_log.png" -Destination "frontend\docs\benchmarks\" -Force
+  Copy-Item -Path "benchmarks\linear_algorithms.png", "benchmarks\quadratic_algorithms_linear.png", "benchmarks\quadratic_algorithms_log.png" -Destination "docs\benchmarks\" -Force
   ```

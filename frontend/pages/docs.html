@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Documentation - Bioinformatics Library</title>
   <!-- Tailwind CSS -->
-  <link rel="stylesheet" href="./dist/output.css">
+  <link rel="stylesheet" href="../dist/output.css">
   <!-- KaTeX -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
@@ -148,7 +148,7 @@
   <!-- Header Bar -->
   <header class="bg-white border-b border-slate-200 py-3 px-6 flex justify-between items-center select-none z-50">
     <div class="flex items-center space-x-3">
-      <a href="./index.html" class="flex items-center space-x-2 text-slate-500 hover:text-slate-800 transition-colors">
+      <a href="../index.html" class="flex items-center space-x-2 text-slate-500 hover:text-slate-800 transition-colors">
         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
@@ -233,7 +233,7 @@
 
       <!-- Sidebar footer status -->
       <div class="border-t border-slate-200 pt-3 text-[10px]">
-        <a href="./index.html" class="font-bold text-slate-600 hover:text-slate-800 cursor-pointer">&larr; Back to Dashboard</a>
+        <a href="../index.html" class="font-bold text-slate-600 hover:text-slate-800 cursor-pointer">&larr; Back to Dashboard</a>
       </div>
     </aside>
 
@@ -251,7 +251,7 @@
 
   </div>
 
-  <script src="./app.js"></script>
+  <script src="../src/app.js"></script>
   <script>
     // Document Search Filtering
     document.getElementById("doc-search-input").addEventListener("input", (e) => {
@@ -288,7 +288,7 @@
       window.location.hash = docPath;
       
       try {
-        const response = await fetch(`./docs/${docPath}`);
+        const response = await fetch(`../../docs/${docPath}`);
         if (!response.ok) throw new Error("Document not found");
         
         let markdownText = await response.text();
@@ -314,7 +314,7 @@
         contentContainer.querySelectorAll("img").forEach(img => {
           const src = img.getAttribute("src");
           if (src && !src.startsWith("http") && !src.startsWith("/") && !src.startsWith("file://")) {
-            img.src = `./docs/${dirPath}${src}`;
+            img.src = `../../docs/${dirPath}${src}`;
           }
         });
         

@@ -25,7 +25,7 @@ Instead of relying on heavy static site generators, the page fetches the raw Mar
 2. A custom regex pre-processor intercepts GitHub's native ```math block syntax and translates it to inline/block delimiters.
 3. **KaTeX** dynamically parses and renders the mathematical equations in the browser.
 
-To add or update documentation, edit the `.md` files inside the `docs/` directory. Since the `docs/` folder is copied to `frontend/docs/` during deployment, any changes will reflect immediately on the hosted website.
+To add or update documentation, edit the `.md` files inside the root `docs/` directory. Since the `docs/` folder is now the single source of truth fetched directly by the viewer, any changes will reflect immediately on the hosted website.
 
 ---
 

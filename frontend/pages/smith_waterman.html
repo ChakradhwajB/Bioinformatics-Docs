@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Needleman-Wunsch Global Alignment</title>
-  <link rel="stylesheet" href="./dist/output.css">
+  <title>Smith-Waterman Local Alignment</title>
+  <link rel="stylesheet" href="../dist/output.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
@@ -26,14 +26,14 @@
   <!-- Header Bar -->
   <header class="bg-white border-b border-slate-200 py-3 px-6 flex justify-between items-center select-none z-50">
     <div class="flex items-center space-x-3">
-      <a href="./index.html" class="flex items-center space-x-2 text-slate-500 hover:text-slate-800 transition-colors">
+      <a href="../index.html" class="flex items-center space-x-2 text-slate-500 hover:text-slate-800 transition-colors">
         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
         <span class="text-xs font-semibold">Dashboard</span>
       </a>
       <span class="text-slate-350">/</span>
-      <span class="text-sm font-bold tracking-tight text-slate-800">Needleman-Wunsch Global Alignment</span>
+      <span class="text-sm font-bold tracking-tight text-slate-800">Smith-Waterman Local Alignment</span>
     </div>
     <div class="flex items-center bg-slate-50 px-2.5 py-1 rounded-sm border border-slate-200">
       <span id="server-status-dot" class="h-2 w-2 rounded-full bg-slate-400 mr-2"></span>
@@ -52,8 +52,8 @@
         <div>
           <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Modules List</span>
           <nav class="space-y-0.5">
-            <a href="./smith_waterman.html" class="block px-2.5 py-1.5 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">
-              Smith-Waterman Local
+            <a href="./needleman_wunsch.html" class="block px-2.5 py-1.5 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">
+              Needleman-Wunsch Global
             </a>
             <a href="./distances.html" class="block px-2.5 py-1.5 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">
               Sequence Distances
@@ -76,12 +76,12 @@
 
         <div class="border-t border-slate-200 pt-3">
           <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Sequence 1 (Vertical)</label>
-          <textarea id="seq1" rows="2" class="w-full font-mono text-xs px-2.5 py-1.5 border border-slate-200 rounded-sm focus:outline-none focus:ring-1 focus:ring-slate-400 focus:border-slate-400 bg-white uppercase resize-none" placeholder="e.g. ACGTACGT">ACGTACGT</textarea>
+          <textarea id="seq1" rows="2" class="w-full font-mono text-xs px-2.5 py-1.5 border border-slate-200 rounded-sm focus:outline-none focus:ring-1 focus:ring-slate-400 focus:border-slate-400 bg-white uppercase resize-none" placeholder="e.g. GATTACA">GATTACA</textarea>
         </div>
 
         <div>
           <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Sequence 2 (Horizontal)</label>
-          <input type="text" id="seq2" value="ACGTCGT" class="w-full font-mono text-xs px-2.5 py-1.5 border border-slate-200 rounded-sm focus:outline-none focus:ring-1 focus:ring-slate-400 focus:border-slate-400 bg-white uppercase" placeholder="e.g. ACGTCGT">
+          <input type="text" id="seq2" value="GATCA" class="w-full font-mono text-xs px-2.5 py-1.5 border border-slate-200 rounded-sm focus:outline-none focus:ring-1 focus:ring-slate-400 focus:border-slate-400 bg-white uppercase" placeholder="e.g. GATCA">
         </div>
 
         <!-- Dynamic Alignment Scoring Parameters -->
@@ -106,7 +106,7 @@
         <!-- Reference & Complexity Panel -->
         <div class="border-t border-slate-200 pt-3 space-y-1 text-[10px]">
           <span class="block font-bold text-slate-400 uppercase tracking-wider mb-1">Complexity Reference</span>
-          <div><span class="font-semibold text-slate-500">Problem:</span> Global Alignment (Homology)</div>
+          <div><span class="font-semibold text-slate-500">Problem:</span> Local Alignment (Homology)</div>
           <div><span class="font-semibold text-slate-500">Time Complexity:</span> $\mathcal{O}(n \cdot m)$</div>
           <div><span class="font-semibold text-slate-500">Space Complexity:</span> $\mathcal{O}(n \cdot m)$</div>
         </div>
@@ -126,7 +126,7 @@
       <!-- Top Section: Alignment Output Console -->
       <section class="bg-white border border-slate-200 p-5 rounded-sm shadow-sm">
         <div class="flex justify-between items-center mb-3 select-none">
-          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Optimal Alignment Results</span>
+          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Optimal Local Alignment Results</span>
           <div class="flex items-center space-x-2 text-[10px] font-semibold text-slate-500">
             <span>Score: <span id="alignment-score" class="font-bold text-slate-900">-</span></span>
           </div>
@@ -169,38 +169,39 @@
 
       <!-- Educational Article -->
       <section class="bg-white p-6 border border-slate-200 rounded-sm shadow-sm space-y-4">
-        <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Educational Guide: Global Sequence Alignment</h3>
+        <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Educational Guide: Local Sequence Alignment</h3>
         
         <div class="text-xs leading-relaxed space-y-3 text-slate-800">
           <p>
-            The <strong>Needleman-Wunsch</strong> algorithm is a dynamic programming method designed to compute the optimal global alignment between two sequences. Global alignment attempts to match both sequences from end-to-end, which is ideal for closely related sequences of similar length.
+            The <strong>Smith-Waterman</strong> algorithm is a dynamic programming method designed to compute the optimal local sequence alignment. Local alignment isolates matching regions of high similarity between subsequences, making it highly effective for finding conserved motifs or matching segments in divergent genomes.
           </p>
           
           <h4 class="font-bold text-slate-900 text-xs">1. Mathematical Model & Transition Rule</h4>
           <p>
-            Let $S_1$ and $S_2$ be sequences of lengths $n$ and $m$. We construct an $(n+1) \times (m+1)$ score grid $E$, where cell $E_{i,j}$ represents the maximum alignment score for prefixes $S_1[0 \dots i-1]$ and $S_2[0 \dots j-1]$. The recurrence relation is formulated as:
+            Let $S_1$ and $S_2$ be sequences of lengths $n$ and $m$. We construct an $(n+1) \times (m+1)$ score grid $H$. To prevent negative scores from propagating, cells are capped at $0$:
           </p>
           <div class="bg-slate-50 p-3 border border-slate-200 rounded-sm font-mono text-center my-2 text-xs">
-            $$E_{i, j} = \max \begin{cases} 
-            E_{i-1, j-1} + S(S_1[i-1], S_2[j-1]) & \text{(Match / Mismatch)} \\
-            E_{i-1, j} + \text{gap} & \text{(Deletion)} \\
-            E_{i, j-1} + \text{gap} & \text{(Insertion)}
+            $$H_{i, j} = \max \begin{cases} 
+            0 & \text{(Terminate alignment)} \\
+            H_{i-1, j-1} + S(S_1[i-1], S_2[j-1]) & \text{(Match / Mismatch)} \\
+            H_{i-1, j} + \text{gap} & \text{(Deletion)} \\
+            H_{i, j-1} + \text{gap} & \text{(Insertion)}
             \end{cases}$$
           </div>
           <p>
-            where the substitution score is $S(a,b) = \text{match}$ if $a = b$, and $\text{mismatch}$ if $a \neq b$.
+            where $S(a,b) = \text{match}$ if $a = b$, and $\text{mismatch}$ if $a \neq b$.
           </p>
 
           <h4 class="font-bold text-slate-900 text-xs">2. Workflow</h4>
           <ul class="list-disc pl-5 space-y-1.5">
-            <li><strong>Initialization:</strong> The first row and column are filled with cumulative gap penalties: $E_{i, 0} = i \times \text{gap}$ and $E_{0, j} = j \times \text{gap}$. This represents aligning prefixes against empty sequences.</li>
-            <li><strong>Matrix Fill:</strong> The grid is filled row-by-row or column-by-column. Every cell value relies solely on its diagonal, top, and left neighbors.</li>
-            <li><strong>Traceback:</strong> To reconstruct the actual alignment, we start at the bottom-right corner $E_{n,m}$ and follow the score transitions backwards. A diagonal step represents aligning characters; a vertical step represents a deletion (gap in $S_2$); a horizontal step represents an insertion (gap in $S_1$).</li>
+            <li><strong>Initialization:</strong> The boundary cells are initialized to $0$ ($H_{i, 0} = 0$, $H_{0, j} = 0$), meaning a local alignment can start anywhere without gap penalties.</li>
+            <li><strong>Matrix Fill:</strong> The grid is filled row-by-row. Values drop back to $0$ whenever the alignment score becomes negative, ending that alignment path.</li>
+            <li><strong>Traceback:</strong> Traceback begins from the highest scoring cell in the entire matrix (not necessarily the bottom-right corner). We trace backwards following path decisions and stop immediately when a cell with a score of $0$ is reached.</li>
           </ul>
 
-          <h4 class="font-bold text-slate-900 text-xs">3. Algorithmic Complexity Analysis</h4>
+          <h4 class="font-bold text-slate-950 text-xs">3. Algorithmic Complexity Analysis</h4>
           <p>
-            Both Time and Space complexities are quadratic: $\mathcal{O}(n \cdot m)$. This is because every cell in the grid requires constant $\mathcal{O}(1)$ calculations, and we must store the entire matrix in memory to trace back the optimal path.
+            Time complexity is $\mathcal{O}(n \cdot m)$ since every cell is computed in constant time. Space complexity is $\mathcal{O}(n \cdot m)$ to store the score grid for backtracking.
           </p>
         </div>
       </section>
@@ -208,7 +209,7 @@
 
   </div>
 
-  <script src="./app.js"></script>
-  <script src="./needleman_wunsch.js"></script>
+  <script src="../src/app.js"></script>
+  <script src="../src/smith_waterman.js"></script>
 </body>
 </html>
