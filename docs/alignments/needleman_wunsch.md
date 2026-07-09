@@ -2,7 +2,7 @@
 
 ## Problem Statement
 
-Given two sequences $S_1$ and $S_2$ of lengths $n$ and $m$, find the optimal global alignment that maximizes a similarity score based on rewards for matches and penalties for mismatches and gaps.
+Given two sequences $S\_1$ and $S\_2$ of lengths $n$ and $m$, find the optimal global alignment that maximizes a similarity score based on rewards for matches and penalties for mismatches and gaps.
 
 ## Overview
 
@@ -17,23 +17,23 @@ Let:
 - $\text{mismatch}$: Penalty score for mismatching characters.
 - $\text{gap}$: Penalty score for introducing a gap.
 
-We define the DP matrix cell $E_{i,j}$ as the optimal global alignment score between prefix $S_1[0 \dots i-1]$ and prefix $S_2[0 \dots j-1]$.
+We define the DP matrix cell $E\_{i,j}$ as the optimal global alignment score between prefix $S\_1[0 \dots i-1]$ and prefix $S\_2[0 \dots j-1]$.
 
 ### Base Cases
 $$
-E_{i, 0} = i \times \text{gap} \quad \forall \ 0 \le i \le n
+E\_{i, 0} = i \times \text{gap} \quad \forall \ 0 \le i \le n
 $$
 $$
-E_{0, j} = j \times \text{gap} \quad \forall \ 0 \le j \le m
+E\_{0, j} = j \times \text{gap} \quad \forall \ 0 \le j \le m
 $$
 
 ### Transition Formula
 For $1 \le i \le n$ and $1 \le j \le m$, the value is computed as:
 $$
-E_{i, j} = \max \begin{cases} 
-E_{i-1, j-1} + S(S_1[i-1], S_2[j-1]) & \text{(Match / Mismatch)} \\
-E_{i-1, j} + \text{gap} & \text{(Deletion from } S_1\text{)} \\
-E_{i, j-1} + \text{gap} & \text{(Insertion into } S_1\text{)}
+E\_{i, j} = \max \begin{cases} 
+E\_{i-1, j-1} + S(S\_1[i-1], S\_2[j-1]) & \text{(Match / Mismatch)} \\
+E\_{i-1, j} + \text{gap} & \text{(Deletion from } S\_1\text{)} \\
+E\_{i, j-1} + \text{gap} & \text{(Insertion into } S\_1\text{)}
 \end{cases}
 $$
 
@@ -47,7 +47,7 @@ $$
 
 The optimal alignment score is stored in:
 $$
-\text{Score} = E_{n, m}
+\text{Score} = E\_{n, m}
 $$
 
 ---
@@ -58,14 +58,14 @@ $$
 - **Space Complexity**: $\mathcal{O}(n \cdot m)$ to store the dynamic programming score matrix for traceback.
 
 Where:
-- $n = |S_1|$ (length of Sequence 1)
-- $m = |S_2|$ (length of Sequence 2)
+- $n = |S\_1|$ (length of Sequence 1)
+- $m = |S\_2|$ (length of Sequence 2)
 
 ---
 
 ## Traceback Procedure
 
-The traceback starts at the bottom-right cell $E_{n, m}$ and reconstructs the alignment path backwards towards $E_{0, 0}$:
-- If the current cell $E_{i, j}$ came from the diagonal cell $E_{i-1, j-1}$, we align $S_1[i-1]$ with $S_2[j-1]$.
-- If it came from the top cell $E_{i-1, j}$, we align $S_1[i-1]$ with a gap `-` in $S_2$.
-- If it came from the left cell $E_{i, j-1}$, we align a gap `-` in $S_1$ with $S_2[j-1]$.
+The traceback starts at the bottom-right cell $E\_{n, m}$ and reconstructs the alignment path backwards towards $E\_{0, 0}$:
+- If the current cell $E\_{i, j}$ came from the diagonal cell $E\_{i-1, j-1}$, we align $S\_1[i-1]$ with $S\_2[j-1]$.
+- If it came from the top cell $E\_{i-1, j}$, we align $S\_1[i-1]$ with a gap `-` in $S\_2$.
+- If it came from the left cell $E\_{i, j-1}$, we align a gap `-` in $S\_1$ with $S\_2[j-1]$.

@@ -2,7 +2,7 @@
 
 ## Problem Statement
 
-Given a DNA sequence $S$, transcribe it into its corresponding RNA sequence $S_{rna}$ by substituting Thymine ($T$) bases with Uracil ($U$) bases.
+Given a DNA sequence $S$, transcribe it into its corresponding RNA sequence $S\_{rna}$ by substituting Thymine ($T$) bases with Uracil ($U$) bases.
 
 ## Overview
 
@@ -12,9 +12,9 @@ Transcription is the first step of the Central Dogma, converting a double-strand
 
 ## Mathematical Mapping
 
-Let $S$ be a DNA sequence of length $n$. The mRNA sequence $S_{rna}$ is formulated as:
+Let $S$ be a DNA sequence of length $n$. The mRNA sequence $S\_{rna}$ is formulated as:
 $$
-S_{rna}[i] = g(S[i]) \quad \forall \ 0 \le i < n
+S\_{rna}[i] = g(S[i]) \quad \forall \ 0 \le i < n
 $$
 
 Where the substitution function $g(c)$ is:

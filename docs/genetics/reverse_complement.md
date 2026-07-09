@@ -2,7 +2,7 @@
 
 ## Problem Statement
 
-Given a DNA sequence $S$, calculate its reverse complementary sequence $S_{rc}$ to represent the antiparallel strand in the standard $5' \rightarrow 3'$ direction.
+Given a DNA sequence $S$, calculate its reverse complementary sequence $S\_{rc}$ to represent the antiparallel strand in the standard $5' \rightarrow 3'$ direction.
 
 ## Overview
 
@@ -14,9 +14,9 @@ DNA double-stranded structures are antiparallel. To obtain the standard represen
 
 ## Mathematical Formulation
 
-Let $S$ be a sequence of length $n$. The reverse complement sequence $S_{rc}$ is formulated as:
+Let $S$ be a sequence of length $n$. The reverse complement sequence $S\_{rc}$ is formulated as:
 $$
-S_{rc}[i] = f(S[n - 1 - i]) \quad \forall \ 0 \le i < n
+S\_{rc}[i] = f(S[n - 1 - i]) \quad \forall \ 0 \le i < n
 $$
 
 Where the complement mapping function $f(c)$ is defined as:

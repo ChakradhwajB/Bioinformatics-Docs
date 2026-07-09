@@ -2,7 +2,7 @@
 
 ## Problem Statement
 
-Given a DNA nucleotide sequence $S$, calculate its complementary sequence $S_c$ based on Watson-Crick base-pairing rules.
+Given a DNA nucleotide sequence $S$, calculate its complementary sequence $S\_c$ based on Watson-Crick base-pairing rules.
 
 ## Overview
 
@@ -14,9 +14,9 @@ In the double-stranded DNA helix, nucleotides form hydrogen bonds between specif
 
 ## Mathematical Mapping
 
-Let $S$ be a sequence of length $n$. The complementary sequence $S_c$ is defined as:
+Let $S$ be a sequence of length $n$. The complementary sequence $S\_c$ is defined as:
 $$
-S_c[i] = f(S[i]) \quad \forall \ 0 \le i < n
+S\_c[i] = f(S[i]) \quad \forall \ 0 \le i < n
 $$
 
 Where the mapping function $f(c)$ is:
