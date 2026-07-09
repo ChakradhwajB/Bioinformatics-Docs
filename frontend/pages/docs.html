@@ -288,7 +288,7 @@
       window.location.hash = docPath;
       
       try {
-        const response = await fetch(`../../docs/${docPath}`);
+        const response = await fetch(`../docs/${docPath}`);
         if (!response.ok) throw new Error("Document not found");
         
         let markdownText = await response.text();
@@ -314,7 +314,7 @@
         contentContainer.querySelectorAll("img").forEach(img => {
           const src = img.getAttribute("src");
           if (src && !src.startsWith("http") && !src.startsWith("/") && !src.startsWith("file://")) {
-            img.src = `../../docs/${dirPath}${src}`;
+            img.src = `../docs/${dirPath}${src}`;
           }
         });
         

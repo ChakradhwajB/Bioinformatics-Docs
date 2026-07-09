@@ -4,7 +4,7 @@
   "description": "Frontend visualization for the Bioinformatics Platform API",
   "main": "app.js",
   "scripts": {
-    "build": "npx @tailwindcss/cli -i ./styles.css -o ./dist/output.css",
+    "build": "node copy-docs.js && npx @tailwindcss/cli -i ./styles.css -o ./dist/output.css",
     "watch": "npx @tailwindcss/cli -i ./styles.css -o ./dist/output.css --watch"
   },
   "keywords": [],
