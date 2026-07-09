@@ -167,7 +167,7 @@
   <div class="flex-grow flex h-[calc(100vh-45px)] overflow-hidden">
     
     <!-- Left Sidebar (Navigation) -->
-    <aside class="w-80 bg-slate-55 border-r border-slate-200 p-4 flex flex-col justify-between overflow-y-auto select-none">
+    <aside class="w-80 flex-shrink-0 bg-slate-55 border-r border-slate-200 p-4 flex flex-col justify-between overflow-y-auto select-none">
       <div class="space-y-6">
         
         <!-- Search bar -->
@@ -219,6 +219,15 @@
               <button onclick="loadDoc('api.md', this)" class="w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-sm hover:bg-slate-200 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Developer API</button>
             </div>
           </div>
+
+          <!-- Section: Benchmarks -->
+          <div class="space-y-1">
+            <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-2">Performance Benchmarks</span>
+            <div class="space-y-0.5">
+              <button onclick="loadDoc('benchmarks/results.md', this)" class="w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-sm hover:bg-slate-200 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Execution Results</button>
+              <button onclick="loadDoc('benchmarks/analysis_report.md', this)" class="w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-sm hover:bg-slate-200 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Analysis Report</button>
+            </div>
+          </div>
         </nav>
       </div>
 
@@ -229,8 +238,8 @@
     </aside>
 
     <!-- Right Panel (Content area) -->
-    <main class="flex-grow overflow-y-auto bg-slate-100 p-6">
-      <div class="bg-white border border-slate-200 rounded-sm shadow-sm p-8 markdown-body min-h-[90%] w-full max-w-4xl mx-auto">
+    <main class="flex-grow overflow-y-auto bg-slate-100 p-5">
+      <div class="bg-white border border-slate-200 rounded-sm shadow-sm p-8 markdown-body min-h-full w-full">
         <!-- Injected Document Content -->
         <div id="doc-content">
           <div class="flex justify-center items-center h-64 text-slate-400 text-xs font-semibold">
@@ -290,9 +299,24 @@
           return `$$\n${formula.trim()}\n$$`;
         });
         
+        // Translate GitHub alerts blockquote style ([!IMPORTANT], [!NOTE], etc.)
+        markdownText = markdownText.replace(/>\s*\[!IMPORTANT\]/gi, '> **⚠️ IMPORTANT:**');
+        markdownText = markdownText.replace(/>\s*\[!NOTE\]/gi, '> **ℹ️ NOTE:**');
+        markdownText = markdownText.replace(/>\s*\[!WARNING\]/gi, '> **⚠️ WARNING:**');
+        markdownText = markdownText.replace(/>\s*\[!TIP\]/gi, '> **💡 TIP:**');
+        
         // Parse markdown to HTML using marked
         const html = marked.parse(markdownText);
         contentContainer.innerHTML = html;
+        
+        // Resolve relative image paths relative to the document folder
+        const dirPath = docPath.substring(0, docPath.lastIndexOf('/') + 1);
+        contentContainer.querySelectorAll("img").forEach(img => {
+          const src = img.getAttribute("src");
+          if (src && !src.startsWith("http") && !src.startsWith("/") && !src.startsWith("file://")) {
+            img.src = `./docs/${dirPath}${src}`;
+          }
+        });
         
         // Run KaTeX equations rendering
         renderMathInElement(contentContainer, {

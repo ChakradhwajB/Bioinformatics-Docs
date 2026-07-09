@@ -1,6 +1,6 @@
 # Bioinformatics Tool suite
 
-This is a local-first, web application for sequence alignment, genetics operations, sequence distances, and pattern mapping. It includes a frontend dashboard that works both locally and deployed, backed by a FastAPI processing server.
+This is a local-first web application for sequence alignment, genetics operations, sequence distances, and pattern mapping. It includes a frontend dashboard that works both locally and deployed, backed by a FastAPI server.
 
 ---
 
@@ -17,11 +17,7 @@ This is a local-first, web application for sequence alignment, genetics operatio
 
 ## Live Documentation Engine
 
-We have built a dynamic documentation viewer directly into the frontend at `frontend/docs.html` (accessible via the **Documentation &rarr;** link in the sidebars).
-
-### How it works:
-
-Instead of relying on heavy static site generators (like Docusaurus or Jekyll), the page fetches the raw Markdown documentation files (`docs/*.md`) using client-side `fetch()` APIs and renders them on the fly:
+Instead of relying on heavy static site generators, the page fetches the raw Markdown documentation files (`docs/*.md`) using client-side `fetch()` APIs and renders them on the fly:
 
 1. **Marked.js** compiles the Markdown syntax into standard HTML tags.
 2. A custom regex pre-processor intercepts GitHub's native ```math block syntax and translates it to inline/block delimiters.
@@ -33,7 +29,7 @@ To add or update documentation, edit the `.md` files inside the `docs/` director
 
 ## Benchmarking
 
-The project includes an empirical runtime performance analyzer inside the `benchmarks/` directory:
+The project includes a runtime performance analyzer inside the `benchmarks/` directory:
 
 - **run_benchmarks.py**: Runs the core processing library functions against input sizes from $10$ to $100,000$. It uses a dynamic auto-ranging loop (running fast functions 100 times, and capping heavy DP alignments at 3 runs) to ensure stable averages without hanging.
 - **generate_graphs.py**: Parses the raw benchmark execution logs, plots the curves via Matplotlib, and writes the results.

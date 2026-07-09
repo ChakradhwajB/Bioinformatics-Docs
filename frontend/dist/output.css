@@ -316,6 +316,9 @@
   .block {
     display: block;
   }
+  .contents {
+    display: contents;
+  }
   .flex {
     display: flex;
   }
@@ -349,6 +352,9 @@
   .h-6 {
     height: calc(var(--spacing) * 6);
   }
+  .h-64 {
+    height: calc(var(--spacing) * 64);
+  }
   .h-\[2px\] {
     height: 2px;
   }
@@ -370,6 +376,9 @@
   .max-h-\[500px\] {
     max-height: 500px;
   }
+  .min-h-\[95\%\] {
+    min-height: 95%;
+  }
   .min-h-\[250px\] {
     min-height: 250px;
   }
@@ -378,6 +387,9 @@
   }
   .min-h-screen {
     min-height: 100vh;
+  }
+  .w-1 {
+    width: var(--spacing);
   }
   .w-2 {
     width: calc(var(--spacing) * 2);
@@ -411,6 +423,9 @@
   }
   .min-w-full {
     min-width: 100%;
+  }
+  .flex-shrink-0 {
+    flex-shrink: 0;
   }
   .flex-grow {
     flex-grow: 1;
@@ -834,6 +849,9 @@
   .p-6 {
     padding: calc(var(--spacing) * 6);
   }
+  .p-8 {
+    padding: calc(var(--spacing) * 8);
+  }
   .px-0\.5 {
     padding-inline: calc(var(--spacing) * 0.5);
   }
@@ -1063,6 +1081,11 @@
   }
   .ring-slate-400 {
     --tw-ring-color: var(--color-slate-400);
+  }
+  .transition {
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
   .transition-all {
     transition-property: all;
