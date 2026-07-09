@@ -19,17 +19,17 @@ Let:
 - $t$ be the minimum match threshold ($1 \le t \le w$).
 
 We define the indicator match function for offset $k$ starting at positions $i$ and $j$ as:
-$$
+```math
 \delta(i, j, k) = \begin{cases} 
-1 & \text{if } S\_1[i+k] = S\_2[j+k] \\\\
-0 & \text{if } S\_1[i+k] \neq S\_2[j+k]
+1 & \text{if } S_1[i+k] = S_2[j+k] \\
+0 & \text{if } S_1[i+k] \neq S_2[j+k]
 \end{cases}
-$$
+```
 
 A dot is plotted at matrix coordinate $(i, j)$ if and only if the cumulative window matches satisfy the threshold $t$:
-$$
-\sum\_{k=0}^{w-1} \delta(i, j, k) \ge t
-$$
+```math
+\sum_{k=0}^{w-1} \delta(i, j, k) \ge t
+```
 
 ---
 

@@ -20,35 +20,35 @@ We define the DP cell $D\_{i,j}$ as the minimum edit operations required to tran
 
 ### Base Cases
 Transforming a sequence to/from an empty sequence requires deleting/inserting all characters:
-$$
-D\_{i, 0} = i \quad \forall \ 0 \le i \le n
-$$
-$$
-D\_{0, j} = j \quad \forall \ 0 \le j \le m
-$$
+```math
+D_{i, 0} = i \quad \forall \ 0 \le i \le n
+```
+```math
+D_{0, j} = j \quad \forall \ 0 \le j \le m
+```
 
 ### Transition Formula
 For $1 \le i \le n$ and $1 \le j \le m$, the edit distance cell is computed as the minimum of three transition paths:
-$$
-D\_{i, j} = \min \begin{cases} 
-D\_{i-1, j-1} + \text{cost} & \text{(Match / Substitution)} \\\\
-D\_{i-1, j} + 1 & \text{(Deletion)} \\\\
-D\_{i, j-1} + 1 & \text{(Insertion)}
+```math
+D_{i, j} = \min \begin{cases} 
+D_{i-1, j-1} + \text{cost} & \text{(Match / Substitution)} \\
+D_{i-1, j} + 1 & \text{(Deletion)} \\
+D_{i, j-1} + 1 & \text{(Insertion)}
 \end{cases}
-$$
+```
 
 Where the step-wise operation cost is defined as:
-$$
+```math
 \text{cost} = \begin{cases} 
-0 & \text{if } S\_1[i-1] = S\_2[j-1] \\\\
-1 & \text{if } S\_1[i-1] \neq S\_2[j-1]
+0 & \text{if } S_1[i-1] = S_2[j-1] \\
+1 & \text{if } S_1[i-1] \neq S_2[j-1]
 \end{cases}
-$$
+```
 
 The final minimum edit distance value is stored in:
-$$
-\text{Distance} = D\_{n, m}
-$$
+```math
+\text{Distance} = D_{n, m}
+```
 
 ---
 

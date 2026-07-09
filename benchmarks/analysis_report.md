@@ -39,8 +39,12 @@ For Levenshtein, Needleman-Wunsch, and Smith-Waterman, we plotted the runtimes o
 * **Log-Log Scale:** The quadratic curves transform into straight lines. Since $T(n) \propto n^2$, taking the logarithm gives $\log(T(n)) = 2 \log(n) + C$, which is a straight line with a slope of $2$.
 
 Calculating the empirical slope ($m$) of the Smith-Waterman runtime line:
-$$m = \frac{\log_{10}(T(n\_2)) - \log_{10}(T(n\_1))}{\log_{10}(n\_2) - \log_{10}(n\_1)} = \frac{\log_{10}(25.776) - \log_{10}(0.004572)}{\log_{10}(5,000) - \log_{10}(100)}$$
-$$m = \frac{1.4112 - (-2.3399)}{3.6989 - 2.0} = \frac{3.7511}{1.6989} \approx 2.21$$
+```math
+m = \frac{\log_{10}(T(n_2)) - \log_{10}(T(n_1))}{\log_{10}(n_2) - \log_{10}(n_1)} = \frac{\log_{10}(25.776) - \log_{10}(0.004572)}{\log_{10}(5,000) - \log_{10}(100)}
+```
+```math
+m = \frac{1.4112 - (-2.3399)}{3.6989 - 2.0} = \frac{3.7511}{1.6989} \approx 2.21
+```
 
 This empirical slope of $2.21$ is very close to the theoretical value of $2.0$, confirming the $\mathcal{O}(n^2)$ complexity curve.
 

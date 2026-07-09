@@ -20,35 +20,35 @@ Let:
 We define the DP matrix cell $E\_{i,j}$ as the optimal global alignment score between prefix $S\_1[0 \dots i-1]$ and prefix $S\_2[0 \dots j-1]$.
 
 ### Base Cases
-$$
-E\_{i, 0} = i \times \text{gap} \quad \forall \ 0 \le i \le n
-$$
-$$
-E\_{0, j} = j \times \text{gap} \quad \forall \ 0 \le j \le m
-$$
+```math
+E_{i, 0} = i \times \text{gap} \quad \forall \ 0 \le i \le n
+```
+```math
+E_{0, j} = j \times \text{gap} \quad \forall \ 0 \le j \le m
+```
 
 ### Transition Formula
 For $1 \le i \le n$ and $1 \le j \le m$, the value is computed as:
-$$
-E\_{i, j} = \max \begin{cases} 
-E\_{i-1, j-1} + S(S\_1[i-1], S\_2[j-1]) & \text{(Match / Mismatch)} \\\\
-E\_{i-1, j} + \text{gap} & \text{(Deletion from } S\_1\text{)} \\\\
-E\_{i, j-1} + \text{gap} & \text{(Insertion into } S\_1\text{)}
+```math
+E_{i, j} = \max \begin{cases} 
+E_{i-1, j-1} + S(S_1[i-1], S_2[j-1]) & \text{(Match / Mismatch)} \\
+E_{i-1, j} + \text{gap} & \text{(Deletion from } S_1\text{)} \\
+E_{i, j-1} + \text{gap} & \text{(Insertion into } S_1\text{)}
 \end{cases}
-$$
+```
 
 Where the similarity function $S(a, b)$ is:
-$$
+```math
 S(a, b) = \begin{cases} 
-\text{match} & \text{if } a = b \\\\
+\text{match} & \text{if } a = b \\
 \text{mismatch} & \text{if } a \neq b
 \end{cases}
-$$
+```
 
 The optimal alignment score is stored in:
-$$
-\text{Score} = E\_{n, m}
-$$
+```math
+\text{Score} = E_{n, m}
+```
 
 ---
 
