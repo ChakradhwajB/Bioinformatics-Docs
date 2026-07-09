@@ -8,7 +8,7 @@ from core_lib import ValidateInput, FastaParse, FastaWrite
 
 router = APIRouter()
 
-MAX_FILE_SIZE = 5 * 1024 * 1024  # 5 MB limit
+MAX_FILE_SIZE = 2 * 1024 * 1024  # 2 MB limit
 
 # --- Request/Response Models ---
 
@@ -64,7 +64,7 @@ def parse_fasta_text(request: FastaTextRequest):
     if len(request.fasta_text) > MAX_FILE_SIZE:
         raise HTTPException(
             status_code=413,
-            detail="Text payload too large. Maximum allowed size is 5 MB."
+            detail="Text payload too large. Maximum allowed size is 2 MB."
         )
 
     temp_dir = tempfile.gettempdir()
@@ -124,7 +124,7 @@ async def parse_fasta_file(file: UploadFile = File(...)):
                 if file_size > MAX_FILE_SIZE:
                     raise HTTPException(
                         status_code=413,
-                        detail="File too large. Maximum allowed size is 5 MB."
+                        detail="File too large. Maximum allowed size is 2 MB."
                     )
                 buffer.write(chunk)
                 

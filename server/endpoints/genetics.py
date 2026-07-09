@@ -6,8 +6,8 @@ from core_lib import Complement, ReverseComplement, Transcribe, Translate, FindM
 
 router = APIRouter()
 
-MAX_LINEAR_SEQUENCE_LENGTH = 1000000  # 1 MB sequence cap
-MAX_MOTIF_LENGTH = 1000  # Cap motif pattern lookups
+MAX_LINEAR_SEQUENCE_LENGTH = 1000  # Cap linear operations to 1000 bases
+MAX_MOTIF_LENGTH = 100  # Cap motif pattern lookups to 100 bases
 
 # --- Request/Response Models ---
 

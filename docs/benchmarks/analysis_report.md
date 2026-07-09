@@ -74,11 +74,12 @@ Storing an $(n+1) \times (m+1)$ dynamic programming grid requires significant sp
 To guarantee server stability and prevent Out-of-Memory (OOM) crashes under strict free-tier memory allocations (512 MB RAM cap), the backend API enforces the following security boundaries:
 
 1. **File & Data Ingestion Limits**:
-   * **Maximum File Upload Size:** **5 MB** (enforced via chunked read trackers on `/parse-fasta`).
-   * **Maximum Text Payload Size:** **5 MB** (enforced on `/parse-fasta-text`).
+   * **Maximum File Upload Size:** **2 MB** (enforced via chunked read trackers on `/parse-fasta`).
+   * **Maximum Text Payload Size:** **2 MB** (enforced on `/parse-fasta-text`).
 2. **Algorithm Execution Limits**:
-   * **Quadratic Algorithms ($\mathcal{O}(n^2)$ space/time):** Capped at **10,000 bases** per sequence. Enforced on Needleman-Wunsch, Smith-Waterman, and Levenshtein edit distance.
-   * **Linear Algorithms ($\mathcal{O}(n)$ space/time):** Capped at **1,000,000 bases** per sequence. Enforced on Hamming distance, DNA complementation, transcription, translation, and motif search.
+   * **Quadratic Algorithms ($\mathcal{O}(n^2)$ space/time):** Capped at **50 bases** per sequence. Enforced on Needleman-Wunsch, Smith-Waterman, and Levenshtein edit distance.
+   * **Linear Algorithms ($\mathcal{O}(n)$ space/time):** Capped at **1,000 bases** per sequence. Enforced on Hamming distance, DNA complementation, transcription, translation.
+   * **Motif Search Algorithms ($\mathcal{O}(n)$):** Capped at **100 bases** for pattern strings.
 
 ---
 

@@ -10,8 +10,8 @@ from core_lib import (
 
 router = APIRouter()
 
-MAX_DP_SEQUENCE_LENGTH = 10000  # Cap O(n*m) space complexities
-MAX_LINEAR_SEQUENCE_LENGTH = 1000000  # Cap O(n) space complexities
+MAX_DP_SEQUENCE_LENGTH = 50  # Cap O(n*m) space complexities
+MAX_LINEAR_SEQUENCE_LENGTH = 1000  # Cap O(n) space complexities
 
 # --- Request/Response Models ---
 
