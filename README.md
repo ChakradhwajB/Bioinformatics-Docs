@@ -1,4 +1,6 @@
-# Bioinformatics Tool suite
+# Bioinformatics Docs
+
+> **Web Application**: [bioinformatics-docs.netlify.app](https://bioinformatics-docs.netlify.app/)
 
 This is a local-first web application for sequence alignment, genetics operations, sequence distances, and pattern mapping. It includes a frontend dashboard that works both locally and deployed, backed by a FastAPI server.
 
