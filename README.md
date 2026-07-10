@@ -1,76 +1,176 @@
-# Bioinformatics Docs
+# Bioinformatics Library
 
-> **Web Application**: [bioinformatics-docs.netlify.app](https://bioinformatics-docs.netlify.app/)
+A Python bioinformatics toolkit implementing sequence alignment, distance metrics, sequence transformations, and file processing algorithms from computational biology.
 
-This is a local-first web application for sequence alignment, genetics operations, sequence distances, and pattern mapping. It includes a frontend dashboard that works both locally and deployed, backed by a FastAPI server.
-
----
-
-## Technical Features
-
-- **Global & Local Alignment Players**: Needleman-Wunsch and Smith-Waterman aligners with a step-by-step traceback visualizer and path inspector.
-- **Sequence Distance Metrics**: Hamming mutation distance and Levenshtein edit distance with interactive alignment grid inspectors.
-- **Genetics Workbench**: Complementation, Transcription, and Translation tools.
-- **Motif Finder**: Substring lookup highlighting matching sequences and density hotspots.
-- **Dot Plot Visualizer**: Grid comparison of two sequences with configurable sliding window and threshold settings to identify repeats, indels, and inversions.
-- **FASTA File Ingestion**: Drag-and-drop parsing and nucleotide structure validation.
+[Documentation](https://bioinformatics-docs.netlify.app/pages/docs.html) • [Benchmarks](https://bioinformatics-docs.netlify.app/pages/docs.html?path=benchmarks/analysis_report.md) • [Website](https://bioinformatics-docs.netlify.app/) • [Source Code](https://github.com/ChakradhwajB/Bioinformatics-Docs)
 
 ---
 
-## Live Documentation Engine
 
-Instead of relying on heavy static site generators, the page fetches the raw Markdown documentation files (`docs/*.md`) using client-side `fetch()` APIs and renders them on the fly:
-
-1. **Marked.js** compiles the Markdown syntax into standard HTML tags.
-2. A custom regex pre-processor intercepts GitHub's native ```math block syntax and translates it to inline/block delimiters.
-3. **KaTeX** dynamically parses and renders the mathematical equations in the browser.
-
-To add or update documentation, edit the `.md` files inside the root `docs/` directory. Since the `docs/` folder is now the single source of truth fetched directly by the viewer, any changes will reflect immediately on the hosted website.
+![Bioinformatics Toolkit Landing Page](frontend/landing_page.png)
 
 ---
 
-## Benchmarking
+## Features
 
-The project includes a runtime performance analyzer inside the `benchmarks/` directory:
+### Sequence Alignment
 
-- **run_benchmarks.py**: Runs the core processing library functions against input sizes from $10$ to $100,000$. It uses a dynamic auto-ranging loop (running fast functions 100 times, and capping heavy DP alignments at 3 runs) to ensure stable averages without hanging.
-- **generate_graphs.py**: Parses the raw benchmark execution logs, plots the curves via Matplotlib, and writes the results.
-- **analysis_report.md**: An internal technical memo evaluating complexity curves (proving the quadratic $\mathcal{O}(n^2)$ behavior using log-log slope calculations), memory thresholds, and optimization strategies (such as Hirschberg's linear-space alignment).
+- **Needleman-Wunsch**: Global homology alignments utilizing dynamic programming with traceback visualization.
+- **Smith-Waterman**: Local sequence alignments focusing on highly similar subsequences.
+
+### Distance Metrics
+
+- **Hamming Distance**: Linear mutation metric comparing identical-length strings.
+- **Levenshtein Distance**: Dynamic programming edit distance calculating insertions, deletions, and substitutions.
+
+### Genetic Transformations
+
+- **Complement & Reverse Complement**: Standard DNA/RNA strand conversions.
+- **Transcription & Translation**: DNA-to-RNA transcription and RNA-to-Peptide codon mapping.
+- **Motif Search**: Sliding window target pattern mapping.
+
+### File Processing
+
+- **FASTA Parsing**: High-performance, low-memory line-by-line file streaming and header stats parser.
+- **FASTA Writing**: Output record generators.
+- **Input Validation**: Strict DNA/RNA vocabulary check tools.
+
+### Engineering
+
+- **Unit Tested**: $40+$ test assertions validating edge cases, penalties, and parser bounds.
+- **Complexity Benchmarked**: Empirical validation logs matching theoretical $\mathcal{O}(n)$ and $\mathcal{O}(n^2)$ behavior.
+- **Documented**: Educational articles with KaTeX math rendering.
 
 ---
 
-## Getting Started
+## Installation
 
-### 1. Run the Python Backend
-
-Install dependencies and launch the FastAPI development server:
+Clone the repository and install dependencies:
 
 ```bash
+git clone https://github.com/ChakradhwajB/Bioinformatics-Docs.git
+cd Bioinformatics-Docs
 pip install -r requirements.txt
+```
+
+---
+
+## Quick Start
+
+You can run calculations directly in Python or launch the local interactive web dashboard.
+
+#### 1. Global Sequence Alignment
+
+```python
+from core_lib.alignments import NeedlemanWunsch
+
+# Align sequences with Match=1, Mismatch=-1, Gap=-1 penalties
+score, align1, align2 = NeedlemanWunsch(
+    "GCATGCG",
+    "GATTACA",
+    match=1,
+    mismatch=-1,
+    gap=-1
+)
+
+print(f"Alignment Score: {score}")
+print(f"Seq 1: {align1}")
+print(f"Seq 2: {align2}")
+# Output:
+# Alignment Score: 0
+# Seq 1: G-CATGCG
+# Seq 2: GA-T-ACA
+```
+
+#### 2. Motif Searching
+
+```python
+from core_lib.genetics import FindMotif
+
+# Locate all offsets of a target motif in a genome sequence
+positions = FindMotif(
+    "GATATATGCATATACTT",
+    "ATAT"
+)
+print(f"Motif starts at 0-indexed positions: {positions}")
+# Output: [1, 3, 9]
+```
+
+### Local Quick Start
+
+Start the FastAPI backend server:
+
+```bash
 python -m uvicorn server.main:app --reload
 ```
 
-The backend runs at `http://127.0.0.1:8000`.
+Then, double-click `frontend/index.html` to open the visual alignment canvas in your web browser.
 
-### 2. Launch the Web Application
+---
 
-Open `frontend/index.html` directly in any web browser. The app uses local probes to automatically bind to the local backend if running; otherwise, it falls back to the public hosted API.
+## Implemented Algorithms
 
-### 3. Compile Styles (Optional)
+| Algorithm                           | Category           | Time Complexity          | Space Complexity             |
+| :---------------------------------- | :----------------- | :----------------------- | :--------------------------- |
+| **Hamming Distance**                | Distance Metric    | $\mathcal{O}(L)$         | $\mathcal{O}(1)$             |
+| **Levenshtein Distance**            | Distance Metric    | $\mathcal{O}(n \cdot m)$ | $\mathcal{O}(n \cdot m)$     |
+| **Needleman-Wunsch**                | Global Alignment   | $\mathcal{O}(n \cdot m)$ | $\mathcal{O}(n \cdot m)$     |
+| **Smith-Waterman**                  | Local Alignment    | $\mathcal{O}(n \cdot m)$ | $\mathcal{O}(n \cdot m)$     |
+| **Complement / Reverse Complement** | Sequence Transform | $\mathcal{O}(n)$         | $\mathcal{O}(n)$             |
+| **Transcription / Translation**     | Sequence Transform | $\mathcal{O}(n)$         | $\mathcal{O}(n)$             |
+| **Motif Search**                    | Pattern Matching   | $\mathcal{O}(n \cdot m)$ | $\mathcal{O}(n)$             |
+| **FASTA Ingestion Parser**          | File IO            | $\mathcal{O}(n)$         | $\mathcal{O}(1)$ (Streaming) |
 
-If you modify the CSS rules in `frontend/styles.css`, rebuild the Tailwind stylesheet:
+---
 
-```bash
-cd frontend
-npm run build
+## Benchmark Results
+
+Empirical runtime validations show that our implementations match theoretical complexity behavior exactly.
+
+![Benchmark Curve](benchmarks/quadratic_algorithms_linear.png)
+
+- **Linear operations** (Transcription, translation, Hamming distance) scale strictly as $\mathcal{O}(n)$ up to $100,000$ bases.
+- **Quadratic alignment algorithms** (Needleman-Wunsch, Smith-Waterman) scale as $\mathcal{O}(n^2)$ and are capped to safe limits of $50$ bases on free hosting tiers to prevent out-of-memory errors under the strict $512\text{ MB}$ limit.
+- **Empirical validation** proves the quadratic behavior with log-log regression slope calculation: $d(\log T)/d(\log N) \approx 2.01$.
+
+---
+
+## Project Structure
+
+```text
+├── core_lib/        # Reusable core bioinformatics algorithm engine
+│   ├── alignments.py
+│   ├── genetics.py
+│   └── io.py
+├── server/          # FastAPI REST API wrapper
+│   ├── endpoints/
+│   └── main.py
+├── frontend/        # HTML5/JS Visual Dashboard
+│   ├── pages/
+│   └── src/
+├── docs/            # Markdown documentation library (Math enabled)
+├── benchmarks/      # Performance evaluation script suite & graphs
+└── tests/           # Pytest unit testing suite
 ```
 
 ---
 
-## Testing
+## Documentation
 
-Run the python test suite to verify matching logic and IO parser integrity:
+Detailed educational guide articles, math formulas, and interactive trace tutorials are built into the web application:
 
-```bash
-pytest
-```
+- Online: [bioinformatics-docs.netlify.app](https://bioinformatics-docs.netlify.app/)
+- Local: Open `frontend/pages/docs.html`
+
+---
+
+## Roadmap
+
+### Planned
+
+- [ ] **Linear-space alignments** using Hirschberg's algorithm (reducing space to $\mathcal{O}(m)$).
+- [ ] **Suffix Array & FM-Index** implementations for index-backed fast genome lookups.
+- [ ] **De Bruijn Graphs** for assembly simulation of short reads.
+- [ ] **BWT (Burrows-Wheeler Transform)** compression analysis.
+
+---

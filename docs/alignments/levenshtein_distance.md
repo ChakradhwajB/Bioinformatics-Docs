@@ -17,7 +17,7 @@ Let:
 - $S\_1$ be of length $n$
 - $S\_2$ be of length $m$
 
-We define the DP cell $D\_{i,j}$ as the minimum edit operations required to transform prefix $S\_1[0 \dots i-1]$ into prefix $S\_2[0 \dots j-1]$.
+The DP cell $D\_{i,j}$ represents the minimum edit operations required to transform prefix $S\_1[0 \dots i-1]$ into prefix $S\_2[0 \dots j-1]$.
 
 ### Base Cases
 

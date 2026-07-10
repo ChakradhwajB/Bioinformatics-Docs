@@ -18,7 +18,7 @@ Let:
 - $\text{mismatch}$: Penalty score for mismatching characters.
 - $\text{gap}$: Penalty score for introducing a gap.
 
-We define the DP matrix cell $H\_{i,j}$ as the optimal local alignment score ending at prefix $S\_1[0 \dots i-1]$ and prefix $S\_2[0 \dots j-1]$.
+The DP matrix cell $H\_{i,j}$ represents the optimal local alignment score ending at prefix $S\_1[0 \dots i-1]$ and prefix $S\_2[0 \dots j-1]$.
 
 ### Base Cases
 

@@ -1,6 +1,6 @@
 # Library Performance Analysis
 
-Here is the performance profiling report for our core bioinformatics library. We measured execution runtimes across sequence lengths ranging from $10$ to $100,000$ characters. Below are the charts, observations on Python behavior, and future recommendations.
+Here is the performance profiling report for the core bioinformatics library. Execution runtimes were measured across sequence lengths ranging from $10$ to $100,000$ characters. Below are the charts, observations on Python behavior, and future recommendations.
 
 ---
 
@@ -38,7 +38,7 @@ Additionally, reversing strings using Python's slice notation (`[::-1]`) is high
 
 ### Verifying quadratic complexity
 
-For Levenshtein, Needleman-Wunsch, and Smith-Waterman, we plotted the runtimes on both linear and log-log scales to verify their complexity.
+For Levenshtein, Needleman-Wunsch, and Smith-Waterman, runtimes were plotted on both linear and log-log scales to verify their complexity.
 
 - **Linear Scale:** The runtime curves bend upward sharply. At $n=100$, execution completes in a few milliseconds. By $n=5,000$, execution runtimes jump to **$22.46\text{s}$** (Levenshtein), **$27.62\text{s}$** (Needleman-Wunsch), and **$25.77\text{s}$** (Smith-Waterman).
 - **Log-Log Scale:** The quadratic curves transform into straight lines. Since $T(n) \propto n^2$, taking the logarithm gives $\log(T(n)) = 2 \log(n) + C$, which is a straight line with a slope of $2$.

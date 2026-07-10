@@ -18,7 +18,7 @@ Let:
 - $w$ be the sliding window size.
 - $t$ be the minimum match threshold ($1 \le t \le w$).
 
-We define the indicator match function for offset $k$ starting at positions $i$ and $j$ as:
+The indicator match function for offset $k$ starting at positions $i$ and $j$ is defined as:
 ```math
 \delta(i, j, k) = \begin{cases} 
 1 & \text{if } S_1[i+k] = S_2[j+k] \\

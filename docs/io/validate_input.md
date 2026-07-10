@@ -6,7 +6,7 @@ Validate if an input text or file representation conforms to the FASTA format, c
 
 ## Overview
 
-Before parsing or executing operations on genomic files, we must validate their formatting. In FASTA files, lines starting with `>` are descriptive headers and are skipped during base validation. Other non-empty lines must only contain valid nucleotide characters.
+Before parsing or executing operations on genomic files, it is necessary to validate their formatting. In FASTA files, lines starting with `>` are descriptive headers and are skipped during base validation. Other non-empty lines must only contain valid nucleotide characters.
 
 ---
 

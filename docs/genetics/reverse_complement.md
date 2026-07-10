@@ -6,7 +6,7 @@ Given a DNA sequence $S$, calculate its reverse complementary sequence $S\_{rc}$
 
 ## Overview
 
-DNA double-stranded structures are antiparallel. To obtain the standard representation of the opposite strand, we must:
+DNA double-stranded structures are antiparallel. To obtain the standard representation of the opposite strand, it is necessary to:
 1. Translate each nucleotide base to its complement ($A \leftrightarrow T$, $C \leftrightarrow G$).
 2. Reverse the order of the resulting strand.
 

@@ -18,7 +18,7 @@ Let:
 - $\text{mismatch}$: Penalty score for mismatching characters.
 - $\text{gap}$: Penalty score for introducing a gap.
 
-We define the DP matrix cell $E\_{i,j}$ as the optimal global alignment score between prefix $S\_1[0 \dots i-1]$ and prefix $S\_2[0 \dots j-1]$.
+The DP matrix cell $E\_{i,j}$ represents the optimal global alignment score between prefix $S\_1[0 \dots i-1]$ and prefix $S\_2[0 \dots j-1]$.
 
 ### Base Cases
 
@@ -75,6 +75,6 @@ Where:
 
 The traceback starts at the bottom-right cell $E\_{n, m}$ and reconstructs the alignment path backwards towards $E\_{0, 0}$:
 
-- If the current cell $E\_{i, j}$ came from the diagonal cell $E\_{i-1, j-1}$, we align $S\_1[i-1]$ with $S\_2[j-1]$.
-- If it came from the top cell $E\_{i-1, j}$, we align $S\_1[i-1]$ with a gap `-` in $S\_2$.
-- If it came from the left cell $E\_{i, j-1}$, we align a gap `-` in $S\_1$ with $S\_2[j-1]$.
+- If the current cell $E\_{i, j}$ came from the diagonal cell $E\_{i-1, j-1}$, align $S\_1[i-1]$ with $S\_2[j-1]$.
+- If it came from the top cell $E\_{i-1, j}$, align $S\_1[i-1]$ with a gap `-` in $S\_2$.
+- If it came from the left cell $E\_{i, j-1}$, align a gap `-` in $S\_1$ with $S\_2[j-1]$.
