@@ -1,297 +1,571 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Primary SEO Meta Tags -->
-  <title>Sequence Distance Metrics Calculator | Bioinformatics Docs</title>
-  <meta name="description" content="Calculate Hamming mutation distance and Levenshtein edit distance between nucleotide sequences with an interactive step-by-step cost matrix visualizer." />
-  <meta name="keywords" content="sequence distance, hamming distance, levenshtein distance, edit distance, cost matrix, bioinformatics, dna analysis" />
-  <meta name="author" content="ChakradhwajB" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://bioinformatics-docs.netlify.app/pages/distances.html" />
-  <meta property="og:title" content="Sequence Distance Metrics Calculator | Bioinformatics Docs" />
-  <meta property="og:description" content="Calculate Hamming mutation distance and Levenshtein edit distance between nucleotide sequences with an interactive step-by-step cost matrix visualizer." />
-  <meta property="og:image" content="https://bioinformatics-docs.netlify.app/module_page.png" />
+    <!-- Primary SEO Meta Tags -->
+    <title>Sequence Distance Metrics Calculator | Bioinformatics Docs</title>
+    <meta
+      name="description"
+      content="Calculate Hamming mutation distance and Levenshtein edit distance between nucleotide sequences with an interactive step-by-step cost matrix visualizer."
+    />
+    <meta
+      name="keywords"
+      content="sequence distance, hamming distance, levenshtein distance, edit distance, cost matrix, bioinformatics, dna analysis"
+    />
+    <meta name="author" content="ChakradhwajB" />
 
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="https://bioinformatics-docs.netlify.app/pages/distances.html" />
-  <meta property="twitter:title" content="Sequence Distance Metrics Calculator | Bioinformatics Docs" />
-  <meta property="twitter:description" content="Calculate Hamming mutation distance and Levenshtein edit distance between nucleotide sequences with an interactive step-by-step cost matrix visualizer." />
-  <meta property="twitter:image" content="https://bioinformatics-docs.netlify.app/module_page.png" />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://bioinformatics-docs.netlify.app/pages/distances.html"
+    />
+    <meta
+      property="og:title"
+      content="Sequence Distance Metrics Calculator | Bioinformatics Docs"
+    />
+    <meta
+      property="og:description"
+      content="Calculate Hamming mutation distance and Levenshtein edit distance between nucleotide sequences with an interactive step-by-step cost matrix visualizer."
+    />
+    <meta
+      property="og:image"
+      content="https://bioinformatics-docs.netlify.app/module_page.png"
+    />
 
-  <!-- Structured Data (JSON-LD) SoftwareApplication Schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Sequence Distance Metrics Calculator",
-    "operatingSystem": "All",
-    "applicationCategory": "EducationalApplication, BioinformaticsTool",
-    "description": "An interactive utility calculating Levenshtein edit distances and Hamming mutation offsets with live alignment matrices.",
-    "browserRequirements": "Requires JavaScript. Requires HTML5.",
-    "softwareVersion": "1.0.0",
-    "author": {
-      "@type": "Person",
-      "name": "ChakradhwajB"
-    }
-  }
-  </script>
-  <link rel="stylesheet" href="../dist/output.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
-  <!-- KaTeX Math Rendering -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-    }
-    .font-mono-seq {
-      font-family: 'Fira Code', monospace;
-    }
-    /* Collapsible Sidebar Styles */
-    #sidebar {
-      transition: width 0.2s ease, padding 0.2s ease, border-color 0.2s ease;
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-    #sidebar::-webkit-scrollbar {
-      display: none;
-    }
-    .sidebar-collapsed {
-      width: 0px !important;
-      padding-left: 0px !important;
-      padding-right: 0px !important;
-      border-right-width: 0px !important;
-      overflow: hidden !important;
-    }
-  </style>
-</head>
-<body class="bg-white text-slate-900 min-h-screen h-screen flex flex-col overflow-hidden">
-  <div class="absolute top-0 z-[-2] h-screen w-full bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
-  
-  <!-- Header Bar -->
-  <header class="bg-white border-b border-slate-200 py-3 px-6 flex justify-between items-center select-none z-50">
-    <div class="flex items-center space-x-3">
-      <a href="../index.html" class="flex items-center space-x-2 text-slate-500 hover:text-slate-800 transition-colors">
-        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-        </svg>
-        <span class="text-xs font-semibold">Dashboard</span>
-      </a>
-      <span class="text-slate-350">/</span>
-      <span class="text-sm font-bold tracking-tight text-slate-800">Sequence Distance Metrics</span>
-    </div>
-    <div class="flex items-center bg-slate-50 px-2.5 py-1 rounded-sm border border-slate-200">
-      <span id="server-status-dot" class="h-2 w-2 rounded-full bg-slate-400 mr-2"></span>
-      <span id="server-status-text" class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Checking...</span>
-    </div>
-  </header>
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https://bioinformatics-docs.netlify.app/pages/distances.html"
+    />
+    <meta
+      property="twitter:title"
+      content="Sequence Distance Metrics Calculator | Bioinformatics Docs"
+    />
+    <meta
+      property="twitter:description"
+      content="Calculate Hamming mutation distance and Levenshtein edit distance between nucleotide sequences with an interactive step-by-step cost matrix visualizer."
+    />
+    <meta
+      property="twitter:image"
+      content="https://bioinformatics-docs.netlify.app/module_page.png"
+    />
 
-  <!-- Workspace Shell -->
-  <div class="flex-grow flex h-[calc(100vh-45px)] overflow-hidden relative">
-    <!-- Left Sidebar (Inputs & Controls) -->
-    <aside id="sidebar" class="w-80 bg-slate-55 border-r border-slate-200 p-4 flex flex-col justify-between overflow-y-auto select-none transition-all duration-300 shrink-0">
-      <div class="space-y-4">
-        <!-- Tool Navigation list -->
-        <div>
-          <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Curriculum Pathways</span>
-          
-          <div class="space-y-3">
-            <!-- Module 1 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 1: Foundations</span>
-              <a href="./io.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">FASTA File IO</a>
-              <a href="./genetics.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Genetics Workbench</a>
-            </div>
+    <!-- Structured Data (JSON-LD) SoftwareApplication Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Sequence Distance Metrics Calculator",
+        "operatingSystem": "All",
+        "applicationCategory": "EducationalApplication, BioinformaticsTool",
+        "description": "An interactive utility calculating Levenshtein edit distances and Hamming mutation offsets with live alignment matrices.",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "softwareVersion": "1.0.0",
+        "author": {
+          "@type": "Person",
+          "name": "ChakradhwajB"
+        }
+      }
+    </script>
+    <link rel="stylesheet" href="../dist/output.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- KaTeX Math Rendering -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+      onload="
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false },
+          ],
+        })
+      "
+    ></script>
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      .font-mono-seq {
+        font-family: "Fira Code", monospace;
+      }
+      /* Collapsible Sidebar Styles */
+      #sidebar {
+        transition:
+          width 0.2s ease,
+          padding 0.2s ease,
+          border-color 0.2s ease;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      #sidebar::-webkit-scrollbar {
+        display: none;
+      }
+      .sidebar-collapsed {
+        width: 0px !important;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        border-right-width: 0px !important;
+        overflow: hidden !important;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-white text-slate-900 min-h-screen h-screen flex flex-col overflow-hidden"
+  >
+    <div
+      class="absolute top-0 z-[-2] h-screen w-full bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
+    ></div>
 
-            <!-- Module 2 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 2: Patterns</span>
-              <a href="./kmers.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">K-mer Profiler</a>
-              <a href="./find_motif.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Motif Finder</a>
-            </div>
-
-            <!-- Module 3 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 3: Comparisons</span>
-              <a href="./dot_plot.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Dot Plot Visualizer</a>
-              <a href="./distances.html" class="block px-2 py-1 text-[11px] font-semibold rounded-sm text-indigo-650 bg-indigo-50 border-l-2 border-indigo-500 transition-colors">Sequence Distances</a>
-            </div>
-            <!-- Module 4 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 4: Alignments</span>
-              <a href="./needleman_wunsch.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Needleman-Wunsch Global</a>
-              <a href="./smith_waterman.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Smith-Waterman Local</a>
-              <a href="./benchmarks.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Complexity Sandbox</a>
-            </div>
-
-            <!-- Module 5 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 5: Indexing</span>
-              <a href="./trie.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Trie Multi-Search</a>
-              <a href="./suffix_array.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Suffix Array Search</a>
-            </div>
-
-            <!-- Reference -->
-            <div class="space-y-0.5 pt-1 border-t border-slate-200">
-              <a href="./docs.html" class="block px-2 py-1 text-[11px] font-bold text-indigo-600 hover:bg-slate-200 transition-colors">Documentation &rarr;</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="border-t border-slate-200 pt-3">
-          <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Sequence 1</label>
-          <textarea id="seq1" rows="2" class="w-full font-mono text-xs px-3 py-2 border-2 border-slate-200 rounded-sm bg-white uppercase resize-none focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all duration-150" placeholder="e.g. GGCCG">GGCCG</textarea>
-        </div>
-
-        <div>
-          <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Sequence 2</label>
-          <input type="text" id="seq2" value="GGTCG" class="w-full font-mono text-xs px-3 py-2 border-2 border-slate-200 rounded-sm bg-white uppercase focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all duration-150" placeholder="e.g. GGTCG">
-        </div>
-
-        <!-- Metric Select -->
-        <div class="space-y-2 pt-3 border-t border-slate-200">
-          <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">Distance Metric</span>
-          <select id="distance-metric-select" class="w-full text-xs px-2.5 py-1.5 border-2 border-slate-200 rounded-md bg-white focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all duration-150">
-            <option value="hamming">Hamming Distance</option>
-            <option value="levenshtein">Levenshtein Edit Distance</option>
-          </select>
-        </div>
-
-        <!-- Reference & Complexity Panel -->
-        <div class="border-t border-slate-200 pt-3 space-y-1 text-[10px]">
-          <span class="block font-bold text-slate-400 uppercase tracking-wider mb-1">Complexity Reference</span>
-          <div>
-            <span class="relative group cursor-help border-b border-dotted border-slate-400 select-none font-semibold text-slate-500">
-              Hamming Time:
-              <span class="absolute bottom-full left-0 mb-1.5 hidden group-hover:block w-52 bg-slate-900 text-white text-[9px] p-2 rounded shadow-lg z-50 normal-case font-normal leading-normal select-none">
-                Linear time complexity $\mathcal{O}(L)$: runs in a single sequential pass comparing characters at matching offsets.
-              </span>
-            </span>
-            $\mathcal{O}(\min(n, m))$ | Space: $\mathcal{O}(1)$
-          </div>
-          <div>
-            <span class="relative group cursor-help border-b border-dotted border-slate-400 select-none font-semibold text-slate-500">
-              Levenshtein Time:
-              <span class="absolute bottom-full left-0 mb-1.5 hidden group-hover:block w-52 bg-slate-900 text-white text-[9px] p-2 rounded shadow-lg z-50 normal-case font-normal leading-normal select-none">
-                Quadratic time and space $\mathcal{O}(n \cdot m)$: builds a 2D subproblem score grid.
-              </span>
-            </span>
-            $\mathcal{O}(n \cdot m)$ | Space: $\mathcal{O}(n \cdot m)$
-          </div>
-        </div>
-
-        <!-- Module Progress Control -->
-        <div class="pt-3 border-t border-slate-200 select-none">
-          <label class="flex items-center space-x-2.5 cursor-pointer bg-white hover:bg-slate-50 border border-slate-200 rounded p-2.5 shadow-sm transition-colors duration-150">
-            <input type="checkbox" id="page-complete-checkbox" class="h-4 w-4 rounded border-slate-300 text-indigo-650 focus:ring-indigo-500 cursor-pointer" />
-            <div class="flex flex-col">
-              <span class="text-[10px] font-bold text-slate-800 uppercase tracking-wide">Mark Completed</span>
-              <span class="text-[8px] text-slate-400">Save progress in your pathway</span>
-            </div>
-          </label>
-        </div>
-
-      </div>
-
-      <div class="pt-4 border-t border-slate-200">
-        <button id="calc-btn" class="w-full py-2.5 bg-slate-800 hover:bg-slate-955 hover:shadow-md active:bg-slate-900 text-white font-semibold rounded-sm text-xs transition-all duration-150 tracking-wide select-none cursor-pointer">
-          Calculate Distance
-        </button>
-      </div>
-    </aside>
-    <!-- Collapsible Sibling Toggle Button -->
-    <button
-      id="sidebar-toggle"
-      class="absolute top-1/2 -translate-y-1/2 bg-white border border-slate-200 text-slate-500 hover:text-slate-800 h-8 w-4 rounded-r-md shadow-sm flex items-center justify-center cursor-pointer transition-all duration-300 z-40 select-none"
-      style="left: 19.25rem"
+    <!-- Header Bar -->
+    <header
+      class="bg-white border-b border-slate-200 py-3 px-6 flex justify-between items-center select-none z-50"
     >
-      &lsaquo;
-    </button>
+      <div class="flex items-center space-x-3">
+        <a
+          href="../index.html"
+          class="flex items-center space-x-2 text-slate-500 hover:text-slate-800 transition-colors"
+        >
+          <svg
+            class="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"
+            />
+          </svg>
+          <span class="text-xs font-semibold">Dashboard</span>
+        </a>
+        <span class="text-slate-350">/</span>
+        <span class="text-sm font-bold tracking-tight text-slate-800"
+          >Sequence Distance Metrics</span
+        >
+      </div>
+      <div
+        class="flex items-center bg-slate-50 px-2.5 py-1 rounded-sm border border-slate-200"
+      >
+        <span
+          id="server-status-dot"
+          class="h-2 w-2 rounded-full bg-slate-400 mr-2"
+        ></span>
+        <span
+          id="server-status-text"
+          class="text-[10px] font-bold text-slate-500 uppercase tracking-wider"
+          >Checking...</span
+        >
+      </div>
+    </header>
 
-    <!-- Right Panels (Scrollable Workspace) -->
-    <main class="flex-grow overflow-y-auto bg-slate-100 p-5 space-y-5">
-      
-      <!-- Top Section: Output Console -->
-      <section class="bg-white border border-slate-200 p-5 rounded-sm shadow-sm">
-        <div class="flex justify-between items-center mb-3 select-none">
-          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Metrics Console</span>
-          <div class="flex items-center space-x-2 text-[11px] font-bold text-slate-500">
-            <span>Distance: <span id="distance-score" class="text-sm font-black text-indigo-600 bg-indigo-50 px-2.5 py-0.5 rounded border border-indigo-200 shadow-sm transition-all">-</span></span>
+    <!-- Workspace Shell -->
+    <div class="flex-grow flex h-[calc(100vh-45px)] overflow-hidden relative">
+      <!-- Left Sidebar (Inputs & Controls) -->
+      <aside
+        id="sidebar"
+        class="w-80 bg-slate-55 border-r border-slate-200 p-4 flex flex-col justify-between overflow-y-auto select-none transition-all duration-300 shrink-0"
+      >
+        <div class="space-y-4">
+          <!-- Tool Navigation list -->
+          <div>
+            <span
+              class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2"
+              >Curriculum Pathways</span
+            >
+
+            <div class="space-y-3">
+              <!-- Module 1 -->
+              <div class="space-y-0.5">
+                <span
+                  class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1"
+                  >Module 1: Foundations</span
+                >
+                <a
+                  href="./io.html"
+                  class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors"
+                  >FASTA File IO</a
+                >
+                <a
+                  href="./genetics.html"
+                  class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors"
+                  >Genetics Workbench</a
+                >
+              </div>
+
+              <!-- Module 2 -->
+              <div class="space-y-0.5">
+                <span
+                  class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1"
+                  >Module 2: Patterns</span
+                >
+                <a
+                  href="./kmers.html"
+                  class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors"
+                  >K-mer Profiler</a
+                >
+                <a
+                  href="./find_motif.html"
+                  class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors"
+                  >Motif Finder</a
+                >
+              </div>
+
+              <!-- Module 3 -->
+              <div class="space-y-0.5">
+                <span
+                  class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1"
+                  >Module 3: Comparisons</span
+                >
+                <a
+                  href="./dot_plot.html"
+                  class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors"
+                  >Dot Plot Visualizer</a
+                >
+                <a
+                  href="./distances.html"
+                  class="block px-2 py-1 text-[11px] font-semibold rounded-sm text-indigo-650 bg-indigo-50 border-l-2 border-indigo-500 transition-colors"
+                  >Sequence Distances</a
+                >
+              </div>
+              <!-- Module 4 -->
+              <div class="space-y-0.5">
+                <span
+                  class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1"
+                  >Module 4: Alignments</span
+                >
+                <a
+                  href="./needleman_wunsch.html"
+                  class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors"
+                  >Needleman-Wunsch Global</a
+                >
+                <a
+                  href="./smith_waterman.html"
+                  class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors"
+                  >Smith-Waterman Local</a
+                >
+              </div>
+
+              <!-- Module 5 -->
+              <div class="space-y-0.5">
+                <span
+                  class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1"
+                  >Module 5: Indexing</span
+                >
+                <a
+                  href="./trie.html"
+                  class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors"
+                  >Trie Multi-Search</a
+                >
+                <a
+                  href="./suffix_array.html"
+                  class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors"
+                  >Suffix Array Search</a
+                >
+              </div>
+
+              <!-- Reference -->
+              <div class="space-y-0.5 pt-1 border-t border-slate-200">
+                <a
+                  href="./docs.html"
+                  class="block px-2 py-1 text-[11px] font-bold text-indigo-600 hover:bg-slate-200 transition-colors"
+                  >Documentation &rarr;</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="border-t border-slate-200 pt-3">
+            <label
+              class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1"
+              >Sequence 1</label
+            >
+            <textarea
+              id="seq1"
+              rows="2"
+              class="w-full font-mono text-xs px-3 py-2 border-2 border-slate-200 rounded-sm bg-white uppercase resize-none focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all duration-150"
+              placeholder="e.g. GGCCG"
+            >
+GGCCG</textarea
+            >
+          </div>
+
+          <div>
+            <label
+              class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1"
+              >Sequence 2</label
+            >
+            <input
+              type="text"
+              id="seq2"
+              value="GGTCG"
+              class="w-full font-mono text-xs px-3 py-2 border-2 border-slate-200 rounded-sm bg-white uppercase focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all duration-150"
+              placeholder="e.g. GGTCG"
+            />
+          </div>
+
+          <!-- Metric Select -->
+          <div class="space-y-2 pt-3 border-t border-slate-200">
+            <span
+              class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider"
+              >Distance Metric</span
+            >
+            <select
+              id="distance-metric-select"
+              class="w-full text-xs px-2.5 py-1.5 border-2 border-slate-200 rounded-md bg-white focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all duration-150"
+            >
+              <option value="hamming">Hamming Distance</option>
+              <option value="levenshtein">Levenshtein Edit Distance</option>
+            </select>
+          </div>
+
+          <!-- Reference & Complexity Panel -->
+          <div class="border-t border-slate-200 pt-3 space-y-1 text-[10px]">
+            <span
+              class="block font-bold text-slate-400 uppercase tracking-wider mb-1"
+              >Complexity Reference</span
+            >
+            <div>
+              <span
+                class="relative group cursor-help border-b border-dotted border-slate-400 select-none font-semibold text-slate-500"
+              >
+                Hamming Time:
+                <span
+                  class="absolute bottom-full left-0 mb-1.5 hidden group-hover:block w-52 bg-slate-900 text-white text-[9px] p-2 rounded shadow-lg z-50 normal-case font-normal leading-normal select-none"
+                >
+                  Linear time complexity $\mathcal{O}(L)$: runs in a single
+                  sequential pass comparing characters at matching offsets.
+                </span>
+              </span>
+              $\mathcal{O}(\min(n, m))$ | Space: $\mathcal{O}(1)$
+            </div>
+            <div>
+              <span
+                class="relative group cursor-help border-b border-dotted border-slate-400 select-none font-semibold text-slate-500"
+              >
+                Levenshtein Time:
+                <span
+                  class="absolute bottom-full left-0 mb-1.5 hidden group-hover:block w-52 bg-slate-900 text-white text-[9px] p-2 rounded shadow-lg z-50 normal-case font-normal leading-normal select-none"
+                >
+                  Quadratic time and space $\mathcal{O}(n \cdot m)$: builds a 2D
+                  subproblem score grid.
+                </span>
+              </span>
+              $\mathcal{O}(n \cdot m)$ | Space: $\mathcal{O}(n \cdot m)$
+            </div>
+          </div>
+
+          <!-- Module Progress Control -->
+          <div class="pt-3 border-t border-slate-200 select-none">
+            <label
+              class="flex items-center space-x-2.5 cursor-pointer bg-white hover:bg-slate-50 border border-slate-200 rounded p-2.5 shadow-sm transition-colors duration-150"
+            >
+              <input
+                type="checkbox"
+                id="page-complete-checkbox"
+                class="h-4 w-4 rounded border-slate-300 text-indigo-650 focus:ring-indigo-500 cursor-pointer"
+              />
+              <div class="flex flex-col">
+                <span
+                  class="text-[10px] font-bold text-slate-800 uppercase tracking-wide"
+                  >Mark Completed</span
+                >
+                <span class="text-[8px] text-slate-400"
+                  >Save progress in your pathway</span
+                >
+              </div>
+            </label>
           </div>
         </div>
 
-        <!-- High-density Monospace console block -->
-        <div class="bg-slate-50 border border-slate-200 rounded-sm p-4 flex items-center justify-center">
-          <div id="output-console" class="w-full flex flex-col justify-center font-mono-seq text-sm leading-normal select-all bg-slate-900 text-slate-300 p-5 border border-slate-950 rounded-sm shadow-inner font-bold">
-            Enter inputs and calculate to generate report.
-          </div>
+        <div class="pt-4 border-t border-slate-200">
+          <button
+            id="calc-btn"
+            class="w-full py-2.5 bg-slate-800 hover:bg-slate-955 hover:shadow-md active:bg-slate-900 text-white font-semibold rounded-sm text-xs transition-all duration-150 tracking-wide select-none cursor-pointer"
+          >
+            Calculate Distance
+          </button>
         </div>
-      </section>
+      </aside>
+      <!-- Collapsible Sibling Toggle Button -->
+      <button
+        id="sidebar-toggle"
+        class="absolute top-1/2 -translate-y-1/2 bg-white border border-slate-200 text-slate-500 hover:text-slate-800 h-8 w-4 rounded-r-md shadow-sm flex items-center justify-center cursor-pointer transition-all duration-300 z-40 select-none"
+        style="left: 19.25rem"
+      >
+        &lsaquo;
+      </button>
 
-      <!-- Bottom Section: Visualizer -->
-      <section class="bg-white p-5 border border-slate-200 rounded-sm shadow-sm flex flex-col">
-        <div class="flex justify-between items-center mb-3 select-none">
-          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Analytical Visualizer</span>
-          <span id="visual-helper-text" class="text-[9px] font-semibold text-slate-400 bg-slate-50 px-2 py-0.5 rounded border border-slate-200">Distance Cost Matrices</span>
-        </div>
-
-        <div id="visualizer-container" class="border border-slate-200 rounded-sm overflow-x-auto bg-slate-50 p-4">
-          <div class="text-slate-400 text-xs font-semibold">
-            Calculation output visualization area.
-          </div>
-        </div>
-      </section>
-
-      <!-- Educational Article -->
-      <section class="bg-white p-6 border border-slate-200 rounded-sm shadow-sm space-y-4">
-        <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Educational Guide: Sequence Distance Metrics</h3>
-        
-        <div class="text-xs leading-relaxed space-y-3 text-slate-800">
-          <h4 class="font-bold text-slate-900 text-xs">1. Hamming Distance (Point Mutations)</h4>
-          <p>
-            The <strong>Hamming Distance</strong> counts the number of positions at which two sequences of equal length differ. In biology, it directly represents point mutations (nucleotide substitutions) without any insertions or deletions. For sequences $S_1$ and $S_2$ comparing up to $L = \min(|S_1|, |S_2|)$, it is formulated as:
-          </p>
-          <div class="bg-slate-50 p-3 border border-slate-200 rounded-sm font-mono text-center my-2 text-xs">
-            $$d_H(S_1, S_2) = \sum_{i=0}^{L-1} \delta(S_1[i], S_2[i]) \quad \text{where } \delta(a,b) = \begin{cases} 0 & a = b \\ 1 & a \neq b \end{cases}$$
-          </div>
-
-          <h4 class="font-bold text-slate-900 text-xs">2. Levenshtein Distance (Edit Distance)</h4>
-          <p>
-            The <strong>Levenshtein Distance</strong> measures the minimum number of single-character operations (insertions, deletions, or substitutions) required to transform sequence $S_1$ into $S_2$. Unlike Hamming, Levenshtein distance handles alignments of different lengths. We solve it via dynamic programming:
-          </p>
-          <div class="bg-slate-50 p-3 border border-slate-200 rounded-sm font-mono text-center my-2 text-xs">
-            $$D_{i, j} = \begin{cases} 
-            D_{i-1, j-1} & \text{if } S_1[i-1] = S_2[j-1] \\
-            \min \begin{cases} 
-            D_{i-1, j} + 1 & \text{(Deletion)} \\
-            D_{i, j-1} + 1 & \text{(Insertion)} \\
-            D_{i-1, j-1} + 1 & \text{(Substitution)}
-            \end{cases} & \text{otherwise}
-            \end{cases}$$
+      <!-- Right Panels (Scrollable Workspace) -->
+      <main class="flex-grow overflow-y-auto bg-slate-100 p-5 space-y-5">
+        <!-- Top Section: Output Console -->
+        <section
+          class="bg-white border border-slate-200 p-5 rounded-sm shadow-sm"
+        >
+          <div class="flex justify-between items-center mb-3 select-none">
+            <span
+              class="text-[10px] font-bold text-slate-400 uppercase tracking-wider"
+              >Metrics Console</span
+            >
+            <div
+              class="flex items-center space-x-2 text-[11px] font-bold text-slate-500"
+            >
+              <span
+                >Distance:
+                <span
+                  id="distance-score"
+                  class="text-sm font-black text-indigo-600 bg-indigo-50 px-2.5 py-0.5 rounded border border-indigo-200 shadow-sm transition-all"
+                  >-</span
+                ></span
+              >
+            </div>
           </div>
 
-          <h4 class="font-bold text-slate-900 text-xs">3. Algorithmic Complexity Comparison</h4>
-          <ul class="list-disc pl-5 space-y-1.5 mb-2">
-            <li><strong>Hamming:</strong> Time complexity $\mathcal{O}(L)$ and Space complexity $\mathcal{O}(1)$ as it runs in a single sequential pass without building a 2D matrix.</li>
-            <li><strong>Levenshtein:</strong> Time complexity $\mathcal{O}(n \cdot m)$ and Space complexity $\mathcal{O}(n \cdot m)$ to compute and store the 2D grid of subproblems.</li>
-          </ul>
+          <!-- High-density Monospace console block -->
+          <div
+            class="bg-slate-50 border border-slate-200 rounded-sm p-4 flex items-center justify-center"
+          >
+            <div
+              id="output-console"
+              class="w-full flex flex-col justify-center font-mono-seq text-sm leading-normal select-all bg-slate-900 text-slate-300 p-5 border border-slate-950 rounded-sm shadow-inner font-bold"
+            >
+              Enter inputs and calculate to generate report.
+            </div>
+          </div>
+        </section>
 
-          <h4 class="font-bold text-slate-900 text-xs">4. Python Code Implementations</h4>
-          <p>Here is how to compute both distance metrics in Python:</p>
+        <!-- Bottom Section: Visualizer -->
+        <section
+          class="bg-white p-5 border border-slate-200 rounded-sm shadow-sm flex flex-col"
+        >
+          <div class="flex justify-between items-center mb-3 select-none">
+            <span
+              class="text-[10px] font-bold text-slate-400 uppercase tracking-wider"
+              >Analytical Visualizer</span
+            >
+            <span
+              id="visual-helper-text"
+              class="text-[9px] font-semibold text-slate-400 bg-slate-50 px-2 py-0.5 rounded border border-slate-200"
+              >Distance Cost Matrices</span
+            >
+          </div>
 
-          <p class="font-semibold text-slate-700 text-[11px] mb-1">Hamming Distance (Point Mutations):</p>
-          <div class="relative group">
-            <button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); this.textContent = 'Copied!'; setTimeout(() => this.textContent = 'Copy', 2000)" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-sm text-[9px] font-bold tracking-wide transition-all duration-150 shadow-sm cursor-pointer select-none">Copy</button>
-            <pre class="bg-slate-55 border border-slate-200 text-slate-700 p-3.5 pr-12 rounded-sm font-mono text-[10px] overflow-x-auto leading-relaxed"><span class="text-pink-600">def</span> <span class="text-sky-600">hamming_distance</span>(seq1, seq2):
+          <div
+            id="visualizer-container"
+            class="border border-slate-200 rounded-sm overflow-x-auto bg-slate-50 p-4"
+          >
+            <div class="text-slate-400 text-xs font-semibold">
+              Calculation output visualization area.
+            </div>
+          </div>
+        </section>
+
+        <!-- Educational Article -->
+        <section
+          class="bg-white p-6 border border-slate-200 rounded-sm shadow-sm space-y-4"
+        >
+          <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">
+            Educational Guide: Sequence Distance Metrics
+          </h3>
+
+          <div class="text-xs leading-relaxed space-y-3 text-slate-800">
+            <h4 class="font-bold text-slate-900 text-xs">
+              1. Hamming Distance (Point Mutations)
+            </h4>
+            <p>
+              The <strong>Hamming Distance</strong> counts the number of
+              positions at which two sequences of equal length differ. In
+              biology, it directly represents point mutations (nucleotide
+              substitutions) without any insertions or deletions. For sequences
+              $S_1$ and $S_2$ comparing up to $L = \min(|S_1|, |S_2|)$, it is
+              formulated as:
+            </p>
+            <div
+              class="bg-slate-50 p-3 border border-slate-200 rounded-sm font-mono text-center my-2 text-xs"
+            >
+              $$d_H(S_1, S_2) = \sum_{i=0}^{L-1} \delta(S_1[i], S_2[i]) \quad
+              \text{where } \delta(a,b) = \begin{cases} 0 & a = b \\ 1 & a \neq
+              b \end{cases}$$
+            </div>
+
+            <h4 class="font-bold text-slate-900 text-xs">
+              2. Levenshtein Distance (Edit Distance)
+            </h4>
+            <p>
+              The <strong>Levenshtein Distance</strong> measures the minimum
+              number of single-character operations (insertions, deletions, or
+              substitutions) required to transform sequence $S_1$ into $S_2$.
+              Unlike Hamming, Levenshtein distance handles alignments of
+              different lengths. We solve it via dynamic programming:
+            </p>
+            <div
+              class="bg-slate-50 p-3 border border-slate-200 rounded-sm font-mono text-center my-2 text-xs"
+            >
+              $$D_{i, j} = \begin{cases} D_{i-1, j-1} & \text{if } S_1[i-1] =
+              S_2[j-1] \\ \min \begin{cases} D_{i-1, j} + 1 & \text{(Deletion)}
+              \\ D_{i, j-1} + 1 & \text{(Insertion)} \\ D_{i-1, j-1} + 1 &
+              \text{(Substitution)} \end{cases} & \text{otherwise} \end{cases}$$
+            </div>
+
+            <h4 class="font-bold text-slate-900 text-xs">
+              3. Algorithmic Complexity Comparison
+            </h4>
+            <ul class="list-disc pl-5 space-y-1.5 mb-2">
+              <li>
+                <strong>Hamming:</strong> Time complexity $\mathcal{O}(L)$ and
+                Space complexity $\mathcal{O}(1)$ as it runs in a single
+                sequential pass without building a 2D matrix.
+              </li>
+              <li>
+                <strong>Levenshtein:</strong> Time complexity $\mathcal{O}(n
+                \cdot m)$ and Space complexity $\mathcal{O}(n \cdot m)$ to
+                compute and store the 2D grid of subproblems.
+              </li>
+            </ul>
+
+            <h4 class="font-bold text-slate-900 text-xs">
+              4. Python Code Implementations
+            </h4>
+            <p>Here is how to compute both distance metrics in Python:</p>
+
+            <p class="font-semibold text-slate-700 text-[11px] mb-1">
+              Hamming Distance (Point Mutations):
+            </p>
+            <div class="relative group">
+              <button
+                onclick="
+                  navigator.clipboard.writeText(
+                    this.nextElementSibling.innerText,
+                  );
+                  this.textContent = 'Copied!';
+                  setTimeout(() => (this.textContent = 'Copy'), 2000);
+                "
+                class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-sm text-[9px] font-bold tracking-wide transition-all duration-150 shadow-sm cursor-pointer select-none"
+              >
+                Copy
+              </button>
+              <pre
+                class="bg-slate-55 border border-slate-200 text-slate-700 p-3.5 pr-12 rounded-sm font-mono text-[10px] overflow-x-auto leading-relaxed"
+              ><span class="text-pink-600">def</span> <span class="text-sky-600">hamming_distance</span>(seq1, seq2):
     <span class="text-pink-605"># Hamming requires equal lengths</span>
     <span class="text-pink-600">if</span> <span class="text-sky-600">len</span>(seq1) != <span class="text-sky-600">len</span>(seq2):
         <span class="text-pink-600">raise</span> <span class="text-emerald-600">ValueError</span>(<span class="text-teal-700">"Sequences must be of equal length"</span>)
@@ -302,12 +576,27 @@
             distance += <span class="text-orange-600">1</span>
             
     <span class="text-pink-600">return</span> distance</pre>
-          </div>
+            </div>
 
-          <p class="font-semibold text-slate-700 text-[11px] mt-3 mb-1">Levenshtein Edit Distance (Dynamic Programming):</p>
-          <div class="relative group">
-            <button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); this.textContent = 'Copied!'; setTimeout(() => this.textContent = 'Copy', 2000)" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-sm text-[9px] font-bold tracking-wide transition-all duration-150 shadow-sm cursor-pointer select-none">Copy</button>
-            <pre class="bg-slate-55 border border-slate-200 text-slate-700 p-3.5 pr-12 rounded-sm font-mono text-[10px] overflow-x-auto leading-relaxed"><span class="text-pink-600">def</span> <span class="text-sky-600">levenshtein_distance</span>(seq1, seq2):
+            <p class="font-semibold text-slate-700 text-[11px] mt-3 mb-1">
+              Levenshtein Edit Distance (Dynamic Programming):
+            </p>
+            <div class="relative group">
+              <button
+                onclick="
+                  navigator.clipboard.writeText(
+                    this.nextElementSibling.innerText,
+                  );
+                  this.textContent = 'Copied!';
+                  setTimeout(() => (this.textContent = 'Copy'), 2000);
+                "
+                class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-sm text-[9px] font-bold tracking-wide transition-all duration-150 shadow-sm cursor-pointer select-none"
+              >
+                Copy
+              </button>
+              <pre
+                class="bg-slate-55 border border-slate-200 text-slate-700 p-3.5 pr-12 rounded-sm font-mono text-[10px] overflow-x-auto leading-relaxed"
+              ><span class="text-pink-600">def</span> <span class="text-sky-600">levenshtein_distance</span>(seq1, seq2):
     n, m = <span class="text-sky-600">len</span>(seq1), <span class="text-sky-600">len</span>(seq2)
     <span class="text-slate-500 italic"># Initialize 2D DP matrix</span>
     dp = [[<span class="text-orange-600">0</span> <span class="text-pink-605">for</span> _ <span class="text-pink-605">in</span> <span class="text-sky-600">range</span>(m + <span class="text-orange-600">1</span>)] <span class="text-pink-605">for</span> _ <span class="text-pink-605">in</span> <span class="text-sky-600">range</span>(n + <span class="text-orange-600">1</span>)]
@@ -331,31 +620,30 @@
                 )
                 
     <span class="text-pink-650">return</span> dp[n][m]</pre>
+            </div>
           </div>
-        </div>
-      </section>
-    </main>
+        </section>
+      </main>
+    </div>
 
-  </div>
-
-  <script src="../src/app.js"></script>
-  <script src="../src/distances.js"></script>
-  <script>
-    // Collapsible Sidebar logic
-    const sidebar = document.getElementById("sidebar");
-    const toggleBtn = document.getElementById("sidebar-toggle");
-    if (sidebar && toggleBtn) {
-      toggleBtn.addEventListener("click", () => {
-        sidebar.classList.toggle("sidebar-collapsed");
-        if (sidebar.classList.contains("sidebar-collapsed")) {
-          toggleBtn.innerHTML = "&rsaquo;";
-          toggleBtn.style.left = "0.25rem";
-        } else {
-          toggleBtn.innerHTML = "&lsaquo;";
-          toggleBtn.style.left = "19.25rem";
-        }
-      });
-    }
-  </script>
-</body>
+    <script src="../src/app.js"></script>
+    <script src="../src/distances.js"></script>
+    <script>
+      // Collapsible Sidebar logic
+      const sidebar = document.getElementById("sidebar");
+      const toggleBtn = document.getElementById("sidebar-toggle");
+      if (sidebar && toggleBtn) {
+        toggleBtn.addEventListener("click", () => {
+          sidebar.classList.toggle("sidebar-collapsed");
+          if (sidebar.classList.contains("sidebar-collapsed")) {
+            toggleBtn.innerHTML = "&rsaquo;";
+            toggleBtn.style.left = "0.25rem";
+          } else {
+            toggleBtn.innerHTML = "&lsaquo;";
+            toggleBtn.style.left = "19.25rem";
+          }
+        });
+      }
+    </script>
+  </body>
 </html>

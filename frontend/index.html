@@ -4,9 +4,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- Primary SEO Meta Tags -->
-    <title>Bioinformatics Docs &amp; Algorithm Dashboard</title>
-    <meta name="description" content="An interactive web dashboard and Python library for bioinformatics. Run sequence alignments (Needleman-Wunsch, Smith-Waterman), analyze distance metrics (Levenshtein, Hamming), and stream FASTA files." />
-    <meta name="keywords" content="bioinformatics, sequence alignment, needleman-wunsch, smith-waterman, fasta parser, levenshtein distance, hamming distance, DNA transformation, codon translation" />
+    <title>Bioinformatics Algorithm Explorer — Interactive Learning Dashboard</title>
+    <meta name="description" content="An interactive bioinformatics learning platform. Visualize sequence alignments (Needleman-Wunsch, Smith-Waterman), explore k-mer frequency spectra, build suffix arrays, traverse trie trees, and understand the central dogma — all in the browser." />
+    <meta name="keywords" content="bioinformatics, sequence alignment, needleman-wunsch, smith-waterman, fasta parser, levenshtein distance, hamming distance, DNA transcription, codon translation, k-mer analysis, suffix array, trie, prefix tree, dot plot, motif finder" />
     <meta name="author" content="ChakradhwajB" />
 
     <!-- Open Graph / Facebook -->
@@ -209,46 +209,46 @@
           <div class="space-y-1">
             <span
               class="block font-mono text-[9px] text-slate-500 uppercase tracking-wider font-bold"
-              >01 / Alignment Models</span
+              >01 / DP Alignment</span
             >
             <h4
               class="text-[11px] font-bold text-slate-800 uppercase tracking-wider"
             >
-              Homology Matching
+              Global & Local Alignment
             </h4>
             <p class="text-[11px] text-slate-700 leading-relaxed">
-              Global Needleman-Wunsch and local Smith-Waterman dynamic
-              programming implementations with traceback path states.
+              Needleman-Wunsch and Smith-Waterman DP matrices with animated
+              traceback path reconstruction.
             </p>
           </div>
           <div class="space-y-1">
             <span
               class="block font-mono text-[9px] text-slate-500 uppercase tracking-wider font-bold"
-              >02 / Distance Metrics</span
+              >02 / Pattern Indexing</span
             >
             <h4
               class="text-[11px] font-bold text-slate-800 uppercase tracking-wider"
             >
-              Sequence Distances
+              Trie & Suffix Arrays
             </h4>
             <p class="text-[11px] text-slate-700 leading-relaxed">
-              Empirical mutation metrics including Hamming distance and
-              Levenshtein edit distance with visual cell inspectors.
+              Multi-pattern trie search and binary-searchable suffix arrays
+              for genome-scale lookups.
             </p>
           </div>
           <div class="space-y-1">
             <span
               class="block font-mono text-[9px] text-slate-500 uppercase tracking-wider font-bold"
-              >03 / Translation & Search</span
+              >03 / Central Dogma</span
             >
             <h4
               class="text-[11px] font-bold text-slate-800 uppercase tracking-wider"
             >
-              Sequence Transformations
+              DNA → RNA → Protein
             </h4>
             <p class="text-[11px] text-slate-700 leading-relaxed">
-              Watson-Crick complements, transcription, translation operations,
-              and sliding-window motif maps.
+              Transcription, reverse complement, codon translation, and
+              k-mer frequency spectra from raw FASTA input.
             </p>
           </div>
         </div>
@@ -445,17 +445,17 @@
           >
             Bioinformatics<br class="hidden lg:block" />
             Algorithms<br class="hidden lg:block" />
-            Library
+            Visualized
           </h1>
           <p
             class="text-[12px] text-slate-600 max-w-xs leading-relaxed tracking-tighter"
-          >A modular, browser-based toolkit for computing alignments, edit distances, and core genetic operations
+          >Interactive learning platform for core bioinformatics: from FASTA file parsing and Central Dogma operations to complex Dynamic Programming alignments and genome indexing structures.
           </p>
           <a
             href="#directory"
             class="px-5 py-3 bg-slate-900 hover:bg-black text-white text-[10px] font-bold uppercase tracking-wider transition-colors duration-500 ease-in-out rounded-sm shadow-xl select-none"
           >
-            Modules &darr;
+            Explore Modules &darr;
           </a>
         </div>
       </div>
@@ -463,35 +463,35 @@
         <!-- Complexity Analysis Statement (Bolder & Hyperlinked) -->
         <div class="w-full text-center py-4 border-t border-slate-100 select-none">
           <a href="./pages/docs.html#benchmarks/analysis_report.md" class="text-[10px] font-bold text-slate-500 uppercase tracking-widest leading-relaxed hover:text-slate-900 transition-colors">
-            Complexity benchmarks and runtime performance analysis logged in <span class="text-indigo-650 hover:underline font-black">active reference manuals &rarr;</span>
+            Performance benchmarks and algorithm complexity analysis logged in <span class="text-indigo-650 hover:underline font-black">active reference manuals &rarr;</span>
           </a>
         </div>
 
         <!-- Project Stats Grid -->
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 py-6 border-t border-slate-100 w-full max-w-6xl mx-auto select-none">
           <div class="border-l-2 border-slate-900 pl-4 py-1">
-            <span class="block text-2xl font-black text-slate-950 tracking-tight leading-none">10</span>
-            <span class="block text-[8px] font-bold text-slate-400 uppercase tracking-wider mt-2">Algorithms Implemented</span>
+            <span class="block text-2xl font-black text-slate-950 tracking-tight leading-none">9</span>
+            <span class="block text-[8px] font-bold text-slate-400 uppercase tracking-wider mt-2">Interactive Modules</span>
           </div>
           <div class="border-l-2 border-slate-900 pl-4 py-1">
-            <span class="block text-2xl font-black text-slate-950 tracking-tight leading-none">15</span>
-            <span class="block text-[8px] font-bold text-slate-400 uppercase tracking-wider mt-2">Documentation Pages</span>
+            <span class="block text-2xl font-black text-slate-950 tracking-tight leading-none">5</span>
+            <span class="block text-[8px] font-bold text-slate-400 uppercase tracking-wider mt-2">Core Pathways</span>
           </div>
           <div class="border-l-2 border-slate-900 pl-4 py-1">
-            <span class="block text-2xl font-black text-slate-950 tracking-tight leading-none">18</span>
-            <span class="block text-[8px] font-bold text-slate-400 uppercase tracking-wider mt-2">Unit Tests</span>
+            <span class="block text-2xl font-black text-slate-950 tracking-tight leading-none">8</span>
+            <span class="block text-[8px] font-bold text-slate-400 uppercase tracking-wider mt-2">REST API Endpoints</span>
           </div>
           <div class="border-l-2 border-slate-900 pl-4 py-1">
-            <span class="block text-2xl font-black text-slate-950 tracking-tight leading-none">11</span>
-            <span class="block text-[8px] font-bold text-slate-400 uppercase tracking-wider mt-2">API Endpoints</span>
+            <span class="block text-2xl font-black text-slate-950 tracking-tight leading-none">12</span>
+            <span class="block text-[8px] font-bold text-slate-400 uppercase tracking-wider mt-2">Reference Docs</span>
           </div>
           <div class="border-l-2 border-slate-900 pl-4 py-1">
-            <span class="block text-2xl font-black text-slate-950 tracking-tight leading-none">10k+</span>
+            <span class="block text-2xl font-black text-slate-950 tracking-tight leading-none">5k+</span>
             <span class="block text-[8px] font-bold text-slate-400 uppercase tracking-wider mt-2">Benchmark Iterations</span>
           </div>
           <div class="border-l-2 border-slate-900 pl-4 py-1">
-            <span class="block text-2xl font-black text-slate-950 tracking-tight leading-none">100%</span>
-            <span class="block text-[8px] font-bold text-slate-400 uppercase tracking-wider mt-2">Benchmark Coverage</span>
+            <span class="block text-2xl font-black text-slate-950 tracking-tight leading-none">Python</span>
+            <span class="block text-[8px] font-bold text-slate-400 uppercase tracking-wider mt-2">Backend Runtime</span>
           </div>
         </div>
       </section>
@@ -506,13 +506,14 @@
         <div>
           <span
             class="text-[9px] font-bold text-slate-400 uppercase tracking-widest"
-            >Curriculum Pathway</span
+            >Structured Curriculum — 5 Modules</span
           >
           <h2
             class="text-base font-bold text-slate-900 uppercase tracking-wider"
           >
-            Learning Modules
+            Algorithm Explorer
           </h2>
+          <p class="text-[11px] text-slate-500 mt-0.5">Explore bioinformatics through interactive modules with live visualizations and Python implementations.</p>
         </div>
 
         <div class="w-full md:w-80">
@@ -534,10 +535,10 @@
         <div class="flex flex-col md:flex-row justify-between items-center mb-3">
           <div>
             <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Your Learning Pathway Progress</h3>
-            <p class="text-[11px] text-slate-500">Track your journey through the five core bioinformatics modules.</p>
+            <p class="text-[11px] text-slate-500">Track your progress through core bioinformatics modules.</p>
           </div>
           <div class="flex items-center space-x-4 mt-2 md:mt-0">
-            <span id="progress-count-text" class="text-[11px] font-bold text-slate-655 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded-sm uppercase tracking-wider">0/10 Completed</span>
+            <span id="progress-count-text" class="text-[11px] font-bold text-slate-655 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded-sm uppercase tracking-wider">0/9 Completed</span>
             <span id="progress-text" class="text-xs font-black text-indigo-600">0%</span>
           </div>
         </div>
@@ -552,9 +553,9 @@
           <div class="border-b border-slate-200 pb-2">
             <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Step 01 / Foundations</span>
             <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider">
-              Module 1: Foundations (I/O & Basic Genetics)
+              Module 1: Biological Data & The Central Dogma
             </h2>
-            <p class="text-[11px] text-slate-500">Get comfortable with biological data formats, parsing, validation, and basic genetic transformations.</p>
+            <p class="text-[11px] text-slate-500">Start here. Learn how genomic data is stored in FASTA format, how DNA is transcribed into RNA, and how ribosomes translate codons into protein peptides.</p>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- FASTA File IO -->
@@ -568,14 +569,12 @@
                     class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
                     >Data IO</span
                   >
-                  <span class="text-[9px] font-mono text-slate-400 font-semibold"
-                    >FASTA Parser</span
-                  >
+                  <span class="text-[9px] font-semibold text-emerald-600 uppercase">Easy</span>
                 </div>
                 <h3
                   class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center justify-between"
                 >
-                  FASTA File IO
+                  FASTA File I/O
                   <span id="check-io-html" class="hidden text-emerald-500">
                     <svg class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
@@ -583,7 +582,7 @@
                   </span>
                 </h3>
                 <p class="text-xs text-slate-500 leading-relaxed">
-                  Parses biological sequence files on the server and displays parsed header records and base counts.
+                  Stream, parse, and validate FASTA records. Export data as JSON, extract sequence statistics, and handle multi-record inputs.
                 </p>
                 <div
                   class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
@@ -610,14 +609,12 @@
                     class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
                     >Genetics</span
                   >
-                  <span class="text-[9px] font-mono text-slate-400 font-semibold"
-                    >O(n) linear</span
-                  >
+                  <span class="text-[9px] font-semibold text-emerald-600 uppercase">Easy</span>
                 </div>
                 <h3
                   class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center justify-between"
                 >
-                  Genetics Workbench
+                  Central Dogma Workbench
                   <span id="check-genetics-html" class="hidden text-emerald-500">
                     <svg class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
@@ -625,7 +622,7 @@
                   </span>
                 </h3>
                 <p class="text-xs text-slate-500 leading-relaxed">
-                  Applies Watson-Crick DNA complement mappings, RNA transcriptions, and codon triplet protein translations.
+                  Step through Watson-Crick reverse complementation, transcription (T→U), and translation into peptide chains.
                 </p>
                 <div
                   class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
@@ -648,9 +645,9 @@
           <div class="border-b border-slate-200 pb-2">
             <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Step 02 / Sequence Analysis</span>
             <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider">
-              Module 2: Pattern Recognition (K-mers & Motifs)
+              Module 2: K-mer Spectra & Motif Search
             </h2>
-            <p class="text-[11px] text-slate-500">Introduce substring analysis, k-mer frequency distributions, and search motifs on long sequence maps.</p>
+            <p class="text-[11px] text-slate-500">Analyze the frequency landscape of overlapping substrings (k-mers) and locate specific regulatory motif sequences within genome-length reads using sliding window scans.</p>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- K-mer Profiler -->
@@ -664,14 +661,12 @@
                     class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
                     >Analysis</span
                   >
-                  <span class="text-[9px] font-mono text-slate-400 font-semibold"
-                    >O(n*k) sliding</span
-                  >
+                  <span class="text-[9px] font-semibold text-amber-600 uppercase">Medium</span>
                 </div>
                 <h3
                   class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center justify-between"
                 >
-                  K-mer Profiler
+                  K-mer Frequency Profiler
                   <span id="check-kmers-html" class="hidden text-emerald-500">
                     <svg class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
@@ -679,7 +674,7 @@
                   </span>
                 </h3>
                 <p class="text-xs text-slate-500 leading-relaxed">
-                  Extracts overlapping substrings of size k, computes their frequencies, and generates live distribution histograms.
+                  Slide a window of size k to compute frequency distributions. A live histogram reveals dominant motifs and sequence complexity.
                 </p>
                 <div
                   class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
@@ -706,9 +701,7 @@
                     class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
                     >Search</span
                   >
-                  <span class="text-[9px] font-mono text-slate-400 font-semibold"
-                    >O(n) find</span
-                  >
+                  <span class="text-[9px] font-semibold text-amber-600 uppercase">Medium</span>
                 </div>
                 <h3
                   class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center justify-between"
@@ -721,7 +714,7 @@
                   </span>
                 </h3>
                 <p class="text-xs text-slate-500 leading-relaxed">
-                  Locates sequence patterns (motifs) and visualizes density hotspots on a scrolling canvas track.
+                  Search for regulatory motifs. Occurrences are pinned on a density heatmap scrollbar for spatial navigation and genomic annotation.
                 </p>
                 <div
                   class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
@@ -742,11 +735,11 @@
         <!-- Module 3: Sequence Comparison Basics -->
         <div class="space-y-4">
           <div class="border-b border-slate-200 pb-2">
-            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Step 03 / Visual Alignment & Distance</span>
+            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Step 03 / Pairwise Comparison</span>
             <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider">
-              Module 3: Sequence Comparison Basics
+              Module 3: Dot Plots & Edit Distance
             </h2>
-            <p class="text-[11px] text-slate-500">Observe pairwise matches visually with sliding window dot plots and compute formal edit distance matrices.</p>
+            <p class="text-[11px] text-slate-500">Visually compare two sequences using sliding-window dot plot matrices, then quantify divergence with Hamming point-mutation counts and Levenshtein dynamic programming edit grids.</p>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Dot Plot Visualizer -->
@@ -760,9 +753,7 @@
                     class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
                     >Comparison</span
                   >
-                  <span class="text-[9px] font-mono text-slate-400 font-semibold"
-                    >O(nm) matrix</span
-                  >
+                  <span class="text-[9px] font-semibold text-emerald-600 uppercase">Easy</span>
                 </div>
                 <h3
                   class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center justify-between"
@@ -775,7 +766,7 @@
                   </span>
                 </h3>
                 <p class="text-xs text-slate-500 leading-relaxed">
-                  Plots pairwise matching grids with sliding window and threshold settings to identify repeats and inversions.
+                  Identify conserved regions via diagonal streaks on a 2D matrix. Adjustable window size and match thresholds filter background noise.
                 </p>
                 <div
                   class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
@@ -802,9 +793,7 @@
                     class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
                     >Comparison</span
                   >
-                  <span class="text-[9px] font-mono text-slate-400 font-semibold"
-                    >O(nm) edit</span
-                  >
+                  <span class="text-[9px] font-semibold text-amber-600 uppercase">Medium</span>
                 </div>
                 <h3
                   class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center justify-between"
@@ -817,7 +806,7 @@
                   </span>
                 </h3>
                 <p class="text-xs text-slate-500 leading-relaxed">
-                  Calculates positional Hamming mismatch distance and Levenshtein edit distance grids.
+                  Compute Hamming and Levenshtein edit distances. Visualize dynamic programming grids with minimum-cost indel/substitution path maps.
                 </p>
                 <div
                   class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
@@ -838,11 +827,11 @@
         <!-- Module 4: Dynamic Programming & Alignments -->
         <div class="space-y-4">
           <div class="border-b border-slate-200 pb-2">
-            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Step 04 / Advanced DP Alignments</span>
+            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Step 04 / Dynamic Programming Alignments</span>
             <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider">
-              Module 4: Dynamic Programming & Alignments
+              Module 4: Global & Local Sequence Alignment
             </h2>
-            <p class="text-[11px] text-slate-500">Master global and local sequence alignments using dynamic programming tables with cell traceback paths.</p>
+            <p class="text-[11px] text-slate-500">Apply dynamic programming to optimally align two biological sequences. Use Needleman-Wunsch for end-to-end global alignment of homologous genes, or Smith-Waterman for local alignment of conserved domains within larger sequences.</p>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Needleman-Wunsch -->
@@ -856,9 +845,7 @@
                     class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
                     >Alignment</span
                   >
-                  <span class="text-[9px] font-mono text-slate-400 font-semibold"
-                    >O(nm) time</span
-                  >
+                  <span class="text-[9px] font-semibold text-rose-600 uppercase">Hard</span>
                 </div>
                 <h3
                   class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center justify-between"
@@ -871,7 +858,7 @@
                   </span>
                 </h3>
                 <p class="text-xs text-slate-500 leading-relaxed">
-                  Computes global alignment between two sequences with cell score parameters and playback tracer controls.
+                  Perform end-to-end global alignment. Includes animated traceback path reconstruction to visualize the optimal sequence match across the matrix.
                 </p>
                 <div
                   class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
@@ -898,9 +885,7 @@
                     class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
                     >Alignment</span
                   >
-                  <span class="text-[9px] font-mono text-slate-400 font-semibold"
-                    >O(nm) time</span
-                  >
+                  <span class="text-[9px] font-semibold text-rose-600 uppercase">Hard</span>
                 </div>
                 <h3
                   class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center justify-between"
@@ -913,7 +898,7 @@
                   </span>
                 </h3>
                 <p class="text-xs text-slate-500 leading-relaxed">
-                  Locates optimal local matches, highlighting alignment regions, trace routes, and cell metrics.
+                  Identify the most similar local sub-regions. Includes zero-score thresholds and terminated traceback logic to isolate high-scoring domains.
                 </p>
                 <div
                   class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
@@ -928,20 +913,17 @@
                 Launch Module &rarr;
               </a>
             </div>
-
-
-            
           </div>
         </div>
 
         <!-- Module 5: Indexing Data Structures -->
         <div class="space-y-4">
           <div class="border-b border-slate-200 pb-2">
-            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Step 05 / Indexing & Search</span>
+            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Step 05 / Genome Indexing</span>
             <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider">
-              Module 5: Indexing Data Structures
+              Module 5: Trie Search & Suffix Arrays
             </h2>
-            <p class="text-[11px] text-slate-500">Query and index target genomes efficiently using Trie (Prefix Tree) multi-pattern lookups and Suffix Array binary searches.</p>
+            <p class="text-[11px] text-slate-500">Scale up pattern matching to genome-length texts with efficient indexing data structures. Build a Trie for simultaneous multi-pattern queries, or a Suffix Array for binary-search-based substring lookup in $\mathcal{O}(L \log N)$ time.</p>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Trie Multi-Search -->
@@ -955,14 +937,12 @@
                     class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
                     >Indexing</span
                   >
-                  <span class="text-[9px] font-mono text-slate-400 font-semibold"
-                    >O(L) insert/search</span
-                  >
+                  <span class="text-[9px] font-semibold text-rose-600 uppercase">Hard</span>
                 </div>
                 <h3
                   class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center justify-between"
                 >
-                  Trie Multi-Search
+                  Trie Multi-Pattern Search
                   <span id="check-trie-html" class="hidden text-emerald-500">
                     <svg class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
@@ -970,12 +950,12 @@
                   </span>
                 </h3>
                 <p class="text-xs text-slate-500 leading-relaxed">
-                  Performs concurrent search of multiple genomic patterns in a single pass scanner using a prefix tree.
+                  Insert patterns into a prefix tree. Visualize traversal paths and simultaneous multi-pattern matching in real-time.
                 </p>
                 <div
                   class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
                 >
-                  $$\text{Depth}_{\text{node}} = \text{Len}(\text{Prefix})$$
+                  $$\text{Query time: } \mathcal{O}(L) \text{ per pattern}$$
                 </div>
               </div>
               <a
@@ -997,14 +977,12 @@
                     class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
                     >Indexing</span
                   >
-                  <span class="text-[9px] font-mono text-slate-400 font-semibold"
-                    >O(L log N) search</span
-                  >
+                  <span class="text-[9px] font-semibold text-rose-600 uppercase">Hard</span>
                 </div>
                 <h3
                   class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center justify-between"
                 >
-                  Suffix Array Search
+                  Suffix Array + Binary Search
                   <span id="check-suffix_array-html" class="hidden text-emerald-500">
                     <svg class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
@@ -1012,12 +990,12 @@
                   </span>
                 </h3>
                 <p class="text-xs text-slate-500 leading-relaxed">
-                  Generates lexicographically sorted suffixes and queries pattern matching boundaries using binary search.
+                  Index genome suffixes in lexicographical order. Perform high-performance binary search lookups for arbitrary sequence matches.
                 </p>
                 <div
                   class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
                 >
-                  $$\text{SA}[i] = \text{Offset of } i\text{-th sorted suffix}$$
+                  $$\text{SA}[i] = \text{rank of } i\text{-th sorted suffix}$$
                 </div>
               </div>
               <a
@@ -1050,10 +1028,10 @@
                 <h3
                   class="text-xs font-bold text-slate-900 uppercase tracking-wider"
                 >
-                  Reference Manuals & Docs
+                  API Reference & Documentation
                 </h3>
                 <p class="text-xs text-slate-500 leading-relaxed">
-                  Browse live developer manuals, math equations, performance benchmarks, and analysis reports.
+                  Browse the full Python library API reference, endpoint signatures, algorithm complexity notes, benchmark reports, and mathematical derivations — all rendered live from Markdown with KaTeX.
                 </p>
                 <div
                   class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"

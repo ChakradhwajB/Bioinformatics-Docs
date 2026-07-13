@@ -315,6 +315,9 @@
   .left-1\/2 {
     left: calc(1 / 2 * 100%);
   }
+  .isolate {
+    isolation: isolate;
+  }
   .-z-10 {
     z-index: calc(10 * -1);
   }
