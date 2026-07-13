@@ -43,4 +43,17 @@ __all__ = [
     "GenerateKmers",
     "CountKmers",
     "MostFrequentKmers",
+    "TrieNode",
+    "Trie",
+    "FindPatterns",
+    "BuildSuffixArray",
+    "BinarySearchPattern",
 ]
+
+from .indexing import (
+    TrieNode,
+    Trie,
+    FindPatterns,
+    BuildSuffixArray,
+    BinarySearchPattern,
+)

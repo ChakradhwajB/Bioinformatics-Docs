@@ -101,39 +101,61 @@
     <!-- Left Sidebar (Inputs & Controls) -->
     <aside id="sidebar" class="w-80 bg-slate-55 border-r border-slate-200 p-4 flex flex-col justify-between overflow-y-auto select-none transition-all duration-300 shrink-0">
       <div class="space-y-4">
-        
         <!-- Tool Navigation list -->
         <div>
-          <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Modules List</span>
-          <nav class="space-y-0.5">
-            <a href="./needleman_wunsch.html" class="block px-2.5 py-1.5 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">
-              Needleman-Wunsch Global
-            </a>
-            <a href="./smith_waterman.html" class="block px-2.5 py-1.5 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">
-              Smith-Waterman Local
-            </a>
-            <a href="./distances.html" class="block px-2.5 py-1.5 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">
-              Sequence Distances
-            </a>
-            <a href="./find_motif.html" class="block px-2.5 py-1.5 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">
-              Motif Finder
-            </a>
-            <a href="./dot_plot.html" class="block px-2.5 py-1.5 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">
-              Dot Plot Visualizer
-            </a>
-            <a href="./genetics.html" class="block px-2.5 py-1.5 text-[11px] font-semibold rounded-sm text-indigo-650 bg-indigo-50 border-l-2 border-indigo-500 transition-colors">
-              Genetics Workbench
-            </a>
-            <a href="./kmers.html" class="block px-2.5 py-1.5 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">
-              K-mer Profiler
-            </a>
-            <a href="./io.html" class="block px-2.5 py-1.5 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">
-              FASTA File IO
-            </a>
-            <a href="./docs.html" class="block px-2.5 py-1.5 text-xs font-bold rounded-sm text-indigo-600 hover:bg-slate-200 transition-colors">Documentation &rarr;</a>
-          </nav>
-        </div>
+          <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Curriculum Pathways</span>
+          
+          <div class="space-y-3">
+            <!-- Module 1 -->
+            <div class="space-y-0.5">
+              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 1: Foundations</span>
+              <a href="./io.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">FASTA File IO</a>
+              <a href="./genetics.html" class="block px-2.5 py-1.5 text-[11px] font-semibold rounded-sm text-indigo-650 bg-indigo-50 border-l-2 border-indigo-500 transition-colors">Genetics Workbench</a>
+            </div>
 
+            <!-- Module 2 -->
+            <div class="space-y-0.5">
+              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 2: Patterns</span>
+              <a href="./kmers.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">K-mer Profiler</a>
+              <a href="./find_motif.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Motif Finder</a>
+            </div>
+
+            <!-- Module 3 -->
+            <div class="space-y-0.5">
+              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 3: Comparisons</span>
+              <a href="./dot_plot.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Dot Plot Visualizer</a>
+              <a href="./distances.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Sequence Distances</a>
+            </div>
+            <!-- Module 4 -->
+            <div class="space-y-0.5">
+              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 4: Alignments</span>
+              <a href="./needleman_wunsch.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Needleman-Wunsch Global</a>
+              <a href="./smith_waterman.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Smith-Waterman Local</a>
+            </div>
+
+            <!-- Module 5 -->
+            <div class="space-y-0.5">
+              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 5: Indexing</span>
+              <a href="./trie.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Trie Multi-Search</a>
+              <a href="./suffix_array.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Suffix Array Search</a>
+            </div>
+            <!-- Reference -->
+            <div class="space-y-0.5 pt-1 border-t border-slate-200">
+              <a href="./docs.html" class="block px-2 py-1 text-[11px] font-bold text-indigo-600 hover:bg-slate-200 transition-colors">Documentation &rarr;</a>
+            </div>
+
+            <!-- Module Progress Control -->
+            <div class="pt-3 border-t border-slate-200 select-none">
+              <label class="flex items-center space-x-2.5 cursor-pointer bg-white hover:bg-slate-50 border border-slate-200 rounded p-2.5 shadow-sm transition-colors duration-150">
+                <input type="checkbox" id="page-complete-checkbox" class="h-4 w-4 rounded border-slate-300 text-indigo-650 focus:ring-indigo-500 cursor-pointer" />
+                <div class="flex flex-col">
+                  <span class="text-[10px] font-bold text-slate-800 uppercase tracking-wide">Mark Completed</span>
+                  <span class="text-[8px] text-slate-400">Save progress in your pathway</span>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
         <div class="border-t border-slate-200 pt-3">
           <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Source Strand</label>
           <textarea id="sequence-input" rows="3" class="w-full font-mono text-xs px-3 py-2 border-2 border-slate-200 rounded-sm bg-white uppercase resize-none focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all duration-150" placeholder="Enter DNA/RNA template sequence">AUGGCCAUGGCGCCCUAG</textarea>
@@ -233,6 +255,43 @@
           <p>
             Complementary strands are generated using base-pairing rules ($A \leftrightarrow T$, $C \leftrightarrow G$). The reverse complement reverses the complementary strand direction ($3' \rightarrow 5'$ flipped to $5' \rightarrow 3'$), representing the opposing strand of a double helix.
           </p>
+
+          <h4 class="font-bold text-slate-900 text-xs">4. Python Code Implementations</h4>
+          <p>Here is how to perform transcription, reverse complement, and codon translation in Python:</p>
+
+          <p class="font-semibold text-slate-700 text-[11px] mb-1">DNA Transcription & Reverse Complement:</p>
+          <div class="relative group">
+            <button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); this.textContent = 'Copied!'; setTimeout(() => this.textContent = 'Copy', 2000)" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-sm text-[9px] font-bold tracking-wide transition-all duration-150 shadow-sm cursor-pointer select-none">Copy</button>
+            <pre class="bg-slate-55 border border-slate-200 text-slate-700 p-3.5 pr-12 rounded-sm font-mono text-[10px] overflow-x-auto leading-relaxed"><span class="text-pink-600">def</span> <span class="text-sky-600">transcribe_dna</span>(dna):
+    <span class="text-pink-600">return</span> dna.replace(<span class="text-teal-700">"T"</span>, <span class="text-teal-700">"U"</span>)
+
+<span class="text-pink-600">def</span> <span class="text-sky-600">reverse_complement</span>(dna):
+    complements = {<span class="text-teal-700">"A"</span>: <span class="text-teal-700">"T"</span>, <span class="text-teal-700">"T"</span>: <span class="text-teal-700">"A"</span>, <span class="text-teal-700">"C"</span>: <span class="text-teal-700">"G"</span>, <span class="text-teal-700">"G"</span>: <span class="text-teal-700">"C"</span>}
+    comp_strand = [complements.get(char, char) <span class="text-pink-600">for</span> char <span class="text-pink-600">in</span> dna]
+    <span class="text-pink-600">return</span> <span class="text-sky-605">""</span>.join(comp_strand[::-<span class="text-orange-600">1</span>])</pre>
+          </div>
+
+          <p class="font-semibold text-slate-700 text-[11px] mt-3 mb-1">RNA Translation (Codon mapping):</p>
+          <div class="relative group">
+            <button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); this.textContent = 'Copied!'; setTimeout(() => this.textContent = 'Copy', 2000)" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-sm text-[9px] font-bold tracking-wide transition-all duration-150 shadow-sm cursor-pointer select-none">Copy</button>
+            <pre class="bg-slate-55 border border-slate-200 text-slate-700 p-3.5 pr-12 rounded-sm font-mono text-[10px] overflow-x-auto leading-relaxed">CODON_TABLE = {
+    <span class="text-teal-700">"AUG"</span>: <span class="text-teal-700">"M"</span>, <span class="text-teal-700">"UUU"</span>: <span class="text-teal-700">"F"</span>, <span class="text-teal-700">"UUC"</span>: <span class="text-teal-700">"F"</span>, <span class="text-teal-700">"UUA"</span>: <span class="text-teal-700">"L"</span>, <span class="text-teal-700">"UUG"</span>: <span class="text-teal-700">"L"</span>,
+    <span class="text-teal-700">"UCU"</span>: <span class="text-teal-700">"S"</span>, <span class="text-teal-700">"UCC"</span>: <span class="text-teal-700">"S"</span>, <span class="text-teal-700">"UCA"</span>: <span class="text-teal-700">"S"</span>, <span class="text-teal-700">"UCG"</span>: <span class="text-teal-700">"S"</span>, <span class="text-teal-700">"UAU"</span>: <span class="text-teal-700">"Y"</span>,
+    <span class="text-teal-700">"UAC"</span>: <span class="text-teal-700">"Y"</span>, <span class="text-teal-700">"UGU"</span>: <span class="text-teal-700">"C"</span>, <span class="text-teal-700">"UGC"</span>: <span class="text-teal-700">"C"</span>, <span class="text-teal-700">"UGG"</span>: <span class="text-teal-700">"W"</span>,
+    <span class="text-teal-700">"UAA"</span>: <span class="text-teal-700">"Stop"</span>, <span class="text-teal-700">"UAG"</span>: <span class="text-teal-700">"Stop"</span>, <span class="text-teal-700">"UGA"</span>: <span class="text-teal-700">"Stop"</span>
+    <span class="text-slate-500 italic"># ... other codons mapping ...</span>
+}
+
+<span class="text-pink-600">def</span> <span class="text-sky-600">translate_rna</span>(rna):
+    protein = []
+    <span class="text-pink-600">for</span> i <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(<span class="text-orange-600">0</span>, <span class="text-sky-600">len</span>(rna) - <span class="text-orange-600">2</span>, <span class="text-orange-600">3</span>):
+        codon = rna[i : i + <span class="text-orange-600">3</span>]
+        amino_acid = CODON_TABLE.get(codon, <span class="text-teal-700">"?"</span>)
+        <span class="text-pink-600">if</span> amino_acid == <span class="text-teal-700">"Stop"</span>:
+            <span class="text-pink-600">break</span>
+        protein.append(amino_acid)
+    <span class="text-pink-600">return</span> <span class="text-sky-605">""</span>.join(protein)</pre>
+          </div>
         </div>
       </section>
     </main>

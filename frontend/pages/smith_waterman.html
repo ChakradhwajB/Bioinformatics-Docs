@@ -106,42 +106,63 @@
   <div class="flex-grow flex h-[calc(100vh-45px)] overflow-hidden relative">
     
     <!-- Left Sidebar (Inputs & Controls) -->
-    <!-- Left Sidebar (Inputs & Controls) -->
     <aside id="sidebar" class="w-80 bg-slate-55 border-r border-slate-200 p-4 flex flex-col justify-between overflow-y-auto select-none transition-all duration-300 shrink-0">
       <div class="space-y-4">
-        
         <!-- Tool Navigation list -->
         <div>
-          <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Modules List</span>
-          <nav class="space-y-0.5">
-            <a href="./needleman_wunsch.html" class="block px-2.5 py-1.5 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">
-              Needleman-Wunsch Global
-            </a>
-            <a href="./smith_waterman.html" class="block px-2.5 py-1.5 text-[11px] font-semibold rounded-sm text-indigo-650 bg-indigo-50 border-l-2 border-indigo-500 transition-colors">
-              Smith-Waterman Local
-            </a>
-            <a href="./distances.html" class="block px-2.5 py-1.5 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">
-              Sequence Distances
-            </a>
-            <a href="./find_motif.html" class="block px-2.5 py-1.5 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">
-              Motif Finder
-            </a>
-            <a href="./dot_plot.html" class="block px-2.5 py-1.5 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">
-              Dot Plot Visualizer
-            </a>
-            <a href="./genetics.html" class="block px-2.5 py-1.5 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">
-              Genetics Workbench
-            </a>
-            <a href="./kmers.html" class="block px-2.5 py-1.5 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">
-              K-mer Profiler
-            </a>
-            <a href="./io.html" class="block px-2.5 py-1.5 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">
-              FASTA File IO
-            </a>
-            <a href="./docs.html" class="block px-2.5 py-1.5 text-xs font-bold rounded-sm text-indigo-655 hover:bg-slate-200 transition-colors">Documentation &rarr;</a>
-          </nav>
-        </div>
+          <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Curriculum Pathways</span>
+          
+          <div class="space-y-3">
+            <!-- Module 1 -->
+            <div class="space-y-0.5">
+              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 1: Foundations</span>
+              <a href="./io.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">FASTA File IO</a>
+              <a href="./genetics.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Genetics Workbench</a>
+            </div>
 
+            <!-- Module 2 -->
+            <div class="space-y-0.5">
+              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 2: Patterns</span>
+              <a href="./kmers.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">K-mer Profiler</a>
+              <a href="./find_motif.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Motif Finder</a>
+            </div>
+
+            <!-- Module 3 -->
+            <div class="space-y-0.5">
+              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 3: Comparisons</span>
+              <a href="./dot_plot.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Dot Plot Visualizer</a>
+              <a href="./distances.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Sequence Distances</a>
+            </div>
+            <!-- Module 4 -->
+            <div class="space-y-0.5">
+              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 4: Alignments</span>
+              <a href="./needleman_wunsch.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Needleman-Wunsch Global</a>
+              <a href="./smith_waterman.html" class="block px-2.5 py-1.5 text-[11px] font-semibold rounded-sm text-indigo-650 bg-indigo-50 border-l-2 border-indigo-500 transition-colors">Smith-Waterman Local</a>
+            </div>
+
+            <!-- Module 5 -->
+            <div class="space-y-0.5">
+              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 5: Indexing</span>
+              <a href="./trie.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Trie Multi-Search</a>
+              <a href="./suffix_array.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Suffix Array Search</a>
+            </div>
+            <!-- Reference -->
+            <div class="space-y-0.5 pt-1 border-t border-slate-200">
+              <a href="./docs.html" class="block px-2 py-1 text-[11px] font-bold text-indigo-600 hover:bg-slate-200 transition-colors">Documentation &rarr;</a>
+            </div>
+
+            <!-- Module Progress Control -->
+            <div class="pt-3 border-t border-slate-200 select-none">
+              <label class="flex items-center space-x-2.5 cursor-pointer bg-white hover:bg-slate-50 border border-slate-200 rounded p-2.5 shadow-sm transition-colors duration-150">
+                <input type="checkbox" id="page-complete-checkbox" class="h-4 w-4 rounded border-slate-300 text-indigo-655 focus:ring-indigo-500 cursor-pointer" />
+                <div class="flex flex-col">
+                  <span class="text-[10px] font-bold text-slate-800 uppercase tracking-wide">Mark Completed</span>
+                  <span class="text-[8px] text-slate-400">Save progress in your pathway</span>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
         <div class="border-t border-slate-200 pt-3">
           <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Sequence 1 (Vertical)</label>
           <textarea id="seq1" rows="2" class="w-full font-mono text-xs px-3 py-2 border-2 border-slate-200 rounded-sm bg-white uppercase resize-none focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all duration-150" placeholder="e.g. GATTACA">GATTACA</textarea>
@@ -317,6 +338,56 @@
           <p>
             Time complexity is $\mathcal{O}(n \cdot m)$ since every cell is computed in constant time. Space complexity is $\mathcal{O}(n \cdot m)$ to store the score grid for backtracking.
           </p>
+
+          <h4 class="font-bold text-slate-900 text-xs">4. Python Code Implementations</h4>
+          <p>Here is how to implement the Smith-Waterman local alignment algorithm in Python:</p>
+
+          <p class="font-semibold text-slate-700 text-[11px] mb-1">Smith-Waterman Local Alignment:</p>
+          <div class="relative group">
+            <button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); this.textContent = 'Copied!'; setTimeout(() => this.textContent = 'Copy', 2000)" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-sm text-[9px] font-bold tracking-wide transition-all duration-150 shadow-sm cursor-pointer select-none">Copy</button>
+            <pre class="bg-slate-55 border border-slate-200 text-slate-700 p-3.5 pr-12 rounded-sm font-mono text-[10px] overflow-x-auto leading-relaxed"><span class="text-pink-600">def</span> <span class="text-sky-600">smith_waterman</span>(seq1, seq2, match=<span class="text-orange-600">1</span>, mismatch=-<span class="text-orange-600">1</span>, gap=-<span class="text-orange-600">1</span>):
+    n, m = <span class="text-sky-600">len</span>(seq1), <span class="text-sky-600">len</span>(seq2)
+    <span class="text-slate-500 italic"># Initialize score grid to 0</span>
+    H = [[<span class="text-orange-600">0</span> <span class="text-pink-650">for</span> _ <span class="text-pink-650">in</span> <span class="text-sky-600">range</span>(m + <span class="text-orange-600">1</span>)] <span class="text-pink-650">for</span> _ <span class="text-pink-650">in</span> <span class="text-sky-600">range</span>(n + <span class="text-orange-600">1</span>)]
+    
+    max_score = <span class="text-orange-600">0</span>
+    max_pos = (<span class="text-orange-600">0</span>, <span class="text-orange-600">0</span>)
+    
+    <span class="text-slate-505 italic"># Fill the matrix</span>
+    <span class="text-pink-650">for i in range(1, n + 1):</span>
+        <span class="text-pink-650">for j in range(1, m + 1):</span>
+            sub_score = match <span class="text-pink-650">if</span> seq1[i - <span class="text-orange-600">1</span>] == seq2[j - <span class="text-orange-600">1</span>] <span class="text-pink-650">else</span> mismatch
+            H[i][j] = <span class="text-sky-600">max</span>(
+                <span class="text-orange-600">0</span>,                                  <span class="text-slate-505 italic"># Termination</span>
+                H[i - <span class="text-orange-600">1</span>][j - <span class="text-orange-600">1</span>] + sub_score,  <span class="text-slate-505 italic"># Match/Mismatch</span>
+                H[i - <span class="text-orange-600">1</span>][j] + gap,           <span class="text-slate-505 italic"># Deletion</span>
+                H[i][j - <span class="text-orange-600">1</span>] + gap            <span class="text-slate-505 italic"># Insertion</span>
+            )
+            <span class="text-pink-650">if</span> H[i][j] > max_score:
+                max_score = H[i][j]
+                max_pos = (i, j)
+                
+    <span class="text-slate-505 italic"># Traceback starting from highest scoring cell</span>
+    align1, align2 = [], []
+    i, j = max_pos
+    <span class="text-pink-650">while</span> i > <span class="text-orange-600">0</span> <span class="text-pink-650">and</span> j > <span class="text-orange-600">0</span> <span class="text-pink-650">and</span> H[i][j] > <span class="text-orange-600">0</span>:
+        sub_score = match <span class="text-pink-650">if</span> seq1[i - <span class="text-orange-600">1</span>] == seq2[j - <span class="text-orange-600">1</span>] <span class="text-pink-650">else</span> mismatch
+        <span class="text-pink-650">if</span> H[i][j] == H[i - <span class="text-orange-600">1</span>][j - <span class="text-orange-600">1</span>] + sub_score:
+            align1.append(seq1[i - <span class="text-orange-600">1</span>])
+            align2.append(seq2[j - <span class="text-orange-600">1</span>])
+            i -= <span class="text-orange-600">1</span>
+            j -= <span class="text-orange-600">1</span>
+        <span class="text-pink-650">elif</span> H[i][j] == H[i - <span class="text-orange-600">1</span>][j] + gap:
+            align1.append(seq1[i - <span class="text-orange-600">1</span>])
+            align2.append(<span class="text-teal-700">"-"</span>)
+            i -= <span class="text-orange-600">1</span>
+        <span class="text-pink-650">else:</span>
+            align1.append(<span class="text-teal-700">"-"</span>)
+            align2.append(seq2[j - <span class="text-orange-600">1</span>])
+            j -= <span class="text-orange-600">1</span>
+            
+    <span class="text-pink-650">return</span> <span class="text-sky-605">""</span>.join(align1[::-<span class="text-orange-600">1</span>]), <span class="text-sky-605">""</span>.join(align2[::-<span class="text-orange-600">1</span>])</pre>
+          </div>
         </div>
       </section>
     </main>

@@ -216,66 +216,72 @@
 
         <!-- Navigation Sections -->
         <nav class="space-y-5">
-          <!-- Section: Alignments -->
+          <!-- Module 1: Foundations -->
           <div class="space-y-1">
-            <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-2">Alignments</span>
-            <div class="space-y-0.5">
-              <button onclick="loadDoc('alignments/needleman_wunsch.md', this)" class="w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-sm hover:bg-slate-200 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Needleman-Wunsch</button>
-              <button onclick="loadDoc('alignments/smith_waterman.md', this)" class="w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-sm hover:bg-slate-200 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Smith-Waterman</button>
-              <button onclick="loadDoc('alignments/levenshtein_distance.md', this)" class="w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-sm hover:bg-slate-200 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Levenshtein Distance</button>
-              <button onclick="loadDoc('alignments/hamming_distance.md', this)" class="w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-sm hover:bg-slate-200 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Hamming Distance</button>
-              <button onclick="loadDoc('alignments/dot_plot.md', this)" class="w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-sm hover:bg-slate-200 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Dot Plot Visualizer</button>
+            <span class="block text-[9px] font-bold text-indigo-650 bg-indigo-50/50 px-2 py-0.5 rounded-sm uppercase tracking-wider">Module 1: Foundations</span>
+            <div class="space-y-0.5 pl-1">
+              <button onclick="loadDoc('io/fasta_parse.md', this)" class="w-full text-left px-2.5 py-1 text-[11px] font-semibold rounded-sm hover:bg-slate-205 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">FASTA Parse</button>
+              <button onclick="loadDoc('io/fasta_write.md', this)" class="w-full text-left px-2.5 py-1 text-[11px] font-semibold rounded-sm hover:bg-slate-205 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">FASTA Export</button>
+              <button onclick="loadDoc('io/validate_input.md', this)" class="w-full text-left px-2.5 py-1 text-[11px] font-semibold rounded-sm hover:bg-slate-205 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Input Validation</button>
+              <button onclick="loadDoc('genetics/complement.md', this)" class="w-full text-left px-2.5 py-1 text-[11px] font-semibold rounded-sm hover:bg-slate-205 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Complement Mapping</button>
+              <button onclick="loadDoc('genetics/reverse_complement.md', this)" class="w-full text-left px-2.5 py-1 text-[11px] font-semibold rounded-sm hover:bg-slate-205 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Reverse Complement</button>
+              <button onclick="loadDoc('genetics/transcribe.md', this)" class="w-full text-left px-2.5 py-1 text-[11px] font-semibold rounded-sm hover:bg-slate-205 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Transcription</button>
+              <button onclick="loadDoc('genetics/translate.md', this)" class="w-full text-left px-2.5 py-1 text-[11px] font-semibold rounded-sm hover:bg-slate-205 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Translation</button>
             </div>
           </div>
 
-          <!-- Section: Genetics -->
+          <!-- Module 2: Patterns -->
           <div class="space-y-1">
-            <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-2">Genetics</span>
-            <div class="space-y-0.5">
-              <button onclick="loadDoc('genetics/complement.md', this)" class="w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-sm hover:bg-slate-200 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Complement Mapping</button>
-              <button onclick="loadDoc('genetics/reverse_complement.md', this)" class="w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-sm hover:bg-slate-200 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Reverse Complement</button>
-              <button onclick="loadDoc('genetics/transcribe.md', this)" class="w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-sm hover:bg-slate-200 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Transcription</button>
-              <button onclick="loadDoc('genetics/translate.md', this)" class="w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-sm hover:bg-slate-200 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Translation</button>
-              <button onclick="loadDoc('genetics/find_motif.md', this)" class="w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-sm hover:bg-slate-200 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Motif Finding</button>
-              <button onclick="loadDoc('genetics/kmers.md', this)" class="w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-sm hover:bg-slate-200 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">K-mer Profiling</button>
+            <span class="block text-[9px] font-bold text-indigo-650 bg-indigo-50/50 px-2 py-0.5 rounded-sm uppercase tracking-wider">Module 2: Patterns</span>
+            <div class="space-y-0.5 pl-1">
+              <button onclick="loadDoc('genetics/kmers.md', this)" class="w-full text-left px-2.5 py-1 text-[11px] font-semibold rounded-sm hover:bg-slate-205 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">K-mer Profiling</button>
+              <button onclick="loadDoc('genetics/find_motif.md', this)" class="w-full text-left px-2.5 py-1 text-[11px] font-semibold rounded-sm hover:bg-slate-205 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Motif Finding</button>
             </div>
           </div>
 
-          <!-- Section: File IO -->
+          <!-- Module 3: Comparisons -->
           <div class="space-y-1">
-            <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-2">File Data IO</span>
-            <div class="space-y-0.5">
-              <button onclick="loadDoc('io/fasta_parse.md', this)" class="w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-sm hover:bg-slate-200 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">FASTA Parse</button>
-              <button onclick="loadDoc('io/fasta_write.md', this)" class="w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-sm hover:bg-slate-200 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">FASTA Export</button>
-              <button onclick="loadDoc('io/validate_input.md', this)" class="w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-sm hover:bg-slate-200 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Input Validation</button>
+            <span class="block text-[9px] font-bold text-indigo-650 bg-indigo-50/50 px-2 py-0.5 rounded-sm uppercase tracking-wider">Module 3: Comparisons</span>
+            <div class="space-y-0.5 pl-1">
+              <button onclick="loadDoc('alignments/dot_plot.md', this)" class="w-full text-left px-2.5 py-1 text-[11px] font-semibold rounded-sm hover:bg-slate-205 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Dot Plot Visualizer</button>
+              <button onclick="loadDoc('alignments/hamming_distance.md', this)" class="w-full text-left px-2.5 py-1 text-[11px] font-semibold rounded-sm hover:bg-slate-205 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Hamming Distance</button>
+              <button onclick="loadDoc('alignments/levenshtein_distance.md', this)" class="w-full text-left px-2.5 py-1 text-[11px] font-semibold rounded-sm hover:bg-slate-205 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Levenshtein Distance</button>
+            </div>
+          </div>
+          <!-- Module 4: Alignments -->
+          <div class="space-y-1">
+            <span class="block text-[9px] font-bold text-indigo-650 bg-indigo-50/50 px-2 py-0.5 rounded-sm uppercase tracking-wider">Module 4: Alignments</span>
+            <div class="space-y-0.5 pl-1">
+              <button onclick="loadDoc('alignments/needleman_wunsch.md', this)" class="w-full text-left px-2.5 py-1 text-[11px] font-semibold rounded-sm hover:bg-slate-205 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Needleman-Wunsch</button>
+              <button onclick="loadDoc('alignments/smith_waterman.md', this)" class="w-full text-left px-2.5 py-1 text-[11px] font-semibold rounded-sm hover:bg-slate-205 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Smith-Waterman</button>
             </div>
           </div>
 
-          <!-- Section: API -->
+          <!-- Module 5: Indexing -->
           <div class="space-y-1">
-            <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-2">API Reference</span>
-            <div class="space-y-0.5">
-              <button onclick="loadDoc('api.md', this)" class="w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-sm hover:bg-slate-200 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Developer API</button>
+            <span class="block text-[9px] font-bold text-indigo-650 bg-indigo-50/50 px-2 py-0.5 rounded-sm uppercase tracking-wider">Module 5: Indexing</span>
+            <div class="space-y-0.5 pl-1">
+              <button onclick="loadDoc('indexing/trie.md', this)" class="w-full text-left px-2.5 py-1 text-[11px] font-semibold rounded-sm hover:bg-slate-205 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Trie Multi-Search</button>
+              <button onclick="loadDoc('indexing/suffix_array.md', this)" class="w-full text-left px-2.5 py-1 text-[11px] font-semibold rounded-sm hover:bg-slate-205 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Suffix Array Search</button>
             </div>
           </div>
 
-          <!-- Section: Benchmarks -->
+          <!-- Reference & Benchmarks -->
           <div class="space-y-1">
-            <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-2">Performance Benchmarks</span>
-            <div class="space-y-0.5">
-              <button onclick="loadDoc('benchmarks/results.md', this)" class="w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-sm hover:bg-slate-200 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Execution Results</button>
-              <button onclick="loadDoc('benchmarks/analysis_report.md', this)" class="w-full text-left px-2.5 py-1.5 text-xs font-semibold rounded-sm hover:bg-slate-200 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Analysis Report</button>
+            <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-2">References</span>
+            <div class="space-y-0.5 pl-1">
+              <button onclick="loadDoc('api.md', this)" class="w-full text-left px-2.5 py-1 text-[11px] font-semibold rounded-sm hover:bg-slate-205 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Developer API</button>
+              <button onclick="loadDoc('benchmarks/results.md', this)" class="w-full text-left px-2.5 py-1 text-[11px] font-semibold rounded-sm hover:bg-slate-205 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Execution Results</button>
+              <button onclick="loadDoc('benchmarks/analysis_report.md', this)" class="w-full text-left px-2.5 py-1 text-[11px] font-semibold rounded-sm hover:bg-slate-205 text-slate-600 hover:text-slate-850 cursor-pointer transition-colors">Analysis Report</button>
             </div>
           </div>
         </nav>
       </div>
-
       <!-- Sidebar footer status -->
       <div class="border-t border-slate-200 pt-3 text-[10px]">
         <a href="../index.html" class="font-bold text-slate-600 hover:text-slate-800 cursor-pointer">&larr; Back to Dashboard</a>
       </div>
     </aside>
-
     <!-- Right Panel (Content area) -->
     <main class="flex-grow overflow-y-auto bg-slate-100 p-5">
       <div class="bg-white border border-slate-200 rounded-sm shadow-sm p-8 markdown-body min-h-full w-full">
@@ -317,6 +323,82 @@
       }
     }
 
+    // Quiz solutions storage
+    window.quizSolutions = {};
+
+    window.checkQuizAnswer = function(quizId) {
+      const form = document.querySelector(`#${quizId} form`);
+      const feedback = form.querySelector('.quiz-feedback');
+      const selected = form.querySelector(`input[name="${quizId}-options"]:checked`);
+      if (!selected) return;
+      
+      const solutions = window.quizSolutions[quizId];
+      const selectedIndex = parseInt(selected.value);
+      const chosenOpt = solutions[selectedIndex];
+      
+      feedback.classList.remove('hidden', 'bg-rose-50', 'text-rose-700', 'border-rose-200', 'bg-emerald-50', 'text-emerald-700', 'border-emerald-200');
+      feedback.classList.add('border');
+      
+      if (chosenOpt.isCorrect) {
+        feedback.classList.add('bg-emerald-50', 'text-emerald-700', 'border-emerald-200');
+        feedback.innerHTML = `<strong>✨ Correct!</strong> ${chosenOpt.explanation || 'Great job!'}`;
+      } else {
+        feedback.classList.add('bg-rose-50', 'text-rose-700', 'border-rose-200');
+        feedback.innerHTML = `<strong>❌ Incorrect.</strong> Try again! ${chosenOpt.explanation ? `<br/><span class="mt-1 block font-normal">${chosenOpt.explanation}</span>` : ''}`;
+      }
+      feedback.classList.remove('hidden');
+    };
+
+    function parseQuizzes(markdownText) {
+      const quizRegex = />\s*\[!QUIZ\]\s*(.*?)\n((?:>\s*.*?\n?)*)/g;
+      return markdownText.replace(quizRegex, function(match, title, body) {
+        const lines = body.split('\n').map(l => l.replace(/^>\s*/, '').trim()).filter(Boolean);
+        if (lines.length === 0) return '';
+        
+        const question = lines[0];
+        const options = [];
+        
+        for (let i = 1; i < lines.length; i++) {
+          const line = lines[i];
+          const optMatch = line.match(/^-\s*\[([ xX])\]\s*(.*?)(?:\s*\((.*?)\))?$/);
+          if (optMatch) {
+            options.push({
+              isCorrect: optMatch[1].toLowerCase() === 'x',
+              text: optMatch[2],
+              explanation: optMatch[3] || ''
+            });
+          }
+        }
+        
+        const quizId = 'quiz-' + Math.random().toString(36).substring(2, 9);
+        let html = `
+          <div class="my-6 p-5 border border-indigo-100 bg-indigo-50/15 rounded-md shadow-sm" id="${quizId}">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-indigo-700 mb-2">🧠 Quiz: ${title}</h4>
+            <p class="text-xs font-semibold text-slate-800 mb-3">${question}</p>
+            <form class="space-y-2" onsubmit="event.preventDefault(); window.checkQuizAnswer('${quizId}');">
+        `;
+        
+        options.forEach((opt, index) => {
+          html += `
+            <label class="flex items-start space-x-2.5 p-2.5 rounded-sm border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer text-xs font-semibold text-slate-700">
+              <input type="radio" name="${quizId}-options" value="${index}" class="mt-0.5 accent-indigo-600" required />
+              <span>${opt.text}</span>
+            </label>
+          `;
+        });
+        
+        window.quizSolutions[quizId] = options;
+        
+        html += `
+              <button type="submit" class="mt-4 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-[10px] uppercase tracking-wider rounded-sm transition-colors cursor-pointer">Submit Answer</button>
+              <div class="quiz-feedback mt-3 hidden text-[11px] font-semibold p-3 rounded-sm"></div>
+            </form>
+          </div>
+        `;
+        return html;
+      });
+    }
+
     async function loadDoc(docPath, btnElement) {
       const contentContainer = document.getElementById("doc-content");
       contentContainer.innerHTML = '<div class="flex justify-center items-center h-64 text-slate-400 text-xs font-semibold">Loading documentation...</div>';
@@ -343,6 +425,9 @@
         markdownText = markdownText.replace(/>\s*\[!NOTE\]/gi, '> **ℹ️ NOTE:**');
         markdownText = markdownText.replace(/>\s*\[!WARNING\]/gi, '> **⚠️ WARNING:**');
         markdownText = markdownText.replace(/>\s*\[!TIP\]/gi, '> **💡 TIP:**');
+        
+        // Parse quizzes
+        markdownText = parseQuizzes(markdownText);
         
         // Parse markdown to HTML using marked
         const html = marked.parse(markdownText);
@@ -392,7 +477,7 @@
         loadDoc(hashPath, btn);
       } else {
         const defaultBtn = document.querySelector('aside nav button');
-        loadDoc('alignments/needleman_wunsch.md', defaultBtn);
+        loadDoc('io/fasta_parse.md', defaultBtn);
       }
     });
   </script>

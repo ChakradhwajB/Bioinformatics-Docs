@@ -167,7 +167,6 @@
             >Bioinformatics Docs</span
           >
         </div>
-
         <nav
           class="flex items-center space-x-6 text-[10px] font-bold text-slate-500 uppercase tracking-widest"
         >
@@ -186,7 +185,6 @@
             >GitHub</a
           >
         </nav>
-
         <div
           class="flex items-center space-x-2 bg-slate-50 border border-slate-200 px-3 py-1 rounded-sm"
         >
@@ -508,12 +506,12 @@
         <div>
           <span
             class="text-[9px] font-bold text-slate-400 uppercase tracking-widest"
-            >Active Directory</span
+            >Curriculum Pathway</span
           >
           <h2
             class="text-base font-bold text-slate-900 uppercase tracking-wider"
           >
-            Analysis Modules
+            Learning Modules
           </h2>
         </div>
 
@@ -531,347 +529,546 @@
         </div>
       </div>
 
-      <div
-        class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        id="modules-grid"
-      >
-        <div
-          class="bg-white border border-slate-200 rounded-sm p-6 flex flex-col justify-between shadow-sm hover:border-slate-300 transition-colors"
-          data-name="needleman-wunsch global alignment dynamic programming visualizer trace player console matrix"
-        >
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <span
-                class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
-                >Alignment</span
-              >
-              <span class="text-[9px] font-mono text-slate-400 font-semibold"
-                >O(nm) time</span
-              >
-            </div>
-            <h3
-              class="text-xs font-bold text-slate-900 uppercase tracking-wider"
-            >
-              Needleman-Wunsch Global
-            </h3>
-            <p class="text-xs text-slate-500 leading-relaxed">
-              Computes global alignment between two sequences with cell score
-              parameters and playback tracer controls.
-            </p>
+      <!-- Learning Pathway Progress Tracker -->
+      <div class="max-w-6xl mx-auto mb-10 bg-white border border-slate-200 rounded-sm p-5 shadow-sm">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-3">
+          <div>
+            <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Your Learning Pathway Progress</h3>
+            <p class="text-[11px] text-slate-500">Track your journey through the five core bioinformatics modules.</p>
+          </div>
+          <div class="flex items-center space-x-4 mt-2 md:mt-0">
+            <span id="progress-count-text" class="text-[11px] font-bold text-slate-655 bg-indigo-50 border border-indigo-100 px-2 py-0.5 rounded-sm uppercase tracking-wider">0/10 Completed</span>
+            <span id="progress-text" class="text-xs font-black text-indigo-600">0%</span>
+          </div>
+        </div>
+        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+          <div id="progress-bar" class="bg-indigo-600 h-full rounded-full transition-all duration-500 ease-out" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <div class="space-y-12 max-w-6xl mx-auto" id="curriculum-pathway">
+        <!-- Module 1: The Foundations -->
+        <div class="space-y-4">
+          <div class="border-b border-slate-200 pb-2">
+            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Step 01 / Foundations</span>
+            <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider">
+              Module 1: Foundations (I/O & Basic Genetics)
+            </h2>
+            <p class="text-[11px] text-slate-500">Get comfortable with biological data formats, parsing, validation, and basic genetic transformations.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- FASTA File IO -->
             <div
-              class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
+              class="bg-white border border-slate-200 rounded-sm p-6 flex flex-col justify-between shadow-sm hover:border-slate-300 transition-colors"
+              data-name="fasta file io parser ingestion json write validations complement transcription translation"
             >
-              $$D_{i,j} = \max(D_{i-1,j-1} + S, D_{i-1,j} + g, D_{i,j-1} + g)$$
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <span
+                    class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
+                    >Data IO</span
+                  >
+                  <span class="text-[9px] font-mono text-slate-400 font-semibold"
+                    >FASTA Parser</span
+                  >
+                </div>
+                <h3
+                  class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center justify-between"
+                >
+                  FASTA File IO
+                  <span id="check-io-html" class="hidden text-emerald-500">
+                    <svg class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                </h3>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                  Parses biological sequence files on the server and displays parsed header records and base counts.
+                </p>
+                <div
+                  class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
+                >
+                  $$\text{File}_{\text{FASTA}} \rightarrow \{\text{Header}: \text{Sequence}\}$$
+                </div>
+              </div>
+              <a
+                href="./pages/io.html"
+                class="mt-5 inline-flex items-center justify-center px-3 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-sm text-[10px] uppercase tracking-wider transition-colors select-none"
+              >
+                Launch Module &rarr;
+              </a>
+            </div>
+
+            <!-- Genetics Workbench -->
+            <div
+              class="bg-white border border-slate-200 rounded-sm p-6 flex flex-col justify-between shadow-sm hover:border-slate-300 transition-colors"
+              data-name="dna rna genetics complement transcription translation workbench bases"
+            >
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <span
+                    class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
+                    >Genetics</span
+                  >
+                  <span class="text-[9px] font-mono text-slate-400 font-semibold"
+                    >O(n) linear</span
+                  >
+                </div>
+                <h3
+                  class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center justify-between"
+                >
+                  Genetics Workbench
+                  <span id="check-genetics-html" class="hidden text-emerald-500">
+                    <svg class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                </h3>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                  Applies Watson-Crick DNA complement mappings, RNA transcriptions, and codon triplet protein translations.
+                </p>
+                <div
+                  class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
+                >
+                  $$\text{DNA}_{\text{3'-5'}} \rightarrow \text{mRNA}_{\text{5'-3'}} \rightarrow \text{Peptide}$$
+                </div>
+              </div>
+              <a
+                href="./pages/genetics.html"
+                class="mt-5 inline-flex items-center justify-center px-3 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-sm text-[10px] uppercase tracking-wider transition-colors select-none"
+              >
+                Launch Module &rarr;
+              </a>
             </div>
           </div>
-          <a
-            href="./pages/needleman_wunsch.html"
-            class="mt-5 inline-flex items-center justify-center px-3 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-sm text-[10px] uppercase tracking-wider transition-colors select-none"
-          >
-            Launch Module &rarr;
-          </a>
         </div>
 
-        <div
-          class="bg-white border border-slate-200 rounded-sm p-6 flex flex-col justify-between shadow-sm hover:border-slate-300 transition-colors"
-          data-name="smith-waterman local alignment dynamic programming visualizer trace player console matrix"
-        >
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <span
-                class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
-                >Alignment</span
-              >
-              <span class="text-[9px] font-mono text-slate-400 font-semibold"
-                >O(nm) time</span
-              >
-            </div>
-            <h3
-              class="text-xs font-bold text-slate-900 uppercase tracking-wider"
-            >
-              Smith-Waterman Local
-            </h3>
-            <p class="text-xs text-slate-500 leading-relaxed">
-              Locates optimal local matches, highlighting alignment regions,
-              trace routes, and cell metrics.
-            </p>
+        <!-- Module 2: Pattern Recognition -->
+        <div class="space-y-4">
+          <div class="border-b border-slate-200 pb-2">
+            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Step 02 / Sequence Analysis</span>
+            <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider">
+              Module 2: Pattern Recognition (K-mers & Motifs)
+            </h2>
+            <p class="text-[11px] text-slate-500">Introduce substring analysis, k-mer frequency distributions, and search motifs on long sequence maps.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- K-mer Profiler -->
             <div
-              class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
+              class="bg-white border border-slate-200 rounded-sm p-6 flex flex-col justify-between shadow-sm hover:border-slate-300 transition-colors"
+              data-name="kmer profiler overlapping substring frequency count most frequent histogram"
             >
-              $$D_{i,j} = \max(0, D_{i-1,j-1} + S, D_{i-1,j} + g, D_{i,j-1} +
-              g)$$
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <span
+                    class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
+                    >Analysis</span
+                  >
+                  <span class="text-[9px] font-mono text-slate-400 font-semibold"
+                    >O(n*k) sliding</span
+                  >
+                </div>
+                <h3
+                  class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center justify-between"
+                >
+                  K-mer Profiler
+                  <span id="check-kmers-html" class="hidden text-emerald-500">
+                    <svg class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                </h3>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                  Extracts overlapping substrings of size k, computes their frequencies, and generates live distribution histograms.
+                </p>
+                <div
+                  class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
+                >
+                  $$\text{Count}(S_k) = \sum_{i=1}^{N-k+1} [S[i \dots i+k-1] == S_k]$$
+                </div>
+              </div>
+              <a
+                href="./pages/kmers.html"
+                class="mt-5 inline-flex items-center justify-center px-3 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-sm text-[10px] uppercase tracking-wider transition-colors select-none"
+              >
+                Launch Module &rarr;
+              </a>
+            </div>
+
+            <!-- Motif Spotlight Finder -->
+            <div
+              class="bg-white border border-slate-200 rounded-sm p-6 flex flex-col justify-between shadow-sm hover:border-slate-300 transition-colors"
+              data-name="motif spotlight finder scrollbar density heatmap matches index map"
+            >
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <span
+                    class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
+                    >Search</span
+                  >
+                  <span class="text-[9px] font-mono text-slate-400 font-semibold"
+                    >O(n) find</span
+                  >
+                </div>
+                <h3
+                  class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center justify-between"
+                >
+                  Motif Spotlight Finder
+                  <span id="check-find_motif-html" class="hidden text-emerald-500">
+                    <svg class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                </h3>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                  Locates sequence patterns (motifs) and visualizes density hotspots on a scrolling canvas track.
+                </p>
+                <div
+                  class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
+                >
+                  $$\text{Index}_{\text{motif}} = \{i \mid \text{Seq}[i \dots i+k] = \text{Motif}\}$$
+                </div>
+              </div>
+              <a
+                href="./pages/find_motif.html"
+                class="mt-5 inline-flex items-center justify-center px-3 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-sm text-[10px] uppercase tracking-wider transition-colors select-none"
+              >
+                Launch Module &rarr;
+              </a>
             </div>
           </div>
-          <a
-            href="./pages/smith_waterman.html"
-            class="mt-5 inline-flex items-center justify-center px-3 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-sm text-[10px] uppercase tracking-wider transition-colors select-none"
-          >
-            Launch Module &rarr;
-          </a>
         </div>
 
-        <div
-          class="bg-white border border-slate-200 rounded-sm p-6 flex flex-col justify-between shadow-sm hover:border-slate-300 transition-colors"
-          data-name="levenshtein hamming sequence distances metrics edit comparisons grids"
-        >
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <span
-                class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
-                >Comparison</span
-              >
-              <span class="text-[9px] font-mono text-slate-400 font-semibold"
-                >O(nm) edit</span
-              >
-            </div>
-            <h3
-              class="text-xs font-bold text-slate-900 uppercase tracking-wider"
-            >
-              Sequence Distance Metrics
-            </h3>
-            <p class="text-xs text-slate-500 leading-relaxed">
-              Calculates positional Hamming mismatch distance and Levenshtein
-              edit distance grids.
-            </p>
+        <!-- Module 3: Sequence Comparison Basics -->
+        <div class="space-y-4">
+          <div class="border-b border-slate-200 pb-2">
+            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Step 03 / Visual Alignment & Distance</span>
+            <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider">
+              Module 3: Sequence Comparison Basics
+            </h2>
+            <p class="text-[11px] text-slate-500">Observe pairwise matches visually with sliding window dot plots and compute formal edit distance matrices.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dot Plot Visualizer -->
             <div
-              class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
+              class="bg-white border border-slate-200 rounded-sm p-6 flex flex-col justify-between shadow-sm hover:border-slate-300 transition-colors"
+              data-name="dot plot visualizer sliding window matching sequence comparison text"
             >
-              $$D_{i,j} = \min(D_{i-1,j-1} + \text{cost}, D_{i-1,j} + 1,
-              D_{i,j-1} + 1)$$
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <span
+                    class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
+                    >Comparison</span
+                  >
+                  <span class="text-[9px] font-mono text-slate-400 font-semibold"
+                    >O(nm) matrix</span
+                  >
+                </div>
+                <h3
+                  class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center justify-between"
+                >
+                  Dot Plot Visualizer
+                  <span id="check-dot_plot-html" class="hidden text-emerald-500">
+                    <svg class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                </h3>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                  Plots pairwise matching grids with sliding window and threshold settings to identify repeats and inversions.
+                </p>
+                <div
+                  class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
+                >
+                  $$\text{Dot}_{i,j} = 1 \iff \text{Match}_{\text{window}} \ge \text{Threshold}$$
+                </div>
+              </div>
+              <a
+                href="./pages/dot_plot.html"
+                class="mt-5 inline-flex items-center justify-center px-3 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-sm text-[10px] uppercase tracking-wider transition-colors select-none"
+              >
+                Launch Module &rarr;
+              </a>
+            </div>
+
+            <!-- Sequence Distance Metrics -->
+            <div
+              class="bg-white border border-slate-200 rounded-sm p-6 flex flex-col justify-between shadow-sm hover:border-slate-300 transition-colors"
+              data-name="levenshtein hamming sequence distances metrics edit comparisons grids"
+            >
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <span
+                    class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
+                    >Comparison</span
+                  >
+                  <span class="text-[9px] font-mono text-slate-400 font-semibold"
+                    >O(nm) edit</span
+                  >
+                </div>
+                <h3
+                  class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center justify-between"
+                >
+                  Sequence Distance Metrics
+                  <span id="check-distances-html" class="hidden text-emerald-500">
+                    <svg class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                </h3>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                  Calculates positional Hamming mismatch distance and Levenshtein edit distance grids.
+                </p>
+                <div
+                  class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
+                >
+                  $$D_{i,j} = \min(D_{i-1,j-1} + \text{cost}, D_{i-1,j} + 1, D_{i,j-1} + 1)$$
+                </div>
+              </div>
+              <a
+                href="./pages/distances.html"
+                class="mt-5 inline-flex items-center justify-center px-3 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-sm text-[10px] uppercase tracking-wider transition-colors select-none"
+              >
+                Launch Module &rarr;
+              </a>
             </div>
           </div>
-          <a
-            href="./pages/distances.html"
-            class="mt-5 inline-flex items-center justify-center px-3 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-sm text-[10px] uppercase tracking-wider transition-colors select-none"
-          >
-            Launch Module &rarr;
-          </a>
         </div>
 
-        <div
-          class="bg-white border border-slate-200 rounded-sm p-6 flex flex-col justify-between shadow-sm hover:border-slate-300 transition-colors"
-          data-name="dna rna genetics complement transcription translation workbench"
-        >
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <span
-                class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
-                >Genetics</span
-              >
-              <span class="text-[9px] font-mono text-slate-400 font-semibold"
-                >O(n) linear</span
-              >
-            </div>
-            <h3
-              class="text-xs font-bold text-slate-900 uppercase tracking-wider"
-            >
-              Genetics Workbench
-            </h3>
-            <p class="text-xs text-slate-500 leading-relaxed">
-              Applies Watson-Crick DNA complement mappings, RNA transcriptions,
-              and codon triplet protein translations.
-            </p>
-            <div
-              class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
-            >
-              $$\text{DNA}_{\text{3'-5'}} \rightarrow \text{mRNA}_{\text{5'-3'}}
-              \rightarrow \text{Peptide}$$
-            </div>
+        <!-- Module 4: Dynamic Programming & Alignments -->
+        <div class="space-y-4">
+          <div class="border-b border-slate-200 pb-2">
+            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Step 04 / Advanced DP Alignments</span>
+            <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider">
+              Module 4: Dynamic Programming & Alignments
+            </h2>
+            <p class="text-[11px] text-slate-500">Master global and local sequence alignments using dynamic programming tables with cell traceback paths.</p>
           </div>
-          <a
-            href="./pages/genetics.html"
-            class="mt-5 inline-flex items-center justify-center px-3 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-sm text-[10px] uppercase tracking-wider transition-colors select-none"
-          >
-            Launch Module &rarr;
-          </a>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Needleman-Wunsch -->
+            <div
+              class="bg-white border border-slate-200 rounded-sm p-6 flex flex-col justify-between shadow-sm hover:border-slate-300 transition-colors"
+              data-name="needleman-wunsch global alignment dynamic programming visualizer trace player console matrix"
+            >
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <span
+                    class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
+                    >Alignment</span
+                  >
+                  <span class="text-[9px] font-mono text-slate-400 font-semibold"
+                    >O(nm) time</span
+                  >
+                </div>
+                <h3
+                  class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center justify-between"
+                >
+                  Needleman-Wunsch Global
+                  <span id="check-needleman_wunsch-html" class="hidden text-emerald-500">
+                    <svg class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                </h3>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                  Computes global alignment between two sequences with cell score parameters and playback tracer controls.
+                </p>
+                <div
+                  class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
+                >
+                  $$D_{i,j} = \max(D_{i-1,j-1} + S, D_{i-1,j} + g, D_{i,j-1} + g)$$
+                </div>
+              </div>
+              <a
+                href="./pages/needleman_wunsch.html"
+                class="mt-5 inline-flex items-center justify-center px-3 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-sm text-[10px] uppercase tracking-wider transition-colors select-none"
+              >
+                Launch Module &rarr;
+              </a>
+            </div>
+
+            <!-- Smith-Waterman -->
+            <div
+              class="bg-white border border-slate-200 rounded-sm p-6 flex flex-col justify-between shadow-sm hover:border-slate-300 transition-colors"
+              data-name="smith-waterman local alignment dynamic programming visualizer trace player console matrix"
+            >
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <span
+                    class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
+                    >Alignment</span
+                  >
+                  <span class="text-[9px] font-mono text-slate-400 font-semibold"
+                    >O(nm) time</span
+                  >
+                </div>
+                <h3
+                  class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center justify-between"
+                >
+                  Smith-Waterman Local
+                  <span id="check-smith_waterman-html" class="hidden text-emerald-500">
+                    <svg class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                </h3>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                  Locates optimal local matches, highlighting alignment regions, trace routes, and cell metrics.
+                </p>
+                <div
+                  class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
+                >
+                  $$D_{i,j} = \max(0, D_{i-1,j-1} + S, D_{i-1,j} + g, D_{i,j-1} + g)$$
+                </div>
+              </div>
+              <a
+                href="./pages/smith_waterman.html"
+                class="mt-5 inline-flex items-center justify-center px-3 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-sm text-[10px] uppercase tracking-wider transition-colors select-none"
+              >
+                Launch Module &rarr;
+              </a>
+            </div>
+
+
+            
+          </div>
         </div>
 
-        <div
-          class="bg-white border border-slate-200 rounded-sm p-6 flex flex-col justify-between shadow-sm hover:border-slate-300 transition-colors"
-          data-name="motif spotlight finder scrollbar density heatmap matches"
-        >
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <span
-                class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
-                >Search</span
-              >
-              <span class="text-[9px] font-mono text-slate-400 font-semibold"
-                >O(n) find</span
-              >
-            </div>
-            <h3
-              class="text-xs font-bold text-slate-900 uppercase tracking-wider"
-            >
-              Motif Spotlight Finder
-            </h3>
-            <p class="text-xs text-slate-500 leading-relaxed">
-              Locates sequence patterns (motifs) and visualizes density hotspots
-              on a scrolling canvas track.
-            </p>
+        <!-- Module 5: Indexing Data Structures -->
+        <div class="space-y-4">
+          <div class="border-b border-slate-200 pb-2">
+            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Step 05 / Indexing & Search</span>
+            <h2 class="text-sm font-bold text-slate-900 uppercase tracking-wider">
+              Module 5: Indexing Data Structures
+            </h2>
+            <p class="text-[11px] text-slate-500">Query and index target genomes efficiently using Trie (Prefix Tree) multi-pattern lookups and Suffix Array binary searches.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Trie Multi-Search -->
             <div
-              class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
+              class="bg-white border border-slate-200 rounded-sm p-6 flex flex-col justify-between shadow-sm hover:border-slate-300 transition-colors"
+              data-name="trie prefix tree search patterns indexing list"
             >
-              $$\text{Index}_{\text{motif}} = \{i \mid \text{Seq}[i \dots i+k] =
-              \text{Motif}\}$$
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <span
+                    class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
+                    >Indexing</span
+                  >
+                  <span class="text-[9px] font-mono text-slate-400 font-semibold"
+                    >O(L) insert/search</span
+                  >
+                </div>
+                <h3
+                  class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center justify-between"
+                >
+                  Trie Multi-Search
+                  <span id="check-trie-html" class="hidden text-emerald-500">
+                    <svg class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                </h3>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                  Performs concurrent search of multiple genomic patterns in a single pass scanner using a prefix tree.
+                </p>
+                <div
+                  class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
+                >
+                  $$\text{Depth}_{\text{node}} = \text{Len}(\text{Prefix})$$
+                </div>
+              </div>
+              <a
+                href="./pages/trie.html"
+                class="mt-5 inline-flex items-center justify-center px-3 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-sm text-[10px] uppercase tracking-wider transition-colors select-none"
+              >
+                Launch Module &rarr;
+              </a>
+            </div>
+
+            <!-- Suffix Array Search -->
+            <div
+              class="bg-white border border-slate-200 rounded-sm p-6 flex flex-col justify-between shadow-sm hover:border-slate-300 transition-colors"
+              data-name="suffix array binary search matches sort"
+            >
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <span
+                    class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
+                    >Indexing</span
+                  >
+                  <span class="text-[9px] font-mono text-slate-400 font-semibold"
+                    >O(L log N) search</span
+                  >
+                </div>
+                <h3
+                  class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center justify-between"
+                >
+                  Suffix Array Search
+                  <span id="check-suffix_array-html" class="hidden text-emerald-500">
+                    <svg class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                </h3>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                  Generates lexicographically sorted suffixes and queries pattern matching boundaries using binary search.
+                </p>
+                <div
+                  class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
+                >
+                  $$\text{SA}[i] = \text{Offset of } i\text{-th sorted suffix}$$
+                </div>
+              </div>
+              <a
+                href="./pages/suffix_array.html"
+                class="mt-5 inline-flex items-center justify-center px-3 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-sm text-[10px] uppercase tracking-wider transition-colors select-none"
+              >
+                Launch Module &rarr;
+              </a>
             </div>
           </div>
-          <a
-            href="./pages/find_motif.html"
-            class="mt-5 inline-flex items-center justify-center px-3 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-sm text-[10px] uppercase tracking-wider transition-colors select-none"
-          >
-            Launch Module &rarr;
-          </a>
         </div>
 
-        <div
-          class="bg-white border border-slate-200 rounded-sm p-6 flex flex-col justify-between shadow-sm hover:border-slate-300 transition-colors"
-          data-name="dot plot visualizer sliding window matching sequence comparison text"
-        >
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <span
-                class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
-                >Comparison</span
-              >
-              <span class="text-[9px] font-mono text-slate-400 font-semibold"
-                >O(nm) matrix</span
-              >
-            </div>
-            <h3
-              class="text-xs font-bold text-slate-900 uppercase tracking-wider"
-            >
-              Dot Plot Visualizer
-            </h3>
-            <p class="text-xs text-slate-500 leading-relaxed">
-              Plots pairwise matching grids with sliding window and threshold
-              settings to identify repeats and inversions.
-            </p>
+        <!-- Documentation & References -->
+        <div class="space-y-4 pt-4 border-t border-slate-200">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div
-              class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
+              class="bg-white border border-slate-200 rounded-sm p-6 flex flex-col justify-between shadow-sm hover:border-slate-300 transition-colors"
+              data-name="documentation reference docs tutorial markdown equations latex benchmarks analysis results"
             >
-              $$\text{Dot}_{i,j} = 1 \iff \text{Match}_{\text{window}} \ge
-              \text{Threshold}$$
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <span
+                    class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
+                    >Reference</span
+                  >
+                  <span class="text-[9px] font-mono text-slate-400 font-semibold"
+                    >LaTeX / Marked</span
+                  >
+                </div>
+                <h3
+                  class="text-xs font-bold text-slate-900 uppercase tracking-wider"
+                >
+                  Reference Manuals & Docs
+                </h3>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                  Browse live developer manuals, math equations, performance benchmarks, and analysis reports.
+                </p>
+                <div
+                  class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
+                >
+                  $$\text{Docs}_{\text{live}} = \text{fetch}(\text{Markdown}) \xrightarrow{\text{KaTeX}} \text{View}$$
+                </div>
+              </div>
+              <a
+                href="./pages/docs.html"
+                class="mt-5 inline-flex items-center justify-center px-3 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-sm text-[10px] uppercase tracking-wider transition-colors select-none"
+              >
+                Open Documentation &rarr;
+              </a>
             </div>
           </div>
-          <a
-            href="./pages/dot_plot.html"
-            class="mt-5 inline-flex items-center justify-center px-3 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-sm text-[10px] uppercase tracking-wider transition-colors select-none"
-          >
-            Launch Module &rarr;
-          </a>
-        </div>
-
-        <div
-          class="bg-white border border-slate-200 rounded-sm p-6 flex flex-col justify-between shadow-sm hover:border-slate-300 transition-colors"
-          data-name="fasta file io parser ingestion json write"
-        >
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <span
-                class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
-                >Data IO</span
-              >
-              <span class="text-[9px] font-mono text-slate-400 font-semibold"
-                >FASTA parser</span
-              >
-            </div>
-            <h3
-              class="text-xs font-bold text-slate-900 uppercase tracking-wider"
-            >
-              FASTA File IO
-            </h3>
-            <p class="text-xs text-slate-500 leading-relaxed">
-              Parses biological sequence files on the server and displays parsed
-              header records and base counts.
-            </p>
-            <div
-              class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
-            >
-              $$\text{File}_{\text{FASTA}} \rightarrow \{\text{Header}:
-              \text{Sequence}\}$$
-            </div>
-          </div>
-          <a
-            href="./pages/io.html"
-            class="mt-5 inline-flex items-center justify-center px-3 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-sm text-[10px] uppercase tracking-wider transition-colors select-none"
-          >
-            Launch Module &rarr;
-          </a>
-        </div>
-
-        <div
-          class="bg-white border border-slate-200 rounded-sm p-6 flex flex-col justify-between shadow-sm hover:border-slate-300 transition-colors"
-          data-name="kmer profiler overlapping substring frequency count most frequent"
-        >
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <span
-                class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
-                >Analysis</span
-              >
-              <span class="text-[9px] font-mono text-slate-400 font-semibold"
-                >O(n*k) sliding</span
-              >
-            </div>
-            <h3
-              class="text-xs font-bold text-slate-900 uppercase tracking-wider"
-            >
-              K-mer Profiler
-            </h3>
-            <p class="text-xs text-slate-500 leading-relaxed">
-              Extracts overlapping substrings of size k, computes their frequencies, and generates live distribution histograms.
-            </p>
-            <div
-              class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
-            >
-              $$\text{Count}(S_k) = \sum_{i=1}^{N-k+1} [S[i \dots i+k-1] == S_k]$$
-            </div>
-          </div>
-          <a
-            href="./pages/kmers.html"
-            class="mt-5 inline-flex items-center justify-center px-3 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-sm text-[10px] uppercase tracking-wider transition-colors select-none"
-          >
-            Launch Module &rarr;
-          </a>
-        </div>
-
-        <div
-          class="bg-white border border-slate-200 rounded-sm p-6 flex flex-col justify-between shadow-sm hover:border-slate-300 transition-colors"
-          data-name="documentation reference docs tutorial markdown equations latex benchmarks"
-        >
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <span
-                class="text-[9px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-sm uppercase tracking-wider"
-                >Reference</span
-              >
-              <span class="text-[9px] font-mono text-slate-400 font-semibold"
-                >LaTeX / Marked</span
-              >
-            </div>
-            <h3
-              class="text-xs font-bold text-slate-900 uppercase tracking-wider"
-            >
-              Reference Manuals & Docs
-            </h3>
-            <p class="text-xs text-slate-500 leading-relaxed">
-              Browse live developer manuals, math equations, performance
-              benchmarks, and analysis reports.
-            </p>
-            <div
-              class="bg-slate-50 p-2 rounded-sm font-mono text-[9px] border border-slate-200 text-center select-none text-slate-500"
-            >
-              $$\text{Docs}_{\text{live}} = \text{fetch}(\text{Markdown})
-              \xrightarrow{\text{KaTeX}} \text{View}$$
-            </div>
-          </div>
-          <a
-            href="./pages/docs.html"
-            class="mt-5 inline-flex items-center justify-center px-3 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-sm text-[10px] uppercase tracking-wider transition-colors select-none"
-          >
-            Open Documentation &rarr;
-          </a>
         </div>
       </div>
     </section>
@@ -890,20 +1087,33 @@
       checkServerStatus();
       setInterval(checkServerStatus, 5000);
 
-      // Filter cards in real-time based on search input
+      // Filter cards and modules in real-time based on search input
       document.getElementById("search-input").addEventListener("input", (e) => {
         const query = e.target.value.toLowerCase().trim();
-        const cards = document.querySelectorAll("#modules-grid > div");
+        const modules = document.querySelectorAll("#curriculum-pathway > div");
 
-        cards.forEach((card) => {
-          const text = card.getAttribute("data-name") || "";
-          if (text.includes(query)) {
-            card.classList.remove("hidden");
+        modules.forEach((mod) => {
+          const cards = mod.querySelectorAll("[data-name]");
+          let visibleCardsCount = 0;
+          
+          cards.forEach((card) => {
+            const text = card.getAttribute("data-name") || "";
+            if (text.includes(query)) {
+              card.classList.remove("hidden");
+              visibleCardsCount++;
+            } else {
+              card.classList.add("hidden");
+            }
+          });
+          
+          if (visibleCardsCount > 0 || query === "" || !mod.querySelector("[data-name]")) {
+            mod.classList.remove("hidden");
           } else {
-            card.classList.add("hidden");
+            mod.classList.add("hidden");
           }
         });
       });
+
 
       // Interactive SVG Traceback Tooltip logic
       document.addEventListener("DOMContentLoaded", () => {
