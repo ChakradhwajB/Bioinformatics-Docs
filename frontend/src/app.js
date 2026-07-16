@@ -222,3 +222,26 @@ window.addEventListener("pageshow", () => {
   window.updateProgressUI();
 });
 
+
+
+// Global Glossary Definitions
+window.GLOSSARY = {
+  "FASTA": "A text-based format for representing either nucleotide sequences or amino acid (protein) sequences.",
+  "FASTQ": "A text-based format that stores both a biological sequence and its corresponding quality scores.",
+  "K-mer": "All the possible subsequences (of length k) from a read obtained through DNA sequencing.",
+  "Motif": "A sequence pattern that is widespread and has, or is conjectured to have, a biological significance.",
+  "Dynamic Programming": "An algorithmic technique for solving an optimization problem by breaking it down into simpler subproblems.",
+  "Needleman-Wunsch": "An algorithm used in bioinformatics to align protein or nucleotide sequences to calculate the global alignment.",
+  "Smith-Waterman": "A local alignment algorithm for determining similar regions between two strings of nucleic acid sequences or protein sequences.",
+  "Trie": "A type of search tree data structure used to store a dynamic set where the keys are usually strings.",
+  "Suffix Array": "A sorted array of all suffixes of a string, used heavily in full-text indices and bioinformatics."
+};
+
+
+// Auto-start server status check
+document.addEventListener("DOMContentLoaded", () => {
+  if (typeof window.checkServerStatus === 'function') {
+    window.checkServerStatus();
+    setInterval(window.checkServerStatus, 15000);
+  }
+});
