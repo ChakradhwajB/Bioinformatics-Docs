@@ -105,7 +105,7 @@ async function runSuffixArraySearch() {
       const isHigh = highlighted[idx];
 
       if (isHigh && !isHighlightGroupOpen) {
-        html += `<span class="bg-indigo-500/30 text-indigo-300 border-b border-indigo-400 font-bold px-0.5 rounded-sm">`;
+        html += `<span class="bg-indigo-500/30 text-indigo-300 border-b border-indigo-400 font-bold px-0.5 rounded-none">`;
         isHighlightGroupOpen = true;
       } else if (!isHigh && isHighlightGroupOpen) {
         html += `</span>`;
@@ -122,6 +122,10 @@ async function runSuffixArraySearch() {
 
     // 3. Render Suffix Array Trace Map SVG
     renderSuffixTraceMap(sequence, suffixArray, matches);
+
+    // 4. Initialize Suffix Array Player
+    initSuffixArrayPlayer(sequence, suffixArray);
+
 
   } catch (error) {
     console.error(error);
@@ -170,7 +174,7 @@ function renderSuffixTraceMap(sequence, suffixArray, matches) {
     const textColor = isMatch ? "#065f46" : "#3730a3";
 
     svgHtml += `
-      <g class="cursor-pointer" onclick="highlightTracePath(${rank})">
+      <g id="sa-rank-node-${rank}" class="cursor-pointer" onclick="highlightTracePath(${rank})">
         <circle cx="${x}" cy="180" r="14" fill="${fillColor}" stroke="${strokeColor}" stroke-width="1.5" />
         <text x="${x}" y="183" text-anchor="middle" fill="${textColor}" class="font-bold">SA[${rank}]</text>
         <text x="${x}" y="205" text-anchor="middle" fill="#64748b" class="text-[8px] font-bold">${suffixIndex}</text>
@@ -243,3 +247,148 @@ function resetTracePaths() {
     path.setAttribute("stroke-dasharray", isMatch ? "none" : "2 2");
   });
 }
+
+function initSuffixArrayPlayer(sequence, suffixArray) {
+  const playerControls = document.getElementById("sa-player-controls");
+  const inspector = document.getElementById("sa-dp-inspector");
+  if (!playerControls || !inspector) return;
+
+  playerControls.classList.remove("hidden");
+  inspector.classList.remove("hidden");
+
+  let currentStep = -1; // -1 means all hidden (initial state)
+  const totalSteps = suffixArray.length;
+  let isPlaying = false;
+  let playerInterval = null;
+
+  const playBtn = document.getElementById("sa-player-play");
+  const nextBtn = document.getElementById("sa-player-next");
+  const prevBtn = document.getElementById("sa-player-prev");
+  const resetBtn = document.getElementById("sa-player-reset");
+
+  const textWithSentinel = sequence + "$";
+
+  function resetTracePathsPartial(rank) {
+    const path = document.querySelector(`#trace-path-${rank}`);
+    if (!path) return;
+    const tableRow = document.querySelector(`tr[data-rank="${rank}"]`);
+    const isMatch = tableRow && tableRow.classList.contains("bg-emerald-50/50");
+
+    path.setAttribute("stroke", isMatch ? "#10b981" : "#94a3b8");
+    path.setAttribute("stroke-width", isMatch ? "2" : "1.25");
+    path.setAttribute("opacity", isMatch ? "0.65" : "0.3");
+    path.setAttribute("stroke-dasharray", isMatch ? "none" : "2 2");
+  }
+
+  function renderStep(step) {
+    currentStep = step;
+    
+    // Show/hide table rows and SVG elements based on step
+    for (let rank = 0; rank < totalSteps; rank++) {
+      const isVisible = rank <= step || step === totalSteps; // if totalSteps, just show all
+      
+      // Table row
+      const tr = document.querySelector(`tr[data-rank="${rank}"]`);
+      if (tr) {
+        tr.style.display = isVisible ? "" : "none";
+        if (rank === step) {
+          tr.classList.add("bg-indigo-50");
+        } else {
+          tr.classList.remove("bg-indigo-50");
+        }
+      }
+
+      // SVG rank node and path
+      const rankNode = document.querySelector(`#sa-rank-node-${rank}`);
+      const pathNode = document.querySelector(`#trace-path-${rank}`);
+      if (rankNode) rankNode.style.display = isVisible ? "" : "none";
+      if (pathNode) pathNode.style.display = isVisible ? "" : "none";
+      
+      if (isVisible) {
+        if (rank === step) {
+            highlightTracePath(rank);
+        } else if (rank < step && currentStep !== -1) {
+            resetTracePathsPartial(rank);
+        }
+      }
+    }
+    
+    if (step === -1) {
+      inspector.innerHTML = `<strong>Initial State:</strong> All suffixes extracted. Press Play to see them sorted lexicographically.`;
+      resetTracePaths(); // hide all highlights
+    } else if (step === totalSteps) {
+      inspector.innerHTML = `<strong>Complete:</strong> Suffix Array constructed. You can now hover rows to trace origins.`;
+      resetTracePaths();
+    } else {
+      const suffixIdx = suffixArray[step];
+      const suffixVal = textWithSentinel.substring(suffixIdx);
+      if (step === 0) {
+        inspector.innerHTML = `<strong>Step 1:</strong> Inserted <code>${suffixVal}</code> at Rank 0 (Smallest suffix).`;
+      } else {
+        const prevIdx = suffixArray[step - 1];
+        const prevVal = textWithSentinel.substring(prevIdx);
+        inspector.innerHTML = `<strong>Step ${step + 1}:</strong> Inserted <code>${suffixVal}</code> at Rank ${step}. It is lexicographically greater than <code>${prevVal}</code>.`;
+      }
+    }
+  }
+
+  function pause() {
+    isPlaying = false;
+    clearInterval(playerInterval);
+    playerInterval = null;
+    playBtn.textContent = "Play";
+    playBtn.className = "px-2.5 py-1 text-[10px] bg-slate-800 text-white hover:bg-slate-900 rounded-none font-bold cursor-pointer";
+  }
+
+  function play() {
+    isPlaying = true;
+    playBtn.textContent = "Pause";
+    playBtn.className = "px-2.5 py-1 text-[10px] bg-rose-600 text-white hover:bg-rose-700 rounded-none font-bold cursor-pointer";
+    
+    playerInterval = setInterval(() => {
+      if (currentStep < totalSteps) {
+        renderStep(currentStep + 1);
+      } else {
+        pause();
+      }
+    }, 1000);
+  }
+
+  // Event listeners
+  const newPlayBtn = playBtn.cloneNode(true);
+  const newNextBtn = nextBtn.cloneNode(true);
+  const newPrevBtn = prevBtn.cloneNode(true);
+  const newResetBtn = resetBtn.cloneNode(true);
+
+  playBtn.parentNode.replaceChild(newPlayBtn, playBtn);
+  nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
+  prevBtn.parentNode.replaceChild(newPrevBtn, prevBtn);
+  resetBtn.parentNode.replaceChild(newResetBtn, resetBtn);
+
+  newPlayBtn.addEventListener("click", () => {
+    if (isPlaying) pause();
+    else {
+      if (currentStep >= totalSteps) renderStep(-1);
+      play();
+    }
+  });
+
+  newNextBtn.addEventListener("click", () => {
+    pause();
+    if (currentStep < totalSteps) renderStep(currentStep + 1);
+  });
+
+  newPrevBtn.addEventListener("click", () => {
+    pause();
+    if (currentStep > -1) renderStep(currentStep - 1);
+  });
+
+  newResetBtn.addEventListener("click", () => {
+    pause();
+    renderStep(-1);
+  });
+
+  // Start with animation ready
+  renderStep(-1);
+}
+

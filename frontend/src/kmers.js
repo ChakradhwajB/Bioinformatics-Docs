@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Hover tooltip showing value
         const tooltip = document.createElement("div");
-        tooltip.className = "opacity-0 group-hover:opacity-100 transition-opacity duration-150 bg-slate-800 text-white text-[9px] font-bold py-0.5 px-1.5 rounded mb-1 shadow-sm";
+        tooltip.className = "opacity-0 group-hover:opacity-100 transition-opacity duration-150 bg-slate-800 text-white text-[9px] font-bold py-0.5 px-1.5 rounded mb-1 shadow-none";
         tooltip.textContent = `${count}x`;
         barCol.appendChild(tooltip);
 
@@ -135,8 +135,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const bar = document.createElement("div");
         bar.style.height = `${percent * 1.2}px`; // max height 120px
         bar.className = isFreq
-          ? "w-8 bg-indigo-500 rounded-t-sm shadow-sm transition-all duration-300 group-hover:bg-indigo-650"
-          : "w-8 bg-slate-300 rounded-t-sm shadow-sm transition-all duration-300 group-hover:bg-slate-450";
+          ? "w-8 bg-indigo-500 rounded-t-sm shadow-none transition-all duration-300 group-hover:bg-indigo-650"
+          : "w-8 bg-slate-300 rounded-t-sm shadow-none transition-all duration-300 group-hover:bg-slate-450";
         barCol.appendChild(bar);
 
         // Label element

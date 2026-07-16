@@ -72,8 +72,8 @@ async function runTrieSearch() {
 
       const count = offsets.length;
       const statusBadge = count > 0 
-        ? `<span class="px-2 py-0.5 text-[9px] font-bold bg-emerald-50 text-emerald-600 border border-emerald-200 rounded-sm uppercase">FOUND</span>`
-        : `<span class="px-2 py-0.5 text-[9px] font-bold bg-slate-100 text-slate-400 border border-slate-200 rounded-sm uppercase">NOT FOUND</span>`;
+        ? `<span class="px-2 py-0.5 text-[9px] font-bold bg-emerald-50 text-emerald-600 border border-emerald-200 rounded-none uppercase">FOUND</span>`
+        : `<span class="px-2 py-0.5 text-[9px] font-bold bg-slate-100 text-slate-400 border-0 rounded-none uppercase">NOT FOUND</span>`;
 
       tr.innerHTML = `
         <td class="py-2.5 px-3 font-mono font-bold text-slate-800">${pattern}</td>
@@ -107,7 +107,7 @@ async function runTrieSearch() {
       const char = sequence[idx];
       const isHigh = highlighted[idx];
       const spanClass = isHigh 
-        ? "seq-char bg-indigo-500/30 text-indigo-300 border-b border-indigo-400 font-bold px-0.5 rounded-sm cursor-crosshair hover:bg-indigo-400 hover:text-white transition-all duration-100"
+        ? "seq-char bg-indigo-500/30 text-indigo-300 border-b border-indigo-400 font-bold px-0.5 rounded-none cursor-crosshair hover:bg-indigo-400 hover:text-white transition-all duration-100"
         : "seq-char text-slate-350 px-0.5 cursor-crosshair hover:bg-slate-700 hover:text-white transition-all duration-100";
 
       html += `<span class="${spanClass}" data-idx="${idx}">${char}</span>`;
@@ -207,7 +207,7 @@ function buildAndRenderTrieSVG(patterns) {
 
     svgHtml += `
       <g class="trie-node" data-prefix="${node.prefix}" data-isend="${node.isEnd}" data-id="${node.id}">
-        <circle cx="${node.x}" cy="${node.y}" r="${radius}" fill="${fillColor}" stroke="${strokeColor}" stroke-width="2" class="shadow-sm transition-all duration-150" />
+        <circle cx="${node.x}" cy="${node.y}" r="${radius}" fill="${fillColor}" stroke="${strokeColor}" stroke-width="2" class="shadow-none transition-all duration-150" />
         <text x="${node.x}" y="${node.y + 3}" text-anchor="middle" fill="${textColor}" class="font-bold">${node.label}</text>
       </g>
     `;

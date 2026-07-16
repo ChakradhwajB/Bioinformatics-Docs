@@ -221,7 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function renderQuiz(container, questions, pageName, checkbox, initiallyPassed) {
   let html = `
-    <details class="max-w-6xl mx-auto w-full bg-white border border-slate-200 rounded-sm shadow-sm mt-6 group">
+    <details class="max-w-6xl mx-auto w-full bg-transparent border-0 rounded-none shadow-none mt-6 group">
       <summary class="flex items-center justify-between px-6 py-4 cursor-pointer select-none outline-none">
         <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center">
           <svg class="w-4 h-4 mr-1.5 text-indigo-500 transition-transform group-open:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
@@ -256,7 +256,7 @@ function renderQuiz(container, questions, pageName, checkbox, initiallyPassed) {
   html += `
       </div>
       <div class="px-6 py-4 border-t border-slate-100 bg-slate-50 flex items-center space-x-3 rounded-b-sm">
-        <button id="submit-quiz-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold py-1.5 px-4 rounded shadow-sm transition-colors uppercase tracking-wider">
+        <button id="submit-quiz-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold py-1.5 px-4 rounded shadow-none transition-colors uppercase tracking-wider">
           Submit Answers
         </button>
         <span id="quiz-result-text" class="text-[11px] font-bold"></span>

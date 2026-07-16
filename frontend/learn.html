@@ -1,0 +1,750 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Curriculum Dashboard — Bioinformatics Algorithm Explorer</title>
+    <link rel="stylesheet" href="./dist/output.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      .module-row {
+        transition:
+          background-color 0.15s ease,
+          transform 0.15s ease;
+      }
+      .module-row:hover {
+        background-color: #ffffff;
+        box-shadow:
+          0 4px 6px -1px rgba(0, 0, 0, 0.05),
+          0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        transform: translateY(-1px);
+        border-color: #94a3b8;
+      }
+      .glass-nav {
+        background: transparent;
+        border-bottom: none;
+      }
+        /* Custom Scrollbar for all elements */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #94a3b8;
+      border-radius: 4px;
+    }
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #94a3b8 transparent;
+    }
+    </style>
+  </head>
+  <body
+    class="bg-white text-slate-900 min-h-screen overflow-y-auto overflow-x-hidden flex flex-col"
+  >
+    <div
+      class="absolute top-0 z-[-2] h-screen w-full bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
+    ></div>
+        <div class="w-full px-6 lg:px-12 pt-6 lg:pt-8 max-w-7xl mx-auto">
+      <header
+        class="glass-nav w-full flex flex-col md:flex-row justify-between items-center px-6 py-3 space-y-3 md:space-y-0 select-none z-50 sticky top-0"
+      >
+        <!-- Logo -->
+        <div class="flex items-center space-x-2.5">
+          <span class="font-bold text-slate-900 text-xs tracking-wider uppercase"
+            >Bioinformatics Docs</span
+          >
+        </div>
+        <!-- Nav links -->
+        <nav
+          class="flex items-center space-x-6 text-[10px] font-bold text-slate-500 uppercase tracking-widest"
+        >
+          <a href="./index.html" class="hover:text-slate-900 transition-colors"
+            >Home</a
+          >
+          <a
+            href="./pages/docs.html"
+            class="hover:text-indigo-700 transition-colors text-indigo-600"
+            >Documentation &rarr;</a
+          >
+          <a
+            href="https://github.com/ChakradhwajB/Bioinformatics-Docs"
+            target="_blank"
+            class="hover:text-slate-900 transition-colors flex items-center space-x-1"
+          >
+            <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2C6.48 2 2 6.58 2 12.26c0 4.54 2.87 8.39 6.84 9.75.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.4 9.4 0 0 1 12 6.84c.85 0 1.71.12 2.51.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49C19.14 20.65 22 16.8 22 12.26 22 6.58 17.52 2 12 2z"
+              />
+            </svg>
+            <span>GitHub</span>
+          </a>
+        </nav>
+
+      
+        <!-- Server status -->
+        <div
+          class="flex items-center space-x-2 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full"
+        >
+          <span
+            id="server-status-dot"
+            class="h-1.5 w-1.5 rounded-full bg-slate-400"
+          ></span>
+          <span
+            id="server-status-text"
+            class="text-[9px] font-bold text-slate-500 uppercase tracking-wider"
+            >Checking...</span
+          >
+        </div>
+      </header>
+    </div>
+
+    <!-- Hero Section -->
+    <section
+      class="w-full max-w-6xl mx-auto px-4 py-12 text-left md:text-center mt-6"
+    >
+      <h1
+        class="text-4xl lg:text-5xl text-slate-900 tracking-tighter font-thin"
+      >
+        Curriculum Dashboard
+      </h1>
+      <p
+        class="text-[12px] text-slate-600 mt-4 max-w-2xl mx-auto leading-relaxed"
+      >
+        Track your progress and dive into the structured bioinformatics modules.
+        Each lesson builds sequentially from foundational file manipulation to
+        complex dynamic programming alignments and genome-scale indexing
+        structures.
+      </p>
+    
+      <!-- Visual Progress Tracker -->
+      <div class="mt-10 max-w-xl mx-auto">
+        <div class="flex justify-between items-center mb-3">
+          <span class="text-[10px] uppercase tracking-widest font-bold text-slate-400">Your Progress</span>
+          <div class="flex items-center space-x-2">
+            <span id="progress-text" class="text-indigo-500 font-bold text-[10px]">0%</span>
+            <span class="text-slate-200 text-[10px]">|</span>
+            <span id="progress-count-text" class="text-slate-500 font-bold text-[10px]">0 / 10 Completed</span>
+          </div>
+        </div>
+        
+        <!-- Track line -->
+        <div class="w-full h-2 bg-slate-200 rounded-full mb-4 overflow-hidden">
+          <div id="progress-bar" class="h-full bg-indigo-500 rounded-full transition-all duration-500" style="width: 0%;"></div>
+        </div>
+        
+        <!-- Individual Module Dots -->
+        <div class="flex flex-wrap items-center justify-center md:justify-start gap-2.5 mb-8">
+          <span class="text-[9px] uppercase tracking-widest font-bold text-slate-400 mr-2">Module Status:</span>
+          <div id="dot-io-html" class="w-3 h-3 rounded-full bg-slate-200 transition-colors duration-300" title="FASTA File IO"></div>
+          <div id="dot-genetics-html" class="w-3 h-3 rounded-full bg-slate-200 transition-colors duration-300" title="Genetics Workbench"></div>
+          <div id="dot-kmers-html" class="w-3 h-3 rounded-full bg-slate-200 transition-colors duration-300" title="K-mer Profiler"></div>
+          <div id="dot-find_motif-html" class="w-3 h-3 rounded-full bg-slate-200 transition-colors duration-300" title="Motif Finder"></div>
+          <div id="dot-dot_plot-html" class="w-3 h-3 rounded-full bg-slate-200 transition-colors duration-300" title="Dot Plot Visualizer"></div>
+          <div id="dot-distances-html" class="w-3 h-3 rounded-full bg-slate-200 transition-colors duration-300" title="Sequence Distances"></div>
+          <div id="dot-needleman_wunsch-html" class="w-3 h-3 rounded-full bg-slate-200 transition-colors duration-300" title="Needleman-Wunsch Global"></div>
+          <div id="dot-smith_waterman-html" class="w-3 h-3 rounded-full bg-slate-200 transition-colors duration-300" title="Smith-Waterman Local"></div>
+          <div id="dot-trie-html" class="w-3 h-3 rounded-full bg-slate-200 transition-colors duration-300" title="Trie Multi-Search"></div>
+          <div id="dot-suffix_array-html" class="w-3 h-3 rounded-full bg-slate-200 transition-colors duration-300" title="Suffix Array Search"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content Container -->
+    <div
+      class="max-w-6xl w-full mx-auto flex-grow flex flex-col md:flex-row py-8 px-4 gap-8"
+    >
+      <!-- Left Sidebar: Table of Contents -->
+      <aside class="w-full md:w-64 shrink-0 flex flex-col space-y-6">
+        <div
+          class="bg-white rounded-lg border border-slate-200 p-5 shadow-sm sticky top-24"
+        >
+          <h3
+            class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2"
+          >
+            Contents
+          </h3>
+          <ul class="space-y-3 text-sm font-medium text-slate-600">
+            <li>
+              <a
+                href="#module-1"
+                class="hover:text-indigo-600 transition-colors flex items-center justify-between"
+                ><span>Foundations</span>
+                <span
+                  class="text-[10px] bg-slate-100 px-1.5 rounded text-slate-500"
+                  >2</span
+                ></a
+              >
+            </li>
+            <li>
+              <a
+                href="#module-2"
+                class="hover:text-indigo-600 transition-colors flex items-center justify-between"
+                ><span>Patterns</span>
+                <span
+                  class="text-[10px] bg-slate-100 px-1.5 rounded text-slate-500"
+                  >2</span
+                ></a
+              >
+            </li>
+            <li>
+              <a
+                href="#module-3"
+                class="hover:text-indigo-600 transition-colors flex items-center justify-between"
+                ><span>Comparisons</span>
+                <span
+                  class="text-[10px] bg-slate-100 px-1.5 rounded text-slate-500"
+                  >2</span
+                ></a
+              >
+            </li>
+            <li>
+              <a
+                href="#module-4"
+                class="hover:text-indigo-600 transition-colors flex items-center justify-between"
+                ><span>Alignments</span>
+                <span
+                  class="text-[10px] bg-slate-100 px-1.5 rounded text-slate-500"
+                  >2</span
+                ></a
+              >
+            </li>
+            <li>
+              <a
+                href="#module-5"
+                class="hover:text-indigo-600 transition-colors flex items-center justify-between"
+                ><span>Indexing</span>
+                <span
+                  class="text-[10px] bg-slate-100 px-1.5 rounded text-slate-500"
+                  >2</span
+                ></a
+              >
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Right Main: Module List -->
+      <main class="flex-grow space-y-10">
+        <!-- Section 1 -->
+        <section id="module-1">
+          <div class="mb-4">
+            <span
+              class="text-[10px] font-bold text-emerald-600 uppercase tracking-widest"
+              >Module 1</span
+            >
+            <h2 class="text-2xl font-thin tracking-tighter text-slate-900">
+              Foundations & Biological Data
+            </h2>
+            <p class="text-sm text-slate-500 mt-1">
+              Start here. Learn how genomic data is stored, transcribed, and
+              translated.
+            </p>
+          </div>
+          <div
+            class="bg-slate-50 border border-slate-200 rounded-lg overflow-hidden flex flex-col shadow-sm divide-y divide-slate-100"
+          >
+            <!-- Row: IO -->
+            <a
+              href="./pages/io.html"
+              class="module-row group flex items-center p-4"
+            >
+              <div class="flex-shrink-0 w-8 flex justify-center">
+                <div
+                  id="check-io-html"
+                  class="w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center transition-colors"
+                ></div>
+              </div>
+              <div class="ml-3 flex-grow">
+                <h3
+                  class="text-sm font-bold text-slate-900 group-hover:text-indigo-700 transition-colors"
+                >
+                  FASTA File I/O
+                </h3>
+                <p class="text-xs text-slate-500 mt-0.5">
+                  Stream, parse, and validate FASTA records.
+                </p>
+              </div>
+              <div class="flex items-center space-x-3 ml-4 flex-shrink-0">
+                <span class="text-[10px] font-medium text-slate-500"
+                  >~15 min</span
+                >
+              </div>
+            </a>
+            <!-- Row: Genetics -->
+            <a
+              href="./pages/genetics.html"
+              class="module-row group flex items-center p-4"
+            >
+              <div class="flex-shrink-0 w-8 flex justify-center">
+                <div
+                  id="check-genetics-html"
+                  class="w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center transition-colors"
+                ></div>
+              </div>
+              <div class="ml-3 flex-grow">
+                <div class="flex items-center space-x-2">
+                  <h3
+                    class="text-sm font-bold text-slate-900 group-hover:text-indigo-700 transition-colors"
+                  >
+                    Central Dogma Workbench
+                  </h3>
+                  <span
+                    class="text-[9px] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded uppercase tracking-wider"
+                    >Prerequisite: IO</span
+                  >
+                </div>
+                <p class="text-xs text-slate-500 mt-0.5">
+                  Step through reverse complementation, transcription, and
+                  translation.
+                </p>
+              </div>
+              <div class="flex items-center space-x-3 ml-4 flex-shrink-0">
+                <span class="text-[10px] font-medium text-slate-500"
+                  >~20 min</span
+                >
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- Section 2 -->
+        <section id="module-2">
+          <div class="mb-4">
+            <span
+              class="text-[10px] font-bold text-blue-600 uppercase tracking-widest"
+              >Module 2</span
+            >
+            <h2 class="text-2xl font-thin tracking-tighter text-slate-900">
+              Patterns & Frequencies
+            </h2>
+            <p class="text-sm text-slate-500 mt-1">
+              Analyze sequences for repeated elements and biological motifs.
+            </p>
+          </div>
+          <div
+            class="bg-slate-50 border border-slate-200 rounded-lg overflow-hidden flex flex-col shadow-sm divide-y divide-slate-100"
+          >
+            <!-- Row: K-mers -->
+            <a
+              href="./pages/kmers.html"
+              class="module-row group flex items-center p-4"
+            >
+              <div class="flex-shrink-0 w-8 flex justify-center">
+                <div
+                  id="check-kmers-html"
+                  class="w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center transition-colors"
+                ></div>
+              </div>
+              <div class="ml-3 flex-grow">
+                <h3
+                  class="text-sm font-bold text-slate-900 group-hover:text-indigo-700 transition-colors"
+                >
+                  K-mer Profiler
+                </h3>
+                <p class="text-xs text-slate-500 mt-0.5">
+                  Generate k-mer frequency spectra and analyze sequence
+                  composition.
+                </p>
+              </div>
+              <div class="flex items-center space-x-3 ml-4 flex-shrink-0">
+                <span class="text-[10px] font-medium text-slate-500"
+                  >~25 min</span
+                >
+              </div>
+            </a>
+            <!-- Row: Motif Finder -->
+            <a
+              href="./pages/find_motif.html"
+              class="module-row group flex items-center p-4"
+            >
+              <div class="flex-shrink-0 w-8 flex justify-center">
+                <div
+                  id="check-find_motif-html"
+                  class="w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center transition-colors"
+                ></div>
+              </div>
+              <div class="ml-3 flex-grow">
+                <div class="flex items-center space-x-2">
+                  <h3
+                    class="text-sm font-bold text-slate-900 group-hover:text-indigo-700 transition-colors"
+                  >
+                    Motif Finder
+                  </h3>
+                  <span
+                    class="text-[9px] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded uppercase tracking-wider"
+                    >Prerequisite: KMERS</span
+                  >
+                </div>
+                <p class="text-xs text-slate-500 mt-0.5">
+                  Locate specific biological patterns and consensus sequences.
+                </p>
+              </div>
+              <div class="flex items-center space-x-3 ml-4 flex-shrink-0">
+                <span class="text-[10px] font-medium text-slate-500"
+                  >~25 min</span
+                >
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- Section 3 -->
+        <section id="module-3">
+          <div class="mb-4">
+            <span
+              class="text-[10px] font-bold text-purple-600 uppercase tracking-widest"
+              >Module 3</span
+            >
+            <h2 class="text-2xl font-thin tracking-tighter text-slate-900">
+              Comparisons & Metrics
+            </h2>
+            <p class="text-sm text-slate-500 mt-1">
+              Visualize sequence similarities and compute basic distance
+              metrics.
+            </p>
+          </div>
+          <div
+            class="bg-slate-50 border border-slate-200 rounded-lg overflow-hidden flex flex-col shadow-sm divide-y divide-slate-100"
+          >
+            <!-- Row: Dot Plot -->
+            <a
+              href="./pages/dot_plot.html"
+              class="module-row group flex items-center p-4"
+            >
+              <div class="flex-shrink-0 w-8 flex justify-center">
+                <div
+                  id="check-dot_plot-html"
+                  class="w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center transition-colors"
+                ></div>
+              </div>
+              <div class="ml-3 flex-grow">
+                <h3
+                  class="text-sm font-bold text-slate-900 group-hover:text-indigo-700 transition-colors"
+                >
+                  Dot Plot Visualizer
+                </h3>
+                <p class="text-xs text-slate-500 mt-0.5">
+                  Generate 2D dot plots to identify synteny, insertions, and
+                  repeats.
+                </p>
+              </div>
+              <div class="flex items-center space-x-3 ml-4 flex-shrink-0">
+                <span class="text-[10px] font-medium text-slate-500"
+                  >~20 min</span
+                >
+              </div>
+            </a>
+            <!-- Row: Distances -->
+            <a
+              href="./pages/distances.html"
+              class="module-row group flex items-center p-4"
+            >
+              <div class="flex-shrink-0 w-8 flex justify-center">
+                <div
+                  id="check-distances-html"
+                  class="w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center transition-colors"
+                ></div>
+              </div>
+              <div class="ml-3 flex-grow">
+                <div class="flex items-center space-x-2">
+                  <h3
+                    class="text-sm font-bold text-slate-900 group-hover:text-indigo-700 transition-colors"
+                  >
+                    Sequence Distances
+                  </h3>
+                  <span
+                    class="text-[9px] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded uppercase tracking-wider"
+                    >Prerequisite: GENETICS</span
+                  >
+                </div>
+                <p class="text-xs text-slate-500 mt-0.5">
+                  Calculate Hamming and Levenshtein edit distances via dynamic
+                  programming.
+                </p>
+              </div>
+              <div class="flex items-center space-x-3 ml-4 flex-shrink-0">
+                <span class="text-[10px] font-medium text-slate-500"
+                  >~25 min</span
+                >
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- Section 4 -->
+        <section id="module-4">
+          <div class="mb-4">
+            <span
+              class="text-[10px] font-bold text-rose-600 uppercase tracking-widest"
+              >Module 4</span
+            >
+            <h2 class="text-2xl font-thin tracking-tighter text-slate-900">
+              Dynamic Programming Alignments
+            </h2>
+            <p class="text-sm text-slate-500 mt-1">
+              Construct optimal global and local alignments using classical
+              algorithms.
+            </p>
+          </div>
+          <div
+            class="bg-slate-50 border border-slate-200 rounded-lg overflow-hidden flex flex-col shadow-sm divide-y divide-slate-100"
+          >
+            <!-- Row: NW -->
+            <a
+              href="./pages/needleman_wunsch.html"
+              class="module-row group flex items-center p-4"
+            >
+              <div class="flex-shrink-0 w-8 flex justify-center">
+                <div
+                  id="check-needleman_wunsch-html"
+                  class="w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center transition-colors"
+                ></div>
+              </div>
+              <div class="ml-3 flex-grow">
+                <div class="flex items-center space-x-2">
+                  <h3
+                    class="text-sm font-bold text-slate-900 group-hover:text-indigo-700 transition-colors"
+                  >
+                    Needleman-Wunsch Global
+                  </h3>
+                  <span
+                    class="text-[9px] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded uppercase tracking-wider"
+                    >Prerequisite: DOT PLOT</span
+                  >
+                </div>
+                <p class="text-xs text-slate-500 mt-0.5">
+                  Build the DP matrix and animate the traceback to find the
+                  optimal global alignment.
+                </p>
+              </div>
+              <div class="flex items-center space-x-3 ml-4 flex-shrink-0">
+                <span class="text-[10px] font-medium text-slate-500"
+                  >~30 min</span
+                >
+              </div>
+            </a>
+            <!-- Row: SW -->
+            <a
+              href="./pages/smith_waterman.html"
+              class="module-row group flex items-center p-4"
+            >
+              <div class="flex-shrink-0 w-8 flex justify-center">
+                <div
+                  id="check-smith_waterman-html"
+                  class="w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center transition-colors"
+                ></div>
+              </div>
+              <div class="ml-3 flex-grow">
+                <div class="flex items-center space-x-2">
+                  <h3
+                    class="text-sm font-bold text-slate-900 group-hover:text-indigo-700 transition-colors"
+                  >
+                    Smith-Waterman Local
+                  </h3>
+                  <span
+                    class="text-[9px] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded uppercase tracking-wider"
+                    >Prerequisite: DISTANCES</span
+                  >
+                </div>
+                <p class="text-xs text-slate-500 mt-0.5">
+                  Find the best local region of similarity with zero-bound
+                  scoring.
+                </p>
+              </div>
+              <div class="flex items-center space-x-3 ml-4 flex-shrink-0">
+                <span class="text-[10px] font-medium text-slate-500"
+                  >~30 min</span
+                >
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- Section 5 -->
+        <section id="module-5">
+          <div class="mb-4">
+            <span
+              class="text-[10px] font-bold text-orange-600 uppercase tracking-widest"
+              >Module 5</span
+            >
+            <h2 class="text-2xl font-thin tracking-tighter text-slate-900">
+              Advanced Pattern Indexing
+            </h2>
+            <p class="text-sm text-slate-500 mt-1">
+              Scale up substring searches using advanced tree and array data
+              structures.
+            </p>
+          </div>
+          <div
+            class="bg-slate-50 border border-slate-200 rounded-lg overflow-hidden flex flex-col shadow-sm divide-y divide-slate-100"
+          >
+            <!-- Row: Trie -->
+            <a
+              href="./pages/trie.html"
+              class="module-row group flex items-center p-4"
+            >
+              <div class="flex-shrink-0 w-8 flex justify-center">
+                <div
+                  id="check-trie-html"
+                  class="w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center transition-colors"
+                ></div>
+              </div>
+              <div class="ml-3 flex-grow">
+                <div class="flex items-center space-x-2">
+                  <h3
+                    class="text-sm font-bold text-slate-900 group-hover:text-indigo-700 transition-colors"
+                  >
+                    Trie Multi-Search
+                  </h3>
+                  <span
+                    class="text-[9px] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded uppercase tracking-wider"
+                    >Prerequisite: DISTANCES</span
+                  >
+                </div>
+                <p class="text-xs text-slate-500 mt-0.5">
+                  Construct a prefix tree to search for multiple patterns
+                  simultaneously.
+                </p>
+              </div>
+              <div class="flex items-center space-x-3 ml-4 flex-shrink-0">
+                <span class="text-[10px] font-medium text-slate-500"
+                  >~25 min</span
+                >
+              </div>
+            </a>
+            <!-- Row: Suffix Array -->
+            <a
+              href="./pages/suffix_array.html"
+              class="module-row group flex items-center p-4"
+            >
+              <div class="flex-shrink-0 w-8 flex justify-center">
+                <div
+                  id="check-suffix_array-html"
+                  class="w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center transition-colors"
+                ></div>
+              </div>
+              <div class="ml-3 flex-grow">
+                <div class="flex items-center space-x-2">
+                  <h3
+                    class="text-sm font-bold text-slate-900 group-hover:text-indigo-700 transition-colors"
+                  >
+                    Suffix Array Search
+                  </h3>
+                  <span
+                    class="text-[9px] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded uppercase tracking-wider"
+                    >Prerequisite: NEEDLEMAN WUNSCH</span
+                  >
+                </div>
+                <p class="text-xs text-slate-500 mt-0.5">
+                  Build and binary-search a sorted array of all genome suffixes
+                  for O(M log N) queries.
+                </p>
+              </div>
+              <div class="flex items-center space-x-3 ml-4 flex-shrink-0">
+                <span class="text-[10px] font-medium text-slate-500"
+                  >~30 min</span
+                >
+              </div>
+            </a>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./src/app.js"></script>
+    <script>
+      // Update checkmarks to circles instead of hidden svg
+      // Override app.js behavior slightly for this specific layout
+      document.addEventListener("DOMContentLoaded", () => {
+        const completed = window.getCompletedPages();
+        const allPageIds = [
+          "io.html",
+          "genetics.html",
+          "kmers.html",
+          "find_motif.html",
+          "dot_plot.html",
+          "distances.html",
+          "needleman_wunsch.html",
+          "smith_waterman.html",
+          "trie.html",
+          "suffix_array.html",
+        ];
+
+        allPageIds.forEach((page) => {
+          const safeId = page.replaceAll(".", "-");
+          const isComplete = completed.includes(page);
+          const checkEl = document.getElementById(`check-${safeId}`);
+
+          if (checkEl) {
+            if (isComplete) {
+              checkEl.classList.remove("border-slate-300");
+              checkEl.classList.add("bg-indigo-600", "border-indigo-600");
+              checkEl.innerHTML = `<svg class="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>`;
+            } else {
+              checkEl.classList.add("border-slate-300");
+              checkEl.classList.remove("bg-indigo-600", "border-indigo-600");
+              checkEl.innerHTML = ``;
+            }
+          }
+        });
+      });
+
+      // Intercept the original updateProgressUI to refresh our custom circles when storage changes
+      const originalUpdate = window.updateProgressUI;
+      window.updateProgressUI = function () {
+        if (originalUpdate) originalUpdate();
+
+        const completed = window.getCompletedPages();
+        const allPageIds = [
+          "io.html",
+          "genetics.html",
+          "kmers.html",
+          "find_motif.html",
+          "dot_plot.html",
+          "distances.html",
+          "needleman_wunsch.html",
+          "smith_waterman.html",
+          "trie.html",
+          "suffix_array.html",
+        ];
+
+        allPageIds.forEach((page) => {
+          const safeId = page.replaceAll(".", "-");
+          const isComplete = completed.includes(page);
+          const checkEl = document.getElementById(`check-${safeId}`);
+
+          if (checkEl) {
+            if (isComplete) {
+              checkEl.classList.remove("border-slate-300");
+              checkEl.classList.add("bg-indigo-600", "border-indigo-600");
+              checkEl.innerHTML = `<svg class="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>`;
+            } else {
+              checkEl.classList.add("border-slate-300");
+              checkEl.classList.remove("bg-indigo-600", "border-indigo-600");
+              checkEl.innerHTML = ``;
+            }
+          }
+        });
+      };
+
+      // Start polling for server status
+      if (typeof window.checkServerStatus === 'function') {
+        window.checkServerStatus();
+        setInterval(window.checkServerStatus, 5000);
+      }
+    </script>
+
+  </body>
+</html>

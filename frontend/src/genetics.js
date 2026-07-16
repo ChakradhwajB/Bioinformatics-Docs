@@ -109,10 +109,10 @@ async function performGeneticsOperation() {
 function renderStrandsDualTable(inStrand, outStrand) {
   const container = document.getElementById("visualizer-container");
   container.innerHTML = "";
-  container.className = "flex-grow overflow-auto bg-slate-50 p-4 flex flex-col items-center justify-center border border-slate-200 rounded";
+  container.className = "flex-grow overflow-auto bg-slate-50 p-4 flex flex-col items-center justify-center border-0 rounded";
 
   const wrapper = document.createElement("div");
-  wrapper.className = "border border-slate-200 bg-white rounded-md p-4 flex flex-col space-y-2 max-w-xl w-full";
+  wrapper.className = "border-0 bg-transparent rounded-none p-4 flex flex-col space-y-2 max-w-xl w-full";
 
   const row1 = document.createElement("div");
   row1.className = "flex flex-wrap gap-1 font-mono-seq text-xs";
@@ -149,10 +149,10 @@ function createBaseBadge(char) {
 function renderRibosomeTable(rnaStrand) {
   const container = document.getElementById("visualizer-container");
   container.innerHTML = "";
-  container.className = "flex-grow overflow-auto bg-slate-50 p-2 border border-slate-200 rounded flex flex-col justify-start w-full";
+  container.className = "flex-grow overflow-auto bg-slate-50 p-2 border-0 rounded flex flex-col justify-start w-full";
 
   const tableWrapper = document.createElement("div");
-  tableWrapper.className = "w-full border border-slate-200 bg-white rounded-md overflow-x-auto";
+  tableWrapper.className = "w-full border-0 bg-transparent rounded-none overflow-x-auto";
 
   const table = document.createElement("table");
   table.className = "min-w-full divide-y divide-slate-200 text-left text-xs font-mono select-none";
@@ -165,7 +165,7 @@ function renderRibosomeTable(rnaStrand) {
         <th class="px-4 py-2">Full Name</th>
       </tr>
     </thead>
-    <tbody class="divide-y divide-slate-100 bg-white" id="codon-rows-body"></tbody>
+    <tbody class="divide-y divide-slate-100 bg-transparent" id="codon-rows-body"></tbody>
   `;
   tableWrapper.appendChild(table);
   container.appendChild(tableWrapper);

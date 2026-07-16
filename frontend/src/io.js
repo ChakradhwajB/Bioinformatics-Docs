@@ -103,7 +103,7 @@ function renderFastaTable() {
   container.className = "flex-grow overflow-auto bg-slate-50 p-4 border border-slate-150 rounded flex flex-col justify-start w-full";
 
   const tableWrapper = document.createElement("div");
-  tableWrapper.className = "w-full border border-slate-200 bg-white rounded-md overflow-x-auto";
+  tableWrapper.className = "w-full border-0 bg-transparent rounded-none overflow-x-auto";
 
   const table = document.createElement("table");
   table.className = "min-w-full divide-y divide-slate-200 text-left text-xs font-mono select-none";
@@ -116,7 +116,7 @@ function renderFastaTable() {
         <th class="px-4 py-2 text-center">Actions</th>
       </tr>
     </thead>
-    <tbody class="divide-y divide-slate-100 bg-white" id="fasta-rows-body"></tbody>
+    <tbody class="divide-y divide-slate-100 bg-transparent" id="fasta-rows-body"></tbody>
   `;
   tableWrapper.appendChild(table);
   container.appendChild(tableWrapper);

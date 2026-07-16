@@ -44,13 +44,18 @@ async function runDistanceCalculation() {
 
     if (metric === "hamming") {
       helperText.textContent = "Mismatch Position Highlights";
+      document.getElementById("player-controls").classList.add("hidden");
+      document.getElementById("dp-inspector").classList.add("hidden");
       renderHammingConsole(seq1, seq2, distanceVal);
       renderHammingVisualizer(seq1, seq2);
     } else {
       helperText.textContent = "Edit Operations Scoring Table";
+      document.getElementById("player-controls").classList.remove("hidden");
+      document.getElementById("dp-inspector").classList.remove("hidden");
       renderLevenshteinConsole(seq1, seq2, distanceVal);
       renderLevMatrix(seq1, seq2);
     }
+
 
   } catch (error) {
     alert(`Error: ${error.message}`);
@@ -114,7 +119,7 @@ function renderHammingVisualizer(seq1, seq2) {
 
 function createDistanceBadge(char, isMatch) {
   const span = document.createElement("span");
-  span.className = "inline-block w-6 py-1 text-center font-bold border rounded shadow-sm";
+  span.className = "inline-block w-6 py-1 text-center font-bold border rounded shadow-none";
   if (isMatch) {
     span.className += " bg-emerald-50 text-emerald-700 border-emerald-200";
   } else {
@@ -144,13 +149,13 @@ function renderLevMatrix(seq1, seq2) {
 
   const container = document.getElementById("visualizer-container");
   container.innerHTML = "";
-  container.className = "flex-grow overflow-auto bg-slate-50 p-4 border border-slate-200 rounded flex flex-col justify-start";
+  container.className = "flex-grow overflow-auto bg-slate-50 p-4 border-0 rounded flex flex-col justify-start";
 
   const tableWrapper = document.createElement("div");
-  tableWrapper.className = "border border-slate-200 bg-white rounded-md overflow-x-auto w-full";
+  tableWrapper.className = "border-0 bg-transparent rounded-none overflow-x-auto w-full";
 
   const table = document.createElement("table");
-  table.className = "min-w-full border-collapse border border-slate-200 text-center font-mono text-[10px] select-none";
+  table.className = "min-w-full border-collapse border-0 text-center font-mono text-[10px] select-none";
 
   const headerRow = document.createElement("tr");
   headerRow.appendChild(createHeaderCell(""));
@@ -170,14 +175,46 @@ function renderLevMatrix(seq1, seq2) {
 
     for (let j = 0; j <= m; j++) {
       const cell = document.createElement("td");
+      cell.id = `cell-${i}-${j}`;
       const val = dp[i][j];
       cell.textContent = val;
-      cell.className = "border border-slate-200 p-2.5 font-bold text-slate-700";
+      cell.className = "border-0 p-2.5 font-bold text-slate-700 transition-colors duration-150 cursor-pointer";
 
       const baseAlpha = val > 0 ? Math.min(val * 0.08, 0.45) : 0;
       cell.style.backgroundColor = val === 0 
         ? "rgba(16, 185, 129, 0.15)"
         : `rgba(244, 63, 94, ${baseAlpha})`;
+
+      // Hover interaction
+      cell.addEventListener("mouseenter", () => {
+        if (window.tracebackPlayerPlaying) return;
+        const inspector = document.getElementById("dp-inspector");
+        if (inspector) {
+          if (i === 0 && j === 0) {
+            inspector.innerHTML = `<strong>L(0,0) = 0</strong> | Origin`;
+          } else if (i === 0) {
+            inspector.innerHTML = `<strong>L(0,${j}) = L(0,${j-1}) + 1</strong> = ${dp[0][j-1]} + 1 = <strong>${val}</strong> | Insertion`;
+          } else if (j === 0) {
+            inspector.innerHTML = `<strong>L(${i},0) = L(${i-1},0) + 1</strong> = ${dp[i-1][0]} + 1 = <strong>${val}</strong> | Deletion`;
+          } else {
+            const cost = seq1[i-1] === seq2[j-1] ? 0 : 1;
+            const op = cost === 0 ? "Match" : "Substitute";
+            inspector.innerHTML = `<strong>L(${i},${j})</strong> = min(Del: ${dp[i-1][j]} + 1, Ins: ${dp[i][j-1]} + 1, Sub: ${dp[i-1][j-1]} + ${cost} (${op})) = <strong>${val}</strong>`;
+          }
+        }
+      });
+
+      cell.addEventListener("mouseleave", () => {
+        if (window.tracebackPlayerPlaying) return;
+        if (window.tracebackPlayerActiveStep !== undefined && typeof window.tracebackPlayerRenderStep === "function") {
+          window.tracebackPlayerRenderStep(window.tracebackPlayerActiveStep);
+          return;
+        }
+        const inspector = document.getElementById("dp-inspector");
+        if (inspector) {
+          inspector.innerHTML = "Hover over cells or use the player to inspect DP calculations.";
+        }
+      });
 
       row.appendChild(cell);
     }
@@ -186,11 +223,202 @@ function renderLevMatrix(seq1, seq2) {
 
   tableWrapper.appendChild(table);
   container.appendChild(tableWrapper);
+
+  // Compute traceback path
+  const optimalPath = [];
+  let currI = n;
+  let currJ = m;
+  optimalPath.push(`${currI}-${currJ}`);
+  while (currI > 0 || currJ > 0) {
+    if (currI > 0 && currJ > 0 && seq1[currI-1] === seq2[currJ-1] && dp[currI][currJ] === dp[currI-1][currJ-1]) {
+      currI--; currJ--;
+    } else if (currI > 0 && currJ > 0 && dp[currI][currJ] === dp[currI-1][currJ-1] + 1) {
+      currI--; currJ--;
+    } else if (currI > 0 && dp[currI][currJ] === dp[currI-1][currJ] + 1) {
+      currI--;
+    } else {
+      currJ--;
+    }
+    optimalPath.push(`${currI}-${currJ}`);
+  }
+  optimalPath.reverse(); // Go from (0,0) to (n,m)
+
+  // Set default ring class to show optimal path initially
+  optimalPath.forEach(coord => {
+    const optimalCell = table.querySelector(`#cell-${coord}`);
+    if (optimalCell) {
+      optimalCell.classList.add("ring-2", "ring-slate-400", "z-10");
+    }
+  });
+
+  const playerPanel = document.getElementById("player-controls");
+  if (playerPanel) {
+    // Clear previous intervals if any
+    if (window.tracebackPlayerInterval) {
+      clearInterval(window.tracebackPlayerInterval);
+      window.tracebackPlayerInterval = null;
+    }
+    
+    let currentStep = 0;
+    const steps = optimalPath;
+    let isPlaying = false;
+
+    window.tracebackPlayerActiveStep = currentStep;
+    window.tracebackPlayerPlaying = isPlaying;
+    window.tracebackPlayerRenderStep = renderStep;
+
+    const playBtn = document.getElementById("player-play");
+    const nextBtn = document.getElementById("player-next");
+    const prevBtn = document.getElementById("player-prev");
+    const resetBtn = document.getElementById("player-reset");
+
+    playBtn.textContent = "Play";
+    playBtn.className = "px-2.5 py-1 text-[10px] bg-slate-800 text-white hover:bg-slate-900 rounded-none font-bold cursor-pointer";
+
+    function resetCellStyles() {
+      for (let i = 0; i <= n; i++) {
+        for (let j = 0; j <= m; j++) {
+          const c = table.querySelector(`#cell-${i}-${j}`);
+          if (c) {
+            c.style.backgroundColor = "";
+            c.style.color = "";
+            c.className = "border-0 p-2.5 font-bold text-slate-700 transition-colors duration-150 cursor-pointer";
+            
+            const val = dp[i][j];
+            const baseAlpha = val > 0 ? Math.min(val * 0.08, 0.45) : 0;
+            c.style.backgroundColor = val === 0 
+              ? "rgba(16, 185, 129, 0.15)"
+              : `rgba(244, 63, 94, ${baseAlpha})`;
+            c.style.color = "#334155";
+          }
+        }
+      }
+      
+      optimalPath.forEach(coord => {
+        const optimalCell = table.querySelector(`#cell-${coord}`);
+        if (optimalCell) {
+          optimalCell.classList.add("ring-2", "ring-slate-400", "z-10");
+        }
+      });
+    }
+
+    function renderStep(index) {
+      currentStep = index;
+      window.tracebackPlayerActiveStep = index;
+      resetCellStyles();
+      
+      for (let s = 0; s <= index; s++) {
+        const coord = steps[s];
+        const pathCell = table.querySelector(`#cell-${coord}`);
+        if (pathCell) {
+          pathCell.style.backgroundColor = "#4f46e5";
+          pathCell.style.color = "#ffffff";
+        }
+      }
+
+      const activeCoord = steps[index];
+      const activeCell = table.querySelector(`#cell-${activeCoord}`);
+      if (activeCell) {
+        activeCell.style.backgroundColor = "#10b981";
+        activeCell.style.color = "#ffffff";
+        activeCell.classList.add("active-traceback-cell", "z-30");
+        activeCell.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+      }
+
+      const [currI, currJ] = activeCoord.split("-").map(Number);
+      const inspector = document.getElementById("dp-inspector");
+      const val = dp[currI][currJ];
+
+      if (inspector) {
+        if (currI === 0 && currJ === 0) {
+          inspector.innerHTML = `<strong>L(0,0) = 0</strong> | Origin baseline reached`;
+        } else if (currI === 0) {
+          inspector.innerHTML = `<strong>Step ${index + 1}: L(0,${currJ}) = L(0,${currJ-1}) + 1</strong> = ${dp[0][currJ-1]} + 1 = <strong>${val}</strong> | Insertion`;
+        } else if (currJ === 0) {
+          inspector.innerHTML = `<strong>Step ${index + 1}: L(${currI},0) = L(${currI-1},0) + 1</strong> = ${dp[currI-1][0]} + 1 = <strong>${val}</strong> | Deletion`;
+        } else {
+          const cost = seq1[currI-1] === seq2[currJ-1] ? 0 : 1;
+          const op = cost === 0 ? "Match" : "Substitute";
+          inspector.innerHTML = `<strong>Step ${index + 1}: L(${currI},${currJ})</strong> = min(Del: ${dp[currI-1][currJ]} + 1, Ins: ${dp[currI][currJ-1]} + 1, Sub: ${dp[currI-1][currJ-1]} + ${cost} (${op})) = <strong>${val}</strong>`;
+        }
+      }
+    }
+
+    function pause() {
+      isPlaying = false;
+      window.tracebackPlayerPlaying = false;
+      clearInterval(window.tracebackPlayerInterval);
+      window.tracebackPlayerInterval = null;
+      playBtn.textContent = "Play";
+      playBtn.className = "px-2.5 py-1 text-[10px] bg-slate-800 text-white hover:bg-slate-900 rounded-none font-bold cursor-pointer";
+    }
+
+    function play() {
+      isPlaying = true;
+      window.tracebackPlayerPlaying = true;
+      playBtn.textContent = "Pause";
+      playBtn.className = "px-2.5 py-1 text-[10px] bg-rose-600 text-white hover:bg-rose-700 rounded-none font-bold cursor-pointer";
+      
+      window.tracebackPlayerInterval = setInterval(() => {
+        if (currentStep < steps.length - 1) {
+          currentStep++;
+          renderStep(currentStep);
+        } else {
+          pause();
+        }
+      }, 700);
+    }
+
+    const newPlayBtn = playBtn.cloneNode(true);
+    const newNextBtn = nextBtn.cloneNode(true);
+    const newPrevBtn = prevBtn.cloneNode(true);
+    const newResetBtn = resetBtn.cloneNode(true);
+
+    playBtn.parentNode.replaceChild(newPlayBtn, playBtn);
+    nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
+    prevBtn.parentNode.replaceChild(newPrevBtn, prevBtn);
+    resetBtn.parentNode.replaceChild(newResetBtn, resetBtn);
+
+    newPlayBtn.addEventListener("click", () => {
+      if (isPlaying) pause();
+      else {
+        if (currentStep >= steps.length - 1) {
+          currentStep = 0;
+          renderStep(0);
+        }
+        play();
+      }
+    });
+
+    newNextBtn.addEventListener("click", () => {
+      pause();
+      if (currentStep < steps.length - 1) {
+        currentStep++;
+        renderStep(currentStep);
+      }
+    });
+
+    newPrevBtn.addEventListener("click", () => {
+      pause();
+      if (currentStep > 0) {
+        currentStep--;
+        renderStep(currentStep);
+      }
+    });
+
+    newResetBtn.addEventListener("click", () => {
+      pause();
+      currentStep = 0;
+      renderStep(0);
+    });
+
+    renderStep(0);
+  }
 }
 
 function createHeaderCell(text, className = "bg-slate-100 text-slate-500") {
   const th = document.createElement("th");
   th.textContent = text;
-  th.className = `border border-slate-200 p-2.5 font-semibold ${className}`;
+  th.className = `border-0 p-2.5 font-semibold ${className}`;
   return th;
 }

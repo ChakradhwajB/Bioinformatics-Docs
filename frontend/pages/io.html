@@ -59,11 +59,23 @@
     /* Collapsible Sidebar Styles */
     #sidebar {
       transition: width 0.2s ease, padding 0.2s ease, border-color 0.2s ease;
-      -ms-overflow-style: none;
-      scrollbar-width: none;
     }
-    #sidebar::-webkit-scrollbar {
-      display: none;
+    
+    /* Custom Scrollbar for all elements */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #94a3b8;
+      border-radius: 4px;
+    }
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #94a3b8 transparent;
     }
     .sidebar-collapsed {
       width: 0px !important;
@@ -78,20 +90,27 @@
   <div class="absolute top-0 z-[-2] h-screen w-full bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
   
   <!-- Header Bar -->
-  <header class="bg-white border-b border-slate-200 py-3 px-6 flex justify-between items-center select-none z-50">
-    <div class="flex items-center space-x-3">
-      <a href="../index.html" class="flex items-center space-x-2 text-slate-500 hover:text-slate-800 transition-colors">
-        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-        </svg>
-        <span class="text-xs font-semibold">Dashboard</span>
-      </a>
-      <span class="text-slate-350">/</span>
-      <span class="text-sm font-bold tracking-tight text-slate-800">FASTA File IO Workbench</span>
+    <header class="glass-nav border-b border-slate-200/50 backdrop-blur-md py-3 px-6 flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0 select-none z-50">
+    <!-- Logo -->
+    <div class="flex items-center space-x-2.5">
+      <span class="font-bold text-slate-900 text-xs tracking-wider uppercase">Bioinformatics Docs</span>
     </div>
-    <div class="flex items-center bg-slate-50 px-2.5 py-1 rounded-sm border border-slate-200">
-      <span id="server-status-dot" class="h-2 w-2 rounded-full bg-slate-400 mr-2"></span>
-      <span id="server-status-text" class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Checking...</span>
+    <!-- Nav links -->
+    <nav class="flex items-center space-x-6 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+      <a href="../index.html" class="hover:text-slate-900 transition-colors">Home</a>
+      <a href="../learn.html" class="hover:text-slate-900 transition-colors">Modules</a>
+      <a href="./docs.html" class="hover:text-indigo-700 transition-colors text-indigo-600">Documentation &rarr;</a>
+      <a href="https://github.com/ChakradhwajB/Bioinformatics-Docs" target="_blank" class="hover:text-slate-900 transition-colors flex items-center space-x-1">
+        <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.54 2.87 8.39 6.84 9.75.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.4 9.4 0 0 1 12 6.84c.85 0 1.71.12 2.51.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49C19.14 20.65 22 16.8 22 12.26 22 6.58 17.52 2 12 2z"/>
+        </svg>
+        <span>GitHub</span>
+      </a>
+    </nav>
+    <!-- Server status -->
+    <div class="flex items-center space-x-2 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full">
+      <span id="server-status-dot" class="h-1.5 w-1.5 rounded-full bg-slate-400"></span>
+      <span id="server-status-text" class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Checking...</span>
     </div>
   </header>
 
@@ -99,7 +118,7 @@
   <div class="flex-grow flex h-[calc(100vh-45px)] overflow-hidden relative">
     
     <!-- Left Sidebar (Inputs & Controls) -->
-    <aside id="sidebar" class="w-80 bg-slate-55 border-r border-slate-200 p-4 flex flex-col justify-between overflow-y-auto select-none transition-all duration-300 shrink-0">
+    <aside id="sidebar" class="w-80 bg-transparent border-r border-slate-200/50 p-4 flex flex-col justify-between overflow-y-auto select-none transition-all duration-300 shrink-0">
       <div class="space-y-4">
         <!-- Tool Navigation list -->
         <div>
@@ -109,35 +128,35 @@
             <!-- Module 1 -->
             <div class="space-y-0.5">
               <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 1: Foundations</span>
-              <a href="./io.html" class="block px-2.5 py-1.5 text-[11px] font-semibold rounded-sm text-indigo-650 bg-indigo-50 border-l-2 border-indigo-500 transition-colors">FASTA File IO</a>
-              <a href="./genetics.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Genetics Workbench</a>
+              <a href="./io.html" class="block px-2.5 py-1.5 text-[11px] font-semibold rounded-sm text-indigo-650 bg-indigo-50 border-l-2 border-indigo-500 transition-colors">FASTA File IO <span class="float-right text-[9px] opacity-80 font-bold">~15m</span></a>
+              <a href="./genetics.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Genetics Workbench <span class="float-right text-[9px] opacity-80 font-bold">~20m</span></a>
             </div>
 
             <!-- Module 2 -->
             <div class="space-y-0.5">
               <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 2: Patterns</span>
-              <a href="./kmers.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">K-mer Profiler</a>
-              <a href="./find_motif.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Motif Finder</a>
+              <a href="./kmers.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">K-mer Profiler <span class="float-right text-[9px] opacity-80 font-bold">~25m</span></a>
+              <a href="./find_motif.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Motif Finder <span class="float-right text-[9px] opacity-80 font-bold">~25m</span></a>
             </div>
 
             <!-- Module 3 -->
             <div class="space-y-0.5">
               <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 3: Comparisons</span>
-              <a href="./dot_plot.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Dot Plot Visualizer</a>
-              <a href="./distances.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Sequence Distances</a>
+              <a href="./dot_plot.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Dot Plot Visualizer <span class="float-right text-[9px] opacity-80 font-bold">~20m</span></a>
+              <a href="./distances.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Sequence Distances <span class="float-right text-[9px] opacity-80 font-bold">~25m</span></a>
             </div>
             <!-- Module 4 -->
             <div class="space-y-0.5">
               <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 4: Alignments</span>
-              <a href="./needleman_wunsch.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Needleman-Wunsch Global</a>
-              <a href="./smith_waterman.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Smith-Waterman Local</a>
+              <a href="./needleman_wunsch.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Needleman-Wunsch Global <span class="float-right text-[9px] opacity-80 font-bold">~30m</span></a>
+              <a href="./smith_waterman.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Smith-Waterman Local <span class="float-right text-[9px] opacity-80 font-bold">~30m</span></a>
             </div>
 
             <!-- Module 5 -->
             <div class="space-y-0.5">
               <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 5: Indexing</span>
-              <a href="./trie.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Trie Multi-Search</a>
-              <a href="./suffix_array.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Suffix Array Search</a>
+              <a href="./trie.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Trie Multi-Search <span class="float-right text-[9px] opacity-80 font-bold">~25m</span></a>
+              <a href="./suffix_array.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Suffix Array Search <span class="float-right text-[9px] opacity-80 font-bold">~30m</span></a>
             </div>
             <!-- Reference -->
             <div class="space-y-0.5 pt-1 border-t border-slate-200">
@@ -159,7 +178,7 @@
         <!-- Drag & Drop Zone -->
         <div class="space-y-2 pt-3 border-t border-slate-200">
           <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">File Ingestion</span>
-          <div id="drop-zone" class="border border-dashed border-slate-300 rounded-sm p-6 text-center cursor-pointer bg-white hover:bg-slate-100 transition-colors">
+          <div id="drop-zone" class="border border-dashed border-slate-300 rounded-sm p-6 text-center cursor-pointer bg-white hover:bg-transparent transition-colors">
             <span class="text-[10px] font-semibold text-slate-500 block">Drag & Drop FASTA File</span>
             <input type="file" id="file-input" class="hidden" accept=".fasta,.fa,.txt">
             <button id="browse-btn" class="mt-2.5 px-3 py-1 bg-slate-200 hover:bg-slate-300 active:bg-slate-400 text-slate-700 font-bold rounded text-[10px] transition-colors cursor-pointer">
@@ -200,10 +219,10 @@
     </button>
 
     <!-- Right Panels (Scrollable Workspace) -->
-    <main class="flex-grow overflow-y-auto bg-slate-100 p-5 space-y-5">
+    <main class="flex-grow overflow-y-auto bg-transparent p-5 space-y-5">
       
       <!-- Top Section: Console overview -->
-      <section class="bg-white border border-slate-200 p-5 rounded-sm shadow-sm">
+      <section class="p-2">
         <div class="flex justify-between items-center mb-3 select-none">
           <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Parsed Header Records</span>
           <div class="flex items-center space-x-2 text-[11px] font-bold text-slate-500">
@@ -220,7 +239,7 @@
       </section>
 
       <!-- Bottom Section: Records Table -->
-      <section class="bg-white p-5 border border-slate-200 rounded-sm shadow-sm flex flex-col">
+      <section class="p-2 flex flex-col">
         <div class="flex justify-between items-center mb-3 select-none">
           <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">FASTA Records Table</span>
           <span class="text-[9px] font-semibold text-slate-400 bg-slate-50 px-2 py-0.5 rounded border border-slate-200">Copy actions</span>
@@ -234,7 +253,7 @@
       </section>
 
       <!-- Educational Article -->
-      <section class="bg-white p-6 border border-slate-200 rounded-sm shadow-sm space-y-4">
+      <section class="p-2 space-y-4">
         <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Educational Guide: FASTA File Ingestion & JSON Exporters</h3>
         
         <div class="text-xs leading-relaxed space-y-3 text-slate-800">
@@ -265,7 +284,7 @@ GATA
           </pre>
           <p class="mt-2">
             The parser reads the first header <code>seq1_human</code>, then the sequence. For <code>seq2_mouse</code>, the sequence spans multiple lines, which the parser concatenates. The resulting mapped dictionary is:
-            <br/><code class="text-[10px] bg-slate-100 px-1 py-0.5 rounded text-pink-600">{"seq1_human": "ATGCGATA", "seq2_mouse": "ATGCGATA"}</code>
+            <br/><code class="text-[10px] bg-transparent px-1 py-0.5 rounded text-pink-600">{"seq1_human": "ATGCGATA", "seq2_mouse": "ATGCGATA"}</code>
           </p>
 
           <h4 class="font-bold text-slate-900 text-xs mt-4 border-b border-slate-100 pb-1">4. Python Code</h4>
@@ -273,7 +292,7 @@ GATA
 
           <div class="relative group mt-1">
             <button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); this.textContent = 'Copied!'; setTimeout(() => this.textContent = 'Copy', 2000)" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-sm text-[9px] font-bold tracking-wide transition-all duration-150 shadow-sm cursor-pointer select-none">Copy</button>
-            <pre class="bg-slate-55 border border-slate-200 text-slate-700 p-3.5 pr-12 rounded-sm font-mono text-[10px] overflow-x-auto leading-relaxed"><span class="text-pink-600">import</span> json
+            <pre class="bg-white border border-slate-200 text-slate-700 p-3.5 pr-12 rounded-sm font-mono text-[10px] overflow-x-auto leading-relaxed"><span class="text-pink-600">import</span> json
 
 <span class="text-pink-600">def</span> <span class="text-sky-600">parse_fasta</span>(file_content):
     records = {}

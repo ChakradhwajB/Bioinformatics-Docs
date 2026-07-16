@@ -75,15 +75,17 @@ window.setPageCompletion = function(pageName, isCompleted) {
   window.dispatchEvent(new CustomEvent('progressUpdated'));
 };
 
+const MODULE_PAGES = [
+  "io.html", "genetics.html",
+  "kmers.html", "find_motif.html",
+  "dot_plot.html", "distances.html",
+  "needleman_wunsch.html", "smith_waterman.html",
+  "trie.html", "suffix_array.html"
+];
+
 window.updateProgressUI = function() {
   const completed = window.getCompletedPages();
-  const allPageIds = [
-    "io.html", "genetics.html",
-    "kmers.html", "find_motif.html",
-    "dot_plot.html", "distances.html",
-    "needleman_wunsch.html", "smith_waterman.html",
-    "trie.html", "suffix_array.html"
-  ];
+  const allPageIds = MODULE_PAGES;
 
   // Calculate percentage
   const total = allPageIds.length;
@@ -149,6 +151,37 @@ function checkPagePrerequisite(pageName) {
   }
 }
 
+function buildModuleNavigation(pageName) {
+  const index = MODULE_PAGES.indexOf(pageName);
+  if (index === -1) return;
+
+  const main = document.querySelector("main");
+  if (!main) return;
+
+  const total = MODULE_PAGES.length;
+  const current = index + 1;
+
+  const navContainer = document.createElement("div");
+  // We don't want mb-5 if we just use mb-0 and let main's space-y-5 handle spacing, but we can just use the classes
+  navContainer.className = "flex justify-between items-center bg-transparent border-0 p-3 rounded-none shadow-none select-none shrink-0";
+
+  const prevLink = index > 0 
+    ? `<a href="${MODULE_PAGES[index - 1]}" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center transition-colors">&larr; Previous</a>` 
+    : `<span class="text-xs font-bold text-slate-300 flex items-center">&larr; Previous</span>`;
+    
+  const nextLink = index < total - 1 
+    ? `<a href="${MODULE_PAGES[index + 1]}" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center transition-colors">Next &rarr;</a>` 
+    : `<span class="text-xs font-bold text-slate-300 flex items-center">Next &rarr;</span>`;
+
+  navContainer.innerHTML = `
+    <div class="w-24">${prevLink}</div>
+    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center flex-grow">Module ${current} of ${total}</div>
+    <div class="w-24 flex justify-end">${nextLink}</div>
+  `;
+
+  main.insertBefore(navContainer, main.firstChild);
+}
+
 // Auto-init progress on page load
 document.addEventListener("DOMContentLoaded", () => {
   window.updateProgressUI();
@@ -163,6 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!pageName.endsWith(".html")) pageName += ".html";
     
     checkPagePrerequisite(pageName);
+    buildModuleNavigation(pageName);
 
     checkbox.checked = window.isPageCompleted(pageName);
     checkbox.addEventListener("change", (e) => {

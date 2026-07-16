@@ -142,10 +142,10 @@ function renderDPMatrix(seq1, seq2, match, mismatch, gap) {
   container.innerHTML = "";
 
   const tableWrapper = document.createElement("div");
-  tableWrapper.className = "border border-slate-200 bg-white rounded-md overflow-x-auto w-full";
+  tableWrapper.className = "border-0 bg-transparent rounded-none overflow-x-auto w-full";
 
   const table = document.createElement("table");
-  table.className = "min-w-full border-collapse border border-slate-200 text-center font-mono text-[10px] select-none";
+  table.className = "min-w-full border-collapse border-0 text-center font-mono text-[10px] select-none";
 
   const headerRow = document.createElement("tr");
   headerRow.appendChild(createHeaderCell(""));
@@ -169,7 +169,7 @@ function renderDPMatrix(seq1, seq2, match, mismatch, gap) {
       const val = dp[i][j];
       cell.textContent = val;
       cell.id = `cell-${i}-${j}`;
-      cell.className = "border border-slate-200 p-2.5 font-bold text-slate-700 transition-colors duration-150 cursor-pointer";
+      cell.className = "border-0 p-2.5 font-bold text-slate-700 transition-colors duration-150 cursor-pointer";
 
       const baseAlpha = val > 0 ? Math.min(0.04 + val * 0.08, 0.45) : 0;
       cell.style.backgroundColor = val > 0 
@@ -286,7 +286,7 @@ function renderDPMatrix(seq1, seq2, match, mismatch, gap) {
 
     // Reset button states
     playBtn.textContent = "Play";
-    playBtn.className = "px-2.5 py-1 text-[10px] bg-slate-800 text-white hover:bg-slate-900 rounded-sm font-bold cursor-pointer";
+    playBtn.className = "px-2.5 py-1 text-[10px] bg-slate-800 text-white hover:bg-slate-900 rounded-none font-bold cursor-pointer";
 
     function resetCellStyles() {
       // Restore all cells to their original background/color states
@@ -296,7 +296,7 @@ function renderDPMatrix(seq1, seq2, match, mismatch, gap) {
           if (c) {
             c.style.backgroundColor = "";
             c.style.color = "";
-            c.className = "border border-slate-200 p-2.5 font-bold text-slate-700 transition-colors duration-150 cursor-pointer";
+            c.className = "border-0 p-2.5 font-bold text-slate-700 transition-colors duration-150 cursor-pointer";
             
             const originalVal = dp[i][j];
             const origAlpha = originalVal > 0 ? Math.min(0.04 + originalVal * 0.08, 0.45) : 0;
@@ -380,14 +380,14 @@ function renderDPMatrix(seq1, seq2, match, mismatch, gap) {
       clearInterval(window.tracebackPlayerInterval);
       window.tracebackPlayerInterval = null;
       playBtn.textContent = "Play";
-      playBtn.className = "px-2.5 py-1 text-[10px] bg-slate-800 text-white hover:bg-slate-900 rounded-sm font-bold cursor-pointer";
+      playBtn.className = "px-2.5 py-1 text-[10px] bg-slate-800 text-white hover:bg-slate-900 rounded-none font-bold cursor-pointer";
     }
 
     function play() {
       isPlaying = true;
       window.tracebackPlayerPlaying = true;
       playBtn.textContent = "Pause";
-      playBtn.className = "px-2.5 py-1 text-[10px] bg-rose-600 text-white hover:bg-rose-700 rounded-sm font-bold cursor-pointer";
+      playBtn.className = "px-2.5 py-1 text-[10px] bg-rose-600 text-white hover:bg-rose-700 rounded-none font-bold cursor-pointer";
       
       window.tracebackPlayerInterval = setInterval(() => {
         if (currentStep < steps.length - 1) {
@@ -451,6 +451,6 @@ function renderDPMatrix(seq1, seq2, match, mismatch, gap) {
 function createHeaderCell(text, className = "bg-slate-100 text-slate-500") {
   const th = document.createElement("th");
   th.textContent = text;
-  th.className = `border border-slate-200 p-2.5 font-semibold ${className}`;
+  th.className = `border-0 p-2.5 font-semibold ${className}`;
   return th;
 }

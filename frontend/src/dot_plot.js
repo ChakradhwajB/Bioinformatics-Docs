@@ -68,7 +68,7 @@ function generateDotPlot() {
   // Render comparative table grid
   container.innerHTML = "";
   const tableWrapper = document.createElement("div");
-  tableWrapper.className = "inline-block border border-slate-200 bg-white max-h-[500px] overflow-auto";
+  tableWrapper.className = "inline-block border-0 bg-transparent max-h-[500px] overflow-auto";
 
   const table = document.createElement("table");
   table.className = "border-collapse font-mono text-[10px]";
@@ -76,13 +76,13 @@ function generateDotPlot() {
   // Header row (horizontal seq2)
   const headerRow = document.createElement("tr");
   const cornerCell = document.createElement("th");
-  cornerCell.className = "border border-slate-200 bg-slate-100 p-1 min-w-[24px] sticky top-0 left-0 z-30 select-none text-[8px] text-slate-400 font-bold";
+  cornerCell.className = "border-0 bg-slate-100 p-1 min-w-[24px] sticky top-0 left-0 z-30 select-none text-[8px] text-slate-400 font-bold";
   cornerCell.textContent = "S1 \\ S2";
   headerRow.appendChild(cornerCell);
 
   for (let j = 0; j < m; j++) {
     const th = document.createElement("th");
-    th.className = "border border-slate-200 bg-slate-50 p-1 min-w-[20px] sticky top-0 z-20 text-slate-700 font-bold text-center select-none";
+    th.className = "border-0 bg-slate-50 p-1 min-w-[20px] sticky top-0 z-20 text-slate-700 font-bold text-center select-none";
     th.textContent = seq2Val[j];
     headerRow.appendChild(th);
   }
@@ -94,7 +94,7 @@ function generateDotPlot() {
 
     // Left row header
     const rowHeader = document.createElement("td");
-    rowHeader.className = "border border-slate-200 bg-slate-50 p-1 min-w-[24px] sticky left-0 z-20 text-slate-700 font-bold text-center select-none";
+    rowHeader.className = "border-0 bg-slate-50 p-1 min-w-[24px] sticky left-0 z-20 text-slate-700 font-bold text-center select-none";
     rowHeader.textContent = seq1Val[i];
     row.appendChild(rowHeader);
 
