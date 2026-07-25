@@ -1,2 +1,11 @@
+[project]
+name = "bioinformatics-docs"
+version = "1.0.0"
+description = "A learning-based algorithms visualization toolkit for bioinformatics"
+authors = [
+    { name = "ChakradhwajB" }
+]
+requires-python = ">=3.11"
+
 [tool.pytest.ini_options]
 pythonpath = ["."]

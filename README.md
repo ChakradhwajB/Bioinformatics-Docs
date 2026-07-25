@@ -135,22 +135,131 @@ Empirical runtime validations show that our implementations match theoretical co
 
 ---
 
-## Project Structure
+## System Architecture Overview
 
-```text
-├── core_lib/        # Core bioinformatics algorithm engine
-│   ├── alignments.py
-│   ├── genetics.py
-│   └── io.py
-├── server/          # FastAPI REST API
-│   ├── endpoints/
-│   └── main.py
-├── frontend/        # Dashboard
-│   ├── pages/
-│   └── src/
-├── docs/            # Markdown documentation
-├── benchmarks/      # Performance evaluation scripts and graphs
-└── tests/           # Pytest unit tests
+```mermaid
+graph TD
+    subgraph Frontend ["Frontend (Static HTML/JS — Netlify)"]
+        A["index.html — Landing Page"]
+        B["learn.html — Module Index"]
+        C["pages/*.html — 11 Module Pages"]
+        D["src/app.js — API Client + Init"]
+        D2["src/needleman_wunsch.js"]
+        D3["src/smith_waterman.js"]
+        D4["src/distances.js"]
+        D5["src/genetics.js, io.js, kmers.js, ..."]
+        E["src/docs-renderer.js — Markdown Renderer"]
+        F["src/quiz.js — Practice Challenges"]
+        G["src/sandbox.js — Pyodide WASM Sandbox"]
+        H["src/search.js — Full-text Search"]
+    end
+
+    subgraph Server ["Server (FastAPI — Render)"]
+        I["server/main.py — App + CORS + Routing"]
+        I2["endpoints/config.py — Centralized Guards"]
+        J["endpoints/alignments.py"]
+        K["endpoints/genetics.py"]
+        L["endpoints/io.py"]
+        M["endpoints/kmers.py"]
+        N["endpoints/indexing.py"]
+    end
+
+    subgraph CoreLib ["core_lib (Pure Python Algorithms)"]
+        O["alignments.py — NW, SW, Hamming, Levenshtein, Hirschberg"]
+        P["genetics.py — Complement, Transcribe, Translate, Motif"]
+        Q["io.py — FASTA Parse/Validate, JsonWrite"]
+        R["kmers.py — Generate, Count, MostFrequent"]
+        S["indexing/ — Trie, SuffixArray (Prefix Doubling)"]
+    end
+
+    subgraph Support ["Support Infrastructure"]
+        T["tests/ — 6 test modules, 28+ assertions"]
+        U["benchmarks/ — Empirical complexity validation"]
+        V["docs/ — 16 markdown articles"]
+        W[".github/ — CI (tests.yml), Dependabot, Templates"]
+    end
+
+    D -- "HTTP POST /api/v1/*" --> I
+    D2 -- "HTTP" --> I
+    D3 -- "HTTP" --> I
+    I --> I2
+    I --> J & K & L & M & N
+    J --> O
+    K --> P
+    L --> Q
+    M --> R
+    N --> S
+    J & K & L & M & N -.-> I2
+    E -- "fetch()" --> V
+    T --> O & P & Q & R & S
+    U --> O & P & Q & R
+```
+
+### Tier Summary
+
+| Tier | Tech | Deployment | Directory |
+|:-----|:-----|:-----------|:----------|
+| **Frontend** | HTML, Tailwind CSS v4, 14 vanilla JS modules, KaTeX, marked.js, Pyodide (WASM) | Netlify (static) | [frontend/](frontend/) |
+| **Backend API** | FastAPI, Pydantic, uvicorn | Render | [server/](server/) |
+| **Algorithm Engine** | Pure Python, zero external deps | Imported by server | [core_lib/](core_lib/) |
+| **Tests** | pytest, FastAPI TestClient | GitHub Actions CI | [tests/](tests/) |
+| **Benchmarks** | matplotlib, numpy | Manual / local | [benchmarks/](benchmarks/) |
+| **CI/CD** | GitHub Actions (Python + Node.js), Dependabot | GitHub | [.github/](.github/) |
+
+---
+
+## Data Flow Diagrams
+
+### Alignment Request Flow
+
+```mermaid
+sequenceDiagram
+    participant User as Browser
+    participant App as app.js
+    participant API as FastAPI Server
+    participant Config as config.py
+    participant Core as core_lib.alignments
+
+    User->>App: Enter seq1, seq2, penalties
+    App->>API: POST /api/v1/alignments/needleman-wunsch<br/>{seq1, seq2, match, mismatch, gap}
+    API->>Config: validate_sequence(seq1), validate_sequence(seq2)
+    Config-->>API: Pass / raise ValueError
+    API->>API: Rebuild DP matrix (for visualization)
+    API->>Core: NeedlemanWunsch(seq1, seq2, ...)
+    Core-->>API: (score, aligned1, aligned2)
+    API-->>App: {score, aligned_seq1, aligned_seq2, dp_matrix}
+    App->>App: Render color-coded DP matrix in DOM
+    App-->>User: Visual alignment + traceback path
+```
+
+### Documentation Flow
+
+```mermaid
+sequenceDiagram
+    participant User as Browser
+    participant Renderer as docs-renderer.js
+    participant Docs as docs/*.md (static)
+
+    User->>Renderer: Navigate to docs page
+    Renderer->>Docs: fetch("../docs/alignments/needleman_wunsch.md")
+    Docs-->>Renderer: Raw markdown + KaTeX
+    Renderer->>Renderer: marked.parse() + KaTeX.renderToString()
+    Renderer-->>User: Rendered HTML article with math
+```
+
+### Build & Deploy Flow
+
+```mermaid
+graph LR
+    A["git push to main"] --> B["GitHub Actions CI"]
+    A --> B2["Dependabot weekly scans"]
+    B --> C["pytest (Python 3.11)"]
+    B --> C2["Node.js 20 — npm install + npm run build"]
+    A --> D["Netlify Build"]
+    D --> E["npm install"]
+    E --> F["copy-docs.js<br/>docs/ → frontend/docs/"]
+    F --> G["Tailwind CSS build<br/>styles.css → dist/output.css"]
+    G --> H["Deploy static files"]
 ```
 
 ---

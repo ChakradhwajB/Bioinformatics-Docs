@@ -6,6 +6,7 @@ from core_lib import (
     LevenshteinDistance,
     NeedlemanWunsch,
     SmithWaterman,
+    Hirschberg,
 )
 
 from .config import MAX_DP_SEQUENCE_LENGTH, MAX_LINEAR_SEQUENCE_LENGTH, validate_sequence
@@ -51,6 +52,14 @@ class AlignmentResponse(BaseModel):
 
 
 class NeedlemanWunschRequest(BaseModel):
+    seq1: str
+    seq2: str
+    match: int = 1
+    mismatch: int = -1
+    gap: int = -1
+
+
+class HirschbergRequest(BaseModel):
     seq1: str
     seq2: str
     match: int = 1
@@ -145,3 +154,25 @@ def align_smith_waterman(request: SmithWatermanRequest):
         )
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+
+@router.post("/hirschberg", response_model=AlignmentResponse)
+def align_hirschberg(request: HirschbergRequest):
+    """Performs global sequence alignment using Hirschberg's algorithm in linear space."""
+    if len(request.seq1) > MAX_DP_SEQUENCE_LENGTH or len(request.seq2) > MAX_DP_SEQUENCE_LENGTH:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Sequence length exceeds the maximum allowed limit of {MAX_DP_SEQUENCE_LENGTH:,} bases for Hirschberg alignment."
+        )
+    try:
+        validate_sequence(request.seq1)
+        validate_sequence(request.seq2)
+        score, a1, a2 = Hirschberg(
+            request.seq1, request.seq2, request.match, request.mismatch, request.gap
+        )
+        return AlignmentResponse(
+            status="success", score=score, alignment_1=a1, alignment_2=a2
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+

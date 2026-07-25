@@ -168,20 +168,30 @@ function renderSandbox(container, sandboxData) {
 
       output.innerHTML = '<span class="text-sky-400">Running...</span>';
 
-      // Capture stdout
+      // Capture stdout with limit
       let stdout = "";
-      pyodide.setStdout({ batched: (msg) => stdout += msg + "\\n" });
+      pyodide.setStdout({ batched: (msg) => {
+        if (stdout.length < 10000) {
+          stdout += msg + "\\n";
+        } else if (!stdout.endsWith("... [OUTPUT TRUNCATED]\\n")) {
+          stdout += "... [OUTPUT TRUNCATED]\\n";
+        }
+      }});
       
-      // Run user code with timeout wrapper
+      // Run user code with timeout and basic size wrapper
       const timeoutWrapper = (sourceCode) => `
 import sys
 import time
 class SandboxTimeout(Exception): pass
+class SandboxMemoryLimit(Exception): pass
 def _run_with_timeout():
     start_time = time.time()
     def trace_calls(frame, event, arg):
         if time.time() - start_time > 3:
             raise SandboxTimeout("Execution timed out after 3 seconds")
+        # Basic check to avoid massive allocations filling up browser memory
+        if sys.getallocatedblocks() > 100000:
+            raise SandboxMemoryLimit("Memory limit exceeded")
         return trace_calls
     sys.settrace(trace_calls)
     try:

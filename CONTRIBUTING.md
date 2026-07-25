@@ -1,56 +1,75 @@
 # Contributing Guide
 
-This guide outlines the exact integration checklist required when adding a new bioinformatics function to the codebase. Follow these steps to ensure the new feature is fully wired across the core library, backend server, frontend UI, live documentation viewer, and benchmarking suite.
+This guide outlines the exact integration checklist required when adding a new bioinformatics function to the codebase. The `bioinformatics-docs` project spans across a pure Python library, a FastAPI backend, a static JS frontend, a Pyodide-powered sandbox, and a markdown documentation renderer. 
+
+Follow these exact steps to ensure the new feature is fully wired across the architecture without breaking existing patterns.
 
 ---
 
-### 1. Core Library Implementation
+### 1. Core Library Implementation (`core_lib/`)
 
-- **Add Function Logic**: Implement the function inside the appropriate core module:
-  - [alignments.py](file:///C:/Users/gamer/OneDrive/Documents/Bioinformatics-project/core_lib/alignments.py) (alignment, distance, matrices)
-  - [genetics.py](file:///C:/Users/gamer/OneDrive/Documents/Bioinformatics-project/core_lib/genetics.py) (mutations, complements, transcriptions)
-  - [io.py](file:///C:/Users/gamer/OneDrive/Documents/Bioinformatics-project/core_lib/io.py) (file parsing, output formatting)
-- **Export Function**: Import the new function and append its name to the `__all__` list in [core_lib/\_\_init\_\_.py](file:///C:/Users/gamer/OneDrive/Documents/Bioinformatics-project/core_lib/__init__.py).
-- **Write Unit Tests**: Add test coverage inside the [tests/](file:///C:/Users/gamer/OneDrive/Documents/Bioinformatics-project/tests) folder (e.g. `test_alignments.py`). Run the test suite:
+When you implement a new algorithm, it must live in the `core_lib` independent of any web framework.
+
+- **Add Function Logic**: Implement the function inside the appropriate core module using `PascalCase` naming convention (e.g. `FindMotif`, `NeedlemanWunsch`):
+  - `core_lib/alignments.py` (global/local alignments, distance metrics)
+  - `core_lib/genetics.py` (strand mutations, complements, translations)
+  - `core_lib/kmers.py` (k-mer generation, counting)
+  - `core_lib/indexing/` (Trie, Suffix Arrays, FM-Indexes)
+  - `core_lib/io.py` (file parsing, output formatting)
+- **Export Function**: Import the new function and append its name to the `__all__` list in `core_lib/__init__.py`.
+- **Write Unit Tests**: Add test coverage inside the `tests/` folder matching the module name (e.g. `tests/test_alignments.py`). Run the suite:
   ```bash
   pytest
   ```
 
-### 2. Backend API Endpoint (FastAPI)
+### 2. Backend API Endpoint (`server/endpoints/`)
 
-- **Register Route**: Open [server/main.py](file:///C:/Users/gamer/OneDrive/Documents/Bioinformatics-project/server/main.py) and create a POST/GET endpoint (e.g. `/api/new-method`) that receives request data, runs your library function, and returns the result in JSON format.
+Do **not** add routes directly to `server/main.py`. The API is modularized using FastAPI routers.
 
-### 3. Frontend Integration
+- **Define Pydantic Models**: Open the appropriate router file (e.g., `server/endpoints/alignments.py`) and create strict request and response schema classes (e.g., `MyNewToolRequest` and `MyNewToolResponse`). Ensure the response includes a `status: str` field (e.g. `status="success"`).
+- **Import Security Guards**: Import sequence limits and validators from `server.endpoints.config`:
+  ```python
+  from .config import MAX_LINEAR_SEQUENCE_LENGTH, MAX_DP_SEQUENCE_LENGTH, validate_sequence
+  ```
+- **Register Route**: Add the `@router.post("/your-endpoint")` function. 
+- **Enforce Constraints**:
+  - Check the length of the input against the config constants and raise a 400 `HTTPException` if exceeded.
+  - Call `validate_sequence(request.sequence)` to prevent invalid characters.
+- **Error Handling**: Wrap the core library call in a `try...except ValueError` block to map library-level data errors into HTTP 400 Bad Request responses.
+- **Write API Tests**: Open `tests/test_api.py` and write an integration test using the `TestClient` to verify the JSON output.
 
-- **Create View Page**: Create a new `.html` file inside the `frontend/pages/` directory (e.g. `frontend/pages/new_tool.html`). Use the same visual CSS/layout structure:
-  - Include the `<header>` dashboard bar.
-  - Include the sidebar navigation list (Modules List).
-- **Link Sidebar Navigation**: Add a navigation anchor `<a href="./new_tool.html">` to the sidebar menu of all other HTML views (e.g. `needleman_wunsch.html`, etc.).
-- **Launch Card**: Add a module launcher card inside the `modules-grid` container on the homepage [frontend/index.html](file:///C:/Users/gamer/OneDrive/Documents/Bioinformatics-project/frontend/index.html).
-- **JavaScript Bindings**: Update [frontend/src/app.js](file:///C:/Users/gamer/OneDrive/Documents/Bioinformatics-project/frontend/src/app.js) and create a corresponding `new_tool.js` in `frontend/src/` to:
-  - Write the fetch callbacks that query your new backend FastAPI endpoint.
-  - Bind UI inputs (buttons, input fields) to query triggers and update the output containers.
+### 3. Frontend Integration (`frontend/`)
 
-### 4. Live Documentation Viewer
+- **Create View Page**: Create a new `.html` file inside `frontend/pages/` (e.g., `frontend/pages/new_tool.html`). Use Tailwind CSS v4 layout structures mirroring existing pages.
+- **Link Navigation Sidebar**: Add a navigation anchor `<a href="./new_tool.html">` to the sidebar menu of **all** HTML views (including `learn.html`, `index.html`, and every file in `frontend/pages/`).
+- **Launch Card**: Add a visual launcher card inside the `modules-grid` container on the homepage `frontend/index.html`.
+- **JavaScript Bindings**: Create a corresponding `new_tool.js` in `frontend/src/` to handle DOM manipulation and `fetch()` queries to your new backend endpoint. Include this script via a `<script>` tag in your HTML file.
+- **Sandbox Practice Data**: If you want a practice problem for this tool, open `frontend/src/sandbox.js` and add a new entry to the `SANDBOX_DATA` dictionary mapping to your HTML filename (e.g., `"new_tool.html": { ... }`). Provide the `initialCode` and `testCode`.
+- **Build Scripts**: Run the injection build scripts to propagate standard components across your new HTML file:
+  ```bash
+  python add_buttons.py
+  python add_sandbox.py
+  ```
 
-- **Create Markdown Reference**: Write an educational markdown guide explaining the logic, equations, and complexity of the new algorithm inside the `docs/` folder (e.g. `docs/alignments/new_tool.md`).
-  - _Note: Use native GitHub ```math code blocks for block equations to bypass Markdown compiler overrides._
-- **Inject Navigation Link**: Register the new file link in [frontend/pages/docs.html](file:///C:/Users/gamer/OneDrive/Documents/Bioinformatics-project/frontend/pages/docs.html) inside its navigation sidebar `<nav>` menu.
+### 4. Live Documentation Viewer (`docs/`)
 
-### 5. Performance Benchmarking
+- **Create Markdown Reference**: Write an educational markdown guide explaining the logic, equations, and complexity of the new algorithm inside the appropriate subfolder in `docs/` (e.g. `docs/alignments/new_tool.md`).
+  - *Note: Use native GitHub ````math` code blocks for equations. They are converted dynamically by KaTeX.*
+- **Inject Navigation Link**: Register the new document link in `frontend/pages/docs.html` inside its sidebar `<nav>` menu so the `docs-renderer.js` can `fetch()` it.
 
-- **Register in Runner**: Open [benchmarks/run_benchmarks.py](file:///C:/Users/gamer/OneDrive/Documents/Bioinformatics-project/benchmarks/run_benchmarks.py):
+### 5. Performance Benchmarking (`benchmarks/`)
+
+If your algorithm performs complex logic, validate its Big-O empirical time complexity.
+
+- **Register in Runner**: Open `benchmarks/run_benchmarks.py`:
   - Import the new library function.
-  - Add the function to the `BENCHMARKS` list by specifying its name, complexity, test sizes (`LINEAR` or `QUAD`), and setup lambda expression.
-- **Run Measurements**: Execute the benchmark script to calculate the averaged datasets:
+  - Add the function to the `BENCHMARKS` list by specifying its name, expected theoretical complexity, test sizes (`LINEAR` or `QUAD`), and setup lambda expression.
+- **Run Measurements**: Execute the script to generate empirical `.csv` data logs:
   ```bash
   python benchmarks/run_benchmarks.py
   ```
-- **Regenerate Plots**: Update the plotting lists in [benchmarks/generate_graphs.py](file:///C:/Users/gamer/OneDrive/Documents/Bioinformatics-project/benchmarks/generate_graphs.py) to plot your new function. Then, run the graph generator:
+- **Regenerate Plots**: Update the configuration lists in `benchmarks/generate_graphs.py` to plot your new function. Then, run the graph generator to produce the output `.png` charts and `results.md`:
   ```bash
   python benchmarks/generate_graphs.py
   ```
-- **Sync Benchmarks**: Copy the newly updated charts and files directly to your root docs:
-  ```bash
-  Copy-Item -Path "benchmarks\linear_algorithms.png", "benchmarks\quadratic_algorithms_linear.png", "benchmarks\quadratic_algorithms_log.png" -Destination "docs\benchmarks\" -Force
-  ```
+- **Build Step Note**: When deployed, Netlify's build process (`frontend/copy-docs.js`) automatically syncs the `docs/` directory to `frontend/docs/` so the frontend fetch mechanism can access the markdown content.

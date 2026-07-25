@@ -3,6 +3,7 @@ from core_lib.alignments import (
     LevenshteinDistance,
     NeedlemanWunsch,
     SmithWaterman,
+    Hirschberg,
 )
 
 
@@ -45,6 +46,27 @@ def test_needleman_wunsch_mismatch():
     assert a2 == "ATAC"
 
 
+def test_hirschberg_identical():
+    score, a1, a2 = Hirschberg("ATGC", "ATGC", match=1, mismatch=-1, gap=-1)
+    assert score == 4
+    assert a1 == "ATGC"
+    assert a2 == "ATGC"
+
+
+def test_hirschberg_gaps():
+    score, a1, a2 = Hirschberg("A", "ACT", match=1, mismatch=-1, gap=-1)
+    assert score == -1
+    assert a1 == "A--"
+    assert a2 == "ACT"
+
+
+def test_hirschberg_mismatch():
+    score, a1, a2 = Hirschberg("ATGC", "ATAC", match=1, mismatch=-1, gap=-1)
+    assert score == 2
+    assert a1 == "ATGC"
+    assert a2 == "ATAC"
+
+
 def test_smith_waterman_subsequence():
     score, a1, a2 = SmithWaterman("ACAAATGTTGGGGG", "TGTT")
     assert score == 4  # 4 matches
@@ -77,4 +99,7 @@ if __name__ == "__main__":
     test_smith_waterman_subsequence()
     test_smith_waterman_partial_overlap()
     test_smith_waterman_no_match()
+    test_hirschberg_identical()
+    test_hirschberg_gaps()
+    test_hirschberg_mismatch()
     print("All alignment tests passed")
