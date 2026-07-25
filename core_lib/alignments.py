@@ -15,6 +15,8 @@ def HammingDistance(
     Returns:
         int: The Hamming Distance between the two sequences.
     """
+    if seq1 is None or seq2 is None:
+        raise ValueError("Sequences cannot be None")
     if len(seq1) != len(seq2):
         raise ValueError("Sequences must be of equal length.")
     distance = 0
@@ -35,27 +37,19 @@ def LevenshteinDistance(seq1: str, seq2: str) -> int:
     Returns:
         int: The Levenshtein Distance between the two sequences.
     """
+    if seq1 is None or seq2 is None:
+        raise ValueError("Sequences cannot be None")
     n, m = len(seq1), len(seq2)
-
-    dp = [[0] * (m + 1) for _ in range(n + 1)]
-
-    for i in range(n + 1):
-        dp[i][0] = i
-    for j in range(m + 1):
-        dp[0][j] = j
-
+    prev = list(range(m + 1))
     for i in range(1, n + 1):
+        curr = [i] + [0] * m
         for j in range(1, m + 1):
             if seq1[i - 1] == seq2[j - 1]:
-                dp[i][j] = dp[i - 1][j - 1]
+                curr[j] = prev[j - 1]
             else:
-                deletion = dp[i - 1][j] + 1
-                insertion = dp[i][j - 1] + 1
-                substitution = dp[i - 1][j - 1] + 1
-
-                dp[i][j] = min(deletion, insertion, substitution)
-
-    return dp[n][m]
+                curr[j] = 1 + min(prev[j], curr[j - 1], prev[j - 1])
+        prev = curr
+    return prev[m]
 
 
 def NeedlemanWunsch(
@@ -74,6 +68,8 @@ def NeedlemanWunsch(
     Returns:
         Tuple[int, str, str]: The optimal alignment score, aligned seq1, and aligned seq2.
     """
+    if seq1 is None or seq2 is None:
+        raise ValueError("Sequences cannot be None")
     n, m = len(seq1), len(seq2)
 
     dp = [[0] * (m + 1) for _ in range(n + 1)]
@@ -141,6 +137,8 @@ def SmithWaterman(
     Returns:
         Tuple[int, str, str]: The optimal local alignment score, and the aligned sub-sequences.
     """
+    if seq1 is None or seq2 is None:
+        raise ValueError("Sequences cannot be None")
     n, m = len(seq1), len(seq2)
 
     dp = [[0] * (m + 1) for _ in range(n + 1)]
@@ -203,6 +201,8 @@ def Hirschberg(
     Returns:
         Tuple[int, str, str]: The optimal alignment score, aligned seq1, and aligned seq2.
     """
+    if seq1 is None or seq2 is None:
+        raise ValueError("Sequences cannot be None")
     def nw_score(x, y):
         dp = [j * gap for j in range(len(y) + 1)]
         for i in range(1, len(x) + 1):
@@ -216,14 +216,20 @@ def Hirschberg(
             dp = next_dp
         return dp
 
-    def hirschberg_recursive(x, y):
+    def hirschberg_recursive(x, y, out1, out2):
         if len(x) == 0:
-            return "-" * len(y), y
+            out1.append("-" * len(y))
+            out2.append(y)
+            return
         elif len(y) == 0:
-            return x, "-" * len(x)
+            out1.append(x)
+            out2.append("-" * len(x))
+            return
         elif len(x) == 1 or len(y) == 1:
             _, a1, a2 = NeedlemanWunsch(x, y, match, mismatch, gap)
-            return a1, a2
+            out1.append(a1)
+            out2.append(a2)
+            return
 
         x_mid = len(x) // 2
         score_left = nw_score(x[:x_mid], y)
@@ -237,11 +243,13 @@ def Hirschberg(
                 max_score = s
                 split_j = j
 
-        left_a1, left_a2 = hirschberg_recursive(x[:x_mid], y[:split_j])
-        right_a1, right_a2 = hirschberg_recursive(x[x_mid:], y[split_j:])
-        return left_a1 + right_a1, left_a2 + right_a2
+        hirschberg_recursive(x[:x_mid], y[:split_j], out1, out2)
+        hirschberg_recursive(x[x_mid:], y[split_j:], out1, out2)
 
-    align1, align2 = hirschberg_recursive(seq1, seq2)
+    out1, out2 = [], []
+    hirschberg_recursive(seq1, seq2, out1, out2)
+    align1 = "".join(out1)
+    align2 = "".join(out2)
     score = 0
     for c1, c2 in zip(align1, align2):
         if c1 == c2:

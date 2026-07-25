@@ -1,6 +1,6 @@
 from typing import List
 
-_DNA_COMPLEMENT_TABLE = str.maketrans("ACGTacgt", "TGCAtgca")
+_DNA_COMPLEMENT_TABLE = str.maketrans("ACGTNUacgtnu", "TGCANAtgcant")
 _RNA_TRANSCRIPTION_TABLE = str.maketrans("Tt", "Uu")
 _CODON_CHART = {
     "UUU": "F",

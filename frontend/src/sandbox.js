@@ -16,7 +16,7 @@ const SANDBOX_DATA = {
   },
   "find_motif.html": {
     title: "Motif Finding",
-    initialCode: "def find_motif(seq, motif):\n    # TODO: return list of 0-indexed start positions\n    return []\n\nprint(find_motif('GATATATA', 'ATA'))",
+    initialCode: "def find_motif(seq, motif):\n    # TODO: return list of 1-based start positions\n    return []\n\nprint(find_motif('GATATATA', 'ATA'))",
     testCode: "assert find_motif('GATATATA', 'ATA') == [1, 3, 5]"
   },
   "dot_plot.html": {
@@ -50,6 +50,12 @@ const SANDBOX_DATA = {
     testCode: "assert build_suffix_array('BANA$') == [4, 3, 1, 0, 2]"
   }
 };
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
 
 let pyodide = null;
 let isPyodideLoading = false;
@@ -182,8 +188,27 @@ function renderSandbox(container, sandboxData) {
       const timeoutWrapper = (sourceCode) => `
 import sys
 import time
+import builtins
+
 class SandboxTimeout(Exception): pass
 class SandboxMemoryLimit(Exception): pass
+
+# Restrict imports to safe modules only
+_SAFE_MODULES = frozenset({
+    'math', 'random', 'string', 'collections', 'itertools',
+    'functools', 'operator', 're', 'json', 'copy',
+    'heapq', 'bisect', 'array', 'enum', 'typing',
+    'dataclasses', 'abc', 'numbers', 'decimal', 'fractions',
+    'statistics', 'textwrap', 'unicodedata', 'pprint',
+})
+_original_import = builtins.__import__
+def _safe_import(name, *args, **kwargs):
+    top_level = name.split('.')[0]
+    if top_level not in _SAFE_MODULES and top_level not in sys.modules:
+        raise ImportError(f"Module '{name}' is not available in the sandbox")
+    return _original_import(name, *args, **kwargs)
+builtins.__import__ = _safe_import
+
 def _run_with_timeout():
     start_time = time.time()
     def trace_calls(frame, event, arg):
@@ -198,12 +223,13 @@ def _run_with_timeout():
         exec(${JSON.stringify(sourceCode)}, globals())
     finally:
         sys.settrace(None)
+        builtins.__import__ = _original_import
 _run_with_timeout()
 `;
 
       await pyodide.runPythonAsync(timeoutWrapper(code));
       
-      let finalOutput = stdout;
+      let finalOutput = escapeHtml(stdout);
 
       // Run tests
       if (sandboxData.testCode) {
@@ -217,7 +243,7 @@ _run_with_timeout()
 
       output.innerHTML = finalOutput;
     } catch (err) {
-      output.innerHTML = `<span class="text-rose-400">${err.message}</span>`;
+      output.innerHTML = `<span class="text-rose-400">${escapeHtml(err.message)}</span>`;
     } finally {
       runBtn.disabled = false;
       runBtn.classList.remove("opacity-50");

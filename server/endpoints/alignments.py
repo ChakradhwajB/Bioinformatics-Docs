@@ -35,14 +35,6 @@ class LevenshteinResponse(BaseModel):
     distance: int
 
 
-class AlignmentRequest(BaseModel):
-    seq1: str
-    seq2: str
-    match: int = 1
-    mismatch: int = -1
-    gap: int = -1
-    alignment_type: str = "global"  # "global" or "local"
-
 
 class AlignmentResponse(BaseModel):
     status: str

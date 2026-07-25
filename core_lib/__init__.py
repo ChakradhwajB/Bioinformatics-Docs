@@ -28,6 +28,14 @@ from .kmers import (
     MostFrequentKmers,
 )
 
+from .indexing import (
+    TrieNode,
+    Trie,
+    FindPatterns,
+    BuildSuffixArray,
+    BinarySearchPattern,
+)
+
 __all__ = [
     "ValidateInput",
     "FastaParse",
@@ -51,11 +59,3 @@ __all__ = [
     "BuildSuffixArray",
     "BinarySearchPattern",
 ]
-
-from .indexing import (
-    TrieNode,
-    Trie,
-    FindPatterns,
-    BuildSuffixArray,
-    BinarySearchPattern,
-)

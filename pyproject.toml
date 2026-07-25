@@ -6,6 +6,11 @@ authors = [
     { name = "ChakradhwajB" }
 ]
 requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.139.0",
+    "uvicorn>=0.50.0",
+    "python-multipart>=0.0.32",
+]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]

@@ -88,6 +88,23 @@ def test_smith_waterman_no_match():
     assert a2 == ""
 
 
+def test_hirschberg_both_empty():
+    score, a1, a2 = Hirschberg("", "", match=1, mismatch=-1, gap=-1)
+    assert score == 0
+    assert a1 == ""
+    assert a2 == ""
+
+def test_hirschberg_one_empty():
+    score, a1, a2 = Hirschberg("ATGC", "", match=1, mismatch=-1, gap=-1)
+    assert score == -4
+    assert a1 == "ATGC"
+    assert a2 == "----"
+
+def test_hirschberg_asymmetric():
+    score, a1, a2 = Hirschberg("A", "ATGCATGCATGCATGCATGC", match=1, mismatch=-1, gap=-1)
+    assert len(a1) == len(a2)  # Alignments must be equal length
+
+
 if __name__ == "__main__":
     test_hamming_distance_identical()
     test_hamming_distance_different()
@@ -102,4 +119,7 @@ if __name__ == "__main__":
     test_hirschberg_identical()
     test_hirschberg_gaps()
     test_hirschberg_mismatch()
+    test_hirschberg_both_empty()
+    test_hirschberg_one_empty()
+    test_hirschberg_asymmetric()
     print("All alignment tests passed")

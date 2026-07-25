@@ -69,7 +69,7 @@ def BinarySearchPattern(text: str, pattern: str, suffix_array: List[int]) -> Lis
     L = -1
     while low <= high:
         mid = (low + high) // 2
-        suffix = t_plus[suffix_array[mid]:]
+        suffix = t_plus[suffix_array[mid]:suffix_array[mid] + len(pattern)]
         if suffix.startswith(pattern):
             L = mid
             high = mid - 1  # Seek further left
@@ -86,7 +86,7 @@ def BinarySearchPattern(text: str, pattern: str, suffix_array: List[int]) -> Lis
     R = -1
     while low <= high:
         mid = (low + high) // 2
-        suffix = t_plus[suffix_array[mid]:]
+        suffix = t_plus[suffix_array[mid]:suffix_array[mid] + len(pattern)]
         if suffix.startswith(pattern):
             R = mid
             low = mid + 1  # Seek further right

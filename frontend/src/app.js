@@ -1,8 +1,8 @@
 // Dynamically select the best active backend API
 window.API_BASE = "https://bioinformatics-library.onrender.com/api/v1";
-(async function() {
+window.apiBaseReady = (async function() {
   try {
-    const res = await fetch("http://127.0.0.1:8000/");
+    const res = await fetch("http://127.0.0.1:8000/", { signal: AbortSignal.timeout(1500) });
     if (res.ok) {
       window.API_BASE = "http://127.0.0.1:8000/api/v1";
     }

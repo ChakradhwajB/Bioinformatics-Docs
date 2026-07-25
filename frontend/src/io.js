@@ -1,3 +1,9 @@
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
 const API_BASE = window.API_BASE;
 const checkServerStatus = window.checkServerStatus;
 
@@ -80,7 +86,7 @@ async function uploadFastaFile(file) {
 
   } catch (error) {
     alert(`Error: ${error.message}`);
-    consoleEl.innerHTML = `<div class="text-rose-500 font-bold">Failed: ${error.message}</div>`;
+    consoleEl.innerHTML = `<div class="text-rose-500 font-bold">Failed: ${escapeHtml(error.message)}</div>`;
   }
 }
 
@@ -130,8 +136,8 @@ function renderFastaTable() {
     const previewStr = record.sequence.length > 20 ? `${preview}...` : preview;
 
     tr.innerHTML = `
-      <td class="px-4 py-2.5 font-bold text-slate-700 max-w-[200px] truncate" title="${record.header}">${record.header}</td>
-      <td class="px-4 py-2.5 text-slate-500 tracking-wider">${previewStr}</td>
+      <td class="px-4 py-2.5 font-bold text-slate-700 max-w-[200px] truncate" title="${escapeHtml(record.header)}">${escapeHtml(record.header)}</td>
+      <td class="px-4 py-2.5 text-slate-500 tracking-wider">${escapeHtml(previewStr)}</td>
       <td class="px-4 py-2.5 text-center font-bold text-slate-600">${record.length}</td>
       <td class="px-4 py-2.5 text-center">
         <button class="copy-btn px-2 py-0.5 border border-slate-250 bg-slate-50 hover:bg-slate-150 rounded text-[9px] font-semibold transition-colors cursor-pointer">Copy</button>
