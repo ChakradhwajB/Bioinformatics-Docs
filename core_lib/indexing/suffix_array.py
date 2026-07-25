@@ -15,17 +15,35 @@ def BuildSuffixArray(text: str) -> List[int]:
     if not text:
         return []
 
-    # Append terminal symbol to differentiate suffix terminations
     t_plus = text if text.endswith("$") else text + "$"
-
-    # Generate all suffix tuples: (suffix_string, starting_index)
-    suffixes = [(t_plus[i:], i) for i in range(len(t_plus))]
-
-    # Sort lexicographically by suffix string
-    suffixes.sort(key=lambda x: x[0])
-
-    # Extract starting indices
-    return [suffix[1] for suffix in suffixes]
+    n = len(t_plus)
+    
+    # rank array
+    rank = [ord(c) for c in t_plus]
+    sa = list(range(n))
+    
+    k = 1
+    while k < n:
+        # Sort based on current rank and rank[i + k]
+        sa.sort(key=lambda i: (rank[i], rank[i + k] if i + k < n else -1))
+        
+        # Recalculate ranks
+        new_rank = [0] * n
+        r = 0
+        new_rank[sa[0]] = 0
+        for i in range(1, n):
+            curr = (rank[sa[i]], rank[sa[i] + k] if sa[i] + k < n else -1)
+            prev = (rank[sa[i-1]], rank[sa[i-1] + k] if sa[i-1] + k < n else -1)
+            if curr != prev:
+                r += 1
+            new_rank[sa[i]] = r
+            
+        rank = new_rank
+        if r == n - 1:
+            break
+        k *= 2
+        
+    return sa
 
 
 def BinarySearchPattern(text: str, pattern: str, suffix_array: List[int]) -> List[int]:

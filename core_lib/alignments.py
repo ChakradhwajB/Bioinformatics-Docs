@@ -15,6 +15,8 @@ def HammingDistance(
     Returns:
         int: The Hamming Distance between the two sequences.
     """
+    if len(seq1) != len(seq2):
+        raise ValueError("Sequences must be of equal length.")
     distance = 0
     for char1, char2 in zip(seq1, seq2):
         if char1 != char2:
@@ -183,3 +185,69 @@ def SmithWaterman(
             j -= 1
 
     return max_score, "".join(align1)[::-1], "".join(align2)[::-1]
+
+
+def Hirschberg(
+    seq1: str, seq2: str, match: int = 1, mismatch: int = -1, gap: int = -1
+) -> Tuple[int, str, str]:
+    """
+    Performs global sequence alignment using Hirschberg's algorithm in O(N) space.
+
+    Args:
+        seq1 (str): First genetic sequence.
+        seq2 (str): Second genetic sequence.
+        match (int): Score added for a matching character.
+        mismatch (int): Score added for a mismatching character.
+        gap (int): Score added for inserting a gap.
+
+    Returns:
+        Tuple[int, str, str]: The optimal alignment score, aligned seq1, and aligned seq2.
+    """
+    def nw_score(x, y):
+        dp = [j * gap for j in range(len(y) + 1)]
+        for i in range(1, len(x) + 1):
+            next_dp = [i * gap] + [0] * len(y)
+            for j in range(1, len(y) + 1):
+                if x[i - 1] == y[j - 1]:
+                    score = dp[j - 1] + match
+                else:
+                    score = dp[j - 1] + mismatch
+                next_dp[j] = max(score, dp[j] + gap, next_dp[j - 1] + gap)
+            dp = next_dp
+        return dp
+
+    def hirschberg_recursive(x, y):
+        if len(x) == 0:
+            return "-" * len(y), y
+        elif len(y) == 0:
+            return x, "-" * len(x)
+        elif len(x) == 1 or len(y) == 1:
+            _, a1, a2 = NeedlemanWunsch(x, y, match, mismatch, gap)
+            return a1, a2
+
+        x_mid = len(x) // 2
+        score_left = nw_score(x[:x_mid], y)
+        score_right = nw_score(x[x_mid:][::-1], y[::-1])[::-1]
+
+        split_j = 0
+        max_score = float('-inf')
+        for j in range(len(y) + 1):
+            s = score_left[j] + score_right[j]
+            if s > max_score:
+                max_score = s
+                split_j = j
+
+        left_a1, left_a2 = hirschberg_recursive(x[:x_mid], y[:split_j])
+        right_a1, right_a2 = hirschberg_recursive(x[x_mid:], y[split_j:])
+        return left_a1 + right_a1, left_a2 + right_a2
+
+    align1, align2 = hirschberg_recursive(seq1, seq2)
+    score = 0
+    for c1, c2 in zip(align1, align2):
+        if c1 == c2:
+            score += match
+        elif c1 == "-" or c2 == "-":
+            score += gap
+        else:
+            score += mismatch
+    return score, align1, align2

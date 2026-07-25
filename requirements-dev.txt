@@ -1,0 +1,5 @@
+matplotlib
+numpy
+pytest
+httpx
+beautifulsoup4

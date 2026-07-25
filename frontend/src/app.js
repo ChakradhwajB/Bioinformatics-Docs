@@ -1,19 +1,15 @@
 // Dynamically select the best active backend API
-let localOnline = false;
-try {
-  const xhr = new XMLHttpRequest();
-  xhr.open("GET", "http://127.0.0.1:8000/", false);
-  xhr.send(null);
-  if (xhr.status >= 200 && xhr.status < 400) {
-    localOnline = true;
+window.API_BASE = "https://bioinformatics-library.onrender.com/api/v1";
+(async function() {
+  try {
+    const res = await fetch("http://127.0.0.1:8000/");
+    if (res.ok) {
+      window.API_BASE = "http://127.0.0.1:8000/api/v1";
+    }
+  } catch (e) {
+    // Ignore, remote API base remains
   }
-} catch (e) {
-  localOnline = false;
-}
-
-window.API_BASE = localOnline
-  ? "http://127.0.0.1:8000/api/v1"
-  : "https://bioinformatics-library.onrender.com/api/v1";
+})();
 
 window.checkServerStatus = async function (
   dotId = "server-status-dot",

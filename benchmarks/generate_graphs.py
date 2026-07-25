@@ -1,5 +1,6 @@
 import os
 import re
+import sys
 import matplotlib.pyplot as plt
 
 
@@ -123,8 +124,8 @@ def main():
     plt.close()
 
     # Re-write results.md with updated formatting
-    python_ver = "3.13.5"
-    platform_name = "win32"
+    python_ver = sys.version.split()[0]
+    platform_name = sys.platform
 
     with open(results_path, "w", encoding="utf-8") as f:
         f.write("# Benchmark Results\n\n")

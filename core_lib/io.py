@@ -50,16 +50,18 @@ def FastaParse(data: Iterable[str]) -> Dict[str, str]:
     return record
 
 
-def FastaWrite(record: Dict[str, str], OutputFile: str) -> None:
-    """Writes a dictionary of genetic sequences to a JSON-formatted file.
-
+def JsonWrite(
+    records: Dict[str, str], output_file: str = "output.json"
+) -> None:
+    """
+    Writes a dictionary of genetic sequences to a JSON file.
+    
     Args:
-        record (Dict[str, str]): A dictionary where keys are sequence headers
-          and values are the sequences.
-        OutputFile (str): The path to the output JSON file.
-
+        records (Dict[str, str]): Dictionary with sequence headers as keys and sequences as values.
+        output_file (str, optional): Path to the output JSON file. Defaults to "output.json".
+        
     Returns:
         None
     """
-    with open(OutputFile, "w") as f:
-        json.dump(record, f, indent=4)
+    with open(output_file, "w") as f:
+        json.dump(records, f, indent=4)

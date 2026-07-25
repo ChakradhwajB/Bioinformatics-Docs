@@ -8,10 +8,9 @@ from core_lib import (
     SmithWaterman,
 )
 
-router = APIRouter()
+from .config import MAX_DP_SEQUENCE_LENGTH, MAX_LINEAR_SEQUENCE_LENGTH, validate_sequence
 
-MAX_DP_SEQUENCE_LENGTH = 50  # Cap O(n*m) space complexities
-MAX_LINEAR_SEQUENCE_LENGTH = 1000  # Cap O(n) space complexities
+router = APIRouter()
 
 # --- Request/Response Models ---
 
@@ -78,9 +77,11 @@ def get_hamming_distance(request: HammingRequest):
             detail=f"Sequence length exceeds the maximum allowed limit of {MAX_LINEAR_SEQUENCE_LENGTH:,} bases."
         )
     try:
+        validate_sequence(request.seq1)
+        validate_sequence(request.seq2)
         distance = HammingDistance(request.seq1, request.seq2)
         return HammingResponse(status="success", distance=distance)
-    except Exception as e:
+    except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
 
@@ -93,39 +94,15 @@ def get_levenshtein_distance(request: LevenshteinRequest):
             detail=f"Sequence length exceeds the maximum allowed limit of {MAX_DP_SEQUENCE_LENGTH:,} bases for quadratic DP algorithms."
         )
     try:
+        validate_sequence(request.seq1)
+        validate_sequence(request.seq2)
         distance = LevenshteinDistance(request.seq1, request.seq2)
         return LevenshteinResponse(status="success", distance=distance)
-    except Exception as e:
+    except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
 
-@router.post("/align", response_model=AlignmentResponse)
-def align_sequences(request: AlignmentRequest):
-    """Performs global or local sequence alignment using Needleman-Wunsch or Smith-Waterman."""
-    if len(request.seq1) > MAX_DP_SEQUENCE_LENGTH or len(request.seq2) > MAX_DP_SEQUENCE_LENGTH:
-        raise HTTPException(
-            status_code=400,
-            detail=f"Sequence length exceeds the maximum allowed limit of {MAX_DP_SEQUENCE_LENGTH:,} bases for quadratic DP alignments."
-        )
-    try:
-        if request.alignment_type.lower() == "global":
-            score, a1, a2 = NeedlemanWunsch(
-                request.seq1, request.seq2, request.match, request.mismatch, request.gap
-            )
-        elif request.alignment_type.lower() == "local":
-            score, a1, a2 = SmithWaterman(
-                request.seq1, request.seq2, request.match, request.mismatch, request.gap
-            )
-        else:
-            raise HTTPException(
-                status_code=400, detail="alignment_type must be 'global' or 'local'"
-            )
 
-        return AlignmentResponse(
-            status="success", score=score, alignment_1=a1, alignment_2=a2
-        )
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
 
 
 @router.post("/needleman-wunsch", response_model=AlignmentResponse)
@@ -137,13 +114,15 @@ def align_needleman_wunsch(request: NeedlemanWunschRequest):
             detail=f"Sequence length exceeds the maximum allowed limit of {MAX_DP_SEQUENCE_LENGTH:,} bases for Needleman-Wunsch alignment."
         )
     try:
+        validate_sequence(request.seq1)
+        validate_sequence(request.seq2)
         score, a1, a2 = NeedlemanWunsch(
             request.seq1, request.seq2, request.match, request.mismatch, request.gap
         )
         return AlignmentResponse(
             status="success", score=score, alignment_1=a1, alignment_2=a2
         )
-    except Exception as e:
+    except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
 
@@ -156,11 +135,13 @@ def align_smith_waterman(request: SmithWatermanRequest):
             detail=f"Sequence length exceeds the maximum allowed limit of {MAX_DP_SEQUENCE_LENGTH:,} bases for Smith-Waterman alignment."
         )
     try:
+        validate_sequence(request.seq1)
+        validate_sequence(request.seq2)
         score, a1, a2 = SmithWaterman(
             request.seq1, request.seq2, request.match, request.mismatch, request.gap
         )
         return AlignmentResponse(
             status="success", score=score, alignment_1=a1, alignment_2=a2
         )
-    except Exception as e:
+    except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))

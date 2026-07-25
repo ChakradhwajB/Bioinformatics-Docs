@@ -197,7 +197,7 @@ def main():
     plt.savefig(os.path.join(benchmarks_dir, "linear_algorithms.png"), dpi=150)
     plt.close()
 
-    # Plot 2: Quadratic algorithms (Levenshtein, Needleman-Wunsch, Smith-Waterman)
+    # Plot 2: Quadratic algorithms (linear scale showing curve)
     plt.figure(figsize=(9, 5.5))
     quad_to_plot = ["LevenshteinDistance", "NeedlemanWunsch", "SmithWaterman"]
     for name in quad_to_plot:
@@ -207,11 +207,29 @@ def main():
             plt.plot(sizes, times, marker="o", linewidth=2, label=name)
     plt.xlabel("Input Sequence Length (linear scale)")
     plt.ylabel("Runtime (seconds, linear scale)")
-    plt.title("Quadratic-Time Algorithms Performance Comparison")
+    plt.title("Quadratic-Time Algorithms Performance Comparison (Linear Scale)")
     plt.grid(True, linestyle="--", alpha=0.5)
     plt.legend()
     plt.tight_layout()
-    plt.savefig(os.path.join(benchmarks_dir, "quadratic_algorithms.png"), dpi=150)
+    plt.savefig(os.path.join(benchmarks_dir, "quadratic_algorithms_linear.png"), dpi=150)
+    plt.close()
+
+    # Plot 3: Quadratic algorithms (log-log scale showing straight line with slope ~ 2)
+    plt.figure(figsize=(9, 5.5))
+    for name in quad_to_plot:
+        if name in all_results:
+            sizes = [r[0] for r in all_results[name][1]]
+            times = [r[1] for r in all_results[name][1]]
+            plt.plot(sizes, times, marker="o", linewidth=2, label=name)
+    plt.xscale("log")
+    plt.yscale("log")
+    plt.xlabel("Input Sequence Length (log scale)")
+    plt.ylabel("Runtime (seconds, log scale)")
+    plt.title("Quadratic-Time Algorithms Performance (Log-Log Scale - Slope ≈ 2)")
+    plt.grid(True, which="both", linestyle="--", alpha=0.5)
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(os.path.join(benchmarks_dir, "quadratic_algorithms_log.png"), dpi=150)
     plt.close()
 
     # ---------------------------------------------------------
@@ -229,16 +247,17 @@ def main():
 
         # Visual Charts Section
         f.write("## Performance Visualization Charts\n\n")
-        f.write("### Linear Algorithms Performance Chart\n")
-        f.write(
-            "Shows linear-time complexity scale. Plotted on a log-log scale to highlight sequential efficiency:\n\n"
-        )
+        f.write("### 1. Linear Algorithms Performance Chart\n")
+        f.write("Plotted on a log-log scale to highlight sequential efficiency:\n\n")
         f.write("![Linear Algorithms Chart](linear_algorithms.png)\n\n")
-        f.write("### Quadratic Algorithms Performance Chart\n")
-        f.write(
-            "Shows quadratic-time complexity curve. The $O(n^2)$ upward runtime curve is visually obvious:\n\n"
-        )
-        f.write("![Quadratic Algorithms Chart](quadratic_algorithms.png)\n\n")
+        
+        f.write("### 2. Quadratic Algorithms Chart (Linear Scale)\n")
+        f.write("Highlights the quadratic-time complexity curve. The $O(n^2)$ upward runtime curve is visually obvious:\n\n")
+        f.write("![Quadratic Algorithms Chart Linear](quadratic_algorithms_linear.png)\n\n")
+        
+        f.write("### 3. Quadratic Algorithms Chart (Log-Log Scale)\n")
+        f.write("Plotted on a log-log scale. Because Levenshtein, Needleman-Wunsch, and Smith-Waterman have $T(n) \\propto n^2$ complexity, they form a straight line with a slope $\\approx 2$ on a log-log axis:\n\n")
+        f.write("![Quadratic Algorithms Chart Log](quadratic_algorithms_log.png)\n\n")
         f.write("---\n\n")
 
         # Practical Limits Section

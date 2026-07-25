@@ -31,7 +31,7 @@ const AMINO_ACID_NAMES = {
 
 document.addEventListener("DOMContentLoaded", () => {
   checkServerStatus();
-  setInterval(checkServerStatus, 5000);
+  
 
   const textarea = document.getElementById("sequence-input");
   const countSpan = document.getElementById("base-count");

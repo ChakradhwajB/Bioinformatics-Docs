@@ -3,10 +3,9 @@ from pydantic import BaseModel
 from typing import List, Dict
 
 from core_lib import CountKmers, MostFrequentKmers
+from .config import MAX_LINEAR_SEQUENCE_LENGTH, validate_sequence
 
 router = APIRouter()
-
-MAX_LINEAR_SEQUENCE_LENGTH = 1000  # Cap linear operations to 1000 bases
 
 class KmerRequest(BaseModel):
     sequence: str
@@ -34,9 +33,10 @@ def get_kmer_counts(request: KmerRequest):
             detail=f"K-mer length k must be greater than 0 and less than or equal to the sequence length ({len(request.sequence)})."
         )
     try:
+        validate_sequence(request.sequence)
         counts = CountKmers(request.sequence, request.k)
         return KmerCountResponse(status="success", counts=counts)
-    except Exception as e:
+    except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
 @router.post("/most-frequent", response_model=KmerFrequentResponse)
@@ -53,7 +53,8 @@ def get_most_frequent_kmers(request: KmerRequest):
             detail=f"K-mer length k must be greater than 0 and less than or equal to the sequence length ({len(request.sequence)})."
         )
     try:
+        validate_sequence(request.sequence)
         frequent = MostFrequentKmers(request.sequence, request.k)
         return KmerFrequentResponse(status="success", most_frequent=frequent)
-    except Exception as e:
+    except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))

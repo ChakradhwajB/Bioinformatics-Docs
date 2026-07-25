@@ -92,8 +92,8 @@ positions = FindMotif(
     "GATATATGCATATACTT",
     "ATAT"
 )
-print(f"Motif starts at 0-indexed positions: {positions}")
-# Output: [1, 3, 9]
+print(f"Motif starts at 1-based indexed positions: {positions}")
+# Output: [2, 4, 10]
 ```
 
 ### Local Quick Start
@@ -166,10 +166,14 @@ Detailed educational guide articles, math formulas, and interactive trace tutori
 
 ## Roadmap
 
+### Completed
+
+- [x] **Linear-space alignments** using Hirschberg's algorithm.
+- [x] **Suffix Array** with O(N log² N) prefix-doubling construction and binary search pattern matching.
+
 ### Planned
 
-- [ ] **Linear-space alignments** using Hirschberg's algorithm.
-- [ ] **Suffix Array & FM-Index** implementations for index-backed fast genome lookups.
+- [ ] **FM-Index** for index-backed fast genome lookups.
 - [ ] **De Bruijn Graphs** for assembly simulation of short reads.
 - [ ] **BWT (Burrows-Wheeler Transform)** compression analysis.
 

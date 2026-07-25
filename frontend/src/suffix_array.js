@@ -3,7 +3,7 @@ const checkServerStatus = window.checkServerStatus;
 
 document.addEventListener("DOMContentLoaded", () => {
   checkServerStatus();
-  setInterval(checkServerStatus, 5000);
+  
 
   const searchBtn = document.getElementById("search-btn");
   if (searchBtn) {

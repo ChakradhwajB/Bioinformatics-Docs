@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize server check
   checkServerStatus();
-  setInterval(checkServerStatus, 5000);
+  
 
   const plotBtn = document.getElementById("plot-btn");
   if (plotBtn) {

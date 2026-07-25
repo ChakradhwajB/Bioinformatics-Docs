@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const checkServerStatus = window.checkServerStatus;
   if (typeof checkServerStatus === "function") {
     checkServerStatus();
-    setInterval(checkServerStatus, 5000);
+    
   }
 
   const seqInput = document.getElementById("sequence-input");

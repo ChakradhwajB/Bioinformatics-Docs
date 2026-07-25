@@ -5,7 +5,7 @@ let loadedRecords = [];
 
 document.addEventListener("DOMContentLoaded", () => {
   checkServerStatus();
-  setInterval(checkServerStatus, 5000);
+  
 
   setupDropZone();
 

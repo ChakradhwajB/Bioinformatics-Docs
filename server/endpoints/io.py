@@ -4,7 +4,8 @@ from fastapi import APIRouter, UploadFile, File, HTTPException
 from pydantic import BaseModel
 from typing import Dict, List
 
-from core_lib import ValidateInput, FastaParse, FastaWrite
+from core_lib import ValidateInput, FastaParse, JsonWrite
+from .config import MAX_DP_SEQUENCE_LENGTH, MAX_LINEAR_SEQUENCE_LENGTH, validate_sequence
 
 router = APIRouter()
 
@@ -54,7 +55,7 @@ def validate_fasta_lines(request: ValidateRequest):
     try:
         is_valid = ValidateInput(request.data)
         return ValidateResponse(status="success", is_valid=is_valid)
-    except Exception as e:
+    except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
 
@@ -95,7 +96,7 @@ def parse_fasta_text(request: FastaTextRequest):
         
     except HTTPException as he:
         raise he
-    except Exception as e:
+    except ValueError as e:
         raise HTTPException(status_code=400, detail=f"Failed to process text: {str(e)}")
     finally:
         # Strict resource cleanup
@@ -148,7 +149,7 @@ async def parse_fasta_file(file: UploadFile = File(...)):
         
     except HTTPException as he:
         raise he
-    except Exception as e:
+    except ValueError as e:
         raise HTTPException(status_code=400, detail=f"Failed to process file: {str(e)}")
     finally:
         # Strict resource cleanup
@@ -163,10 +164,15 @@ async def parse_fasta_file(file: UploadFile = File(...)):
 def write_fasta_records(request: FastaWriteRequest):
     """Writes a dictionary of genetic sequences to a JSON-formatted file on the server."""
     try:
-        FastaWrite(request.record, request.output_file)
+        safe_filename = os.path.basename(request.output_file)
+        if not safe_filename:
+            raise ValueError("Invalid output filename")
+        temp_dir = tempfile.gettempdir()
+        safe_path = os.path.join(temp_dir, safe_filename)
+        JsonWrite(request.record, safe_path)
         return FastaWriteResponse(
             status="success",
-            message=f"Successfully wrote records to {request.output_file}",
+            message=f"Successfully wrote records to {safe_path}",
         )
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to write file: {str(e)}")
+    except ValueError as ve:
+        raise HTTPException(status_code=400, detail=str(ve))

@@ -9,7 +9,7 @@ __author__ = "Chakradhwaj Bathineni"
 from .io import (
     ValidateInput,
     FastaParse,
-    FastaWrite,
+    JsonWrite,
 )
 
 from .genetics import Complement, ReverseComplement, Transcribe, Translate, FindMotif
@@ -19,6 +19,7 @@ from .alignments import (
     LevenshteinDistance,
     NeedlemanWunsch,
     SmithWaterman,
+    Hirschberg,
 )
 
 from .kmers import (
@@ -30,7 +31,7 @@ from .kmers import (
 __all__ = [
     "ValidateInput",
     "FastaParse",
-    "FastaWrite",
+    "JsonWrite",
     "Complement",
     "ReverseComplement",
     "Transcribe",
@@ -40,6 +41,7 @@ __all__ = [
     "LevenshteinDistance",
     "NeedlemanWunsch",
     "SmithWaterman",
+    "Hirschberg",
     "GenerateKmers",
     "CountKmers",
     "MostFrequentKmers",

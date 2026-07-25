@@ -3,10 +3,10 @@ from pydantic import BaseModel
 from typing import List
 
 from core_lib import Complement, ReverseComplement, Transcribe, Translate, FindMotif
+from .config import MAX_LINEAR_SEQUENCE_LENGTH, validate_sequence
 
 router = APIRouter()
 
-MAX_LINEAR_SEQUENCE_LENGTH = 1000  # Cap linear operations to 1000 bases
 MAX_MOTIF_LENGTH = 100  # Cap motif pattern lookups to 100 bases
 
 # --- Request/Response Models ---
@@ -60,9 +60,10 @@ def get_complement(request: SequenceRequest):
             detail=f"Sequence length exceeds the maximum allowed limit of {MAX_LINEAR_SEQUENCE_LENGTH:,} bases."
         )
     try:
+        validate_sequence(request.sequence)
         res = Complement(request.sequence)
         return ComplementResponse(status="success", complement=res)
-    except Exception as e:
+    except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
 
@@ -75,9 +76,10 @@ def get_reverse_complement(request: SequenceRequest):
             detail=f"Sequence length exceeds the maximum allowed limit of {MAX_LINEAR_SEQUENCE_LENGTH:,} bases."
         )
     try:
+        validate_sequence(request.sequence)
         res = ReverseComplement(request.sequence)
         return ReverseComplementResponse(status="success", reverse_complement=res)
-    except Exception as e:
+    except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
 
@@ -90,9 +92,10 @@ def get_transcribe(request: SequenceRequest):
             detail=f"Sequence length exceeds the maximum allowed limit of {MAX_LINEAR_SEQUENCE_LENGTH:,} bases."
         )
     try:
+        validate_sequence(request.sequence)
         res = Transcribe(request.sequence)
         return TranscribeResponse(status="success", transcribed_sequence=res)
-    except Exception as e:
+    except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
 
@@ -105,9 +108,10 @@ def translate_rna(request: TranslateRequest):
             detail=f"RNA sequence length exceeds the maximum allowed limit of {MAX_LINEAR_SEQUENCE_LENGTH:,} bases."
         )
     try:
+        validate_sequence(request.rna_sequence)
         protein = Translate(request.rna_sequence)
         return TranslateResponse(status="success", protein=protein)
-    except Exception as e:
+    except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
 
@@ -125,7 +129,9 @@ def find_motif(request: FindMotifRequest):
             detail=f"Motif pattern length exceeds the maximum allowed limit of {MAX_MOTIF_LENGTH:,} bases."
         )
     try:
+        validate_sequence(request.sequence)
+        validate_sequence(request.motif)
         positions = FindMotif(request.sequence, request.motif)
         return FindMotifResponse(status="success", positions=positions)
-    except Exception as e:
+    except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
