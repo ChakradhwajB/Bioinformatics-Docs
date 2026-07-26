@@ -97,22 +97,22 @@
   <div class="absolute top-0 z-[-2] h-screen w-full bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
   
   <!-- Header Bar -->
-    <header class="glass-nav border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] backdrop-blur-md py-3 px-6 flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0 select-none z-50">
+  <header class="glass-nav border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] backdrop-blur-md py-3 px-6 flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0 select-none z-50">
     <!-- Logo -->
     <div class="flex items-center space-x-2.5">
       <span class="font-bold text-slate-900 text-xs tracking-wider uppercase">Bioinformatics Docs</span>
     </div>
     <!-- Nav links -->
     <nav class="flex items-center space-x-6 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
-          <a href="../index.html" class="hover:text-slate-900 transition-colors">Home</a>
-          <a href="../learn.html" class="hover:text-slate-900 transition-colors">Modules</a>
-          <a href="../glossary.html" class="hover:text-slate-900 transition-colors">Glossary</a>
-          <a href="./docs.html" class="hover:text-indigo-700 transition-colors text-indigo-600">Documentation &rarr;</a>
-          <a href="https://github.com/ChakradhwajB/Bioinformatics-Docs" target="_blank" class="hover:text-slate-900 transition-colors flex items-center space-x-1">
-            <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.54 2.87 8.39 6.84 9.75.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.4 9.4 0 0 1 12 6.84c.85 0 1.71.12 2.51.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49C19.14 20.65 22 16.8 22 12.26 22 6.58 17.52 2 12 2z"/></svg>
-            <span>GitHub</span>
-          </a>
-        </nav>
+      <a href="../index.html" class="hover:text-slate-900 transition-colors">Home</a>
+      <a href="../learn.html" class="hover:text-slate-900 transition-colors">Modules</a>
+      <a href="../glossary.html" class="hover:text-slate-900 transition-colors">Glossary</a>
+      <a href="./docs.html" class="hover:text-indigo-700 transition-colors text-indigo-600">Documentation &rarr;</a>
+      <a href="https://github.com/ChakradhwajB/Bioinformatics-Docs" target="_blank" class="hover:text-slate-900 transition-colors flex items-center space-x-1">
+        <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.54 2.87 8.39 6.84 9.75.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.4 9.4 0 0 1 12 6.84c.85 0 1.71.12 2.51.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49C19.14 20.65 22 16.8 22 12.26 22 6.58 17.52 2 12 2z"/></svg>
+        <span>GitHub</span>
+      </a>
+    </nav>
     <!-- Server status -->
     <div class="flex items-center space-x-2 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full">
       <span id="server-status-dot" class="h-1.5 w-1.5 rounded-full bg-slate-400"></span>
@@ -123,134 +123,133 @@
   <!-- Workspace Shell -->
   <div class="flex-grow flex h-[calc(100vh-45px)] overflow-hidden relative">
     
-    <!-- Left Sidebar (Inputs & Controls) -->
-    <aside id="sidebar" class="w-80 bg-transparent border-r border-white/40 shadow-[1px_0_15px_rgba(0,0,0,0.01)] p-4 flex flex-col justify-between overflow-y-auto select-none transition-all duration-300 shrink-0">
-      <div class="space-y-4">
-        <!-- Tool Navigation list -->
-        <div>
-          <span class="block text-xs font-bold text-slate-900 uppercase tracking-wider mb-2">Curriculum Pathways</span>
-          
-          <div class="space-y-3">
-            <!-- Module 1 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 1: Foundations</span>
-              <a href="./io.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">FASTA File IO <span class="float-right text-[9px] opacity-80 font-bold">~15m</span></a>
-              <a href="./genetics.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Genetics Workbench <span class="float-right text-[9px] opacity-80 font-bold">~20m</span></a>
-            </div>
-
-            <!-- Module 2 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 2: Patterns</span>
-              <a href="./kmers.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">K-mer Profiler <span class="float-right text-[9px] opacity-80 font-bold">~25m</span></a>
-              <a href="./find_motif.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Motif Finder <span class="float-right text-[9px] opacity-80 font-bold">~25m</span></a>
-            </div>
-
-            <!-- Module 3 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 3: Comparisons</span>
-              <a href="./dot_plot.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Dot Plot Visualizer <span class="float-right text-[9px] opacity-80 font-bold">~20m</span></a>
-              <a href="./distances.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Sequence Distances <span class="float-right text-[9px] opacity-80 font-bold">~25m</span></a>
-            </div>
-            <!-- Module 4 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 4: Alignments</span>
-              <a href="./needleman_wunsch.html" class="block px-2.5 py-1.5 text-[11px] font-semibold rounded-sm text-indigo-650 bg-indigo-50 border-l-2 border-indigo-500 transition-colors">Needleman-Wunsch Global <span class="float-right text-[9px] opacity-80 font-bold">~30m</span></a>
-              <a href="./smith_waterman.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Smith-Waterman Local <span class="float-right text-[9px] opacity-80 font-bold">~30m</span></a>
-            </div>
-
-            <!-- Module 5 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 5: Indexing</span>
-              <a href="./trie.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Trie Multi-Search <span class="float-right text-[9px] opacity-80 font-bold">~25m</span></a>
-              <a href="./suffix_array.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Suffix Array Search <span class="float-right text-[9px] opacity-80 font-bold">~30m</span></a>
-            </div>
-            <!-- Reference -->
-            <div class="space-y-0.5 pt-1 border-t border-slate-200">
-              <a href="./docs.html" class="block px-2 py-1 text-[11px] font-bold text-indigo-600 hover:bg-slate-200 transition-colors">Documentation &rarr;</a>
-            </div>
-
-            
-          </div>
-        </div>        <div class="border-t border-slate-200 pt-3">
-          <label class="block text-xs font-bold text-slate-900 uppercase tracking-wider mb-1">Sequence 1 (Vertical)</label>
-          <textarea id="seq1" rows="3" class="w-full font-mono text-xs px-3 py-2 border-b-2 border-transparent bg-white/60 focus:bg-white backdrop-blur-sm shadow-inner rounded-t-lg uppercase resize-none focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all duration-150" placeholder="e.g. ACGTACGT">ACGTACGT</textarea>
+    <!-- Left Sidebar (USACO Guide Style Pure Navigation) -->
+    <aside id="sidebar" class="w-72 bg-slate-50/60 backdrop-blur-md border-r border-slate-200/80 p-4 flex flex-col justify-between overflow-y-auto select-none transition-all duration-300 shrink-0 text-slate-800">
+      <div class="space-y-5">
+        
+        <!-- Sidebar Header -->
+        <div class="pb-2 border-b border-slate-200/80 flex items-center justify-between">
+          <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest flex items-center">
+            <svg class="w-3.5 h-3.5 mr-1.5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
+            Table of Contents
+          </span>
         </div>
 
-        <div>
-          <label class="block text-xs font-bold text-slate-900 uppercase tracking-wider mb-1">Sequence 2 (Horizontal)</label>
-          <input type="text" id="seq2" value="ACGTCGT" class="w-full font-mono text-xs px-3 py-2 border-b-2 border-transparent bg-white/60 focus:bg-white backdrop-blur-sm shadow-inner rounded-t-lg uppercase focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all duration-150" placeholder="e.g. ACGTCGT">
-        </div>
-
-        <!-- Dynamic Alignment Scoring Parameters -->
-        <div class="space-y-3 pt-3 border-t border-slate-200">
-          <span class="block text-xs font-bold text-slate-900 uppercase tracking-wider">Scoring Matrix</span>
-          <div class="grid grid-cols-3 gap-2">
-            <div>
-              <label class="block text-[9px] font-semibold text-slate-500 mb-0.5">
-                <span class="relative group cursor-help border-b border-dotted border-slate-400 select-none">
-                  Match
-                  <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 hidden group-hover:block w-48 bg-slate-900 text-white text-[9px] p-2 rounded shadow-lg z-50 normal-case font-normal leading-normal select-none">
-                    Score reward added to the total alignment score when two bases match exactly.
-                  </span>
-                </span>
-              </label>
-              <input type="number" id="match" value="1" class="w-full text-xs px-2.5 py-1.5 border-b-2 border-transparent bg-white/60 focus:bg-white backdrop-blur-sm shadow-inner rounded-t-lg focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all duration-150">
+        <div class="space-y-4">
+          <!-- Module 1 -->
+          <div class="space-y-1">
+            <div class="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider px-2 flex items-center justify-between">
+              <span>Module 1 &bull; Foundations</span>
             </div>
-            <div>
-              <label class="block text-[9px] font-semibold text-slate-500 mb-0.5">
-                <span class="relative group cursor-help border-b border-dotted border-slate-400 select-none">
-                  Mismatch
-                  <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 hidden group-hover:block w-48 bg-slate-900 text-white text-[9px] p-2 rounded shadow-lg z-50 normal-case font-normal leading-normal select-none">
-                    Penalty score deducted from the total alignment score when two bases do not match.
-                  </span>
-                </span>
-              </label>
-              <input type="number" id="mismatch" value="-1" class="w-full text-xs px-2.5 py-1.5 border-b-2 border-transparent bg-white/60 focus:bg-white backdrop-blur-sm shadow-inner rounded-t-lg focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all duration-150">
-            </div>
-            <div>
-              <label class="block text-[9px] font-semibold text-slate-500 mb-0.5">
-                <span class="relative group cursor-help border-b border-dotted border-slate-400 select-none">
-                  Gap
-                  <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 hidden group-hover:block w-48 bg-slate-900 text-white text-[9px] p-2 rounded shadow-lg z-50 normal-case font-normal leading-normal select-none">
-                    Penalty score deducted for introducing a gap (insertion or deletion) of a base.
-                  </span>
-                </span>
-              </label>
-              <input type="number" id="gap" value="-1" class="w-full text-xs px-2.5 py-1.5 border-b-2 border-transparent bg-white/60 focus:bg-white backdrop-blur-sm shadow-inner rounded-t-lg focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all duration-150">
-            </div>
-          </div>
-        </div>
-
-        <!-- Reference & Complexity Panel -->
-        <div class="border-t border-slate-200 pt-3 space-y-1 text-[10px]">
-          <span class="block font-bold text-slate-400 uppercase tracking-wider mb-1">Complexity Reference</span>
-          <div><span class="font-semibold text-slate-500">Problem:</span> Global Alignment (Homology)</div>
-          <div>
-            <span class="relative group cursor-help border-b border-dotted border-slate-400 select-none font-semibold text-slate-500">
-              Time Complexity:
-              <span class="absolute bottom-full left-0 mb-1.5 hidden group-hover:block w-52 bg-slate-900 text-white text-[9px] p-2 rounded shadow-lg z-50 normal-case font-normal leading-normal select-none">
-                Quadratic complexity $\mathcal{O}(n \cdot m)$: scans every cell in the DP score matrix grid once.
+            <a href="./io.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                FASTA File IO
               </span>
-            </span>
-            $\mathcal{O}(n \cdot m)$
-          </div>
-          <div>
-            <span class="relative group cursor-help border-b border-dotted border-slate-400 select-none font-semibold text-slate-500">
-              Space Complexity:
-              <span class="absolute bottom-full left-0 mb-1.5 hidden group-hover:block w-52 bg-slate-900 text-white text-[9px] p-2 rounded shadow-lg z-50 normal-case font-normal leading-normal select-none">
-                Quadratic space $\mathcal{O}(n \cdot m)$: stores the full scoring grid in memory to trace back the alignment.
+              <span class="text-[9px] font-mono text-slate-400">15m</span>
+            </a>
+            <a href="./genetics.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Genetics Workbench
               </span>
-            </span>
-            $\mathcal{O}(n \cdot m)$
+              <span class="text-[9px] font-mono text-slate-400">20m</span>
+            </a>
+          </div>
+
+          <!-- Module 2 -->
+          <div class="space-y-1">
+            <div class="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider px-2 flex items-center justify-between">
+              <span>Module 2 &bull; Patterns</span>
+            </div>
+            <a href="./kmers.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                K-mer Profiler
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">25m</span>
+            </a>
+            <a href="./find_motif.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Motif Finder
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">25m</span>
+            </a>
+          </div>
+
+          <!-- Module 3 -->
+          <div class="space-y-1">
+            <div class="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider px-2 flex items-center justify-between">
+              <span>Module 3 &bull; Comparisons</span>
+            </div>
+            <a href="./dot_plot.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Dot Plot Visualizer
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">20m</span>
+            </a>
+            <a href="./distances.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Sequence Distances
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">25m</span>
+            </a>
+          </div>
+
+          <!-- Module 4 (Active) -->
+          <div class="space-y-1">
+            <div class="text-[9px] font-extrabold text-indigo-500 uppercase tracking-wider px-2 flex items-center justify-between">
+              <span>Module 4 &bull; Alignments</span>
+            </div>
+            <a href="./needleman_wunsch.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-bold rounded-md bg-indigo-50/90 text-indigo-700 border-l-2 border-indigo-600 transition-all shadow-xs">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-indigo-600 mr-2"></span>
+                Needleman-Wunsch Global
+              </span>
+              <span class="text-[9px] font-mono text-indigo-600">30m</span>
+            </a>
+            <a href="./smith_waterman.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Smith-Waterman Local
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">30m</span>
+            </a>
+          </div>
+
+          <!-- Module 5 -->
+          <div class="space-y-1">
+            <div class="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider px-2 flex items-center justify-between">
+              <span>Module 5 &bull; Indexing</span>
+            </div>
+            <a href="./trie.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Trie Multi-Search
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">25m</span>
+            </a>
+            <a href="./suffix_array.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Suffix Array Search
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">30m</span>
+            </a>
           </div>
         </div>
 
       </div>
 
-      <div class="pt-4 border-t border-slate-200">
-        <button id="align-btn" class="w-full py-2.5 bg-slate-800 hover:bg-slate-955 hover:shadow-md active:bg-slate-900 text-white font-semibold rounded-sm text-xs transition-all duration-150 tracking-wide select-none cursor-pointer">
-          Align Sequences
-        </button>
+      <!-- USACO Guide Footer Widget -->
+      <div class="pt-4 border-t border-slate-200/80 space-y-2">
+        <a href="./docs.html" class="flex items-center justify-between text-[11px] font-bold text-indigo-600 hover:text-indigo-800 transition-colors">
+          <span>Documentation Guide</span>
+          <span>&rarr;</span>
+        </a>
       </div>
     </aside>
 
@@ -258,15 +257,172 @@
     <button
       id="sidebar-toggle"
       class="absolute top-1/2 -translate-y-1/2 bg-white border border-slate-200 text-slate-500 hover:text-slate-800 h-8 w-4 rounded-r-md shadow-sm flex items-center justify-center cursor-pointer transition-all duration-300 z-40 select-none"
-      style="left: 20rem"
+      style="left: 18rem"
     >
       &lsaquo;
     </button>
 
     <!-- Right Panels (Scrollable Workspace) -->
-    <main class="flex-grow overflow-y-auto bg-transparent p-6 lg:p-10 space-y-12 relative">
+    <main class="flex-grow overflow-y-auto bg-transparent p-6 lg:p-10 space-y-8 relative">
       
-      <!-- Top Section: Alignment Output Console -->
+      <!-- Module Title Header -->
+      <div class="space-y-2">
+        <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest block">Module 4 &bull; Sequence Alignment</span>
+        <h1 class="text-3xl lg:text-4xl font-extralight tracking-tighter text-slate-900">Needleman-Wunsch Global Alignment</h1>
+        <p class="text-xs text-slate-500 italic">Author: ChakradhwajB &bull; Calculating and visualizing optimal end-to-end global sequence alignment using 2D dynamic programming precomputation and matrix traceback.</p>
+      </div>
+
+      <!-- Resources Section -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Resources</h2>
+        <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
+          <a href="https://usaco.guide/gold/dp-intro" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded text-[10px]">USACO GUIDE</span>
+              <span class="font-semibold text-slate-800">Introduction to Dynamic Programming (DP Basics)</span>
+              <span class="text-amber-500">★</span>
+            </div>
+            <span class="text-slate-500">Prerequisite DP Concepts</span>
+          </a>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/5420325/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">NCBI / PUBMED</span>
+              <span class="font-semibold text-slate-800">A General Method Applicable to the Search for Similarities in the Amino Acid Sequence of Two Proteins</span>
+            </div>
+            <span class="text-slate-500">Original 1970 Paper (PMID: 5420325)</span>
+          </a>
+          <a href="https://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-slate-100 text-slate-800 font-bold px-2 py-0.5 rounded text-[10px]">WIKIPEDIA</span>
+              <span class="font-semibold text-slate-800">Needleman–Wunsch Algorithm Overview</span>
+            </div>
+            <span class="text-slate-500">Reference Background</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Educational Guide: Comprehensive USACO Guide-Style Instructional Content -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-8">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Educational Guide: Global Sequence Alignment &amp; Dynamic Programming</h2>
+        
+        <div class="text-[14px] leading-relaxed space-y-6 text-slate-700">
+          
+          <!-- 1. Motivation & Biological Background -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">1. Motivation &amp; Biological Background</h3>
+            <p>
+              In molecular biology, genetic sequences (DNA, RNA, and proteins) evolve across generations through evolutionary forces such as <strong>point mutations</strong> (substitutions like transitions and transversions), <strong>insertions</strong>, and <strong>deletions</strong> (collectively termed <em>indels</em>). When comparing homologous sequences from different species or strains, simple character-by-character equality checks ($S_1[i] \stackrel{?}{=} S_2[i]$) fail completely because indels introduce relative positional shifts across the sequence.
+            </p>
+            <p class="mt-3">
+              <strong>Global sequence alignment</strong> attempts to align two entire sequences $S_1$ (length $N$) and $S_2$ (length $M$) from end to end. By inserting gap characters (<code class="font-mono text-indigo-600 font-bold">"-"</code>) into either sequence, the alignment maximizes an objective alignment score that rewards matched residues while penalizing mismatched pairs and gaps.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 text-xs">
+              <div class="bg-indigo-50/60 border border-indigo-150 p-3.5 rounded-md space-y-1">
+                <span class="font-bold text-xs text-indigo-900 uppercase tracking-wider block">Comparative Genomics</span>
+                <p class="text-slate-600">
+                  Reveals evolutionary relationships, ortholog vs. paralog classification, and phylogenetic tree construction across whole genomes.
+                </p>
+              </div>
+              <div class="bg-indigo-50/60 border border-indigo-150 p-3.5 rounded-md space-y-1">
+                <span class="font-bold text-xs text-indigo-900 uppercase tracking-wider block">Disease Gene Mapping</span>
+                <p class="text-slate-600">
+                  Identifies pathogenic single nucleotide polymorphisms (SNPs) and insertion/deletion mutations linked to genetic disorders.
+                </p>
+              </div>
+              <div class="bg-indigo-50/60 border border-indigo-150 p-3.5 rounded-md space-y-1">
+                <span class="font-bold text-xs text-indigo-900 uppercase tracking-wider block">Drug Target Discovery</span>
+                <p class="text-slate-600">
+                  Aligns protein active site residues across species to design targeted therapeutic small molecules and monoclonal antibodies.
+                </p>
+              </div>
+            </div>
+
+            <p class="mt-3 text-xs text-slate-500 italic">
+              <strong>Historical Origin:</strong> Developed by Saul B. Needleman and Christian D. Wunsch in 1970, this algorithm was the first application of dynamic programming to biological sequence comparison, laying the cornerstone for computational biology.
+            </p>
+          </div>
+
+          <!-- 2. Combinatorial Complexity & Need for DP -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">2. Combinatorial Explosion &amp; Naive Backtracking Failure</h3>
+            <p>
+              Why can't we find the optimal alignment by testing all possible gap placements? For two sequences of length $N$, the total number of distinct valid global alignments is given by the <strong>Delannoy Number</strong>:
+            </p>
+            <div class="bg-slate-50 p-4 border border-slate-200 rounded-sm font-mono text-center my-3 text-xs shadow-inner">
+              $$D(N, N) = \sum_{k=0}^{N} 2^k \binom{N}{k}^2 \approx \frac{(1+\sqrt{2})^{2N+1}}{\sqrt{\pi N}}$$
+            </div>
+            <p class="mt-2 text-xs">
+              For sequences of length $N = 30$, there are over $10^{16}$ possible alignments. For typical gene sequences of length $N = 1,000$, $D(1000, 1000) > 10^{700}$—far exceeding the total number of elementary particles in the observable universe ($10^{80}$). Exhaustive search is computationally impossible.
+            </p>
+          </div>
+
+          <!-- 3. Mathematical Formulation & Core Theory -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">3. Mathematical Formulation &amp; Core Theory</h3>
+            <p>
+              The Needleman-Wunsch algorithm solves this by reformulating alignment as a 2D Dynamic Programming (DP) state optimization problem built on two foundational properties:
+            </p>
+
+            <ul class="list-disc pl-5 space-y-2 mt-3 text-xs">
+              <li>
+                <strong>Optimal Substructure:</strong> An optimal alignment between prefixes $S_1[1 \dots i]$ and $S_2[1 \dots j]$ is constructed from optimal alignments of strictly shorter sub-prefixes ($S_1[1 \dots i-1]$ and $S_2[1 \dots j-1]$).
+              </li>
+              <li>
+                <strong>Overlapping Subproblems:</strong> The prefix score $E(i, j)$ is referenced repeatedly when computing future states, enabling tabular memoization ($\mathcal{O}(NM)$ state storage).
+              </li>
+            </ul>
+
+            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mt-4 mb-2">Formal State Recurrence Relation</h4>
+            <p class="text-xs">
+              Let $E(i, j)$ denote the maximum global alignment score between prefix $S_1[1 \dots i]$ of length $i$ and prefix $S_2[1 \dots j]$ of length $j$. The recurrence transitions from three mutually exclusive preceding states:
+            </p>
+
+            <div class="bg-slate-50 p-4 border border-slate-200 rounded-sm font-mono text-center my-4 text-xs shadow-inner">
+              $$E(i, j) = \max \begin{cases} 
+              E(i-1, j-1) + S(S_1[i], S_2[j]) & \text{(Diagonal: Align } S_1[i] \text{ with } S_2[j]\text{)} \\
+              E(i-1, j) + \gamma & \text{(Upward: Deletion in } S_2 \text{ / Pair } S_1[i] \text{ with gap)} \\
+              E(i, j-1) + \gamma & \text{(Leftward: Insertion in } S_1 \text{ / Pair gap with } S_2[j]\text{)}
+              \end{cases}$$
+            </div>
+
+            <p class="text-xs">
+              Where $\gamma$ is the linear gap penalty ($\gamma < 0$), and $S(a, b)$ is the substitution score matrix:
+            </p>
+            <div class="bg-slate-50 p-3 border border-slate-200 rounded-sm font-mono text-center my-2 text-xs">
+              $$S(a, b) = \begin{cases} +\text{Match} & \text{if } a = b \\ -\text{Mismatch} & \text{if } a \neq b \end{cases}$$
+            </div>
+
+            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mt-4 mb-2">Base Cases &amp; Boundary Conditions</h4>
+            <p class="text-xs">
+              Aligning a sequence prefix of length $i$ against an empty string of length $0$ requires inserting $i$ consecutive gaps:
+            </p>
+            <ul class="list-disc pl-5 space-y-1 mt-1 text-xs text-slate-600 font-mono">
+              <li>$E(0, 0) = 0$</li>
+              <li>$E(i, 0) = i \cdot \gamma \quad \text{for } 1 \le i \le N$</li>
+              <li>$E(0, j) = j \cdot \gamma \quad \text{for } 1 \le j \le M$</li>
+            </ul>
+          </div>
+
+          <!-- 4. Time & Space Complexity Analysis -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">4. Time &amp; Space Complexity Analysis</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+              <div class="bg-slate-50 p-3.5 border border-slate-200 rounded-md">
+                <span class="font-bold text-slate-900 block mb-1">Time Complexity: $\mathcal{O}(N \cdot M)$</span>
+                The score grid contains $(N+1)(M+1)$ cells. Computing each cell takes constant time $\mathcal{O}(1)$ by examining exactly 3 neighbor cells (diagonal, up, left).
+              </div>
+              <div class="bg-slate-50 p-3.5 border border-slate-200 rounded-md">
+                <span class="font-bold text-slate-900 block mb-1">Space Complexity: $\mathcal{O}(N \cdot M)$</span>
+                Storing the full 2D matrix requires $(N+1)(M+1)$ memory cells for traceback reconstruction. (Note: Hirschberg's divide-and-conquer algorithm reduces space to $\mathcal{O}(\min(N, M))$).
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Section 1: Alignment Output Console -->
       <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-6">
         <div class="flex justify-between items-center mb-3 select-none">
           <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Optimal Alignment Results</h2>
@@ -285,7 +441,7 @@
         </div>
       </section>
 
-      <!-- Bottom Section: Grid DP Matrix Visualizer -->
+      <!-- Section 2: Grid DP Matrix Visualizer -->
       <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-6 flex flex-col">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-3 select-none">
           <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Dynamic Programming Grid Matrix</h2>
@@ -308,120 +464,309 @@
             Run calculation to populate alignment matrix.
           </div>
         </div>
+
+        <!-- Sequence & Scoring Parameters Control Panel (Underneath Visualization) -->
+        <div class="mt-4 p-5 bg-slate-50/80 border border-slate-200 rounded-xl space-y-4 shadow-xs">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Sequence &amp; Scoring Parameters</h3>
+            <span class="text-[10px] text-slate-400 font-mono font-medium">Time $\mathcal{O}(NM)$ &bull; Space $\mathcal{O}(NM)$</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Sequence 1 (Vertical - $S_1$)</label>
+              <textarea id="seq1" rows="2" class="w-full font-mono text-xs px-3 py-2 border border-slate-300 rounded-md uppercase resize-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white shadow-inner" placeholder="e.g. ACGTACGT">ACGTACGT</textarea>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Sequence 2 (Horizontal - $S_2$)</label>
+              <input type="text" id="seq2" value="ACGTCGT" class="w-full font-mono text-xs px-3 py-2 border border-slate-300 rounded-md uppercase focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white shadow-inner" placeholder="e.g. ACGTCGT">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3 pt-1 border-t border-slate-200/60">
+            <div>
+              <label class="block text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-0.5">Match (+)</label>
+              <input type="number" id="match" value="1" class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-md bg-white font-mono shadow-inner">
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-0.5">Mismatch (-)</label>
+              <input type="number" id="mismatch" value="-1" class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-md bg-white font-mono shadow-inner">
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-0.5">Gap (-)</label>
+              <input type="number" id="gap" value="-1" class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-md bg-white font-mono shadow-inner">
+            </div>
+          </div>
+
+          <div class="pt-2 flex justify-end">
+            <button id="align-btn" class="w-full sm:w-auto px-6 py-2.5 bg-slate-800 hover:bg-slate-900 hover:shadow-md active:bg-slate-950 text-white font-semibold rounded-sm text-xs transition-all duration-150 tracking-wide select-none cursor-pointer flex items-center justify-center space-x-2">
+              <svg class="h-4 w-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span>Run Alignment Algorithm</span>
+            </button>
+          </div>
+        </div>
       </section>
 
-      <!-- Educational Article -->
-      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-6">
-        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Educational Guide: Global Sequence Alignment</h2>
-        
-        <div class="text-[14px] leading-relaxed space-y-5 text-slate-700">
-          <h3 class="font-semibold text-slate-900 text-lg mt-6 border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2">1. Motivation: Why care?</h3>
-          <p>
-            Without sequence alignment, comparing genetic material between organisms to find evolutionary relationships or functional similarities is impossible. Needleman-Wunsch is the fundamental dynamic programming algorithm that guarantees finding the mathematically optimal <strong>global alignment</strong> between two sequences from end-to-end. It forms the basis of homology search and evolutionary distance calculation.
-          </p>
-          
-          <h3 class="font-semibold text-slate-900 text-lg mt-6 border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2">2. Concept &amp; Complexity</h3>
-          <p>
-            Let $S_1$ and $S_2$ be sequences of lengths $n$ and $m$. We construct an $(n+1) \times (m+1)$ score grid $E$. The recurrence relation is:
-          </p>
-          <div class="bg-slate-50 p-3 border border-slate-200 rounded-sm font-mono text-center my-2 text-xs">
-            $$E_{i, j} = \max \begin{cases} 
-            E_{i-1, j-1} + S(S_1[i-1], S_2[j-1]) & \text{(Match / Mismatch)} \\
-            E_{i-1, j} + \text{gap} & \text{(Deletion)} \\
-            E_{i, j-1} + \text{gap} & \text{(Insertion)}
-            \end{cases}$$
+      <!-- Educational Guide (Continued): Worked Example, Traceback & Implementation -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-8">
+        <div class="text-[14px] leading-relaxed space-y-6 text-slate-700">
+
+          <!-- 5. Step-by-Step Worked Example -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">5. Step-by-Step Worked Example &amp; State Transitions</h3>
+            <p>
+              Let's walk through an explicit manual matrix calculation aligning $S_1 = \text{"GCAT"}$ ($N=4$) vertically and $S_2 = \text{"GATT"}$ ($M=4$) horizontally.
+              Scoring system: $\text{Match} = +1$, $\text{Mismatch} = -1$, $\text{Gap} = -1$.
+            </p>
+
+            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mt-3 mb-2">Step 1: Boundary Base Case Fill</h4>
+            <p class="text-xs">
+              Row $0$ and Column $0$ are initialized with cumulative linear gap penalties ($0, -1, -2, -3, -4$).
+            </p>
+
+            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mt-3 mb-2">Step 2: Complete Score Matrix $E(i, j)$</h4>
+            <div class="bg-slate-50 p-3 rounded-sm font-mono text-xs border border-slate-200 text-slate-700 mt-2 border-l-4 border-l-indigo-500 overflow-x-auto">
+              <table class="min-w-full text-center border-collapse">
+                <thead>
+                  <tr class="border-b border-slate-300">
+                    <th class="p-1.5 font-bold text-slate-900">$S_1 \downarrow \setminus S_2 \rightarrow$</th>
+                    <th class="p-1.5 font-bold text-slate-900">- ($j=0$)</th>
+                    <th class="p-1.5 font-bold text-slate-900">G ($j=1$)</th>
+                    <th class="p-1.5 font-bold text-slate-900">A ($j=2$)</th>
+                    <th class="p-1.5 font-bold text-slate-900">T ($j=3$)</th>
+                    <th class="p-1.5 font-bold text-slate-900">T ($j=4$)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b border-slate-200">
+                    <td class="p-1.5 font-bold text-slate-900">- ($i=0$)</td>
+                    <td class="p-1.5 font-bold text-indigo-600 bg-indigo-50">0</td>
+                    <td class="p-1.5 text-slate-600">-1</td>
+                    <td class="p-1.5 text-slate-600">-2</td>
+                    <td class="p-1.5 text-slate-600">-3</td>
+                    <td class="p-1.5 text-slate-600">-4</td>
+                  </tr>
+                  <tr class="border-b border-slate-200">
+                    <td class="p-1.5 font-bold text-slate-900">G ($i=1$)</td>
+                    <td class="p-1.5 text-slate-600">-1</td>
+                    <td class="p-1.5 font-bold text-indigo-600 bg-indigo-50">1</td>
+                    <td class="p-1.5 text-slate-600">0</td>
+                    <td class="p-1.5 text-slate-600">-1</td>
+                    <td class="p-1.5 text-slate-600">-2</td>
+                  </tr>
+                  <tr class="border-b border-slate-200">
+                    <td class="p-1.5 font-bold text-slate-900">C ($i=2$)</td>
+                    <td class="p-1.5 text-slate-600">-2</td>
+                    <td class="p-1.5 text-slate-600">0</td>
+                    <td class="p-1.5 font-bold text-indigo-600 bg-indigo-50">0</td>
+                    <td class="p-1.5 text-slate-600">-1</td>
+                    <td class="p-1.5 text-slate-600">-2</td>
+                  </tr>
+                  <tr class="border-b border-slate-200">
+                    <td class="p-1.5 font-bold text-slate-900">A ($i=3$)</td>
+                    <td class="p-1.5 text-slate-600">-3</td>
+                    <td class="p-1.5 text-slate-600">-1</td>
+                    <td class="p-1.5 text-slate-600">1</td>
+                    <td class="p-1.5 font-bold text-indigo-600 bg-indigo-50">0</td>
+                    <td class="p-1.5 text-slate-600">-1</td>
+                  </tr>
+                  <tr>
+                    <td class="p-1.5 font-bold text-slate-900">T ($i=4$)</td>
+                    <td class="p-1.5 text-slate-600">-4</td>
+                    <td class="p-1.5 text-slate-600">-2</td>
+                    <td class="p-1.5 text-slate-600">0</td>
+                    <td class="p-1.5 text-slate-600">2</td>
+                    <td class="p-1.5 font-bold text-indigo-600 bg-indigo-50">1</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mt-3 mb-2">Cell Calculation Walkthrough</h4>
+            <ul class="list-disc pl-5 space-y-1.5 text-xs text-slate-700">
+              <li>
+                <strong>Cell $E(1,1)$ ('G' vs 'G'):</strong> $\text{Match} = +1$.<br/>
+                $\max(E(0,0)+1, E(0,1)-1, E(1,0)-1) = \max(0+1, -1-1, -1-1) = \max(1, -2, -2) = \mathbf{1}$.
+              </li>
+              <li>
+                <strong>Cell $E(2,2)$ ('C' vs 'A'):</strong> $\text{Mismatch} = -1$.<br/>
+                $\max(E(1,1)-1, E(1,2)-1, E(2,1)-1) = \max(1-1, 0-1, 0-1) = \max(0, -1, -1) = \mathbf{0}$.
+              </li>
+              <li>
+                <strong>Cell $E(4,4)$ ('T' vs 'T'):</strong> $\text{Match} = +1$.<br/>
+                $\max(E(3,3)+1, E(3,4)-1, E(4,3)-1) = \max(0+1, -1-1, 2-1) = \max(1, -2, 1) = \mathbf{1}$.
+              </li>
+            </ul>
           </div>
-          <p>
-            where the substitution score is $S(a,b) = \text{match}$ if $a = b$, and $\text{mismatch}$ if $a \neq b$.
-          </p>
-          <ul class="list-disc pl-5 space-y-1">
-            <li><strong>Time Complexity:</strong> $\mathcal{O}(n \cdot m)$ since every cell in the grid requires constant $\mathcal{O}(1)$ calculations.</li>
-            <li><strong>Space Complexity:</strong> $\mathcal{O}(n \cdot m)$ to store the entire score matrix for traceback.</li>
-          </ul>
 
-          <h3 class="font-semibold text-slate-900 text-lg mt-6 border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2">3. Worked Example</h3>
-          <p>
-            Let's align sequence $S_1 = \text{"GC"}$ (vertical) and $S_2 = \text{"GA"}$ (horizontal) with scoring: Match = 1, Mismatch = -1, Gap = -1.
-          </p>
-          <div class="bg-slate-50 p-2.5 rounded-sm font-mono text-xs border border-slate-200 text-slate-650 ml-2 border-l-4 border-l-indigo-400 max-w-xs">
-              -   G   A
-          -   0  -1  -2
-          G  -1   1   0
-          C  -2   0   0
+          <!-- 6. Traceback Reconstruction Walkthrough -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">6. Traceback Alignment Reconstruction</h3>
+            <p>
+              Once table $E$ is completely populated, $E(N, M) = E(4, 4) = 1$ is the score of the optimal global alignment. Reconstructing the sequence alignment begins at $(4, 4)$ and traces back to $(0, 0)$:
+            </p>
+            <ol class="list-decimal pl-5 space-y-1.5 mt-2 text-xs">
+              <li><strong>At $(4, 4)$:</strong> $E(4,4) = 1 = E(4,3) + \text{gap} = 2 - 1$. Choice: Move <strong>Left</strong> to $(4, 3)$, emit (<code class="font-mono text-indigo-600 font-bold">"-"</code>, <code class="font-mono text-indigo-600 font-bold">"T"</code>).</li>
+              <li><strong>At $(4, 3)$:</strong> $E(4,3) = 2 = E(3,2) + \text{Match} = 1 + 1$. Choice: Move <strong>Diagonal</strong> to $(3, 2)$, emit (<code class="font-mono text-indigo-600 font-bold">"T"</code>, <code class="font-mono text-indigo-600 font-bold">"T"</code>).</li>
+              <li><strong>At $(3, 2)$:</strong> $E(3,2) = 1 = E(2,1) + \text{Match} = 0 + 1$. Choice: Move <strong>Diagonal</strong> to $(2, 1)$, emit (<code class="font-mono text-indigo-600 font-bold">"A"</code>, <code class="font-mono text-indigo-600 font-bold">"A"</code>).</li>
+              <li><strong>At $(2, 1)$:</strong> $E(2,1) = 0 = E(1,1) + \text{gap} = 1 - 1$. Choice: Move <strong>Up</strong> to $(1, 1)$, emit (<code class="font-mono text-indigo-600 font-bold">"C"</code>, <code class="font-mono text-indigo-600 font-bold">"-"</code>).</li>
+              <li><strong>At $(1, 1)$:</strong> $E(1,1) = 1 = E(0,0) + \text{Match} = 0 + 1$. Choice: Move <strong>Diagonal</strong> to $(0, 0)$, emit (<code class="font-mono text-indigo-600 font-bold">"G"</code>, <code class="font-mono text-indigo-600 font-bold">"G"</code>).</li>
+            </ol>
+            <p class="mt-2 text-xs font-mono bg-slate-900 text-slate-200 p-3 rounded-sm">
+              Reversed Final Alignment:<br/>
+              S1: G C A T -<br/>
+              S2: G - A T T
+            </p>
           </div>
-          <p class="mt-2">
-            Traceback starting at bottom-right cell score 0 yields the optimal alignment:
-            <br/><code class="font-mono text-[12px] font-bold text-indigo-600">S1: G C</code>
-            <br/><code class="font-mono text-[12px] font-bold text-indigo-600">S2: G A</code> (Score: 0)
-          </p>
 
-          <h3 class="font-semibold text-slate-900 text-lg mt-6 border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2">4. Python Code</h3>
-          <p>Here is the implementation of the Needleman-Wunsch global alignment algorithm in Python:</p>
+          <!-- 7. Production-Ready Python 3 Implementation -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">7. Python 3 Reference Implementation</h3>
+            <p class="text-xs mb-2">Production-ready, type-annotated Python 3 code with complete docstrings and line-by-line commentary:</p>
 
-          <div class="relative group mt-1">
-            <button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); this.textContent = 'Copied!'; setTimeout(() => this.textContent = 'Copy', 2000)" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-sm text-[9px] font-bold tracking-wide transition-all duration-150 shadow-sm cursor-pointer select-none">Copy</button>
-            <pre class="bg-white border border-slate-200 text-slate-700 p-3.5 pr-12 rounded-sm font-mono text-xs overflow-x-auto leading-relaxed"><span class="text-pink-600">def</span> <span class="text-sky-600">needleman_wunsch</span>(seq1, seq2, match=<span class="text-orange-600">1</span>, mismatch=-<span class="text-orange-600">1</span>, gap=-<span class="text-orange-600">1</span>):
+            <div class="relative group mt-1">
+              <button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); this.textContent = 'Copied!'; setTimeout(() => this.textContent = 'Copy', 2000)" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-sm text-[9px] font-bold tracking-wide transition-all duration-150 shadow-sm cursor-pointer select-none">Copy</button>
+              <pre class="bg-white border border-slate-200 text-slate-700 p-3.5 pr-12 rounded-sm font-mono text-xs overflow-x-auto leading-relaxed"><span class="text-pink-600">from</span> typing <span class="text-pink-600">import</span> Tuple, List
+
+<span class="text-pink-600">def</span> <span class="text-sky-600">needleman_wunsch</span>(
+    seq1: <span class="text-sky-600">str</span>, 
+    seq2: <span class="text-sky-600">str</span>, 
+    match: <span class="text-sky-600">int</span> = <span class="text-orange-600">1</span>, 
+    mismatch: <span class="text-sky-600">int</span> = -<span class="text-orange-600">1</span>, 
+    gap: <span class="text-sky-600">int</span> = -<span class="text-orange-600">1</span>
+) -> Tuple[<span class="text-sky-600">str</span>, <span class="text-sky-600">str</span>, <span class="text-sky-600">int</span>]:
+    <span class="text-slate-500 italic">"""
+    Computes the optimal global sequence alignment between seq1 and seq2 
+    using the Needleman-Wunsch dynamic programming algorithm.
+
+    Args:
+        seq1 (str): First nucleotide or amino acid sequence (vertical axis, length N).
+        seq2 (str): Second nucleotide or amino acid sequence (horizontal axis, length M).
+        match (int): Reward score for matching characters (default: +1).
+        mismatch (int): Penalty score for mismatched characters (default: -1).
+        gap (int): Penalty score for inserting a gap (default: -1).
+
+    Returns:
+        Tuple[str, str, int]: (aligned_seq1, aligned_seq2, optimal_score)
+    """</span>
     n, m = <span class="text-sky-600">len</span>(seq1), <span class="text-sky-600">len</span>(seq2)
-    score = [[<span class="text-orange-600">0</span> <span class="text-pink-650">for</span> _ <span class="text-pink-650">in</span> <span class="text-sky-600">range</span>(m + <span class="text-orange-600">1</span>)] <span class="text-pink-650">for</span> _ <span class="text-pink-650">in</span> <span class="text-sky-600">range</span>(n + <span class="text-orange-600">1</span>)]
     
-    <span class="text-slate-505 italic"># Base cases</span>
-    <span class="text-pink-655">for</span> i <span class="text-pink-655">in</span> <span class="text-sky-600">range</span>(n + <span class="text-orange-600">1</span>):
-        score[i][<span class="text-orange-600">0</span>] = i * gap
-    <span class="text-pink-655">for</span> j <span class="text-pink-655">in</span> <span class="text-sky-600">range</span>(m + <span class="text-orange-600">1</span>):
-        score[<span class="text-orange-600">0</span>][j] = j * gap
+    <span class="text-slate-500 italic"># Step 1: Initialize (N+1) x (M+1) Dynamic Programming score matrix with zeros</span>
+    dp: List[List[<span class="text-sky-600">int</span>]] = [[<span class="text-orange-600">0</span> <span class="text-pink-600">for</span> _ <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(m + <span class="text-orange-600">1</span>)] <span class="text-pink-600">for</span> _ <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(n + <span class="text-orange-600">1</span>)]
+    
+    <span class="text-slate-500 italic"># Step 2: Fill boundary base cases with cumulative gap penalties</span>
+    <span class="text-pink-600">for</span> i <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(<span class="text-orange-600">1</span>, n + <span class="text-orange-600">1</span>):
+        dp[i][<span class="text-orange-600">0</span>] = i * gap
+    <span class="text-pink-600">for</span> j <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(<span class="text-orange-600">1</span>, m + <span class="text-orange-600">1</span>):
+        dp[<span class="text-orange-600">0</span>][j] = j * gap
         
-    <span class="text-slate-505 italic"># Fill the matrix</span>
-    <span class="text-pink-655">for</span> i <span class="text-pink-655">in</span> <span class="text-sky-600">range</span>(<span class="text-orange-600">1</span>, n + <span class="text-orange-600">1</span>):
-        <span class="text-pink-655">for</span> j <span class="text-pink-655">in</span> <span class="text-sky-600">range</span>(<span class="text-orange-600">1</span>, m + <span class="text-orange-600">1</span>):
-            sub_score = match <span class="text-pink-655">if</span> seq1[i - <span class="text-orange-600">1</span>] == seq2[j - <span class="text-orange-600">1</span>] <span class="text-pink-655">else</span> mismatch
-            score[i][j] = <span class="text-sky-600">max</span>(
-                score[i - <span class="text-orange-600">1</span>][j - <span class="text-orange-600">1</span>] + sub_score,
-                score[i - <span class="text-orange-600">1</span>][j] + gap,
-                score[i][j - <span class="text-orange-600">1</span>] + gap
-            )
+    <span class="text-slate-500 italic"># Step 3: Bottom-up matrix tabulation fill</span>
+    <span class="text-pink-600">for</span> i <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(<span class="text-orange-600">1</span>, n + <span class="text-orange-600">1</span>):
+        <span class="text-pink-600">for</span> j <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(<span class="text-orange-600">1</span>, m + <span class="text-orange-600">1</span>):
+            <span class="text-slate-500 italic"># Substitution score: match if characters equal, else mismatch</span>
+            sub_score = match <span class="text-pink-600">if</span> seq1[i - <span class="text-orange-600">1</span>] == seq2[j - <span class="text-orange-600">1</span>] <span class="text-pink-600">else</span> mismatch
             
-    <span class="text-slate-505 italic"># Traceback</span>
+            diag = dp[i - <span class="text-orange-600">1</span>][j - <span class="text-orange-600">1</span>] + sub_score  <span class="text-slate-500 italic"># Diagonal transition</span>
+            up   = dp[i - <span class="text-orange-600">1</span>][j] + gap            <span class="text-slate-500 italic"># Deletion in seq2</span>
+            left = dp[i][j - <span class="text-orange-600">1</span>] + gap            <span class="text-slate-500 italic"># Insertion in seq1</span>
+            
+            dp[i][j] = <span class="text-sky-600">max</span>(diag, up, left)
+            
+    <span class="text-slate-500 italic"># Step 4: Traceback path reconstruction starting from bottom-right (n, m)</span>
     align1, align2 = [], []
     i, j = n, m
-    <span class="text-pink-655">while</span> i > <span class="text-orange-600">0</span> <span class="text-pink-655">or</span> j > <span class="text-orange-600">0</span>:
-        <span class="text-pink-655">if</span> i > <span class="text-orange-600">0</span> <span class="text-pink-655">and</span> j > <span class="text-orange-600">0</span> <span class="text-pink-655">and</span> score[i][j] == score[i - <span class="text-orange-600">1</span>][j - <span class="text-orange-600">1</span>] + (match <span class="text-pink-655">if</span> seq1[i - <span class="text-orange-600">1</span>] == seq2[j - <span class="text-orange-600">1</span>] <span class="text-pink-655">else</span> mismatch):
+    
+    <span class="text-pink-600">while</span> i > <span class="text-orange-600">0</span> <span class="text-pink-600">or</span> j > <span class="text-orange-600">0</span>:
+        sub_score = match <span class="text-pink-600">if</span> (i > <span class="text-orange-600">0</span> <span class="text-pink-600">and</span> j > <span class="text-orange-600">0</span> <span class="text-pink-600">and</span> seq1[i - <span class="text-orange-600">1</span>] == seq2[j - <span class="text-orange-600">1</span>]) <span class="text-pink-600">else</span> mismatch
+        
+        <span class="text-slate-500 italic"># Priority 1: Check Diagonal transition</span>
+        <span class="text-pink-600">if</span> i > <span class="text-orange-600">0</span> <span class="text-pink-600">and</span> j > <span class="text-orange-600">0</span> <span class="text-pink-600">and</span> dp[i][j] == dp[i - <span class="text-orange-600">1</span>][j - <span class="text-orange-600">1</span>] + sub_score:
             align1.append(seq1[i - <span class="text-orange-600">1</span>])
             align2.append(seq2[j - <span class="text-orange-600">1</span>])
             i -= <span class="text-orange-600">1</span>
             j -= <span class="text-orange-600">1</span>
-        <span class="text-pink-655">elif</span> i > <span class="text-orange-600">0</span> <span class="text-pink-655">and score[i][j] == score[i - 1][j] + gap:</span>
+        <span class="text-slate-500 italic"># Priority 2: Check Upward transition (gap in seq2)</span>
+        <span class="text-pink-600">elif</span> i > <span class="text-orange-600">0</span> <span class="text-pink-600">and</span> dp[i][j] == dp[i - <span class="text-orange-600">1</span>][j] + gap:
             align1.append(seq1[i - <span class="text-orange-600">1</span>])
             align2.append(<span class="text-teal-700">"-"</span>)
             i -= <span class="text-orange-600">1</span>
-        <span class="text-pink-655">else:</span>
+        <span class="text-slate-500 italic"># Priority 3: Check Leftward transition (gap in seq1)</span>
+        <span class="text-pink-600">else</span>:
             align1.append(<span class="text-teal-700">"-"</span>)
             align2.append(seq2[j - <span class="text-orange-600">1</span>])
             j -= <span class="text-orange-600">1</span>
             
-    <span class="text-pink-655">return</span> <span class="text-sky-600">""</span>.join(align1[::-<span class="text-orange-600">1</span>]), <span class="text-sky-600">""</span>.join(align2[::-<span class="text-orange-600">1</span>])</pre>
+    <span class="text-slate-500 italic"># Reverse alignment strings because traceback builds them back-to-front</span>
+    final_align1 = <span class="text-teal-700">""</span>.join(align1[::-<span class="text-orange-600">1</span>])
+    final_align2 = <span class="text-teal-700">""</span>.join(align2[::-<span class="text-orange-600">1</span>])
+    optimal_score = dp[n][m]
+    
+    <span class="text-pink-600">return</span> final_align1, final_align2, optimal_score</pre>
+            </div>
           </div>
 
-          <h3 class="font-semibold text-slate-900 text-lg mt-6 border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2">5. Practice Problems</h3>
-          <div class="space-y-3">
-            <div class="bg-emerald-50 border border-emerald-100 p-3 rounded-sm">
-              <span class="text-[9px] font-bold text-emerald-600 uppercase tracking-widest block mb-1">Warm-up</span>
-              <p class="text-[11px] text-slate-700">Compute the score grid and final alignment for sequence 1 <code class="font-mono text-[12px] font-bold text-indigo-600">"A"</code> and sequence 2 <code class="font-mono text-[12px] font-bold text-indigo-600">"A"</code> with scoring Match = 2, Gap = -1 by hand.</p>
-              <button onclick="window.loadSandboxChallenge(this)" class="mt-2 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-2.5 py-1 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider">Try in Sandbox &rarr;</button>
-            </div>
-            <div class="bg-indigo-50 border border-indigo-100 p-3 rounded-sm">
-              <span class="text-[9px] font-bold text-indigo-600 uppercase tracking-widest block mb-1">Core</span>
-              <p class="text-[11px] text-slate-700">Write a test cases suite verifying that aligning <code class="font-mono text-[12px] font-bold text-indigo-600">"HELLOWORLD"</code> and <code class="font-mono text-[12px] font-bold text-indigo-600">"WORLD"</code> yields the expected global alignment with appropriate gap penalties.</p>
-              <button onclick="window.loadSandboxChallenge(this)" class="mt-2 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-2.5 py-1 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider">Try in Sandbox &rarr;</button>
-            </div>
-            <div class="bg-rose-50 border border-rose-100 p-3 rounded-sm">
-              <span class="text-[9px] font-bold text-rose-600 uppercase tracking-widest block mb-1">Extension</span>
-              <p class="text-[11px] text-slate-700">How would you modify the traceback logic to handle cases where there are multiple optimal alignments? Modify the algorithm to return all path variations.</p>
-              <button onclick="window.loadSandboxChallenge(this)" class="mt-2 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-2.5 py-1 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider">Try in Sandbox &rarr;</button>
+          <!-- 8. Practice Problems -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">8. Practice Problems</h3>
+            <div class="space-y-3">
+              <div class="bg-emerald-50 border border-emerald-100 p-3 rounded-sm">
+                <span class="text-[9px] font-bold text-emerald-600 uppercase tracking-widest block mb-1">Warm-up</span>
+                <p class="text-[11px] text-slate-700">Compute the score grid and final alignment for sequence 1 <code class="font-mono text-[12px] font-bold text-indigo-600">"A"</code> and sequence 2 <code class="font-mono text-[12px] font-bold text-indigo-600">"A"</code> with scoring Match = 2, Gap = -1 by hand.</p>
+                <button onclick="window.loadSandboxChallenge(this)" class="mt-2 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-2.5 py-1 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider cursor-pointer">Try in Sandbox &rarr;</button>
+              </div>
+              <div class="bg-indigo-50 border border-indigo-100 p-3 rounded-sm">
+                <span class="text-[9px] font-bold text-indigo-600 uppercase tracking-widest block mb-1">Core</span>
+                <p class="text-[11px] text-slate-700">Write a test cases suite verifying that aligning <code class="font-mono text-[12px] font-bold text-indigo-600">"HELLOWORLD"</code> and <code class="font-mono text-[12px] font-bold text-indigo-600">"WORLD"</code> yields the expected global alignment with appropriate gap penalties.</p>
+                <button onclick="window.loadSandboxChallenge(this)" class="px-2.5 py-1 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider mt-2 cursor-pointer">Try in Sandbox &rarr;</button>
+              </div>
+              <div class="bg-rose-50 border border-rose-100 p-3 rounded-sm">
+                <span class="text-[9px] font-bold text-rose-600 uppercase tracking-widest block mb-1">Extension</span>
+                <p class="text-[11px] text-slate-700">How would you modify the traceback logic to handle cases where there are multiple optimal alignments? Modify the algorithm to return all path variations.</p>
+                <button onclick="window.loadSandboxChallenge(this)" class="mt-2 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-2.5 py-1 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider cursor-pointer">Try in Sandbox &rarr;</button>
+              </div>
             </div>
           </div>
+
         </div>
       </section>
-            <!-- Module Progress Control -->
+
+      <!-- Additional Curated Practice Problems Section (Grid-like, similar to Resources) -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Curated Practice Problems</h2>
+        <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
+          
+          <a href="https://rosalind.info/problems/need/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">ROSALIND</span>
+              <span class="font-semibold text-slate-800">NEED - Needleman-Wunsch Algorithm</span>
+              <span class="text-slate-400 text-[10px]">&bull; Basic</span>
+            </div>
+            <span class="text-indigo-600 font-semibold hover:underline">Solve Problem &rarr;</span>
+          </a>
+
+          <a href="https://rosalind.info/problems/glob/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-indigo-100 text-indigo-800 font-bold px-2 py-0.5 rounded text-[10px]">ROSALIND</span>
+              <span class="font-semibold text-slate-800">GLOB - Global Alignment with Scoring Matrix</span>
+              <span class="text-slate-400 text-[10px]">&bull; Intermediate</span>
+            </div>
+            <span class="text-indigo-600 font-semibold hover:underline">Solve Problem &rarr;</span>
+          </a>
+
+          <a href="https://rosalind.info/problems/gaff/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded text-[10px]">ROSALIND</span>
+              <span class="font-semibold text-slate-800">GAFF - Global Alignment with Affine Gap Penalties</span>
+              <span class="text-slate-400 text-[10px]">&bull; Advanced</span>
+            </div>
+            <span class="text-indigo-600 font-semibold hover:underline">Solve Problem &rarr;</span>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- Module Progress Control -->
       <section class="bg-indigo-50/40 backdrop-blur-md border border-indigo-100 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 flex flex-col md:flex-row items-center justify-between select-none">
         <div>
           <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Module Complete?</h2>
@@ -452,7 +797,7 @@
           toggleBtn.style.left = "0.25rem";
         } else {
           toggleBtn.innerHTML = "&lsaquo;";
-          toggleBtn.style.left = "19.25rem";
+          toggleBtn.style.left = "17.25rem";
         }
       });
     }
@@ -463,7 +808,7 @@
   <!-- Floating Sandbox Jump -->
   <button onclick="const m = document.querySelector('main'); m.scrollTo({ top: document.getElementById('sandbox-container').offsetTop, behavior: 'smooth' })" class="fixed bottom-6 right-8 bg-white/70 backdrop-blur-md border border-white/60 shadow-xl text-slate-700 text-[10px] font-bold uppercase tracking-wider px-4 py-2 rounded-full hover:bg-white hover:text-indigo-700 transition-all duration-300 z-50 flex items-center space-x-2 select-none group cursor-pointer">
     <span>Jump to Sandbox</span>
-    <svg class="w-3 h-3 text-indigo-500 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+    <svg class="w-3 h-3 text-indigo-500 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7-7m0 0l-7-7m7 7V3"></path></svg>
   </button>
 </body>
 </html>

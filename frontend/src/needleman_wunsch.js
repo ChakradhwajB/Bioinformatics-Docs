@@ -43,15 +43,20 @@ async function performNWAlignment() {
 
     const result = await response.json();
 
-    document.getElementById("alignment-score").textContent = result.score;
+    const scoreEl = document.getElementById("alignment-score");
+    if (scoreEl) {
+      scoreEl.textContent = result.score;
+    }
     renderSequenceAlignment(result.alignment_1, result.alignment_2);
     renderDPMatrix(seq1, seq2, match, mismatch, gap);
 
   } catch (error) {
     alert(`Error: ${error.message}`);
   } finally {
-    alignBtn.disabled = false;
-    alignBtn.classList.remove("opacity-50");
+    if (alignBtn) {
+      alignBtn.disabled = false;
+      alignBtn.classList.remove("opacity-50");
+    }
   }
 }
 
@@ -59,6 +64,8 @@ function renderSequenceAlignment(align1, align2) {
   const visualSeq1 = document.getElementById("visual-seq1");
   const visualMatch = document.getElementById("visual-match");
   const visualSeq2 = document.getElementById("visual-seq2");
+
+  if (!visualSeq1 || !visualMatch || !visualSeq2) return;
 
   visualSeq1.innerHTML = "";
   visualMatch.innerHTML = "";
@@ -139,10 +146,11 @@ function renderDPMatrix(seq1, seq2, match, mismatch, gap) {
   }
 
   const container = document.getElementById("matrix-container");
+  if (!container) return;
   container.innerHTML = "";
 
   const tableWrapper = document.createElement("div");
-  tableWrapper.className = "w-full overflow-x-auto bg-white/50 backdrop-blur-sm border border-white/40 rounded-xl shadow-[0_4px_30px_rgba(0,0,0,0.02)]";
+  tableWrapper.className = "w-full bg-white/50 backdrop-blur-sm border border-slate-200 rounded-xl shadow-xs";
 
   const table = document.createElement("table");
   table.className = "min-w-full border-collapse border-0 text-center font-mono text-[10px] select-none";
@@ -284,6 +292,8 @@ function renderDPMatrix(seq1, seq2, match, mismatch, gap) {
     const prevBtn = document.getElementById("player-prev");
     const resetBtn = document.getElementById("player-reset");
 
+    if (!playBtn || !nextBtn || !prevBtn || !resetBtn) return;
+
     // Reset button states
     playBtn.textContent = "Play";
     playBtn.className = "px-2.5 py-1 text-[10px] bg-slate-800 text-white hover:bg-slate-900 rounded-none font-bold cursor-pointer";
@@ -317,7 +327,7 @@ function renderDPMatrix(seq1, seq2, match, mismatch, gap) {
       });
     }
 
-    function renderStep(index) {
+    function renderStep(index, shouldScroll = false) {
       currentStep = index;
       window.tracebackPlayerActiveStep = index;
       resetCellStyles();
@@ -340,8 +350,10 @@ function renderDPMatrix(seq1, seq2, match, mismatch, gap) {
         activeCell.style.color = "#ffffff";
         activeCell.classList.add("active-traceback-cell", "z-30");
         
-        // Scroll into view
-        activeCell.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+        // Scroll into view ONLY during playback/step navigation
+        if (shouldScroll) {
+          activeCell.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+        }
       }
 
       // Update inspector details
@@ -392,7 +404,7 @@ function renderDPMatrix(seq1, seq2, match, mismatch, gap) {
       window.tracebackPlayerInterval = setInterval(() => {
         if (currentStep < steps.length - 1) {
           currentStep++;
-          renderStep(currentStep);
+          renderStep(currentStep, true);
         } else {
           pause();
         }
@@ -415,7 +427,7 @@ function renderDPMatrix(seq1, seq2, match, mismatch, gap) {
       else {
         if (currentStep >= steps.length - 1) {
           currentStep = 0;
-          renderStep(0);
+          renderStep(0, true);
         }
         play();
       }
@@ -425,7 +437,7 @@ function renderDPMatrix(seq1, seq2, match, mismatch, gap) {
       pause();
       if (currentStep < steps.length - 1) {
         currentStep++;
-        renderStep(currentStep);
+        renderStep(currentStep, true);
       }
     });
 
@@ -433,18 +445,18 @@ function renderDPMatrix(seq1, seq2, match, mismatch, gap) {
       pause();
       if (currentStep > 0) {
         currentStep--;
-        renderStep(currentStep);
+        renderStep(currentStep, true);
       }
     });
 
     newResetBtn.addEventListener("click", () => {
       pause();
       currentStep = 0;
-      renderStep(0);
+      renderStep(0, false);
     });
 
-    // Start on first step
-    renderStep(0);
+    // Start on first step without auto-scrolling
+    renderStep(0, false);
   }
 }
 

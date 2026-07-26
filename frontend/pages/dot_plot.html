@@ -5,23 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <!-- Primary SEO Meta Tags -->
-  <title>Dot Plot Sequence Visualizer | Bioinformatics Docs</title>
-  <meta name="description" content="Generate and analyze comparative sequence dot plots. Identify repeats, inversions, and insertions using sliding windows." />
-  <meta name="keywords" content="dot plot visualizer, sequence dot plot, dna repeat analysis, sequence alignment grid, sliding window dot plot, bioinformatics" />
+  <title>2D Dot Plot Matrix Visualizer | Bioinformatics Docs</title>
+  <meta name="description" content="Generate 2D dot plot matrix graphics to visualize sequence alignments, synteny, repeats, and inversions between two genomic sequences." />
+  <meta name="keywords" content="dot plot visualizer, 2d sequence matrix, synteny, genomic repeats, sequence alignment, dot plot bioinformatics" />
   <meta name="author" content="ChakradhwajB" />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://bioinformatics-docs.netlify.app/pages/dot_plot.html" />
-  <meta property="og:title" content="Dot Plot Sequence Visualizer | Bioinformatics Docs" />
-  <meta property="og:description" content="Generate and analyze comparative sequence dot plots. Identify repeats, inversions, and insertions using sliding windows." />
+  <meta property="og:title" content="2D Dot Plot Matrix Visualizer | Bioinformatics Docs" />
+  <meta property="og:description" content="Generate 2D dot plot matrix graphics to visualize sequence alignments, synteny, repeats, and inversions between two genomic sequences." />
   <meta property="og:image" content="https://bioinformatics-docs.netlify.app/module_page.png" />
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://bioinformatics-docs.netlify.app/pages/dot_plot.html" />
-  <meta property="twitter:title" content="Dot Plot Sequence Visualizer | Bioinformatics Docs" />
-  <meta property="twitter:description" content="Generate and analyze comparative sequence dot plots. Identify repeats, inversions, and insertions using sliding windows." />
+  <meta property="twitter:title" content="2D Dot Plot Matrix Visualizer | Bioinformatics Docs" />
+  <meta property="twitter:description" content="Generate 2D dot plot matrix graphics to visualize sequence alignments, synteny, repeats, and inversions between two genomic sequences." />
   <meta property="twitter:image" content="https://bioinformatics-docs.netlify.app/module_page.png" />
 
   <!-- Structured Data (JSON-LD) SoftwareApplication Schema -->
@@ -29,10 +29,10 @@
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Dot Plot Sequence Visualizer",
+    "name": "2D Dot Plot Matrix Visualizer",
     "operatingSystem": "All",
     "applicationCategory": "EducationalApplication, BioinformaticsTool",
-    "description": "An interactive sliding-window dot plot generator for comparative nucleotide visual mapping.",
+    "description": "An interactive canvas component plotting 2D dot matrix diagrams for comparative genomic analysis.",
     "browserRequirements": "Requires JavaScript. Requires HTML5.",
     "softwareVersion": "1.0.0",
     "author": {
@@ -90,22 +90,22 @@
   <div class="absolute top-0 z-[-2] h-screen w-full bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
   
   <!-- Header Bar -->
-    <header class="glass-nav border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] backdrop-blur-md py-3 px-6 flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0 select-none z-50">
+  <header class="glass-nav border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] backdrop-blur-md py-3 px-6 flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0 select-none z-50">
     <!-- Logo -->
     <div class="flex items-center space-x-2.5">
       <span class="font-bold text-slate-900 text-xs tracking-wider uppercase">Bioinformatics Docs</span>
     </div>
     <!-- Nav links -->
     <nav class="flex items-center space-x-6 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
-          <a href="../index.html" class="hover:text-slate-900 transition-colors">Home</a>
-          <a href="../learn.html" class="hover:text-slate-900 transition-colors">Modules</a>
-          <a href="../glossary.html" class="hover:text-slate-900 transition-colors">Glossary</a>
-          <a href="./docs.html" class="hover:text-indigo-700 transition-colors text-indigo-600">Documentation &rarr;</a>
-          <a href="https://github.com/ChakradhwajB/Bioinformatics-Docs" target="_blank" class="hover:text-slate-900 transition-colors flex items-center space-x-1">
-            <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.54 2.87 8.39 6.84 9.75.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.4 9.4 0 0 1 12 6.84c.85 0 1.71.12 2.51.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49C19.14 20.65 22 16.8 22 12.26 22 6.58 17.52 2 12 2z"/></svg>
-            <span>GitHub</span>
-          </a>
-        </nav>
+      <a href="../index.html" class="hover:text-slate-900 transition-colors">Home</a>
+      <a href="../learn.html" class="hover:text-slate-900 transition-colors">Modules</a>
+      <a href="../glossary.html" class="hover:text-slate-900 transition-colors">Glossary</a>
+      <a href="./docs.html" class="hover:text-indigo-700 transition-colors text-indigo-600">Documentation &rarr;</a>
+      <a href="https://github.com/ChakradhwajB/Bioinformatics-Docs" target="_blank" class="hover:text-slate-900 transition-colors flex items-center space-x-1">
+        <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.54 2.87 8.39 6.84 9.75.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.4 9.4 0 0 1 12 6.84c.85 0 1.71.12 2.51.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49C19.14 20.65 22 16.8 22 12.26 22 6.58 17.52 2 12 2z"/></svg>
+        <span>GitHub</span>
+      </a>
+    </nav>
     <!-- Server status -->
     <div class="flex items-center space-x-2 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full">
       <span id="server-status-dot" class="h-1.5 w-1.5 rounded-full bg-slate-400"></span>
@@ -116,94 +116,133 @@
   <!-- Workspace Shell -->
   <div class="flex-grow flex h-[calc(100vh-45px)] overflow-hidden relative">
     
-    <!-- Left Sidebar (Inputs & Controls) -->
-    <aside id="sidebar" class="w-80 bg-transparent border-r border-white/40 shadow-[1px_0_15px_rgba(0,0,0,0.01)] p-4 flex flex-col justify-between overflow-y-auto select-none transition-all duration-300 shrink-0">
-      <div class="space-y-4">
-        <!-- Tool Navigation list -->
-        <div>
-          <span class="block text-xs font-bold text-slate-900 uppercase tracking-wider mb-2">Curriculum Pathways</span>
-          
-          <div class="space-y-3">
-            <!-- Module 1 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 1: Foundations</span>
-              <a href="./io.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">FASTA File IO <span class="float-right text-[9px] opacity-80 font-bold">~15m</span></a>
-              <a href="./genetics.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Genetics Workbench <span class="float-right text-[9px] opacity-80 font-bold">~20m</span></a>
-            </div>
+    <!-- Left Sidebar (USACO Guide Style Pure Navigation) -->
+    <aside id="sidebar" class="w-72 bg-slate-50/60 backdrop-blur-md border-r border-slate-200/80 p-4 flex flex-col justify-between overflow-y-auto select-none transition-all duration-300 shrink-0 text-slate-800">
+      <div class="space-y-5">
+        
+        <!-- Sidebar Header -->
+        <div class="pb-2 border-b border-slate-200/80 flex items-center justify-between">
+          <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest flex items-center">
+            <svg class="w-3.5 h-3.5 mr-1.5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
+            Table of Contents
+          </span>
+        </div>
 
-            <!-- Module 2 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 2: Patterns</span>
-              <a href="./kmers.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">K-mer Profiler <span class="float-right text-[9px] opacity-80 font-bold">~25m</span></a>
-              <a href="./find_motif.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Motif Finder <span class="float-right text-[9px] opacity-80 font-bold">~25m</span></a>
+        <div class="space-y-4">
+          <!-- Module 1 -->
+          <div class="space-y-1">
+            <div class="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider px-2 flex items-center justify-between">
+              <span>Module 1 &bull; Foundations</span>
             </div>
-
-            <!-- Module 3 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 3: Comparisons</span>
-              <a href="./dot_plot.html" class="block px-2.5 py-1.5 text-[11px] font-semibold rounded-sm text-indigo-650 bg-indigo-50 border-l-2 border-indigo-500 transition-colors">Dot Plot Visualizer <span class="float-right text-[9px] opacity-80 font-bold">~20m</span></a>
-              <a href="./distances.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Sequence Distances <span class="float-right text-[9px] opacity-80 font-bold">~25m</span></a>
-            </div>
-            <!-- Module 4 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 4: Alignments</span>
-              <a href="./needleman_wunsch.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Needleman-Wunsch Global <span class="float-right text-[9px] opacity-80 font-bold">~30m</span></a>
-              <a href="./smith_waterman.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Smith-Waterman Local <span class="float-right text-[9px] opacity-80 font-bold">~30m</span></a>
-            </div>
-
-            <!-- Module 5 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 5: Indexing</span>
-              <a href="./trie.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Trie Multi-Search <span class="float-right text-[9px] opacity-80 font-bold">~25m</span></a>
-              <a href="./suffix_array.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Suffix Array Search <span class="float-right text-[9px] opacity-80 font-bold">~30m</span></a>
-            </div>
-            <!-- Reference -->
-            <div class="space-y-0.5 pt-1 border-t border-slate-200">
-              <a href="./docs.html" class="block px-2 py-1 text-[11px] font-bold text-indigo-600 hover:bg-slate-200 transition-colors">Documentation &rarr;</a>
-            </div>
-
-            
+            <a href="./io.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                FASTA File IO
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">15m</span>
+            </a>
+            <a href="./genetics.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Genetics Workbench
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">20m</span>
+            </a>
           </div>
-        </div>
-        <div class="border-t border-slate-200 pt-3">
-          <label class="block text-xs font-bold text-slate-900 uppercase tracking-wider mb-1">Sequence 1 (Vertical)</label>
-          <textarea id="seq1" rows="3" class="w-full font-mono text-xs px-3 py-2 border-b-2 border-transparent bg-white/60 focus:bg-white backdrop-blur-sm shadow-inner rounded-t-lg uppercase resize-none focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all duration-150" placeholder="e.g. ACGTACGT">ACGTACGT</textarea>
-        </div>
 
-        <div>
-          <label class="block text-xs font-bold text-slate-900 uppercase tracking-wider mb-1">Sequence 2 (Horizontal)</label>
-          <textarea id="seq2" rows="3" class="w-full font-mono text-xs px-3 py-2 border-b-2 border-transparent bg-white/60 focus:bg-white backdrop-blur-sm shadow-inner rounded-t-lg uppercase resize-none focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all duration-150" placeholder="e.g. ACGTCGT">ACGTCGT</textarea>
-        </div>
-
-        <!-- Sliding Window Settings -->
-        <div class="space-y-3 pt-3 border-t border-slate-200">
-          <span class="block text-xs font-bold text-slate-900 uppercase tracking-wider">Dot Plot Parameters</span>
-          <div class="grid grid-cols-2 gap-2">
-            <div>
-              <label class="block text-[9px] font-semibold text-slate-500 mb-0.5">Window Size</label>
-              <input type="number" id="window-size" value="1" min="1" max="15" class="w-full text-xs px-2.5 py-1.5 border-b-2 border-transparent bg-white/60 focus:bg-white backdrop-blur-sm shadow-inner rounded-t-lg focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all duration-150">
+          <!-- Module 2 -->
+          <div class="space-y-1">
+            <div class="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider px-2 flex items-center justify-between">
+              <span>Module 2 &bull; Patterns</span>
             </div>
-            <div>
-              <label class="block text-[9px] font-semibold text-slate-500 mb-0.5">Min Matches</label>
-              <input type="number" id="min-matches" value="1" min="1" max="15" class="w-full text-xs px-2.5 py-1.5 border-b-2 border-transparent bg-white/60 focus:bg-white backdrop-blur-sm shadow-inner rounded-t-lg focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all duration-150">
-            </div>
+            <a href="./kmers.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                K-mer Profiler
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">25m</span>
+            </a>
+            <a href="./find_motif.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Motif Finder
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">25m</span>
+            </a>
           </div>
-        </div>
 
-        <!-- Reference & Complexity Panel -->
-        <div class="border-t border-slate-200 pt-3 space-y-1 text-[10px]">
-          <span class="block font-bold text-slate-400 uppercase tracking-wider mb-1">Complexity Reference</span>
-          <div><span class="font-semibold text-slate-500">Operation:</span> Dot Comparison Grid</div>
-          <div><span class="font-semibold text-slate-500">Time Complexity:</span> $\mathcal{O}(n \cdot m \cdot w)$</div>
-          <div><span class="font-semibold text-slate-500">Space Complexity:</span> $\mathcal{O}(n \cdot m)$</div>
+          <!-- Module 3 (Active) -->
+          <div class="space-y-1">
+            <div class="text-[9px] font-extrabold text-indigo-500 uppercase tracking-wider px-2 flex items-center justify-between">
+              <span>Module 3 &bull; Comparisons</span>
+            </div>
+            <a href="./dot_plot.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-bold rounded-md bg-indigo-50/90 text-indigo-700 border-l-2 border-indigo-600 transition-all shadow-xs">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-indigo-600 mr-2"></span>
+                Dot Plot Visualizer
+              </span>
+              <span class="text-[9px] font-mono text-indigo-600">20m</span>
+            </a>
+            <a href="./distances.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Sequence Distances
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">25m</span>
+            </a>
+          </div>
+
+          <!-- Module 4 -->
+          <div class="space-y-1">
+            <div class="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider px-2 flex items-center justify-between">
+              <span>Module 4 &bull; Alignments</span>
+            </div>
+            <a href="./needleman_wunsch.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Needleman-Wunsch Global
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">30m</span>
+            </a>
+            <a href="./smith_waterman.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Smith-Waterman Local
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">30m</span>
+            </a>
+          </div>
+
+          <!-- Module 5 -->
+          <div class="space-y-1">
+            <div class="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider px-2 flex items-center justify-between">
+              <span>Module 5 &bull; Indexing</span>
+            </div>
+            <a href="./trie.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Trie Multi-Search
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">25m</span>
+            </a>
+            <a href="./suffix_array.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Suffix Array Search
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">30m</span>
+            </a>
+          </div>
         </div>
 
       </div>
 
-      <div class="pt-4 border-t border-slate-200">
-        <button id="plot-btn" class="w-full py-2.5 bg-slate-800 hover:bg-slate-955 hover:shadow-md active:bg-slate-900 text-white font-semibold rounded-sm text-xs transition-all duration-150 tracking-wide select-none cursor-pointer">
-          Generate Dot Plot
-        </button>
+      <!-- Footer Link -->
+      <div class="pt-4 border-t border-slate-200/80 space-y-2">
+        <a href="./docs.html" class="flex items-center justify-between text-[11px] font-bold text-indigo-600 hover:text-indigo-800 transition-colors">
+          <span>Documentation Guide</span>
+          <span>&rarr;</span>
+        </a>
       </div>
     </aside>
 
@@ -211,111 +250,340 @@
     <button
       id="sidebar-toggle"
       class="absolute top-1/2 -translate-y-1/2 bg-white border border-slate-200 text-slate-500 hover:text-slate-800 h-8 w-4 rounded-r-md shadow-sm flex items-center justify-center cursor-pointer transition-all duration-300 z-40 select-none"
-      style="left: 20rem"
+      style="left: 18rem"
     >
       &lsaquo;
     </button>
 
     <!-- Right Panels (Scrollable Workspace) -->
-    <main class="flex-grow overflow-y-auto bg-transparent p-6 lg:p-10 space-y-12 relative">
+    <main class="flex-grow overflow-y-auto bg-transparent p-6 lg:p-10 space-y-8 relative">
       
-      <!-- Top Section: Plot Metrics -->
+      <!-- Module Title Header -->
+      <div class="space-y-2">
+        <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest block">Module 3 &bull; Comparisons</span>
+        <h1 class="text-3xl lg:text-4xl font-extralight tracking-tighter text-slate-900">2D Dot Plot Matrix Visualizer</h1>
+        <p class="text-xs text-slate-500 italic">Author: ChakradhwajB &bull; Graphical 2D dot matrix representation for detecting sequence similarity, chromosomal synteny, gene duplications, and inversions.</p>
+      </div>
+
+      <!-- Resources Section -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Resources</h2>
+        <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
+          <a href="https://en.wikipedia.org/wiki/Dot_plot_(bioinformatics)" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-slate-100 text-slate-800 font-bold px-2 py-0.5 rounded text-[10px]">WIKIPEDIA</span>
+              <span class="font-semibold text-slate-800">Dot Plot Matrix Theory &amp; Synteny Diagrams</span>
+              <span class="text-amber-500">★</span>
+            </div>
+            <span class="text-slate-500">Reference Background</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Educational Guide Part 1 -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-8">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Educational Guide: Graphical 2D Dot Matrix Analysis</h2>
+        
+        <div class="text-[14px] leading-relaxed space-y-6 text-slate-700">
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">1. Motivation &amp; Biological Background</h3>
+            <p class="mb-3">
+              A <strong>Dot Plot Matrix</strong> is an intuitive 2D visual representation of sequence homology and structural relationships between two biological sequences (DNA, RNA, or protein). Sequence $S_1$ is mapped along the vertical $y$-axis (from top to bottom), and sequence $S_2$ is mapped along the horizontal $x$-axis (from left to right). At every grid intersection $(i, j)$, a dot is drawn if the corresponding characters or window sub-segments match.
+            </p>
+            <p class="mb-3">
+              <strong>Detecting Genome-Scale Structural Variations:</strong>
+            </p>
+            <ul class="list-disc pl-6 space-y-1 text-xs mb-3">
+              <li><strong>Main Diagonal Line (Synteny):</strong> A continuous diagonal line running from top-left to bottom-right indicates direct linear sequence identity and conserved gene order (synteny).</li>
+              <li><strong>Parallel Off-Diagonals (Repeats &amp; Duplications):</strong> Line segments running parallel to the main diagonal reveal tandem repeats, segmental duplications, or duplicated gene clusters.</li>
+              <li><strong>Anti-Diagonals (Inversions &amp; Palindromes):</strong> Line segments running perpendicular (bottom-left to top-right) highlight inverted sequence regions, chromosomal inversions, or self-complementary RNA stem-loop secondary structures.</li>
+              <li><strong>Gaps &amp; Offsets (Indels):</strong> Horizontal or vertical offsets in the diagonal line correspond to insertions or deletions (indels) in one sequence relative to the other.</li>
+            </ul>
+            <p class="mb-3">
+              <strong>Real-World Applications:</strong> Whole-genome synteny mapping across species (e.g., Human vs. Chimpanzee chromosome comparison), identifying mobile genetic elements (transposons and retrotransposons), inspecting repetitive gene arrays (e.g. rRNA loci), and diagnosing assembly mis-joins in de novo genome assembly pipelines.
+            </p>
+            <p>
+              <strong>Historical Origin:</strong> Introduced by Gibbs and McIntyre in 1970 as one of the earliest computational visual alignment methods. Maizel and Lenk (1981) later computerized dot plot matrices for large nucleic acid and protein comparative analysis, establishing window filtering techniques to reduce random background noise.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">2. Mathematical Formulation &amp; Core Theory</h3>
+            <p class="mb-3">
+              Let sequence $S_1$ have length $N$ ($y$-axis index $i \in \{1, \dots, N\}$) and sequence $S_2$ have length $M$ ($x$-axis index $j \in \{1, \dots, M\}$) over nucleotide alphabet $\Sigma = \{\text{A}, \text{C}, \text{G}, \text{T}\}$.
+            </p>
+            <p class="mb-3">
+              <strong>Unfiltered (1x1) Dot Matrix:</strong>
+              The basic dot plot matrix $D \in \{0, 1\}^{N \times M}$ records single-character identities:
+            </p>
+            <div class="bg-slate-50 border border-slate-200 rounded-md p-3 my-3 text-center">
+              $$D_{i, j} = \begin{cases} 1 & \text{if } S_1[i] = S_2[j] \\ 0 & \text{if } S_1[i] \neq S_2[j] \end{cases}$$
+            </div>
+            <p class="mb-3">
+              <strong>Sliding Window Filtering &amp; Noise Reduction:</strong>
+              Because random DNA sequences share any single nucleotide with probability $P = 0.25$, an unfiltered 1x1 dot plot suffers from a high signal-to-noise ratio ($25\%$ background noise). To isolate true biological homology, a sliding window size $W \ge 1$ and stringency threshold $T \le W$ are applied along the diagonal starting at $(i, j)$:
+            </p>
+            <div class="bg-slate-50 border border-slate-200 rounded-md p-3 my-3 text-center">
+              $$M_{i, j}^{(W, T)} = \begin{cases} 1 & \text{if } \displaystyle\sum_{k=0}^{W-1} \delta\Big(S_1[i+k], \, S_2[j+k]\Big) \ge T \\ 0 & \text{otherwise} \end{cases}$$
+              $$\text{where } \delta(a, b) = \begin{cases} 1 & \text{if } a = b \\ 0 & \text{if } a \neq b \end{cases}$$
+            </div>
+            <p class="mb-3">
+              <strong>Time &amp; Space Complexity Analysis:</strong>
+            </p>
+            <ul class="list-disc pl-6 space-y-1.5 text-xs">
+              <li><strong>Naive Sliding Window Matrix Generation:</strong>
+                <ul class="list-circle pl-4 space-y-1 mt-1">
+                  <li><strong>Time Complexity:</strong> $\mathcal{O}((N - W + 1) \cdot (M - W + 1) \cdot W) \approx \mathcal{O}(N \cdot M \cdot W)$. For $W = 1$, this simplifies to $\mathcal{O}(N \cdot M)$.</li>
+                  <li><strong>Space Complexity:</strong> $\mathcal{O}(N \cdot M)$ to store the 2D binary grid in memory.</li>
+                </ul>
+              </li>
+              <li><strong>Incremental Rolling Window Optimization:</strong>
+                <ul class="list-circle pl-4 space-y-1 mt-1">
+                  <li>By storing diagonal window match sums and updating them incrementally as the window moves, the computation time is reduced to $\mathcal{O}(N \cdot M)$ independent of window size $W$.</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Interactive Dot Plot Visualizer Workspace -->
       <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-6">
         <div class="flex justify-between items-center select-none">
-          <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Plot Coordinates</h2>
-          <div class="flex items-center space-x-2 text-[10px] font-semibold text-slate-500">
-            <span>Plotted Dots: <span id="dot-count" class="font-bold text-slate-900">-</span></span>
+          <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Interactive Dot Plot Matrix</h2>
+          <div class="flex items-center space-x-2 text-[11px] font-bold text-slate-500">
+            <span>Dot Hits: <span id="dot-count" class="text-sm font-black text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200 shadow-sm">-</span></span>
           </div>
         </div>
-      </section>
 
-      <!-- Bottom Section: Dot Plot Grid -->
-      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-6 flex flex-col">
-        <div class="flex justify-between items-center mb-3 select-none">
-          <h2 class="text-2xl font-thin tracking-tighter text-slate-900">2D Sequence Dot Matrix</h2>
-          <span id="dot-inspector" class="text-[10px] font-mono text-slate-500 bg-slate-50 px-2 py-0.5 rounded-sm border border-slate-200">Hover over cells to inspect positions.</span>
+        <!-- Inspector details box -->
+        <div id="dot-inspector" class="mb-2 text-xs font-semibold font-mono text-indigo-950 bg-indigo-50 border border-indigo-150 p-2.5 rounded-md w-full text-left">
+          Hover over grid cells to inspect dot coordinates.
         </div>
 
-        <div id="plot-container" class="border border-slate-200 rounded-sm overflow-x-auto bg-slate-50 flex items-center justify-center p-4 min-h-[350px]">
+        <!-- Container expected by dot_plot.js -->
+        <div id="plot-container" class="border border-slate-200 rounded-md overflow-x-auto bg-slate-50 p-4 flex items-center justify-center min-h-[300px]">
           <div class="text-slate-400 text-xs font-semibold">
-            Press Generate Dot Plot to draw comparative mapping.
+            Rendering dot plot matrix...
+          </div>
+        </div>
+
+        <!-- Inputs & Parameter Control Panel (Underneath Visualization) -->
+        <div class="mt-4 p-5 bg-slate-50/80 border border-slate-200 rounded-xl space-y-4 shadow-xs">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Sequences &amp; Window Parameters</h3>
+            <span class="text-[10px] text-slate-400 font-mono font-medium">Time $\mathcal{O}(N \cdot M)$</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Sequence 1 (Vertical - $y$)</label>
+              <textarea id="seq1" rows="2" class="w-full font-mono text-xs px-3 py-2 border border-slate-300 rounded-md uppercase resize-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white shadow-inner" placeholder="e.g. ACGTACGT">ACGTACGTACGT</textarea>
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Sequence 2 (Horizontal - $x$)</label>
+              <input type="text" id="seq2" value="ACGTCGTACGT" class="w-full font-mono text-xs px-3 py-2 border border-slate-300 rounded-md uppercase bg-white shadow-inner" placeholder="e.g. ACGTCGT">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Window Size ($W$)</label>
+              <input type="number" id="window-size" value="1" min="1" max="10" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-md bg-white font-mono shadow-inner">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Min Matches ($T$)</label>
+              <input type="number" id="min-matches" value="1" min="1" max="10" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-md bg-white font-mono shadow-inner">
+            </div>
+            <div class="flex items-end">
+              <button id="plot-btn" class="w-full py-2 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-md text-xs transition-all shadow-xs cursor-pointer flex items-center justify-center space-x-2">
+                <span>Render Dot Plot</span>
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- Educational Article -->
-      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-6">
-        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Educational Guide: Dot Plot Matrices</h2>
-        
-        <div class="text-[14px] leading-relaxed space-y-5 text-slate-700">
-          <h3 class="font-semibold text-slate-900 text-lg mt-6 border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2">1. Motivation: Why care?</h3>
-          <p>
-            When comparing two long sequences, single mathematical scores (like an alignment score) don't tell the whole story. A <strong>Dot Plot</strong> provides an immediate visual footprint of macro-structural relationships—like large insertions, tandem repeats, or inversions—that alignment algorithms might miss or mathematically compress.
-          </p>
-          
-          <h3 class="font-semibold text-slate-900 text-lg mt-6 border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2">2. Concept &amp; Complexity</h3>
-          <p>
-            The matrix compares all characters of sequence $S_1$ (rows) against sequence $S_2$ (columns). In its simplest form, a dot is plotted at cell $(i, j)$ if $S_1[i] = S_2[j]$. To filter background noise, we use a sliding window of size $w$ and a match threshold $t$.
-          </p>
-          <ul class="list-disc pl-5 space-y-1">
-            <li><strong>Time Complexity:</strong> $\mathcal{O}(n \cdot m \cdot w)$ where $n = |S_1|$, $m = |S_2|$, and $w$ is the sliding window size.</li>
-            <li><strong>Space Complexity:</strong> $\mathcal{O}(n \cdot m)$ to store the 2D Boolean matrix.</li>
-          </ul>
-
-          <h3 class="font-semibold text-slate-900 text-lg mt-6 border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2">3. Worked Example</h3>
-          <p>
-            Compare <code class="font-mono text-[12px] font-bold text-indigo-600">AAT</code> (vertical) vs <code class="font-mono text-[12px] font-bold text-indigo-600">GAT</code> (horizontal) with window size 1, threshold 1.
-          </p>
-          <div class="bg-slate-50 p-2.5 rounded-sm font-mono text-xs border border-slate-200 text-slate-650 ml-2 border-l-4 border-l-indigo-400 max-w-[200px]">
-              G   A   T
-          A   .   *   .
-          A   .   *   .
-          T   .   .   *
+      <!-- Educational Guide Part 2 -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-8">
+        <div class="text-[14px] leading-relaxed space-y-6 text-slate-700">
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">3. Step-by-Step Worked Example</h3>
+            <p class="mb-3">
+              Let us compute a dot matrix for sequence $S_1 = \text{"ACGTACGT"}$ ($N = 8$) on the vertical axis and sequence $S_2 = \text{"ACGTCGT"}$ ($M = 7$) on the horizontal axis, using Window Size $W = 3$ and Minimum Matches $T = 3$ (100% exact match requirement over 3 bp).
+            </p>
+            <p class="mb-3">
+              We test each starting pair $(i, j)$ for $i \in [0, 5]$ and $j \in [0, 4]$ (0-indexed):
+            </p>
+            
+            <div class="overflow-x-auto border border-slate-200 rounded-md bg-white my-4">
+              <table class="w-full text-xs text-left">
+                <thead class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
+                  <tr>
+                    <th class="py-2 px-3">$S_1$ Window ($i$)</th>
+                    <th class="py-2 px-3">$S_2$ Window ($j$)</th>
+                    <th class="py-2 px-3">$S_1[i \dots i+2]$ vs $S_2[j \dots j+2]$</th>
+                    <th class="py-2 px-3">Matches ($/3$)</th>
+                    <th class="py-2 px-3">Dot Plotted? ($T \ge 3$)</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 font-mono">
+                  <tr class="bg-indigo-50/50">
+                    <td class="py-1.5 px-3 font-bold text-indigo-700">i=0 ("ACG")</td>
+                    <td class="py-1.5 px-3 font-bold text-indigo-700">j=0 ("ACG")</td>
+                    <td class="py-1.5 px-3">A=A, C=C, G=G</td>
+                    <td class="py-1.5 px-3 font-bold">3 / 3</td>
+                    <td class="py-1.5 px-3 text-indigo-700 font-sans font-bold">✓ DOT at (0, 0)</td>
+                  </tr>
+                  <tr>
+                    <td class="py-1.5 px-3">i=0 ("ACG")</td>
+                    <td class="py-1.5 px-3">j=1 ("CGT")</td>
+                    <td class="py-1.5 px-3">A!=C, C!=G, G!=T</td>
+                    <td class="py-1.5 px-3">0 / 3</td>
+                    <td class="py-1.5 px-3 text-slate-400 font-sans">No Dot</td>
+                  </tr>
+                  <tr class="bg-indigo-50/50">
+                    <td class="py-1.5 px-3 font-bold text-indigo-700">i=1 ("CGT")</td>
+                    <td class="py-1.5 px-3 font-bold text-indigo-700">j=1 ("CGT")</td>
+                    <td class="py-1.5 px-3">C=C, G=G, T=T</td>
+                    <td class="py-1.5 px-3 font-bold">3 / 3</td>
+                    <td class="py-1.5 px-3 text-indigo-700 font-sans font-bold">✓ DOT at (1, 1)</td>
+                  </tr>
+                  <tr class="bg-amber-50/50">
+                    <td class="py-1.5 px-3 font-bold text-amber-800">i=1 ("CGT")</td>
+                    <td class="py-1.5 px-3 font-bold text-amber-800">j=4 ("CGT")</td>
+                    <td class="py-1.5 px-3">C=C, G=G, T=T (Repeat match!)</td>
+                    <td class="py-1.5 px-3 font-bold">3 / 3</td>
+                    <td class="py-1.5 px-3 text-amber-800 font-sans font-bold">✓ DOT at (1, 4)</td>
+                  </tr>
+                  <tr>
+                    <td class="py-1.5 px-3">i=2 ("GTA")</td>
+                    <td class="py-1.5 px-3">j=2 ("GTC")</td>
+                    <td class="py-1.5 px-3">G=G, T=T, A!=C</td>
+                    <td class="py-1.5 px-3">2 / 3</td>
+                    <td class="py-1.5 px-3 text-slate-400 font-sans">No Dot ($2 < 3$)</td>
+                  </tr>
+                  <tr>
+                    <td class="py-1.5 px-3">i=3 ("TAC")</td>
+                    <td class="py-1.5 px-3">j=3 ("TCG")</td>
+                    <td class="py-1.5 px-3">T=T, A!=C, C!=G</td>
+                    <td class="py-1.5 px-3">1 / 3</td>
+                    <td class="py-1.5 px-3 text-slate-400 font-sans">No Dot</td>
+                  </tr>
+                  <tr class="bg-indigo-50/50">
+                    <td class="py-1.5 px-3 font-bold text-indigo-700">i=4 ("ACG")</td>
+                    <td class="py-1.5 px-3 font-bold text-indigo-700">j=0 ("ACG")</td>
+                    <td class="py-1.5 px-3">A=A, C=C, G=G</td>
+                    <td class="py-1.5 px-3 font-bold">3 / 3</td>
+                    <td class="py-1.5 px-3 text-indigo-700 font-sans font-bold">✓ DOT at (4, 0)</td>
+                  </tr>
+                  <tr class="bg-indigo-50/50">
+                    <td class="py-1.5 px-3 font-bold text-indigo-700">i=5 ("CGT")</td>
+                    <td class="py-1.5 px-3 font-bold text-indigo-700">j=1 ("CGT")</td>
+                    <td class="py-1.5 px-3">C=C, G=G, T=T</td>
+                    <td class="py-1.5 px-3 font-bold">3 / 3</td>
+                    <td class="py-1.5 px-3 text-indigo-700 font-sans font-bold">✓ DOT at (5, 1)</td>
+                  </tr>
+                  <tr class="bg-amber-50/50">
+                    <td class="py-1.5 px-3 font-bold text-amber-800">i=5 ("CGT")</td>
+                    <td class="py-1.5 px-3 font-bold text-amber-800">j=4 ("CGT")</td>
+                    <td class="py-1.5 px-3">C=C, G=G, T=T</td>
+                    <td class="py-1.5 px-3 font-bold">3 / 3</td>
+                    <td class="py-1.5 px-3 text-amber-800 font-sans font-bold">✓ DOT at (5, 4)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              <strong>Interpretation:</strong> The main diagonal running through $(0,0) \to (1,1)$ is interrupted due to a missing base in $S_2$, causing a shift to $(4,0) \to (5,1)$. Meanwhile, the parallel off-diagonal dots at $(1,4)$ and $(5,4)$ indicate the repeated occurrence of the 3-mer <code class="font-mono text-indigo-600 font-bold">"CGT"</code> in $S_2$.
+            </p>
           </div>
-          <p class="mt-2 text-[11px] text-slate-700">Notice the diagonal streak forming on the bottom right, indicating the matching suffix <code class="font-mono text-[12px] font-bold text-indigo-600">AT</code>.</p>
 
-          <h3 class="font-semibold text-slate-900 text-lg mt-6 border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2">4. Python Code</h3>
-          <p>Here is how to generate a comparative dot plot matrix in Python using sliding window matches:</p>
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">4. Python 3 Reference Implementation</h3>
+            <p class="mb-3 text-xs text-slate-600">
+              Below is a production-ready Python 3 function to generate 2D dot plot matrices with window size filtering and min-match thresholds.
+            </p>
+            <div class="relative group mt-1">
+              <button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); this.textContent = 'Copied!'; setTimeout(() => this.textContent = 'Copy', 2000)" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-sm text-[9px] font-bold tracking-wide transition-all duration-150 shadow-sm cursor-pointer select-none">Copy</button>
+              <pre class="bg-white border border-slate-200 text-slate-700 p-4 pr-12 rounded-sm font-mono text-xs overflow-x-auto leading-relaxed"><span class="text-slate-400">from</span> typing <span class="text-slate-400">import</span> List, Tuple
 
-          <div class="relative group mt-1">
-            <button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); this.textContent = 'Copied!'; setTimeout(() => this.textContent = 'Copy', 2000)" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-sm text-[9px] font-bold tracking-wide transition-all duration-150 shadow-sm cursor-pointer select-none">Copy</button>
-            <pre class="bg-white border border-slate-200 text-slate-700 p-3.5 pr-12 rounded-sm font-mono text-xs overflow-x-auto leading-relaxed"><span class="text-pink-600">def</span> <span class="text-sky-600">generate_dot_plot</span>(seq1, seq2, window_size, threshold):
-    n, m = <span class="text-sky-600">len</span>(seq1), <span class="text-sky-600">len</span>(seq2)
-    matrix = [[<span class="text-orange-600">False</span> <span class="text-pink-600">for</span> _ <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(m)] <span class="text-pink-600">for</span> _ <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(n)]
+<span class="text-pink-600">def</span> <span class="text-sky-600">generate_dot_matrix</span>(
+    seq1: <span class="text-sky-600">str</span>,
+    seq2: <span class="text-sky-600">str</span>,
+    window_size: <span class="text-sky-600">int</span> = <span class="text-orange-600">1</span>,
+    min_matches: <span class="text-sky-600">int</span> = <span class="text-orange-600">1</span>
+) -> Tuple[List[List[<span class="text-sky-600">int</span>]], List[Tuple[<span class="text-sky-600">int</span>, <span class="text-sky-600">int</span>]]]:
+    <span class="text-slate-400">"""
+    Generates a 2D Dot Plot binary matrix and list of dot hit coordinates.
     
-    <span class="text-pink-600">for</span> i <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(n - window_size + <span class="text-orange-600">1</span>):
-        <span class="text-pink-600">for</span> j <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(m - window_size + <span class="text-orange-600">1</span>):
-            matches = <span class="text-orange-600">0</span>
-            <span class="text-pink-600">for</span> w <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(window_size):
-                <span class="text-pink-600">if</span> seq1[i + w] == seq2[j + w]:
-                    matches += <span class="text-orange-600">1</span>
-            <span class="text-pink-600">if</span> matches >= threshold:
-                matrix[i][j] = <span class="text-orange-600">True</span>
-                
-    <span class="text-pink-600">return</span> matrix</pre>
-          </div>
+    Parameters:
+        seq1 (str): Vertical sequence S1 (mapped to rows y).
+        seq2 (str): Horizontal sequence S2 (mapped to columns x).
+        window_size (int): Sliding window size W (default: 1).
+        min_matches (int): Minimum match threshold T <= W (default: 1).
+        
+    Returns:
+        Tuple[List[List[int]], List[Tuple[int, int]]]: 
+            - 2D grid matrix where 1 indicates a dot match and 0 indicates no match.
+            - List of (row_idx, col_idx) coordinate tuples of matches.
+    """</span>
+    s1, s2 = seq1.strip().upper(), seq2.strip().upper()
+    n, m = <span class="text-sky-600">len</span>(s1), <span class="text-sky-600">len</span>(s2)
+    
+    <span class="text-pink-600">if</span> window_size &lt; <span class="text-orange-600">1</span> <span class="text-pink-600">or</span> min_matches &lt; <span class="text-orange-600">1</span> <span class="text-pink-600">or</span> min_matches > window_size:
+        <span class="text-pink-600">raise</span> <span class="text-sky-600">ValueError</span>(<span class="text-emerald-700">"Invalid window_size or min_matches parameters."</span>)
+        
+    matrix = []
+    dot_coords = []
+    
+    rows = n - window_size + <span class="text-orange-600">1</span>
+    cols = m - window_size + <span class="text-orange-600">1</span>
+    
+    <span class="text-pink-600">for</span> i <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(rows):
+        row = []
+        <span class="text-pink-600">for</span> j <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(cols):
+            <span class="text-slate-400"># Count character matches within current window</span>
+            matches = <span class="text-sky-600">sum</span>(<span class="text-orange-600">1</span> <span class="text-pink-600">for</span> k <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(window_size) <span class="text-pink-600">if</span> s1[i + k] == s2[j + k])
+            <span class="text-pink-600">if</span> matches >= min_matches:
+                row.append(<span class="text-orange-600">1</span>)
+                dot_coords.append((i, j))
+            <span class="text-pink-600">else</span>:
+                row.append(<span class="text-orange-600">0</span>)
+        matrix.append(row)
+        
+    <span class="text-pink-600">return</span> matrix, dot_coords
 
-          <h3 class="font-semibold text-slate-900 text-lg mt-6 border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2">5. Practice Problems</h3>
-          <div class="space-y-3">
-            <div class="bg-emerald-50 border border-emerald-100 p-3 rounded-sm">
-              <span class="text-[9px] font-bold text-emerald-600 uppercase tracking-widest block mb-1">Warm-up</span>
-              <p class="text-[11px] text-slate-700">Draw a simple 4x4 dot plot for sequence <code class="font-mono text-[12px] font-bold text-indigo-600">"TATA"</code> vs sequence <code class="font-mono text-[12px] font-bold text-indigo-600">"TATA"</code>. What shape do the plotted points make?</p>
-              <button onclick="window.loadSandboxChallenge(this)" class="mt-2 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-2.5 py-1 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider">Try in Sandbox &rarr;</button>
-            </div>
-            <div class="bg-indigo-50 border border-indigo-100 p-3 rounded-sm">
-              <span class="text-[9px] font-bold text-indigo-600 uppercase tracking-widest block mb-1">Core</span>
-              <p class="text-[11px] text-slate-700">Write a function that analyzes a boolean dot plot matrix to find and return the length of the longest continuous diagonal line.</p>
-              <button onclick="window.loadSandboxChallenge(this)" class="mt-2 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-2.5 py-1 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider">Try in Sandbox &rarr;</button>
-            </div>
-            <div class="bg-rose-50 border border-rose-100 p-3 rounded-sm">
-              <span class="text-[9px] font-bold text-rose-600 uppercase tracking-widest block mb-1">Extension</span>
-              <p class="text-[11px] text-slate-700">Modify the dot plot generator algorithm to also plot reverse diagonals (bottom-left to top-right) to detect inverted repeat sequences (palindromes).</p>
-              <button onclick="window.loadSandboxChallenge(this)" class="mt-2 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-2.5 py-1 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider">Try in Sandbox &rarr;</button>
+
+<span class="text-slate-400"># Example execution</span>
+<span class="text-pink-600">if</span> __name__ == <span class="text-emerald-700">"__main__"</span>:
+    seq1 = <span class="text-emerald-700">"ACGTACGT"</span>
+    seq2 = <span class="text-emerald-700">"ACGTCGT"</span>
+    grid, dots = generate_dot_matrix(seq1, seq2, window_size=<span class="text-orange-600">3</span>, min_matches=<span class="text-orange-600">3</span>)
+    <span class="text-sky-600">print</span>(<span class="text-emerald-700">f"Generated {len(dots)} dot hits across {len(grid)}x{len(grid[0])} window matrix:"</span>)
+    <span class="text-pink-600">for</span> r, c <span class="text-pink-600">in</span> dots:
+        <span class="text-sky-600">print</span>(<span class="text-emerald-700">f"  Dot hit at S1[{r}:{r+3}] ('{seq1[r:r+3]}') <-> S2[{c}:{c+3}] ('{seq2[c:c+3]}')"</span>)</pre>
             </div>
           </div>
         </div>
       </section>
-            <!-- Module Progress Control -->
+
+      <!-- Practice Problems Section -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Curated Practice Problems</h2>
+        <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
+          <a href="https://rosalind.info/problems/subs/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">ROSALIND</span>
+              <span class="font-semibold text-slate-800">SUBS - Finding Substring Patterns in DNA</span>
+              <span class="text-slate-400 text-[10px]">&bull; Easy</span>
+            </div>
+            <span class="text-indigo-600 font-semibold hover:underline">Solve Problem &rarr;</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Module Progress Control -->
       <section class="bg-indigo-50/40 backdrop-blur-md border border-indigo-100 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 flex flex-col md:flex-row items-center justify-between select-none">
         <div>
           <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Module Complete?</h2>
@@ -346,7 +614,7 @@
           toggleBtn.style.left = "0.25rem";
         } else {
           toggleBtn.innerHTML = "&lsaquo;";
-          toggleBtn.style.left = "19.25rem";
+          toggleBtn.style.left = "17.25rem";
         }
       });
     }

@@ -62,16 +62,23 @@ let isPyodideLoading = false;
 let currentTestCode = null;
 
 window.loadSandboxChallenge = function(btn) {
+  if (!btn) return;
   const parentDiv = btn.parentElement;
-  const type = parentDiv.querySelector('span').textContent;
-  const problemText = parentDiv.querySelector('p').textContent;
+  if (!parentDiv) return;
+  
+  const typeEl = parentDiv.querySelector('span');
+  const problemEl = parentDiv.querySelector('p');
+  
+  const type = typeEl ? typeEl.textContent : 'Challenge';
+  const problemText = problemEl ? problemEl.textContent : 'Write your solution below.';
   
   const editor = document.getElementById('python-editor');
+  if (!editor) return;
   
   // Format text to wrap around 70 chars for python comments
   let formattedText = problemText;
   if (formattedText.length > 70) {
-      formattedText = formattedText.match(/.{1,70}(\s|$)/g).join('\\n# ');
+      formattedText = formattedText.match(/.{1,70}(\s|$)/g).join('\n# ');
   }
   
   editor.value = `# ${type} Challenge:\n# ${formattedText}\n\ndef solve():\n    # TODO: write your solution here\n    pass\n\nprint(solve())`;
@@ -137,9 +144,11 @@ function renderSandbox(container, sandboxData) {
     </details>
   `;
 
+  if (!container) return;
   container.innerHTML = html;
 
   const runBtn = document.getElementById("run-code-btn");
+  if (!runBtn) return;
   runBtn.addEventListener("click", async () => {
     const editor = document.getElementById("python-editor");
     const output = document.getElementById("python-output");

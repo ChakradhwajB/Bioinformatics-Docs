@@ -90,22 +90,22 @@
   <div class="absolute top-0 z-[-2] h-screen w-full bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
   
   <!-- Header Bar -->
-    <header class="glass-nav border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] backdrop-blur-md py-3 px-6 flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0 select-none z-50">
+  <header class="glass-nav border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] backdrop-blur-md py-3 px-6 flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0 select-none z-50">
     <!-- Logo -->
     <div class="flex items-center space-x-2.5">
       <span class="font-bold text-slate-900 text-xs tracking-wider uppercase">Bioinformatics Docs</span>
     </div>
     <!-- Nav links -->
     <nav class="flex items-center space-x-6 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
-          <a href="../index.html" class="hover:text-slate-900 transition-colors">Home</a>
-          <a href="../learn.html" class="hover:text-slate-900 transition-colors">Modules</a>
-          <a href="../glossary.html" class="hover:text-slate-900 transition-colors">Glossary</a>
-          <a href="./docs.html" class="hover:text-indigo-700 transition-colors text-indigo-600">Documentation &rarr;</a>
-          <a href="https://github.com/ChakradhwajB/Bioinformatics-Docs" target="_blank" class="hover:text-slate-900 transition-colors flex items-center space-x-1">
-            <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.54 2.87 8.39 6.84 9.75.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.4 9.4 0 0 1 12 6.84c.85 0 1.71.12 2.51.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49C19.14 20.65 22 16.8 22 12.26 22 6.58 17.52 2 12 2z"/></svg>
-            <span>GitHub</span>
-          </a>
-        </nav>
+      <a href="../index.html" class="hover:text-slate-900 transition-colors">Home</a>
+      <a href="../learn.html" class="hover:text-slate-900 transition-colors">Modules</a>
+      <a href="../glossary.html" class="hover:text-slate-900 transition-colors">Glossary</a>
+      <a href="./docs.html" class="hover:text-indigo-700 transition-colors text-indigo-600">Documentation &rarr;</a>
+      <a href="https://github.com/ChakradhwajB/Bioinformatics-Docs" target="_blank" class="hover:text-slate-900 transition-colors flex items-center space-x-1">
+        <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.54 2.87 8.39 6.84 9.75.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.4 9.4 0 0 1 12 6.84c.85 0 1.71.12 2.51.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49C19.14 20.65 22 16.8 22 12.26 22 6.58 17.52 2 12 2z"/></svg>
+        <span>GitHub</span>
+      </a>
+    </nav>
     <!-- Server status -->
     <div class="flex items-center space-x-2 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full">
       <span id="server-status-dot" class="h-1.5 w-1.5 rounded-full bg-slate-400"></span>
@@ -116,86 +116,133 @@
   <!-- Workspace Shell -->
   <div class="flex-grow flex h-[calc(100vh-45px)] overflow-hidden relative">
     
-    <!-- Left Sidebar (Inputs & Controls) -->
-    <aside id="sidebar" class="w-80 bg-transparent border-r border-white/40 shadow-[1px_0_15px_rgba(0,0,0,0.01)] p-4 flex flex-col justify-between overflow-y-auto select-none transition-all duration-300 shrink-0">
-      <div class="space-y-4">
-        <!-- Tool Navigation list -->
-        <div>
-          <span class="block text-xs font-bold text-slate-900 uppercase tracking-wider mb-2">Curriculum Pathways</span>
-          
-          <div class="space-y-3">
-            <!-- Module 1 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 1: Foundations</span>
-              <a href="./io.html" class="block px-2.5 py-1.5 text-[11px] font-semibold rounded-sm text-indigo-650 bg-indigo-50 border-l-2 border-indigo-500 transition-colors">FASTA File IO <span class="float-right text-[9px] opacity-80 font-bold">~15m</span></a>
-              <a href="./genetics.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Genetics Workbench <span class="float-right text-[9px] opacity-80 font-bold">~20m</span></a>
-            </div>
+    <!-- Left Sidebar (USACO Guide Style Pure Navigation) -->
+    <aside id="sidebar" class="w-72 bg-slate-50/60 backdrop-blur-md border-r border-slate-200/80 p-4 flex flex-col justify-between overflow-y-auto select-none transition-all duration-300 shrink-0 text-slate-800">
+      <div class="space-y-5">
+        
+        <!-- Sidebar Header -->
+        <div class="pb-2 border-b border-slate-200/80 flex items-center justify-between">
+          <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest flex items-center">
+            <svg class="w-3.5 h-3.5 mr-1.5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
+            Table of Contents
+          </span>
+        </div>
 
-            <!-- Module 2 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 2: Patterns</span>
-              <a href="./kmers.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">K-mer Profiler <span class="float-right text-[9px] opacity-80 font-bold">~25m</span></a>
-              <a href="./find_motif.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Motif Finder <span class="float-right text-[9px] opacity-80 font-bold">~25m</span></a>
+        <div class="space-y-4">
+          <!-- Module 1 (Active) -->
+          <div class="space-y-1">
+            <div class="text-[9px] font-extrabold text-indigo-500 uppercase tracking-wider px-2 flex items-center justify-between">
+              <span>Module 1 &bull; Foundations</span>
             </div>
-
-            <!-- Module 3 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 3: Comparisons</span>
-              <a href="./dot_plot.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Dot Plot Visualizer <span class="float-right text-[9px] opacity-80 font-bold">~20m</span></a>
-              <a href="./distances.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Sequence Distances <span class="float-right text-[9px] opacity-80 font-bold">~25m</span></a>
-            </div>
-            <!-- Module 4 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 4: Alignments</span>
-              <a href="./needleman_wunsch.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Needleman-Wunsch Global <span class="float-right text-[9px] opacity-80 font-bold">~30m</span></a>
-              <a href="./smith_waterman.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Smith-Waterman Local <span class="float-right text-[9px] opacity-80 font-bold">~30m</span></a>
-            </div>
-
-            <!-- Module 5 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 5: Indexing</span>
-              <a href="./trie.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Trie Multi-Search <span class="float-right text-[9px] opacity-80 font-bold">~25m</span></a>
-              <a href="./suffix_array.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Suffix Array Search <span class="float-right text-[9px] opacity-80 font-bold">~30m</span></a>
-            </div>
-            <!-- Reference -->
-            <div class="space-y-0.5 pt-1 border-t border-slate-200">
-              <a href="./docs.html" class="block px-2 py-1 text-[11px] font-bold text-indigo-600 hover:bg-slate-200 transition-colors">Documentation &rarr;</a>
-            </div>
-
-            
+            <a href="./io.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-bold rounded-md bg-indigo-50/90 text-indigo-700 border-l-2 border-indigo-600 transition-all shadow-xs">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-indigo-600 mr-2"></span>
+                FASTA File IO
+              </span>
+              <span class="text-[9px] font-mono text-indigo-600">15m</span>
+            </a>
+            <a href="./genetics.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Genetics Workbench
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">20m</span>
+            </a>
           </div>
-        </div>
-        <!-- Drag & Drop Zone -->
-        <div class="space-y-2 pt-3 border-t border-slate-200">
-          <span class="block text-xs font-bold text-slate-900 uppercase tracking-wider">File Ingestion</span>
-          <div id="drop-zone" class="border border-dashed border-slate-300 rounded-sm p-6 text-center cursor-pointer bg-white hover:bg-transparent transition-colors">
-            <span class="text-[10px] font-semibold text-slate-500 block">Drag & Drop FASTA File</span>
-            <input type="file" id="file-input" class="hidden" accept=".fasta,.fa,.txt">
-            <button id="browse-btn" class="mt-2.5 px-3 py-1 bg-slate-200 hover:bg-slate-300 active:bg-slate-400 text-slate-700 font-bold rounded text-[10px] transition-colors cursor-pointer">
-              Browse Files
-            </button>
+
+          <!-- Module 2 -->
+          <div class="space-y-1">
+            <div class="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider px-2 flex items-center justify-between">
+              <span>Module 2 &bull; Patterns</span>
+            </div>
+            <a href="./kmers.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                K-mer Profiler
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">25m</span>
+            </a>
+            <a href="./find_motif.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Motif Finder
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">25m</span>
+            </a>
           </div>
-        </div>
 
-        <!-- JSON Exporter Card -->
-        <div class="space-y-2 pt-3 border-t border-slate-200">
-          <span class="block text-xs font-bold text-slate-900 uppercase tracking-wider">Server JSON Exporter</span>
-          <label class="block text-[9px] font-semibold text-slate-500">Output File Path</label>
-          <input type="text" id="output-path" class="w-full text-xs px-3 py-2 border-b-2 border-transparent bg-white/60 focus:bg-white backdrop-blur-sm shadow-inner rounded-t-lg font-mono focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all duration-150" placeholder="C:/temp/sequences.json">
-        </div>
+          <!-- Module 3 -->
+          <div class="space-y-1">
+            <div class="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider px-2 flex items-center justify-between">
+              <span>Module 3 &bull; Comparisons</span>
+            </div>
+            <a href="./dot_plot.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Dot Plot Visualizer
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">20m</span>
+            </a>
+            <a href="./distances.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Sequence Distances
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">25m</span>
+            </a>
+          </div>
 
-        <!-- Reference & Complexity Panel -->
-        <div class="border-t border-slate-200 pt-3 space-y-1 text-[10px]">
-          <span class="block font-bold text-slate-400 uppercase tracking-wider mb-1">Complexity Reference</span>
-          <div><span class="font-semibold text-slate-500">Parsing Time:</span> $\mathcal{O}(n)$ | Space: $\mathcal{O}(n)$</div>
+          <!-- Module 4 -->
+          <div class="space-y-1">
+            <div class="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider px-2 flex items-center justify-between">
+              <span>Module 4 &bull; Alignments</span>
+            </div>
+            <a href="./needleman_wunsch.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Needleman-Wunsch Global
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">30m</span>
+            </a>
+            <a href="./smith_waterman.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Smith-Waterman Local
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">30m</span>
+            </a>
+          </div>
+
+          <!-- Module 5 -->
+          <div class="space-y-1">
+            <div class="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider px-2 flex items-center justify-between">
+              <span>Module 5 &bull; Indexing</span>
+            </div>
+            <a href="./trie.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Trie Multi-Search
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">25m</span>
+            </a>
+            <a href="./suffix_array.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Suffix Array Search
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">30m</span>
+            </a>
+          </div>
         </div>
 
       </div>
 
-      <div class="pt-4 border-t border-slate-200">
-        <button id="export-btn" class="w-full py-2.5 bg-slate-800 hover:bg-slate-955 hover:shadow-md active:bg-slate-900 text-white font-semibold rounded-sm text-xs transition-all duration-150 tracking-wide select-none cursor-pointer">
-          Export JSON Records
-        </button>
+      <!-- Footer Link -->
+      <div class="pt-4 border-t border-slate-200/80 space-y-2">
+        <a href="./docs.html" class="flex items-center justify-between text-[11px] font-bold text-indigo-600 hover:text-indigo-800 transition-colors">
+          <span>Documentation Guide</span>
+          <span>&rarr;</span>
+        </a>
       </div>
     </aside>
 
@@ -203,132 +250,272 @@
     <button
       id="sidebar-toggle"
       class="absolute top-1/2 -translate-y-1/2 bg-white border border-slate-200 text-slate-500 hover:text-slate-800 h-8 w-4 rounded-r-md shadow-sm flex items-center justify-center cursor-pointer transition-all duration-300 z-40 select-none"
-      style="left: 20rem"
+      style="left: 18rem"
     >
       &lsaquo;
     </button>
 
     <!-- Right Panels (Scrollable Workspace) -->
-    <main class="flex-grow overflow-y-auto bg-transparent p-6 lg:p-10 space-y-12 relative">
+    <main class="flex-grow overflow-y-auto bg-transparent p-6 lg:p-10 space-y-8 relative">
       
-      <!-- Top Section: Console overview -->
+      <!-- Module Title Header -->
+      <div class="space-y-2">
+        <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest block">Module 1 &bull; Foundations</span>
+        <h1 class="text-3xl lg:text-4xl font-extralight tracking-tighter text-slate-900">FASTA File IO Workbench</h1>
+        <p class="text-xs text-slate-500 italic">Author: ChakradhwajB &bull; Streaming line-by-line parsing, header extraction, sequence sanitization, and structured JSON serialization.</p>
+      </div>
+
+      <!-- Resources Section -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Resources</h2>
+        <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
+          <a href="https://en.wikipedia.org/wiki/FASTA_format" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-slate-100 text-slate-800 font-bold px-2 py-0.5 rounded text-[10px]">WIKIPEDIA</span>
+              <span class="font-semibold text-slate-800">FASTA Sequence Format Standard Specification</span>
+              <span class="text-amber-500">★</span>
+            </div>
+            <span class="text-slate-500">Format Reference</span>
+          </a>
+          <a href="https://blast.ncbi.nlm.nih.gov/doc/blast-help/fasta.html" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">NCBI BLAST</span>
+              <span class="font-semibold text-slate-800">NCBI FASTA Sequence Format Guidelines</span>
+            </div>
+            <span class="text-slate-500">Official Specification</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Educational Guide Part 1 -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-8">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Educational Guide: FASTA Ingestion &amp; Serialization</h2>
+        
+        <div class="text-[14px] leading-relaxed space-y-6 text-slate-700">
+          
+          <!-- 1. Motivation & Biological Background -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">1. Motivation &amp; Biological Background</h3>
+            <p>
+              Modern Next-Generation Sequencing (NGS) platforms generate terabytes of nucleotide and amino acid sequence data daily. To store and exchange these biological sequences across disparate bioinformatic tools (such as BLAST, BWA, Bowtie, and SAMtools), a standardized, human-readable file format is essential. The <strong>FASTA format</strong> is the universally accepted standard for storing raw genomic, transcriptomic, and proteomic sequences.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 text-xs">
+              <div class="bg-indigo-50/60 border border-indigo-150 p-3.5 rounded-md space-y-1">
+                <span class="font-bold text-xs text-indigo-900 uppercase tracking-wider block">Genome Assembly Pipelines</span>
+                <p class="text-slate-600">
+                  Ingests raw contigs and scaffolds to build chromosome-level genome assemblies.
+                </p>
+              </div>
+              <div class="bg-indigo-50/60 border border-indigo-150 p-3.5 rounded-md space-y-1">
+                <span class="font-bold text-xs text-indigo-900 uppercase tracking-wider block">Variant Calling &amp; Annotation</span>
+                <p class="text-slate-600">
+                  Parses reference genomes to identify disease-causing SNPs, insertions, and deletions.
+                </p>
+              </div>
+              <div class="bg-indigo-50/60 border border-indigo-150 p-3.5 rounded-md space-y-1">
+                <span class="font-bold text-xs text-indigo-900 uppercase tracking-wider block">Cloud Data Serialization</span>
+                <p class="text-slate-600">
+                  Streams FASTA records into JSON or Parquet for large-scale distributed cloud analytics.
+                </p>
+              </div>
+            </div>
+
+            <p class="mt-3 text-xs text-slate-500 italic">
+              <strong>Historical Origin:</strong> Created by William R. Pearson and David J. Lipman in 1985 for the FASTP/FASTA software package, becoming the universal interchange standard for computational biology.
+            </p>
+          </div>
+
+          <!-- 2. Mathematical Formulation & Streaming State Machine Theory -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">2. Mathematical Formulation &amp; Parser State Machine</h3>
+            <p>
+              Formally, a FASTA file $\mathcal{F}$ is defined as an ordered collection of sequence records $\mathcal{F} = (R_1, R_2, \dots, R_k)$. Each record $R_i = (H_i, S_i)$ consists of:
+            </p>
+            <ul class="list-disc pl-5 space-y-1.5 mt-2 text-xs">
+              <li><strong>Header string $H_i$:</strong> A metadata line starting with a leading <code class="font-mono text-indigo-600 font-bold">&gt;</code> character at index 0.</li>
+              <li><strong>Sequence string $S_i \in \Sigma^*$:</strong> The concatenated biological sequence over IUPAC alphabet $\Sigma = \{A, C, G, T, U, N, \dots\}$, spanning $m_i$ multiline rows.</li>
+            </ul>
+
+            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mt-4 mb-2">Finite State Machine Formalism</h4>
+            <p class="text-xs">
+              Streaming line-by-line parsing operates via a deterministic finite state machine with states $Q = \{\text{INIT}, \text{HEADER}, \text{SEQUENCE}\}$:
+            </p>
+            <div class="bg-slate-50 p-4 border border-slate-200 rounded-sm font-mono text-center my-3 text-xs shadow-inner">
+              $$\delta(\text{State}, \text{Line}) = \begin{cases}
+              \text{HEADER} & \text{if Line starts with } \text{'>'} \\
+              \text{SEQUENCE} & \text{otherwise (append to current buffer)}
+              \end{cases}$$
+            </div>
+
+            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mt-4 mb-2">Formal Time &amp; Space Complexity Analysis</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+              <div class="bg-slate-50 p-3.5 border border-slate-200 rounded-md">
+                <span class="font-bold text-slate-900 block mb-1">Time Complexity: $\mathcal{O}(L)$</span>
+                Linear single-pass streaming across total file byte size $L$. Each line is read and processed in constant time $\mathcal{O}(1)$.
+              </div>
+              <div class="bg-slate-50 p-3.5 border border-slate-200 rounded-md">
+                <span class="font-bold text-slate-900 block mb-1">Space Complexity: $\mathcal{O}(M)$ or $\mathcal{O}(1)$</span>
+                $\mathcal{O}(M)$ memory for the largest sequence buffer $M$ during full record assembly, or $\mathcal{O}(1)$ when yielding chunks via Python generators.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Interactive Ingestion & Parsing Workspace -->
       <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-6">
-        <div class="flex justify-between items-center mb-3 select-none">
-          <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Parsed Header Records</h2>
-          <div class="flex items-center space-x-2 text-[11px] font-bold text-slate-500">
-            <span>Ingested: <span id="record-count" class="text-sm font-black text-indigo-600 bg-indigo-50 px-2.5 py-0.5 rounded border border-indigo-200 shadow-sm transition-all">-</span></span>
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Interactive FASTA Ingestion Workspace</h2>
+
+        <!-- Ingestion Controls & Drag and Drop -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="space-y-2">
+            <span class="block text-xs font-bold text-slate-900 uppercase tracking-wider">Drag &amp; Drop FASTA File</span>
+            <div id="drop-zone" class="border-2 border-dashed border-slate-300 rounded-xl p-6 text-center cursor-pointer bg-slate-50/50 hover:bg-slate-100/50 transition-colors">
+              <span class="text-xs font-semibold text-slate-600 block">Drop FASTA File (.fasta, .fa, .txt)</span>
+              <input type="file" id="file-input" class="hidden" accept=".fasta,.fa,.txt">
+              <button id="browse-btn" class="mt-3 px-4 py-1.5 bg-slate-800 hover:bg-slate-900 text-white font-bold rounded text-xs transition-colors cursor-pointer">
+                Browse Files
+              </button>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <span class="block text-xs font-bold text-slate-900 uppercase tracking-wider">Server JSON Exporter</span>
+            <label class="block text-[10px] font-bold text-slate-600 uppercase">Output File Path</label>
+            <input type="text" id="output-path" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-md font-mono bg-white shadow-inner" placeholder="C:/temp/sequences.json">
+            <button id="export-btn" class="w-full mt-2 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded text-xs transition-all shadow-xs cursor-pointer">
+              Export JSON Records
+            </button>
           </div>
         </div>
 
-        <!-- High-density Monospace console block -->
-        <div class="bg-slate-50 border border-slate-200 rounded-sm p-4 flex flex-col justify-start">
-          <div id="output-console" class="w-full flex flex-col justify-start font-mono-seq text-xs leading-normal select-all bg-slate-900 text-slate-300 p-4 border border-slate-950 rounded-sm overflow-y-auto">
+        <!-- Output Console -->
+        <div class="space-y-2 pt-4">
+          <div class="flex justify-between items-center select-none">
+            <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Parsed Header Records</h3>
+            <span class="text-[11px] font-bold text-slate-500">Ingested: <span id="record-count" class="text-sm font-black text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200 shadow-sm">-</span></span>
+          </div>
+          <div id="output-console" class="w-full font-mono-seq text-xs leading-normal select-all bg-slate-900 text-slate-300 p-4 border border-slate-950 rounded-md overflow-y-auto max-h-48 shadow-inner">
             Uploaded FASTA file parsed header statistics output here.
           </div>
         </div>
-      </section>
 
-      <!-- Bottom Section: Records Table -->
-      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-6 flex flex-col">
-        <div class="flex justify-between items-center mb-3 select-none">
-          <h2 class="text-2xl font-thin tracking-tighter text-slate-900">FASTA Records Table</h2>
-          <span class="text-[9px] font-semibold text-slate-400 bg-slate-50 px-2 py-0.5 rounded border border-slate-200">Copy actions</span>
-        </div>
-
-        <div id="visualizer-container" class="border border-slate-200 rounded-sm overflow-x-auto bg-slate-50 flex items-center justify-center p-4">
-          <div class="text-slate-400 text-xs font-semibold">
-            Sequence records details table renders here.
+        <!-- Table View -->
+        <div class="space-y-2 pt-4">
+          <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">FASTA Records Table</h3>
+          <div id="visualizer-container" class="border border-slate-200 rounded-md overflow-x-auto bg-slate-50 p-4 min-h-[100px] flex items-center justify-center">
+            <div class="text-slate-400 text-xs font-semibold">
+              Sequence records details table renders here.
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- Educational Article -->
-      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-6">
-        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Educational Guide: FASTA File Ingestion & JSON Exporters</h2>
-        
-        <div class="text-[14px] leading-relaxed space-y-5 text-slate-700">
-          <h3 class="font-semibold text-slate-900 text-lg mt-6 border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2">1. Motivation: Why care?</h3>
-          <p>
-            In bioinformatics, storing and sharing genetic sequences is standardly performed using text-based file formats. The most common and universally supported format is <strong>FASTA</strong>. Without a standardized way to read and parse this raw sequence text, downstream computational analyses—like alignment, motif searching, and phylogenetic tree building—are impossible to automate.
-          </p>
+      <!-- Educational Guide Part 2 -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-8">
+        <div class="text-[14px] leading-relaxed space-y-6 text-slate-700">
           
-          <h3 class="font-semibold text-slate-900 text-lg mt-6 border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2">2. Concept &amp; Complexity</h3>
-          <p>
-            A FASTA file represents nucleotide or peptide sequences using single-letter codes. Each sequence begins with a single-line description (header), distinguished by a greater-than symbol (<code class="font-mono text-[12px] font-bold text-indigo-600">&gt;</code>). The sequence data follows on the subsequent lines.
-          </p>
-          <ul class="list-disc pl-5 space-y-1">
-            <li><strong>Time Complexity:</strong> $\mathcal{O}(N)$ where $N$ is the total length of the file. The parser scans the file line-by-line exactly once.</li>
-            <li><strong>Space Complexity:</strong> $\mathcal{O}(M)$ where $M$ is the size of the parsed sequences kept in memory as a dictionary structure.</li>
-          </ul>
-
-          <h3 class="font-semibold text-slate-900 text-lg mt-6 border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2">3. Worked Example</h3>
-          <p>
-            Consider a file with the following contents:
-          </p>
-          <pre class="bg-slate-50 p-2.5 border border-slate-200 rounded-sm font-mono text-xs my-2 overflow-x-auto text-slate-650 border-l-4 border-l-indigo-400">
->seq1_human
-ATGCGATA
->seq2_mouse
-ATGC
-GATA
-          </pre>
-          <p class="mt-2">
-            The parser reads the first header <code class="font-mono text-[12px] font-bold text-indigo-600">seq1_human</code>, then the sequence. For <code class="font-mono text-[12px] font-bold text-indigo-600">seq2_mouse</code>, the sequence spans multiple lines, which the parser concatenates. The resulting mapped dictionary is:
-            <br/><code class="font-mono text-[12px] font-bold text-indigo-600">{"seq1_human": "ATGCGATA", "seq2_mouse": "ATGCGATA"}</code>
-          </p>
-
-          <h3 class="font-semibold text-slate-900 text-lg mt-6 border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2">4. Python Code</h3>
-          <p>Here is how to parse a FASTA file line-by-line and export the records as a JSON string in Python:</p>
-
-          <div class="relative group mt-1">
-            <button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); this.textContent = 'Copied!'; setTimeout(() => this.textContent = 'Copy', 2000)" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-sm text-[9px] font-bold tracking-wide transition-all duration-150 shadow-sm cursor-pointer select-none">Copy</button>
-            <pre class="bg-white border border-slate-200 text-slate-700 p-3.5 pr-12 rounded-sm font-mono text-xs overflow-x-auto leading-relaxed"><span class="text-pink-600">import</span> json
-
-<span class="text-pink-600">def</span> <span class="text-sky-600">parse_fasta</span>(file_content):
-    records = {}
-    current_header = <span class="text-orange-600">None</span>
-    current_seq = []
-    
-    <span class="text-pink-600">for</span> line <span class="text-pink-600">in</span> file_content.splitlines():
-        line = line.strip()
-        <span class="text-pink-600">if</span> line.startswith(<span class="text-teal-700">"&gt;"</span>):
-            <span class="text-pink-600">if</span> current_header:
-                records[current_header] = <span class="text-teal-700">""</span>.join(current_seq)
-            current_header = line[<span class="text-orange-600">1</span>:]
-            current_seq = []
-        <span class="text-pink-600">else:</span>
-            current_seq.append(line)
+          <!-- 3. Worked Example -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">3. Step-by-Step Worked Example &amp; State Trace</h3>
+            <p class="text-xs">Consider the following multi-record FASTA input with multiline sequence wrapping and case variations:</p>
+            <pre class="bg-slate-900 text-slate-200 p-3 border border-slate-950 rounded-sm font-mono text-xs my-2 overflow-x-auto select-all">&gt;seq1_human Hemoglobin subunit alpha
+MVLSPADKTN
+VKAAWGKVGA
+&gt;seq2_mouse Hemoglobin subunit alpha
+mvlsadktnv
+kaawgkvga</pre>
             
-    <span class="text-pink-600">if</span> current_header:
-        records[current_header] = <span class="text-teal-700">""</span>.join(current_seq)
-        
-    <span class="text-pink-600">return</span> records
+            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mt-3 mb-2">Step-by-Step Execution Trace:</h4>
+            <ol class="list-decimal pl-5 space-y-1 text-xs text-slate-700">
+              <li><strong>Line 1 (<code class="font-mono text-indigo-600 font-bold">&gt;seq1_human...</code>):</strong> Header detected ($\delta \to \text{HEADER}$). Save previous empty buffer. Set current ID to <code class="font-mono text-indigo-600 font-bold">"seq1_human"</code>.</li>
+              <li><strong>Line 2 (<code class="font-mono text-indigo-600 font-bold">MVLSPADKTN</code>):</strong> Sequence line ($\delta \to \text{SEQUENCE}$). Append to buffer $\to$ <code class="font-mono text-indigo-600 font-bold">["MVLSPADKTN"]</code>.</li>
+              <li><strong>Line 3 (<code class="font-mono text-indigo-600 font-bold">VKAAWGKVGA</code>):</strong> Sequence line ($\delta \to \text{SEQUENCE}$). Append to buffer $\to$ <code class="font-mono text-indigo-600 font-bold">["MVLSPADKTN", "VKAAWGKVGA"]</code>.</li>
+              <li><strong>Line 4 (<code class="font-mono text-indigo-600 font-bold">&gt;seq2_mouse...</code>):</strong> Header detected. Flush <code class="font-mono text-indigo-600 font-bold">"seq1_human"</code> record $\to$ <code class="font-mono text-indigo-600 font-bold">"MVLSPADKTNVKAAWGKVGA"</code>. Initialize <code class="font-mono text-indigo-600 font-bold">"seq2_mouse"</code>.</li>
+              <li><strong>Lines 5-6:</strong> Sequence lines. Upper-cased &amp; concatenated $\to$ <code class="font-mono text-indigo-600 font-bold">"MVLSADKTNVKAAWGKVGA"</code>.</li>
+            </ol>
 
-<span class="text-pink-600">def</span> <span class="text-sky-600">export_to_json</span>(records):
-    <span class="text-pink-600">return</span> json.dumps(records, indent=<span class="text-orange-600">4</span>)</pre>
+            <p class="mt-2 text-xs font-mono bg-slate-50 p-2.5 border border-slate-200 rounded text-slate-700">
+              Parsed Output Dict: {"seq1_human": "MVLSPADKTNVKAAWGKVGA", "seq2_mouse": "MVLSADKTNVKAAWGKVGA"}
+            </p>
           </div>
 
-          <h3 class="font-semibold text-slate-900 text-lg mt-6 border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2">5. Practice Problems</h3>
-          <div class="space-y-3">
-            <div class="bg-emerald-50 border border-emerald-100 p-3 rounded-sm">
-              <span class="text-[9px] font-bold text-emerald-600 uppercase tracking-widest block mb-1">Warm-up</span>
-              <p class="text-[11px] text-slate-700">Manually format a valid FASTA string containing two sequences of your choice. Ensure one sequence spans at least two lines.</p>
-              <button onclick="window.loadSandboxChallenge(this)" class="mt-2 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-2.5 py-1 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider">Try in Sandbox &rarr;</button>
-            </div>
-            <div class="bg-indigo-50 border border-indigo-100 p-3 rounded-sm">
-              <span class="text-[9px] font-bold text-indigo-600 uppercase tracking-widest block mb-1">Core</span>
-              <p class="text-[11px] text-slate-700">Modify the <code class="font-mono text-[12px] font-bold text-indigo-600">parse_fasta</code> function to count and return the total number of sequences successfully parsed without using the <code class="font-mono text-[12px] font-bold text-indigo-600">len()</code> function on the final dictionary.</p>
-              <button onclick="window.loadSandboxChallenge(this)" class="mt-2 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-2.5 py-1 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider">Try in Sandbox &rarr;</button>
-            </div>
-            <div class="bg-rose-50 border border-rose-100 p-3 rounded-sm">
-              <span class="text-[9px] font-bold text-rose-600 uppercase tracking-widest block mb-1">Extension</span>
-              <p class="text-[11px] text-slate-700">FASTQ is another format that includes sequence quality scores. Research the FASTQ format and write a parser for it that extracts both the sequence and the quality string.</p>
-              <button onclick="window.loadSandboxChallenge(this)" class="mt-2 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-2.5 py-1 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider">Try in Sandbox &rarr;</button>
+          <!-- 4. Production-Ready Python Implementation -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">4. Python 3 Reference Implementation</h3>
+            <p class="text-xs mb-2">Production-ready streaming generator handling gigabyte-sized FASTA files efficiently without memory overflow:</p>
+
+            <div class="relative group mt-1">
+              <button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); this.textContent = 'Copied!'; setTimeout(() => this.textContent = 'Copy', 2000)" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-sm text-[9px] font-bold tracking-wide transition-all duration-150 shadow-sm cursor-pointer select-none">Copy</button>
+              <pre class="bg-white border border-slate-200 text-slate-700 p-3.5 pr-12 rounded-sm font-mono text-xs overflow-x-auto leading-relaxed"><span class="text-pink-600">from</span> typing <span class="text-pink-600">import</span> Iterator, Tuple, Dict
+<span class="text-pink-600">import</span> io
+
+<span class="text-pink-600">def</span> <span class="text-sky-600">parse_fasta_stream</span>(file_source) -> Iterator[Tuple[<span class="text-sky-600">str</span>, <span class="text-sky-600">str</span>]]:
+    <span class="text-slate-500 italic">"""
+    Memory-efficient generator parsing FASTA streams line-by-line.
+
+    Args:
+        file_source (str or file-like object): Path to FASTA file or string content.
+
+    Yields:
+        Tuple[str, str]: (header_id, concatenated_sequence_upper)
+    """</span>
+    <span class="text-pink-600">if</span> <span class="text-sky-600">isinstance</span>(file_source, <span class="text-sky-600">str</span>):
+        lines = file_source.splitlines()
+    <span class="text-pink-600">else</span>:
+        lines = file_source
+
+    current_header = <span class="text-orange-600">None</span>
+    seq_chunks = []
+
+    <span class="text-pink-600">for</span> raw_line <span class="text-pink-600">in</span> lines:
+        line = raw_line.strip()
+        <span class="text-pink-600">if</span> <span class="text-pink-600">not</span> line <span class="text-pink-600">or</span> line.startswith(<span class="text-teal-700">";"</span>):  <span class="text-slate-500 italic"># Skip empty lines & FASTA comments</span>
+            <span class="text-pink-600">continue</span>
+
+        <span class="text-pink-600">if</span> line.startswith(<span class="text-teal-700">"&gt;"</span>):
+            <span class="text-pink-600">if</span> current_header <span class="text-pink-600">is not None</span>:
+                <span class="text-slate-500 italic"># Yield previous record when new header is encountered</span>
+                <span class="text-pink-600">yield</span> current_header, <span class="text-teal-700">""</span>.join(seq_chunks).upper()
+            
+            <span class="text-slate-500 italic"># Extract sequence identifier (first token after '>')</span>
+            header_parts = line[<span class="text-orange-600">1</span>:].split()
+            current_header = header_parts[<span class="text-orange-600">0</span>] <span class="text-pink-600">if</span> header_parts <span class="text-pink-600">else</span> <span class="text-teal-700">"unnamed"</span>
+            seq_chunks = []
+        <span class="text-pink-600">else</span>:
+            <span class="text-slate-500 italic"># Sanitize and collect sequence lines</span>
+            clean_line = <span class="text-teal-700">""</span>.join(c <span class="text-pink-600">for</span> c <span class="text-pink-600">in</span> line <span class="text-pink-600">if</span> c.isalpha() <span class="text-pink-600">or</span> c == <span class="text-teal-700">"-"</span>)
+            seq_chunks.append(clean_line)
+
+    <span class="text-pink-600">if</span> current_header <span class="text-pink-600">is not None</span>:
+        <span class="text-pink-600">yield</span> current_header, <span class="text-teal-700">""</span>.join(seq_chunks).upper()
+
+<span class="text-pink-600">def</span> <span class="text-sky-600">parse_fasta_to_dict</span>(file_content: <span class="text-sky-600">str</span>) -> Dict[<span class="text-sky-600">str</span>, <span class="text-sky-600">str</span>]:
+    <span class="text-slate-500 italic">"""Converts FASTA text content into a standard Python dictionary."""</span>
+    <span class="text-pink-600">return</span> <span class="text-sky-600">dict</span>(parse_fasta_stream(file_content))</pre>
             </div>
           </div>
         </div>
       </section>
-            <!-- Module Progress Control -->
+
+      <!-- Practice Problems Section -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Curated Practice Problems</h2>
+        <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
+          <a href="https://rosalind.info/problems/ini1/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">ROSALIND</span>
+              <span class="font-semibold text-slate-800">INI1 - Introduction to the Rosalind Problem Environment</span>
+              <span class="text-slate-400 text-[10px]">&bull; Easy</span>
+            </div>
+            <span class="text-indigo-600 font-semibold hover:underline">Solve Problem &rarr;</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Module Progress Control -->
       <section class="bg-indigo-50/40 backdrop-blur-md border border-indigo-100 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 flex flex-col md:flex-row items-center justify-between select-none">
         <div>
           <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Module Complete?</h2>
@@ -359,7 +546,7 @@ GATA
           toggleBtn.style.left = "0.25rem";
         } else {
           toggleBtn.innerHTML = "&lsaquo;";
-          toggleBtn.style.left = "19.25rem";
+          toggleBtn.style.left = "17.25rem";
         }
       });
     }

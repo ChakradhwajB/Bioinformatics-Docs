@@ -4,9 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Suffix Array Search | Bioinformatics Docs</title>
-  <meta name="description" content="Build suffix arrays and perform lexicographical binary search matching on genetic sequences." />
-  
+  <!-- Primary SEO Meta Tags -->
+  <title>Suffix Array Construction &amp; Search | Bioinformatics Docs</title>
+  <meta name="description" content="Construct sorted lexicographical suffix arrays and execute binary search pattern queries in O(P log N) time." />
+  <meta name="keywords" content="suffix array, binary search, genomic indexing, bioinformatics, suffix sorting, string searching" />
+  <meta name="author" content="ChakradhwajB" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://bioinformatics-docs.netlify.app/pages/suffix_array.html" />
+  <meta property="og:title" content="Suffix Array Construction &amp; Search | Bioinformatics Docs" />
+  <meta property="og:description" content="Construct sorted lexicographical suffix arrays and execute binary search pattern queries in O(P log N) time." />
+  <meta property="og:image" content="https://bioinformatics-docs.netlify.app/module_page.png" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://bioinformatics-docs.netlify.app/pages/suffix_array.html" />
+  <meta property="twitter:title" content="Suffix Array Construction &amp; Search | Bioinformatics Docs" />
+  <meta property="twitter:description" content="Construct sorted lexicographical suffix arrays and execute binary search pattern queries in O(P log N) time." />
+  <meta property="twitter:image" content="https://bioinformatics-docs.netlify.app/module_page.png" />
+
+  <!-- Structured Data (JSON-LD) SoftwareApplication Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Suffix Array Construction & Search Workbench",
+    "operatingSystem": "All",
+    "applicationCategory": "EducationalApplication, BioinformaticsTool",
+    "description": "An interactive suffix array indexing workbench executing binary search pattern queries.",
+    "browserRequirements": "Requires JavaScript. Requires HTML5.",
+    "softwareVersion": "1.0.0",
+    "author": {
+      "@type": "Person",
+      "name": "ChakradhwajB"
+    }
+  }
+  </script>
   <link rel="stylesheet" href="../dist/output.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +49,6 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
-  
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -23,21 +56,11 @@
     .font-mono-seq {
       font-family: 'Fira Code', monospace;
     }
+    /* Collapsible Sidebar Styles */
     #sidebar {
       transition: width 0.2s ease, padding 0.2s ease, border-color 0.2s ease;
-      scrollbar-width: none;
     }
-    #sidebar::-webkit-scrollbar {
-      display: none;
-    }
-    .sidebar-collapsed {
-      width: 0px !important;
-      padding-left: 0px !important;
-      padding-right: 0px !important;
-      border-right-width: 0px !important;
-      overflow: hidden !important;
-    }
-  
+    
     /* Custom Scrollbar for all elements */
     ::-webkit-scrollbar {
       width: 6px;
@@ -54,29 +77,35 @@
       scrollbar-width: thin;
       scrollbar-color: #94a3b8 transparent;
     }
-
-    </style>
+    .sidebar-collapsed {
+      width: 0px !important;
+      padding-left: 0px !important;
+      padding-right: 0px !important;
+      border-right-width: 0px !important;
+      overflow: hidden !important;
+    }
+  </style>
 </head>
 <body class="bg-white text-slate-900 min-h-screen h-screen flex flex-col overflow-hidden">
   <div class="absolute top-0 z-[-2] h-screen w-full bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
   
   <!-- Header Bar -->
-    <header class="glass-nav border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] backdrop-blur-md py-3 px-6 flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0 select-none z-50">
+  <header class="glass-nav border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] backdrop-blur-md py-3 px-6 flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0 select-none z-50">
     <!-- Logo -->
     <div class="flex items-center space-x-2.5">
       <span class="font-bold text-slate-900 text-xs tracking-wider uppercase">Bioinformatics Docs</span>
     </div>
     <!-- Nav links -->
     <nav class="flex items-center space-x-6 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
-          <a href="../index.html" class="hover:text-slate-900 transition-colors">Home</a>
-          <a href="../learn.html" class="hover:text-slate-900 transition-colors">Modules</a>
-          <a href="../glossary.html" class="hover:text-slate-900 transition-colors">Glossary</a>
-          <a href="./docs.html" class="hover:text-indigo-700 transition-colors text-indigo-600">Documentation &rarr;</a>
-          <a href="https://github.com/ChakradhwajB/Bioinformatics-Docs" target="_blank" class="hover:text-slate-900 transition-colors flex items-center space-x-1">
-            <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.54 2.87 8.39 6.84 9.75.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.4 9.4 0 0 1 12 6.84c.85 0 1.71.12 2.51.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49C19.14 20.65 22 16.8 22 12.26 22 6.58 17.52 2 12 2z"/></svg>
-            <span>GitHub</span>
-          </a>
-        </nav>
+      <a href="../index.html" class="hover:text-slate-900 transition-colors">Home</a>
+      <a href="../learn.html" class="hover:text-slate-900 transition-colors">Modules</a>
+      <a href="../glossary.html" class="hover:text-slate-900 transition-colors">Glossary</a>
+      <a href="./docs.html" class="hover:text-indigo-700 transition-colors text-indigo-600">Documentation &rarr;</a>
+      <a href="https://github.com/ChakradhwajB/Bioinformatics-Docs" target="_blank" class="hover:text-slate-900 transition-colors flex items-center space-x-1">
+        <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.54 2.87 8.39 6.84 9.75.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.4 9.4 0 0 1 12 6.84c.85 0 1.71.12 2.51.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49C19.14 20.65 22 16.8 22 12.26 22 6.58 17.52 2 12 2z"/></svg>
+        <span>GitHub</span>
+      </a>
+    </nav>
     <!-- Server status -->
     <div class="flex items-center space-x-2 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full">
       <span id="server-status-dot" class="h-1.5 w-1.5 rounded-full bg-slate-400"></span>
@@ -87,252 +116,548 @@
   <!-- Workspace Shell -->
   <div class="flex-grow flex h-[calc(100vh-45px)] overflow-hidden relative">
     
-    <!-- Left Sidebar (Inputs & Controls) -->
-    <aside id="sidebar" class="w-80 bg-transparent border-r border-white/40 shadow-[1px_0_15px_rgba(0,0,0,0.01)] p-4 flex flex-col justify-between overflow-y-auto select-none transition-all duration-300 shrink-0">
-      <div class="space-y-4">
-        <!-- Tool Navigation list -->
-        <div>
-          <span class="block text-xs font-bold text-slate-900 uppercase tracking-wider mb-2">Curriculum Pathways</span>
-          <div class="space-y-3">
-            <!-- Module 1 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 1: Foundations</span>
-              <a href="./io.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">FASTA File IO <span class="float-right text-[9px] opacity-80 font-bold">~15m</span></a>
-              <a href="./genetics.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Genetics Workbench <span class="float-right text-[9px] opacity-80 font-bold">~20m</span></a>
-            </div>
+    <!-- Left Sidebar (USACO Guide Style Pure Navigation) -->
+    <aside id="sidebar" class="w-72 bg-slate-50/60 backdrop-blur-md border-r border-slate-200/80 p-4 flex flex-col justify-between overflow-y-auto select-none transition-all duration-300 shrink-0 text-slate-800">
+      <div class="space-y-5">
+        
+        <!-- Sidebar Header -->
+        <div class="pb-2 border-b border-slate-200/80 flex items-center justify-between">
+          <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest flex items-center">
+            <svg class="w-3.5 h-3.5 mr-1.5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
+            Table of Contents
+          </span>
+        </div>
 
-            <!-- Module 2 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 2: Patterns</span>
-              <a href="./kmers.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">K-mer Profiler <span class="float-right text-[9px] opacity-80 font-bold">~25m</span></a>
-              <a href="./find_motif.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Motif Finder <span class="float-right text-[9px] opacity-80 font-bold">~25m</span></a>
+        <div class="space-y-4">
+          <!-- Module 1 -->
+          <div class="space-y-1">
+            <div class="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider px-2 flex items-center justify-between">
+              <span>Module 1 &bull; Foundations</span>
             </div>
+            <a href="./io.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                FASTA File IO
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">15m</span>
+            </a>
+            <a href="./genetics.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Genetics Workbench
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">20m</span>
+            </a>
+          </div>
 
-            <!-- Module 3 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 3: Comparisons</span>
-              <a href="./dot_plot.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Dot Plot Visualizer <span class="float-right text-[9px] opacity-80 font-bold">~20m</span></a>
-              <a href="./distances.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Sequence Distances <span class="float-right text-[9px] opacity-80 font-bold">~25m</span></a>
+          <!-- Module 2 -->
+          <div class="space-y-1">
+            <div class="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider px-2 flex items-center justify-between">
+              <span>Module 2 &bull; Patterns</span>
             </div>
+            <a href="./kmers.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                K-mer Profiler
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">25m</span>
+            </a>
+            <a href="./find_motif.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Motif Finder
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">25m</span>
+            </a>
+          </div>
 
-            <!-- Module 4 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 4: Alignments</span>
-              <a href="./needleman_wunsch.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Needleman-Wunsch Global <span class="float-right text-[9px] opacity-80 font-bold">~30m</span></a>
-              <a href="./smith_waterman.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Smith-Waterman Local <span class="float-right text-[9px] opacity-80 font-bold">~30m</span></a>
+          <!-- Module 3 -->
+          <div class="space-y-1">
+            <div class="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider px-2 flex items-center justify-between">
+              <span>Module 3 &bull; Comparisons</span>
             </div>
+            <a href="./dot_plot.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Dot Plot Visualizer
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">20m</span>
+            </a>
+            <a href="./distances.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Sequence Distances
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">25m</span>
+            </a>
+          </div>
 
-            <!-- Module 5 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 5: Indexing</span>
-              <a href="./trie.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Trie Multi-Search <span class="float-right text-[9px] opacity-80 font-bold">~25m</span></a>
-              <a href="./suffix_array.html" class="block px-2.5 py-1.5 text-[11px] font-semibold rounded-sm text-indigo-650 bg-indigo-50 border-l-2 border-indigo-500 transition-colors">Suffix Array Search <span class="float-right text-[9px] opacity-80 font-bold">~30m</span></a>
+          <!-- Module 4 -->
+          <div class="space-y-1">
+            <div class="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider px-2 flex items-center justify-between">
+              <span>Module 4 &bull; Alignments</span>
             </div>
+            <a href="./needleman_wunsch.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Needleman-Wunsch Global
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">30m</span>
+            </a>
+            <a href="./smith_waterman.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Smith-Waterman Local
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">30m</span>
+            </a>
+          </div>
 
-            <!-- Reference -->
-            <div class="space-y-0.5 pt-1 border-t border-slate-200">
-              <a href="./docs.html" class="block px-2 py-1 text-[11px] font-bold text-indigo-600 hover:bg-slate-200 transition-colors">Documentation &rarr;</a>
+          <!-- Module 5 (Active) -->
+          <div class="space-y-1">
+            <div class="text-[9px] font-extrabold text-indigo-500 uppercase tracking-wider px-2 flex items-center justify-between">
+              <span>Module 5 &bull; Indexing</span>
             </div>
-
-            
+            <a href="./trie.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Trie Multi-Search
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">25m</span>
+            </a>
+            <a href="./suffix_array.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-bold rounded-md bg-indigo-50/90 text-indigo-700 border-l-2 border-indigo-600 transition-all shadow-xs">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-indigo-600 mr-2"></span>
+                Suffix Array Search
+              </span>
+              <span class="text-[9px] font-mono text-indigo-600">30m</span>
+            </a>
           </div>
         </div>
 
-        <!-- Input Section -->
-        <div class="space-y-3 pt-3 border-t border-slate-200">
-          <div>
-            <label class="block text-xs font-bold text-slate-900 uppercase tracking-wider mb-1">Target Sequence</label>
-            <textarea id="sequence-input" rows="3" class="w-full font-mono text-xs px-3 py-2 border-b-2 border-transparent bg-white/60 focus:bg-white backdrop-blur-sm shadow-inner rounded-t-lg uppercase resize-none focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all duration-150" placeholder="e.g. GATTACA">GATTACA</textarea>
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-900 uppercase tracking-wider mb-1">Search Pattern</label>
-            <input type="text" id="pattern-input" value="AT" class="w-full font-mono text-xs px-3 py-2 border-b-2 border-transparent bg-white/60 focus:bg-white backdrop-blur-sm shadow-inner rounded-t-lg uppercase focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all duration-150" placeholder="e.g. AT">
-          </div>
-        </div>
       </div>
 
-      <div class="pt-4 border-t border-slate-200">
-        <button id="search-btn" class="w-full py-2.5 bg-slate-800 hover:bg-slate-900 hover:shadow-md active:bg-slate-950 text-white font-semibold rounded-sm text-xs transition-all duration-150 tracking-wide select-none cursor-pointer">
-          Construct & Search Suffixes
-        </button>
+      <!-- Footer Link -->
+      <div class="pt-4 border-t border-slate-200/80 space-y-2">
+        <a href="./docs.html" class="flex items-center justify-between text-[11px] font-bold text-indigo-600 hover:text-indigo-800 transition-colors">
+          <span>Documentation Guide</span>
+          <span>&rarr;</span>
+        </a>
       </div>
     </aside>
 
-    <!-- Toggle Sidebar button -->
-    <button id="sidebar-toggle" class="absolute top-1/2 -translate-y-1/2 bg-white border border-slate-200 text-slate-500 hover:text-slate-800 h-8 w-4 rounded-r-md shadow-sm flex items-center justify-center cursor-pointer transition-all duration-300 z-40" style="left: 20rem">&lsaquo;</button>
+    <!-- Collapsible Sibling Toggle Button -->
+    <button
+      id="sidebar-toggle"
+      class="absolute top-1/2 -translate-y-1/2 bg-white border border-slate-200 text-slate-500 hover:text-slate-800 h-8 w-4 rounded-r-md shadow-sm flex items-center justify-center cursor-pointer transition-all duration-300 z-40 select-none"
+      style="left: 18rem"
+    >
+      &lsaquo;
+    </button>
 
-    <!-- Workspace -->
-    <main class="flex-grow overflow-y-auto bg-transparent p-6 lg:p-10 space-y-12 relative">
+    <!-- Right Panels (Scrollable Workspace) -->
+    <main class="flex-grow overflow-y-auto bg-transparent p-6 lg:p-10 space-y-8 relative">
       
-      <!-- Top section: Highlighted output -->
-      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-6">
-        <span class="block text-xs font-bold text-slate-900 uppercase tracking-wider mb-2">Sequence Matches (Binary Search bounds)</span>
-        <div class="bg-slate-900 rounded p-4 border border-slate-950 font-mono text-xs text-slate-300 whitespace-pre-wrap break-all leading-relaxed relative min-h-16" id="visualizer-box">
-          <span class="text-slate-500 italic">No matches mapped. Run search to populate visualization.</span>
+      <!-- Module Title Header -->
+      <div class="space-y-2">
+        <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest block">Module 5 &bull; Indexing</span>
+        <h1 class="text-3xl lg:text-4xl font-extralight tracking-tighter text-slate-900">Suffix Array Construction &amp; Search</h1>
+        <p class="text-xs text-slate-500 italic">Author: ChakradhwajB &bull; Lexicographically sorted suffix offset arrays and $O(P \log N)$ binary search query matching.</p>
+      </div>
+
+      <!-- Resources Section -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Resources</h2>
+        <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
+          <a href="https://usaco.guide/adv/suffix-array?lang=cpp" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded text-[10px]">USACO GUIDE</span>
+              <span class="font-semibold text-slate-800">Suffix Array Construction &amp; Usage Guide</span>
+              <span class="text-amber-500">★</span>
+            </div>
+            <span class="text-slate-500">Advanced Indexing Theory</span>
+          </a>
+          <a href="https://en.wikipedia.org/wiki/Suffix_array" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-slate-100 text-slate-800 font-bold px-2 py-0.5 rounded text-[10px]">WIKIPEDIA</span>
+              <span class="font-semibold text-slate-800">Suffix Array Overview Specification</span>
+            </div>
+            <span class="text-slate-500">Reference Background</span>
+          </a>
         </div>
       </section>
-      <!-- Bottom section: Suffix Array Matrix Table -->
-      <section class="p-2 flex flex-col h-[calc(100vh-420px)]">
-        <div class="flex justify-between items-center mb-3 select-none">
-          <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Sorted Suffix Array Table</h2>
-          <span class="text-[10px] font-semibold text-slate-400">Green indicates matches inside binary search range</span>
+
+      <!-- Educational Guide Part 1 -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-8">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Educational Guide: Suffix Array Data Structures &amp; Indexing</h2>
+        
+        <div class="text-[14px] leading-relaxed space-y-6 text-slate-700">
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">1. Motivation &amp; Biological Background</h3>
+            <p class="mb-3">
+              Modern high-throughput DNA sequencers produce billions of short reads (e.g. 150–300 bp Illumina reads or long PacBio/Nanopore reads) that must be aligned against multi-gigabase reference genomes (such as the ~3.2 Gb Human Genome assembly). Naive pattern matching ($\mathcal{O}(N \cdot M)$) is computationally impossible at this scale. Full <em>Suffix Trees</em> can locate patterns in $\mathcal{O}(M)$ time, but their heavy node/pointer structure requires 12–20 bytes of memory per nucleotide (~40–60 GB RAM for human genome indexing), which exceeds standard memory bounds.
+            </p>
+            <p class="mb-3">
+              A <strong>Suffix Array</strong> ($SA$) is a space-efficient integer array storing starting positions of all suffixes of a text $S$, sorted in lexicographical order. By storing only 32-bit integer offsets ($4N$ bytes total, i.e. ~12.8 GB for the human genome), Suffix Arrays achieve a dramatically lower memory footprint while permitting fast binary search pattern queries in $\mathcal{O}(M \log N)$ time (or $\mathcal{O}(M + \log N)$ when paired with a Longest Common Prefix ($LCP$) array).
+            </p>
+            <p class="mb-3">
+              <strong>Real-World Applications:</strong> Whole-genome reference index building (foundational component of the FM-index / Burrows-Wheeler Transform used in BWA and Bowtie2 read aligners), de novo genome assembly, finding Longest Common Substrings (LCS) across species, and repeat family discovery.
+            </p>
+            <p>
+              <strong>Historical Origin:</strong> Invented by Udi Manber and Gene Myers in 1990 as a lightweight alternative to Weiner's (1973) and McCreight's (1976) Suffix Trees. Linear $\mathcal{O}(N)$ construction algorithms (such as SA-IS by Nong et al., 2009, and DC3 by Kärkkäinen &amp; Sanders, 2003) later revolutionized large-scale sequence indexing.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">2. Mathematical Formulation &amp; Core Theory</h3>
+            <p class="mb-3">
+              Let $S = s_0 s_1 \dots s_{N-1}$ be a genome sequence of length $N$, terminated by a unique sentinel character $\$$ ($\$ < a, \forall a \in \Sigma$).
+            </p>
+            <p class="mb-3">
+              <strong>Suffix Array Definition:</strong>
+              The suffix starting at offset $i$ is denoted $\text{Suffix}(i) = S[i \dots N-1]$. The Suffix Array $SA$ is a permutation array of integers $\{0, 1, \dots, N-1\}$ specifying the lexicographical order of all suffixes:
+            </p>
+            <div class="bg-slate-50 border border-slate-200 rounded-md p-3 my-3 text-center">
+              $$\text{Suffix}\Big(SA[0]\Big) \,<_{\text{lex}}\, \text{Suffix}\Big(SA[1]\Big) \,<_{\text{lex}}\, \dots \,<_{\text{lex}}\, \text{Suffix}\Big(SA[N-1]\Big)$$
+            </div>
+            <p class="mb-3">
+              <strong>Binary Search Query Math:</strong>
+              Because suffixes are sorted lexicographically, all occurrences of any query pattern $P$ of length $M$ form a contiguous subarray range $[L, R]$ in $SA$. We locate the range boundaries using two binary searches:
+            </p>
+            <div class="bg-slate-50 border border-slate-200 rounded-md p-3 my-3 text-center">
+              $$L = \min \left\{ k \in [0, N-1] \mid \text{Suffix}\Big(SA[k]\Big) \ge_{\text{lex}} P \right\}$$
+              $$R = \min \left\{ k \in [0, N-1] \mid \text{Suffix}\Big(SA[k]\Big)[0 \dots M-1] >_{\text{lex}} P \right\}$$
+            </div>
+            <p class="mb-3">
+              The number of occurrences is $R - L$, and the matching starting offsets in $S$ are $\{SA[L], SA[L+1], \dots, SA[R-1]\}$.
+            </p>
+            <p class="mb-3">
+              <strong>Time &amp; Space Complexity Analysis:</strong>
+            </p>
+            <ul class="list-disc pl-6 space-y-1.5 text-xs">
+              <li><strong>Construction Complexity:</strong>
+                <ul class="list-circle pl-4 space-y-1 mt-1">
+                  <li><strong>Naive Comparison-Based Sorting:</strong> $\mathcal{O}(N^2 \log N)$ time.</li>
+                  <li><strong>Prefix-Doubling (Manber-Myers):</strong> $\mathcal{O}(N \log^2 N)$ or $\mathcal{O}(N \log N)$ time.</li>
+                  <li><strong>Linear Induced Sorting (SA-IS / DC3):</strong> Optimal $\mathcal{O}(N)$ time.</li>
+                  <li><strong>Space Complexity:</strong> Strict $\mathcal{O}(N)$ space ($4N$ bytes for 32-bit offset array).</li>
+                </ul>
+              </li>
+              <li><strong>Pattern Search Query Complexity:</strong>
+                <ul class="list-circle pl-4 space-y-1 mt-1">
+                  <li><strong>Standard Binary Search:</strong> $\mathcal{O}(M \log N)$ time (performs $\log N$ binary steps, comparing up to $M$ chars each).</li>
+                  <li><strong>Optimized with LCP Array:</strong> $\mathcal{O}(M + \log N)$ time using LCP acceleration.</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="overflow-y-auto flex-grow border border-slate-200 rounded">
-          <table class="w-full text-left border-collapse text-xs">
-            <thead class="sticky top-0 bg-slate-50 z-10">
-              <tr class="border-b border-slate-200 text-[10px] text-slate-400 uppercase font-bold tracking-wider">
-                <th class="py-2.5 px-3 w-16">Rank</th>
-                <th class="py-2.5 px-3 w-32">Suffix Index ($SA[i]$)</th>
-                <th class="py-2.5 px-3">Lexicographically Sorted Suffix</th>
+      </section>
+
+      <!-- Interactive Suffix Array Workspace -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-6">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Lexicographical Suffix Table</h2>
+
+        <!-- Sequence Highlight Box -->
+        <div id="visualizer-box" class="w-full font-mono-seq text-xs leading-normal select-all bg-slate-900 text-slate-300 p-4 border border-slate-950 rounded-md overflow-y-auto max-h-36 shadow-inner break-all">
+          Run search to view mapped pattern matches in genome text.
+        </div>
+
+        <!-- Suffix Array Trace Map SVG Container -->
+        <div id="suffix-visualizer-container" class="border border-slate-200 rounded-md overflow-x-auto bg-slate-50 p-4 min-h-[160px] flex items-center justify-center">
+          <div class="text-slate-400 text-xs font-semibold">
+            Build suffix array to view trace map connections.
+          </div>
+        </div>
+
+        <!-- Step Player Inspector & Controls -->
+        <div id="sa-dp-inspector" class="text-xs font-mono bg-indigo-50 p-2.5 rounded-md hidden border border-indigo-150 text-indigo-950 font-semibold">
+          Step inspection details will appear here.
+        </div>
+
+        <div id="sa-player-controls" class="hidden flex items-center justify-center space-x-3 py-2 bg-slate-50 border border-slate-200 rounded-md">
+          <button id="sa-player-prev" class="px-3 py-1 bg-white border border-slate-300 text-slate-700 text-xs font-bold rounded hover:bg-slate-100 cursor-pointer">&larr; Prev</button>
+          <button id="sa-player-play" class="px-4 py-1 bg-indigo-600 text-white text-xs font-bold rounded hover:bg-indigo-700 cursor-pointer">Play</button>
+          <button id="sa-player-next" class="px-3 py-1 bg-white border border-slate-300 text-slate-700 text-xs font-bold rounded hover:bg-slate-100 cursor-pointer">Next &rarr;</button>
+          <button id="sa-player-reset" class="px-3 py-1 bg-slate-200 text-slate-700 text-xs font-bold rounded hover:bg-slate-300 cursor-pointer">Reset</button>
+        </div>
+
+        <!-- Sorted Suffix Table Container -->
+        <div class="border border-slate-200 rounded-md overflow-x-auto bg-slate-50 p-4">
+          <table class="w-full text-xs text-left">
+            <thead>
+              <tr class="border-b border-slate-300 font-bold text-slate-700">
+                <th class="py-2 px-3">Rank</th>
+                <th class="py-2 px-3">Suffix Index Offset</th>
+                <th class="py-2 px-3">Lexicographical Suffix Substring</th>
               </tr>
             </thead>
-            <tbody id="results-table-body" class="divide-y divide-slate-100 font-medium text-slate-700">
+            <tbody id="results-table-body">
               <tr>
-                <td colspan="3" class="py-4 text-center text-slate-400 italic">Submit query to show suffix array mapping.</td>
+                <td colspan="3" class="py-3 px-3 text-slate-400 italic">No suffix array constructed yet.</td>
               </tr>
             </tbody>
           </table>
         </div>
-      </section>
 
-      <!-- Analytical Visualizer: Suffix Origins Mapping -->
-      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-6 flex flex-col">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-3 select-none">
-          <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Suffix Origins Visualizer</h2>
-          
-          <div class="flex items-center space-x-2">
-            <!-- Player Controls -->
-            <div id="sa-player-controls" class="flex items-center space-x-1 bg-slate-50 border border-slate-200 p-1 rounded-sm hidden">
-              <button id="sa-player-reset" class="px-2 py-1 text-[10px] hover:bg-slate-200 rounded-sm font-bold border border-slate-200 cursor-pointer text-slate-700">Reset</button>
-              <button id="sa-player-prev" class="px-2 py-1 text-[10px] hover:bg-slate-200 rounded-sm font-bold border border-slate-200 cursor-pointer text-slate-700">Prev</button>
-              <button id="sa-player-play" class="px-2.5 py-1 text-[10px] bg-slate-800 text-white hover:bg-slate-900 rounded-sm font-bold cursor-pointer">Play</button>
-              <button id="sa-player-next" class="px-2 py-1 text-[10px] hover:bg-slate-200 rounded-sm font-bold border border-slate-200 cursor-pointer text-slate-700">Next</button>
+        <!-- Inputs Panel (Underneath Visualization) -->
+        <div class="mt-4 p-5 bg-slate-50/80 border border-slate-200 rounded-xl space-y-4 shadow-xs">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Sequence &amp; Query Pattern</h3>
+            <span class="text-[10px] text-slate-400 font-mono font-medium">Binary Search $\mathcal{O}(P \log N)$</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Genome Sequence ($S$)</label>
+              <textarea id="sequence-input" rows="2" class="w-full font-mono text-xs px-3 py-2 border border-slate-300 rounded-md uppercase resize-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white shadow-inner" placeholder="e.g. AACGAT">AACGATACGA</textarea>
             </div>
-            <span class="text-[9px] font-semibold text-indigo-655 bg-indigo-50 border border-indigo-155 px-2 py-0.5 rounded">Trace Map</span>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Search Query Pattern ($P$)</label>
+              <input type="text" id="pattern-input" value="ACG" class="w-full font-mono text-xs px-3 py-2 border border-slate-300 rounded-md uppercase bg-white shadow-inner" placeholder="e.g. ACG">
+            </div>
           </div>
-        </div>
 
-        <div id="sa-dp-inspector" class="mb-4 text-xs font-semibold font-mono text-indigo-950 bg-indigo-50 border border-indigo-150 p-3 rounded-md w-full text-left leading-relaxed shadow-sm hidden">
-          Use the player to step through Suffix Array construction.
-        </div>
-        <div id="suffix-visualizer-container" class="border border-slate-200 rounded-sm bg-slate-50 p-4 flex justify-center items-center overflow-auto min-h-[250px] w-full">
-          <span class="text-slate-400 text-xs font-semibold">Hover over suffix rows to trace origin in target sequence.</span>
+          <div class="flex justify-end pt-2">
+            <button id="search-btn" class="w-full sm:w-auto px-6 py-2 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-md text-xs transition-all shadow-xs cursor-pointer">
+              Build Suffix Array &amp; Query
+            </button>
+          </div>
         </div>
       </section>
 
-      <!-- Educational Article -->
-      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-6">
-        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Educational Guide: Suffix Arrays</h2>
-        <div class="text-[14px] leading-relaxed space-y-5 text-slate-700">
-          <h3 class="font-semibold text-slate-900 text-lg mt-6 border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2">1. Motivation: Why care?</h3>
-          <p>
-            Suffix array search takes $\mathcal{O}(|P| \log N)$ time, where $|P|$ is the pattern length and $N$ is text length. This is significantly faster than sequential substring scanning on extremely large genomes.
-          </p>
-          
-          <h3 class="font-semibold text-slate-900 text-lg mt-6 border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2">2. Concept &amp; Complexity</h3>
-          <p>
-            A <strong>Suffix Array</strong> is a lexicographically sorted array of all suffixes of a text sequence. Because all suffixes are sorted, any matching occurrences of a query pattern will appear as prefixes of a contiguous block of suffixes in the suffix array. We locate this matching range using binary search.
-          </p>
-          <ul class="list-disc pl-5 space-y-1">
-            <li><strong>Time Complexity:</strong> $\mathcal{O}(|P| \log N)$ to binary search for a pattern of length $|P|$.</li>
-            <li><strong>Space Complexity:</strong> $\mathcal{O}(N)$ to store the array of suffix offsets.</li>
-          </ul>
-
-          <h3 class="font-semibold text-slate-900 text-lg mt-6 border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2">3. Worked Example</h3>
-          <p>
-            Text <code class="font-mono text-[12px] font-bold text-indigo-600">BANA$</code>:
-          </p>
-          <div class="bg-slate-50 p-2.5 rounded-sm font-mono text-xs border border-slate-200 text-slate-650 ml-2 border-l-4 border-l-indigo-400">
-            Suffixes: [0]BANA$, [1]ANA$, [2]NA$, [3]A$, [4]$
-            Sorted: [4]$, [3]A$, [1]ANA$, [0]BANA$, [2]NA$
-            Suffix Array: [4, 3, 1, 0, 2]
+      <!-- Educational Guide Part 2 -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-8">
+        <div class="text-[14px] leading-relaxed space-y-6 text-slate-700">
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">3. Step-by-Step Worked Example</h3>
+            <p class="mb-3">
+              Consider genome text $S = \text{"AACGATACGA\$"}$ ($N = 11$). We build its Suffix Array and execute a binary search query for pattern $P = \text{"ACG"}$ ($M = 3$).
+            </p>
+            <p class="mb-3">
+              <strong>Step 1: All Suffixes and Sorted Suffix Array ($SA$) Table:</strong>
+            </p>
+            
+            <div class="overflow-x-auto border border-slate-200 rounded-md bg-white my-4">
+              <table class="w-full text-xs text-left font-mono">
+                <thead class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
+                  <tr>
+                    <th class="py-2 px-3">Rank $k$</th>
+                    <th class="py-2 px-3">$SA[k]$ (Offset)</th>
+                    <th class="py-2 px-3">Suffix Substring $\text{Suffix}(SA[k])$</th>
+                    <th class="py-2 px-3">Matches $P = \text{"ACG"}$?</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  <tr>
+                    <td class="py-1.5 px-3 font-bold">0</td>
+                    <td class="py-1.5 px-3">10</td>
+                    <td class="py-1.5 px-3">$</td>
+                    <td class="py-1.5 px-3 text-slate-400 font-sans">No</td>
+                  </tr>
+                  <tr>
+                    <td class="py-1.5 px-3 font-bold">1</td>
+                    <td class="py-1.5 px-3">9</td>
+                    <td class="py-1.5 px-3">A$</td>
+                    <td class="py-1.5 px-3 text-slate-400 font-sans">No</td>
+                  </tr>
+                  <tr>
+                    <td class="py-1.5 px-3 font-bold">2</td>
+                    <td class="py-1.5 px-3">0</td>
+                    <td class="py-1.5 px-3">AACGATACGA$</td>
+                    <td class="py-1.5 px-3 text-slate-400 font-sans">No</td>
+                  </tr>
+                  <tr class="bg-indigo-50/50">
+                    <td class="py-1.5 px-3 font-bold text-indigo-700">3</td>
+                    <td class="py-1.5 px-3 font-bold text-indigo-700">6</td>
+                    <td class="py-1.5 px-3 font-bold text-indigo-700">ACGA$</td>
+                    <td class="py-1.5 px-3 text-indigo-700 font-sans font-bold">✓ MATCH (Prefix "ACG")</td>
+                  </tr>
+                  <tr class="bg-indigo-50/50">
+                    <td class="py-1.5 px-3 font-bold text-indigo-700">4</td>
+                    <td class="py-1.5 px-3 font-bold text-indigo-700">1</td>
+                    <td class="py-1.5 px-3 font-bold text-indigo-700">ACGATACGA$</td>
+                    <td class="py-1.5 px-3 text-indigo-700 font-sans font-bold">✓ MATCH (Prefix "ACG")</td>
+                  </tr>
+                  <tr>
+                    <td class="py-1.5 px-3 font-bold">5</td>
+                    <td class="py-1.5 px-3">4</td>
+                    <td class="py-1.5 px-3">ATACGA$</td>
+                    <td class="py-1.5 px-3 text-slate-400 font-sans">No</td>
+                  </tr>
+                  <tr>
+                    <td class="py-1.5 px-3 font-bold">6</td>
+                    <td class="py-1.5 px-3">7</td>
+                    <td class="py-1.5 px-3">CGA$</td>
+                    <td class="py-1.5 px-3 text-slate-400 font-sans">No</td>
+                  </tr>
+                  <tr>
+                    <td class="py-1.5 px-3 font-bold">7</td>
+                    <td class="py-1.5 px-3">2</td>
+                    <td class="py-1.5 px-3">CGATACGA$</td>
+                    <td class="py-1.5 px-3 text-slate-400 font-sans">No</td>
+                  </tr>
+                  <tr>
+                    <td class="py-1.5 px-3 font-bold">8</td>
+                    <td class="py-1.5 px-3">8</td>
+                    <td class="py-1.5 px-3">GA$</td>
+                    <td class="py-1.5 px-3 text-slate-400 font-sans">No</td>
+                  </tr>
+                  <tr>
+                    <td class="py-1.5 px-3 font-bold">9</td>
+                    <td class="py-1.5 px-3">3</td>
+                    <td class="py-1.5 px-3">GATACGA$</td>
+                    <td class="py-1.5 px-3 text-slate-400 font-sans">No</td>
+                  </tr>
+                  <tr>
+                    <td class="py-1.5 px-3 font-bold">10</td>
+                    <td class="py-1.5 px-3">5</td>
+                    <td class="py-1.5 px-3">TACGA$</td>
+                    <td class="py-1.5 px-3 text-slate-400 font-sans">No</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <p class="mb-3">
+              <strong>Step 2: Binary Search Execution for $P = \text{"ACG"}$:</strong>
+            </p>
+            <ul class="list-disc pl-6 space-y-1 text-xs mb-3">
+              <li><strong>Lower Bound Search:</strong> Evaluates mid-point ranks in range $[0, 10]$. Finds $L = 3$ where $\text{Suffix}(SA[3]) = \text{"ACGA\$"} \ge_{\text{lex}} \text{"ACG"}$.</li>
+              <li><strong>Upper Bound Search:</strong> Finds $R = 5$ where $\text{Suffix}(SA[5]) = \text{"ATACGA\$"}[0 \dots 2] = \text{"ATA"} >_{\text{lex}} \text{"ACG"}$.</li>
+              <li><strong>Contiguous Range:</strong> Ranks $k \in [3, 4]$.</li>
+              <li><strong>Retrieved Offsets:</strong> $SA[3] = 6$ and $SA[4] = 1$.</li>
+            </ul>
+            <p>
+              <strong>Final Answer:</strong> Pattern <code class="font-mono text-indigo-600 font-bold">"ACG"</code> is located at text starting offsets <strong>1</strong> and <strong>6</strong> in $S$.
+            </p>
           </div>
 
-          <h3 class="font-semibold text-slate-900 text-lg mt-6 border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2">4. Python Code</h3>
-          <p>Here is how to construct a Suffix Array and perform binary search queries in Python, compared against a naive scanning approach:</p>
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">4. Python 3 Reference Implementation</h3>
+            <p class="mb-3 text-xs text-slate-600">
+              Below is a production-grade Python 3 implementation featuring suffix array construction and binary search pattern querying with complete docstrings and type hints.
+            </p>
+            <div class="relative group mt-1">
+              <button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); this.textContent = 'Copied!'; setTimeout(() => this.textContent = 'Copy', 2000)" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-sm text-[9px] font-bold tracking-wide transition-all duration-150 shadow-sm cursor-pointer select-none">Copy</button>
+              <pre class="bg-white border border-slate-200 text-slate-700 p-4 pr-12 rounded-sm font-mono text-xs overflow-x-auto leading-relaxed"><span class="text-slate-400">import</span> bisect
+<span class="text-slate-400">from</span> typing <span class="text-slate-400">import</span> List, Tuple
 
-          <p class="font-semibold text-slate-700 text-[11px] mb-1">Naive Substring Scanning:</p>
-          <div class="relative group">
-            <button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); this.textContent = 'Copied!'; setTimeout(() => this.textContent = 'Copy', 2000)" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-sm text-[9px] font-bold tracking-wide transition-all duration-150 shadow-sm cursor-pointer select-none">Copy</button>
-            <pre class="bg-slate-50 border border-slate-200 text-slate-700 p-3.5 pr-12 rounded-sm font-mono text-xs overflow-x-auto leading-relaxed"><span class="text-pink-600">def</span> <span class="text-sky-600">naive_substring_search</span>(text, pattern):
-    offsets = []
-    n, m = <span class="text-sky-600">len</span>(text), <span class="text-sky-600">len</span>(pattern)
-    <span class="text-pink-600">for</span> i <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(n - m + <span class="text-orange-600">1</span>):
-        <span class="text-pink-600">if</span> text[i : i + m] == pattern:
-            offsets.append(i)
-    <span class="text-pink-600">return</span> offsets</pre>
-          </div>
-
-          <p class="font-semibold text-slate-700 text-[11px] mt-3 mb-1">Suffix Array Construction & Binary Search:</p>
-          <div class="relative group">
-            <button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); this.textContent = 'Copied!'; setTimeout(() => this.textContent = 'Copy', 2000)" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-sm text-[9px] font-bold tracking-wide transition-all duration-150 shadow-sm cursor-pointer select-none">Copy</button>
-            <pre class="bg-white border border-slate-200 text-slate-700 p-3.5 pr-12 rounded-sm font-mono text-xs overflow-x-auto leading-relaxed"><span class="text-pink-600">def</span> <span class="text-sky-600">build_suffix_array</span>(text):
-    text_with_sentinel = text + <span class="text-orange-600">"$"</span>
-    <span class="text-slate-500 italic"># Generate all suffixes with starting offsets</span>
-    suffixes = [(text_with_sentinel[i:], i) <span class="text-pink-600">for</span> i <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(<span class="text-sky-600">len</span>(text_with_sentinel))]
-    <span class="text-slate-500 italic"># Sort lexicographically by suffix string</span>
-    suffixes.sort()
-    <span class="text-slate-500 italic"># Extract only the suffix offset indices</span>
-    <span class="text-pink-600">return</span> [item[<span class="text-orange-600">1</span>] <span class="text-pink-400">for</span> item <span class="text-pink-600">in</span> suffixes]
-
-<span class="text-pink-600">def</span> <span class="text-sky-600">binary_search_suffix_array</span>(text, suffix_array, pattern):
-    text_with_sentinel = text + <span class="text-orange-600">"$"</span>
-    n = <span class="text-sky-600">len</span>(text_with_sentinel)
+<span class="text-pink-600">def</span> <span class="text-sky-600">build_suffix_array</span>(text: <span class="text-sky-600">str</span>) -> List[<span class="text-sky-600">int</span>]:
+    <span class="text-slate-400">"""
+    Constructs the Suffix Array for a given text string.
     
-    <span class="text-slate-500 italic"># 1. Lower Bound Binary Search</span>
-    low, high = <span class="text-orange-600">0</span>, n - <span class="text-orange-600">1</span>
-    left_bound = n
-    <span class="text-pink-600">while</span> low <= high:
-        mid = (low + high) // <span class="text-orange-600">2</span>
-        suffix = text_with_sentinel[suffix_array[mid]:]
-        <span class="text-pink-600">if</span> suffix.startswith(pattern) <span class="text-pink-600">or</span> suffix >= pattern:
-            left_bound = mid
-            high = mid - <span class="text-orange-600">1</span>
-        <span class="text-pink-600">else:</span>
-            low = mid + <span class="text-orange-600">1</span>
-            
-    <span class="text-slate-500 italic"># 2. Upper Bound Binary Search</span>
-    low, high = <span class="text-orange-600">0</span>, n - <span class="text-orange-600">1</span>
-    right_bound = -<span class="text-orange-600">1</span>
-    <span class="text-pink-600">while</span> low <= high:
-        mid = (low + high) // <span class="text-orange-600">2</span>
-        suffix = text_with_sentinel[suffix_array[mid]:]
-        <span class="text-pink-600">if</span> suffix.startswith(pattern):
-            right_bound = mid
-            low = mid + <span class="text-orange-600">1</span>
-        <span class="text-pink-600">elif</span> suffix < pattern:
-            low = mid + <span class="text-orange-600">1</span>
-        <span class="text-pink-605">else:</span>
-            high = mid - <span class="text-orange-600">1</span>
-            
-    <span class="text-slate-500 italic"># Return matched start offsets</span>
-    <span class="text-pink-600">if</span> left_bound <= right_bound:
-        <span class="text-pink-600">return</span> <span class="text-sky-600">sorted</span>([suffix_array[i] <span class="text-pink-600">for</span> i <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(left_bound, right_bound + <span class="text-orange-600">1</span>)])
-    <span class="text-pink-605">return</span> []</pre>
-          </div>
+    Parameters:
+        text (str): Genomic target sequence (e.g. "AACGATACGA").
+        
+    Returns:
+        List[int]: Sorted list of suffix starting index offsets.
+    """</span>
+    clean_text = text.strip().upper()
+    <span class="text-pink-600">if</span> not clean_text.endswith(<span class="text-emerald-700">"$"</span>):
+        clean_text += <span class="text-emerald-700">"$"</span>
+        
+    n = <span class="text-sky-600">len</span>(clean_text)
+    <span class="text-slate-400"># Store tuples of (suffix_substring, starting_index) and sort lexicographically</span>
+    suffixes = [(clean_text[i:], i) <span class="text-pink-600">for</span> i <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(n)]
+    suffixes.sort()
+    
+    <span class="text-pink-600">return</span> [offset <span class="text-pink-600">for</span> _, offset <span class="text-pink-600">in</span> suffixes]
 
-          <h3 class="font-semibold text-slate-900 text-lg mt-6 border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2">5. Practice Problems</h3>
-          <div class="space-y-3 mt-3">
-            <div class="bg-emerald-50 border border-emerald-100 p-3 rounded-sm">
-              <span class="text-[9px] font-bold text-emerald-600 uppercase tracking-widest block mb-1">Warm-up</span>
-              <p class="text-[11px] text-slate-700">Manually construct the Suffix Array for the string <code class="font-mono text-[12px] font-bold text-indigo-600">"TAT$"</code>.</p>
-              <button onclick="window.loadSandboxChallenge(this)" class="mt-2 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-2.5 py-1 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider">Try in Sandbox &rarr;</button>
-            </div>
-            <div class="bg-indigo-50 border border-indigo-100 p-3 rounded-sm">
-              <span class="text-[9px] font-bold text-indigo-600 uppercase tracking-widest block mb-1">Core</span>
-              <p class="text-[11px] text-slate-700">Write a function to compute the LCP (Longest Common Prefix) array from a generated Suffix Array.</p>
-              <button onclick="window.loadSandboxChallenge(this)" class="mt-2 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-2.5 py-1 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider">Try in Sandbox &rarr;</button>
-            </div>
-            <div class="bg-rose-50 border border-rose-100 p-3 rounded-sm">
-              <span class="text-[9px] font-bold text-rose-600 uppercase tracking-widest block mb-1">Extension</span>
-              <p class="text-[11px] text-slate-700">The naive suffix array construction takes $\mathcal{O}(N^2 \log N)$ time. Research and implement the $\mathcal{O}(N \log N)$ Prefix Doubling algorithm.</p>
-              <button onclick="window.loadSandboxChallenge(this)" class="mt-2 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-2.5 py-1 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider">Try in Sandbox &rarr;</button>
+
+<span class="text-pink-600">def</span> <span class="text-sky-600">search_suffix_array</span>(
+    text: <span class="text-sky-600">str</span>,
+    pattern: <span class="text-sky-600">str</span>,
+    suffix_array: List[<span class="text-sky-600">int</span>]
+) -> List[<span class="text-sky-600">int</span>]:
+    <span class="text-slate-400">"""
+    Executes binary search on Suffix Array to locate all pattern occurrences in O(M log N) time.
+    
+    Parameters:
+        text (str): Genome target text.
+        pattern (str): Search query pattern.
+        suffix_array (List[int]): Pre-computed Suffix Array.
+        
+    Returns:
+        List[int]: Sorted list of starting offsets where pattern matches text.
+    """</span>
+    clean_text = text.strip().upper()
+    <span class="text-pink-600">if</span> not clean_text.endswith(<span class="text-emerald-700">"$"</span>):
+        clean_text += <span class="text-emerald-700">"$"</span>
+    clean_pat = pattern.strip().upper()
+    
+    n = <span class="text-sky-600">len</span>(clean_text)
+    m = <span class="text-sky-600">len</span>(clean_pat)
+    <span class="text-pink-600">if</span> m == <span class="text-orange-600">0</span> <span class="text-pink-600">or</span> m > n:
+        <span class="text-pink-600">return</span> []
+
+    <span class="text-slate-400"># Custom comparator key for binary search</span>
+    <span class="text-pink-600">class</span> <span class="text-sky-600">SuffixKey</span>:
+        <span class="text-pink-600">def</span> <span class="text-sky-600">__init__</span>(self, idx):
+            self.idx = idx
+        <span class="text-pink-600">def</span> <span class="text-sky-600">__lt__</span>(self, other):
+            <span class="text-pink-600">return</span> clean_text[self.idx:self.idx + m] &lt; clean_pat
+
+    <span class="text-slate-400"># Binary search for lower bound (first position >= pattern)</span>
+    l_idx = <span class="text-orange-600">0</span>
+    r_idx = n
+    <span class="text-pink-600">while</span> l_idx &lt; r_idx:
+        mid = (l_idx + r_idx) // <span class="text-orange-600">2</span>
+        offset = suffix_array[mid]
+        <span class="text-pink-600">if</span> clean_text[offset:offset + m] &lt; clean_pat:
+            l_idx = mid + <span class="text-orange-600">1</span>
+        <span class="text-pink-600">else</span>:
+            r_idx = mid
+            
+    start_rank = l_idx
+
+    <span class="text-slate-400"># Binary search for upper bound (first position > pattern prefix)</span>
+    l_idx = <span class="text-orange-600">0</span>
+    r_idx = n
+    <span class="text-pink-600">while</span> l_idx &lt; r_idx:
+        mid = (l_idx + r_idx) // <span class="text-orange-600">2</span>
+        offset = suffix_array[mid]
+        <span class="text-pink-600">if</span> clean_text[offset:offset + m] &lt;= clean_pat:
+            l_idx = mid + <span class="text-orange-600">1</span>
+        <span class="text-pink-600">else</span>:
+            r_idx = mid
+            
+    end_rank = l_idx
+
+    <span class="text-slate-400"># Extract text offsets from suffix array range</span>
+    matched_offsets = [suffix_array[k] <span class="text-pink-600">for</span> k <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(start_rank, end_rank)]
+    <span class="text-pink-600">return</span> <span class="text-sky-600">sorted</span>(matched_offsets)
+
+
+<span class="text-slate-400"># Example execution</span>
+<span class="text-pink-600">if</span> __name__ == <span class="text-emerald-700">"__main__"</span>:
+    text = <span class="text-emerald-700">"AACGATACGA"</span>
+    query = <span class="text-emerald-700">"ACG"</span>
+    sa = build_suffix_array(text)
+    matches = search_suffix_array(text, query, sa)
+    <span class="text-sky-600">print</span>(<span class="text-emerald-700">f"Suffix Array: {sa}"</span>)
+    <span class="text-sky-600">print</span>(<span class="text-emerald-700">f"Pattern '{query}' found at starting text offsets: {matches}"</span>)</pre>
             </div>
           </div>
         </div>
       </section>
 
-            <!-- Module Progress Control -->
+      <!-- Practice Problems Section -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Curated Practice Problems</h2>
+        <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
+          <a href="https://rosalind.info/problems/sufa/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">ROSALIND</span>
+              <span class="font-semibold text-slate-800">SUFA - Encoding Suffix Arrays</span>
+              <span class="text-slate-400 text-[10px]">&bull; Medium</span>
+            </div>
+            <span class="text-indigo-600 font-semibold hover:underline">Solve Problem &rarr;</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Module Progress Control -->
       <section class="bg-indigo-50/40 backdrop-blur-md border border-indigo-100 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 flex flex-col md:flex-row items-center justify-between select-none">
         <div>
           <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Module Complete?</h2>
@@ -346,10 +671,28 @@
       <div id="sandbox-container"></div>
       <div id="quiz-container"></div>
     </main>
+
   </div>
 
   <script src="../src/app.js"></script>
   <script src="../src/suffix_array.js"></script>
+  <script>
+    // Collapsible Sidebar logic
+    const sidebar = document.getElementById("sidebar");
+    const toggleBtn = document.getElementById("sidebar-toggle");
+    if (sidebar && toggleBtn) {
+      toggleBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("sidebar-collapsed");
+        if (sidebar.classList.contains("sidebar-collapsed")) {
+          toggleBtn.innerHTML = "&rsaquo;";
+          toggleBtn.style.left = "0.25rem";
+        } else {
+          toggleBtn.innerHTML = "&lsaquo;";
+          toggleBtn.style.left = "17.25rem";
+        }
+      });
+    }
+  </script>
   <script src="../src/quiz.js"></script>
   <script src="../src/sandbox.js"></script>
 

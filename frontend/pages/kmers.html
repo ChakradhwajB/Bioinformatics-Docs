@@ -1,126 +1,65 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary SEO Meta Tags -->
+  <title>Overlapping K-mer Profiler | Bioinformatics Docs</title>
+  <meta name="description" content="Profile overlapping k-mers in genomic sequences, compute substring frequencies, and identify highly repetitive k-mers with live histograms." />
+  <meta name="keywords" content="k-mer profiler, kmer frequency, genome analysis, dna substring count, bioinformatics, k-mer dictionary" />
+  <meta name="author" content="ChakradhwajB" />
 
-    <!-- Primary SEO Meta Tags -->
-    <title>Overlapping K-mer Profiler | Bioinformatics Docs</title>
-    <meta
-      name="description"
-      content="Profile overlapping k-mers in genomic sequences, compute substring frequencies, and identify highly repetitive k-mers with live histograms."
-    />
-    <meta
-      name="keywords"
-      content="k-mer profiler, kmer frequency, genome analysis, dna substring count, bioinformatics, k-mer dictionary"
-    />
-    <meta name="author" content="ChakradhwajB" />
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://bioinformatics-docs.netlify.app/pages/kmers.html" />
+  <meta property="og:title" content="Overlapping K-mer Profiler | Bioinformatics Docs" />
+  <meta property="og:description" content="Profile overlapping k-mers in genomic sequences, compute substring frequencies, and identify highly repetitive k-mers with live histograms." />
+  <meta property="og:image" content="https://bioinformatics-docs.netlify.app/module_page.png" />
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:url"
-      content="https://bioinformatics-docs.netlify.app/pages/kmers.html"
-    />
-    <meta
-      property="og:title"
-      content="Overlapping K-mer Profiler | Bioinformatics Docs"
-    />
-    <meta
-      property="og:description"
-      content="Profile overlapping k-mers in genomic sequences, compute substring frequencies, and identify highly repetitive k-mers with live histograms."
-    />
-    <meta
-      property="og:image"
-      content="https://bioinformatics-docs.netlify.app/module_page.png"
-    />
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://bioinformatics-docs.netlify.app/pages/kmers.html" />
+  <meta property="twitter:title" content="Overlapping K-mer Profiler | Bioinformatics Docs" />
+  <meta property="twitter:description" content="Profile overlapping k-mers in genomic sequences, compute substring frequencies, and identify highly repetitive k-mers with live histograms." />
+  <meta property="twitter:image" content="https://bioinformatics-docs.netlify.app/module_page.png" />
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta
-      property="twitter:url"
-      content="https://bioinformatics-docs.netlify.app/pages/kmers.html"
-    />
-    <meta
-      property="twitter:title"
-      content="Overlapping K-mer Profiler | Bioinformatics Docs"
-    />
-    <meta
-      property="twitter:description"
-      content="Profile overlapping k-mers in genomic sequences, compute substring frequencies, and identify highly repetitive k-mers with live histograms."
-    />
-    <meta
-      property="twitter:image"
-      content="https://bioinformatics-docs.netlify.app/module_page.png"
-    />
-
-    <!-- Structured Data (JSON-LD) SoftwareApplication Schema -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "Overlapping K-mer Profiler",
-        "operatingSystem": "All",
-        "applicationCategory": "EducationalApplication, BioinformaticsTool",
-        "description": "An interactive tool that extracts overlapping genomic k-mers, tallies their frequencies, and generates bar distribution graphs.",
-        "browserRequirements": "Requires JavaScript. Requires HTML5.",
-        "softwareVersion": "1.0.0",
-        "author": {
-          "@type": "Person",
-          "name": "ChakradhwajB"
-        }
-      }
-    </script>
-
-    <link rel="stylesheet" href="../dist/output.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <!-- KaTeX Math Rendering -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"
-    />
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"
-    ></script>
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
-      onload="
-        renderMathInElement(document.body, {
-          delimiters: [
-            { left: '$$', right: '$$', display: true },
-            { left: '$', right: '$', display: false },
-          ],
-        })
-      "
-    ></script>
-    <style>
-      body {
-        font-family: "Inter", sans-serif;
-      }
-      .font-mono-seq {
-        font-family: "Fira Code", monospace;
-      }
-      /* Collapsible Sidebar Styles */
-      #sidebar {
-        transition:
-          width 0.2s ease,
-          padding 0.2s ease,
-          border-color 0.2s ease;
-      }
-      .sidebar-collapsed {
-        width: 0px !important;
-        padding-left: 0px !important;
-        padding-right: 0px !important;
-        border-right-width: 0px !important;
-        overflow: hidden !important;
-      }
+  <!-- Structured Data (JSON-LD) SoftwareApplication Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Overlapping K-mer Profiler",
+    "operatingSystem": "All",
+    "applicationCategory": "EducationalApplication, BioinformaticsTool",
+    "description": "An interactive tool that extracts overlapping genomic k-mers, tallies their frequencies, and generates bar distribution graphs.",
+    "browserRequirements": "Requires JavaScript. Requires HTML5.",
+    "softwareVersion": "1.0.0",
+    "author": {
+      "@type": "Person",
+      "name": "ChakradhwajB"
+    }
+  }
+  </script>
+  <link rel="stylesheet" href="../dist/output.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- KaTeX Math Rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .font-mono-seq {
+      font-family: 'Fira Code', monospace;
+    }
+    /* Collapsible Sidebar Styles */
+    #sidebar {
+      transition: width 0.2s ease, padding 0.2s ease, border-color 0.2s ease;
+    }
     
     /* Custom Scrollbar for all elements */
     ::-webkit-scrollbar {
@@ -138,30 +77,35 @@
       scrollbar-width: thin;
       scrollbar-color: #94a3b8 transparent;
     }
-
-    </style>
-  </head>
-  <body
-    class="bg-white text-slate-900 min-h-screen h-screen flex flex-col overflow-hidden"
-  >
-    <div class="absolute top-0 z-[-2] h-screen w-full bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
-    <!-- Header Bar -->
-      <header class="glass-nav border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] backdrop-blur-md py-3 px-6 flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0 select-none z-50">
+    .sidebar-collapsed {
+      width: 0px !important;
+      padding-left: 0px !important;
+      padding-right: 0px !important;
+      border-right-width: 0px !important;
+      overflow: hidden !important;
+    }
+  </style>
+</head>
+<body class="bg-white text-slate-900 min-h-screen h-screen flex flex-col overflow-hidden">
+  <div class="absolute top-0 z-[-2] h-screen w-full bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+  
+  <!-- Header Bar -->
+  <header class="glass-nav border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] backdrop-blur-md py-3 px-6 flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0 select-none z-50">
     <!-- Logo -->
     <div class="flex items-center space-x-2.5">
       <span class="font-bold text-slate-900 text-xs tracking-wider uppercase">Bioinformatics Docs</span>
     </div>
     <!-- Nav links -->
     <nav class="flex items-center space-x-6 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
-          <a href="../index.html" class="hover:text-slate-900 transition-colors">Home</a>
-          <a href="../learn.html" class="hover:text-slate-900 transition-colors">Modules</a>
-          <a href="../glossary.html" class="hover:text-slate-900 transition-colors">Glossary</a>
-          <a href="./docs.html" class="hover:text-indigo-700 transition-colors text-indigo-600">Documentation &rarr;</a>
-          <a href="https://github.com/ChakradhwajB/Bioinformatics-Docs" target="_blank" class="hover:text-slate-900 transition-colors flex items-center space-x-1">
-            <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.54 2.87 8.39 6.84 9.75.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.4 9.4 0 0 1 12 6.84c.85 0 1.71.12 2.51.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49C19.14 20.65 22 16.8 22 12.26 22 6.58 17.52 2 12 2z"/></svg>
-            <span>GitHub</span>
-          </a>
-        </nav>
+      <a href="../index.html" class="hover:text-slate-900 transition-colors">Home</a>
+      <a href="../learn.html" class="hover:text-slate-900 transition-colors">Modules</a>
+      <a href="../glossary.html" class="hover:text-slate-900 transition-colors">Glossary</a>
+      <a href="./docs.html" class="hover:text-indigo-700 transition-colors text-indigo-600">Documentation &rarr;</a>
+      <a href="https://github.com/ChakradhwajB/Bioinformatics-Docs" target="_blank" class="hover:text-slate-900 transition-colors flex items-center space-x-1">
+        <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.54 2.87 8.39 6.84 9.75.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.4 9.4 0 0 1 12 6.84c.85 0 1.71.12 2.51.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49C19.14 20.65 22 16.8 22 12.26 22 6.58 17.52 2 12 2z"/></svg>
+        <span>GitHub</span>
+      </a>
+    </nav>
     <!-- Server status -->
     <div class="flex items-center space-x-2 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full">
       <span id="server-status-dot" class="h-1.5 w-1.5 rounded-full bg-slate-400"></span>
@@ -169,293 +113,462 @@
     </div>
   </header>
 
-    <!-- Workspace Shell -->
-    <div class="flex-grow flex h-[calc(100vh-45px)] overflow-hidden relative">
-      <!-- Left Sidebar (Inputs & Controls) -->
-      <aside
-        id="sidebar"
-        class="w-80 bg-transparent border-r border-white/40 shadow-[1px_0_15px_rgba(0,0,0,0.01)] p-4 flex flex-col justify-between overflow-y-auto select-none transition-all duration-300 shrink-0"
-      >
+  <!-- Workspace Shell -->
+  <div class="flex-grow flex h-[calc(100vh-45px)] overflow-hidden relative">
+    
+    <!-- Left Sidebar (USACO Guide Style Pure Navigation) -->
+    <aside id="sidebar" class="w-72 bg-slate-50/60 backdrop-blur-md border-r border-slate-200/80 p-4 flex flex-col justify-between overflow-y-auto select-none transition-all duration-300 shrink-0 text-slate-800">
+      <div class="space-y-5">
+        
+        <!-- Sidebar Header -->
+        <div class="pb-2 border-b border-slate-200/80 flex items-center justify-between">
+          <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest flex items-center">
+            <svg class="w-3.5 h-3.5 mr-1.5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
+            Table of Contents
+          </span>
+        </div>
+
         <div class="space-y-4">
-          <!-- Tool Navigation list -->
-          <div>
-          <span class="block text-xs font-bold text-slate-900 uppercase tracking-wider mb-2">Curriculum Pathways</span>
-          
-          <div class="space-y-3">
-            <!-- Module 1 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 1: Foundations</span>
-              <a href="./io.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">FASTA File IO <span class="float-right text-[9px] opacity-80 font-bold">~15m</span></a>
-              <a href="./genetics.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Genetics Workbench <span class="float-right text-[9px] opacity-80 font-bold">~20m</span></a>
+          <!-- Module 1 -->
+          <div class="space-y-1">
+            <div class="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider px-2 flex items-center justify-between">
+              <span>Module 1 &bull; Foundations</span>
             </div>
-
-            <!-- Module 2 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 2: Patterns</span>
-              <a href="./kmers.html" class="block px-2.5 py-1.5 text-[11px] font-semibold rounded-sm text-indigo-650 bg-indigo-50 border-l-2 border-indigo-500 transition-colors">K-mer Profiler <span class="float-right text-[9px] opacity-80 font-bold">~25m</span></a>
-              <a href="./find_motif.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Motif Finder <span class="float-right text-[9px] opacity-80 font-bold">~25m</span></a>
-            </div>
-
-            <!-- Module 3 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 3: Comparisons</span>
-              <a href="./dot_plot.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Dot Plot Visualizer <span class="float-right text-[9px] opacity-80 font-bold">~20m</span></a>
-              <a href="./distances.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Sequence Distances <span class="float-right text-[9px] opacity-80 font-bold">~25m</span></a>
-            </div>
-            <!-- Module 4 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 4: Alignments</span>
-              <a href="./needleman_wunsch.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Needleman-Wunsch Global <span class="float-right text-[9px] opacity-80 font-bold">~30m</span></a>
-              <a href="./smith_waterman.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Smith-Waterman Local <span class="float-right text-[9px] opacity-80 font-bold">~30m</span></a>
-            </div>
-
-            <!-- Module 5 -->
-            <div class="space-y-0.5">
-              <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider px-1">Module 5: Indexing</span>
-              <a href="./trie.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Trie Multi-Search <span class="float-right text-[9px] opacity-80 font-bold">~25m</span></a>
-              <a href="./suffix_array.html" class="block px-2 py-1 text-[11px] font-medium rounded-sm text-slate-600 hover:bg-slate-200 transition-colors">Suffix Array Search <span class="float-right text-[9px] opacity-80 font-bold">~30m</span></a>
-            </div>
-            <!-- Reference -->
-            <div class="space-y-0.5 pt-1 border-t border-slate-200">
-              <a href="./docs.html" class="block px-2 py-1 text-[11px] font-bold text-indigo-600 hover:bg-slate-200 transition-colors">Documentation &rarr;</a>
-            </div>
-
-            
-          </div>
-        </div>          <div class="border-t border-slate-200 pt-3">
-            <label
-              class="block text-xs font-bold text-slate-900 uppercase tracking-wider mb-1"
-              >Target Sequence</label
-            >
-            <textarea
-              id="sequence-input"
-              rows="3"
-              class="w-full font-mono text-xs px-3 py-2 border-b-2 border-transparent bg-white/60 focus:bg-white backdrop-blur-sm shadow-inner rounded-t-lg uppercase resize-none focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all duration-150"
-              placeholder="Enter DNA/RNA sequence"
-            >
-ATGCGATGCGATG</textarea
-            >
-            <div class="text-[9px] text-slate-400 mt-1" id="base-count">
-              Bases: 13
-            </div>
+            <a href="./io.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                FASTA File IO
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">15m</span>
+            </a>
+            <a href="./genetics.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Genetics Workbench
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">20m</span>
+            </a>
           </div>
 
-          <div class="border-t border-slate-200 pt-3">
-            <label
-              class="block text-xs font-bold text-slate-900 uppercase tracking-wider mb-1"
-              >K-mer Length ($k$)</label
-            >
-            <input
-              type="number"
-              id="kmer-k"
-              min="1"
-              max="100"
-              value="3"
-              class="w-full text-xs px-3 py-1.5 border-b-2 border-transparent bg-white/60 focus:bg-white backdrop-blur-sm shadow-inner rounded-t-lg focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all duration-150"
-            />
+          <!-- Module 2 (Active) -->
+          <div class="space-y-1">
+            <div class="text-[9px] font-extrabold text-indigo-500 uppercase tracking-wider px-2 flex items-center justify-between">
+              <span>Module 2 &bull; Patterns</span>
+            </div>
+            <a href="./kmers.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-bold rounded-md bg-indigo-50/90 text-indigo-700 border-l-2 border-indigo-600 transition-all shadow-xs">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-indigo-600 mr-2"></span>
+                K-mer Profiler
+              </span>
+              <span class="text-[9px] font-mono text-indigo-600">25m</span>
+            </a>
+            <a href="./find_motif.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Motif Finder
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">25m</span>
+            </a>
           </div>
 
-          <!-- Reference & Complexity Panel -->
-          <div class="border-t border-slate-200 pt-3 space-y-1 text-[10px]">
-            <span
-              class="block font-bold text-slate-400 uppercase tracking-wider mb-1"
-              >Complexity Reference</span
-            >
-            <div>
-              <span class="font-semibold text-slate-500">Time Complexity:</span>
-              $\mathcal{O}(n \cdot k)$ | Space: $\mathcal{O}(n \cdot k)$
+          <!-- Module 3 -->
+          <div class="space-y-1">
+            <div class="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider px-2 flex items-center justify-between">
+              <span>Module 3 &bull; Comparisons</span>
             </div>
+            <a href="./dot_plot.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Dot Plot Visualizer
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">20m</span>
+            </a>
+            <a href="./distances.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Sequence Distances
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">25m</span>
+            </a>
+          </div>
+
+          <!-- Module 4 -->
+          <div class="space-y-1">
+            <div class="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider px-2 flex items-center justify-between">
+              <span>Module 4 &bull; Alignments</span>
+            </div>
+            <a href="./needleman_wunsch.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Needleman-Wunsch Global
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">30m</span>
+            </a>
+            <a href="./smith_waterman.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Smith-Waterman Local
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">30m</span>
+            </a>
+          </div>
+
+          <!-- Module 5 -->
+          <div class="space-y-1">
+            <div class="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider px-2 flex items-center justify-between">
+              <span>Module 5 &bull; Indexing</span>
+            </div>
+            <a href="./trie.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Trie Multi-Search
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">25m</span>
+            </a>
+            <a href="./suffix_array.html" class="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all">
+              <span class="flex items-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                Suffix Array Search
+              </span>
+              <span class="text-[9px] font-mono text-slate-400">30m</span>
+            </a>
           </div>
         </div>
 
-        <div class="pt-4 border-t border-slate-200">
-          <button
-            id="run-btn"
-            class="w-full py-2.5 bg-slate-800 hover:bg-slate-900 hover:shadow-md active:bg-slate-950 text-white font-semibold rounded-sm text-xs transition-all duration-150 tracking-wide select-none cursor-pointer"
-          >
-            Analyze K-mers
-          </button>
-        </div>
-      </aside>
+      </div>
 
-      <!-- Collapsible Sibling Toggle Button -->
-      <button
-        id="sidebar-toggle"
-        class="absolute top-1/2 -translate-y-1/2 bg-white border border-slate-200 text-slate-500 hover:text-slate-800 h-8 w-4 rounded-r-md shadow-sm flex items-center justify-center cursor-pointer transition-all duration-300 z-40 select-none"
-        style="left: 20rem"
-      >
-        &lsaquo;
-      </button>
+      <!-- Footer Link -->
+      <div class="pt-4 border-t border-slate-200/80 space-y-2">
+        <a href="./docs.html" class="flex items-center justify-between text-[11px] font-bold text-indigo-600 hover:text-indigo-800 transition-colors">
+          <span>Documentation Guide</span>
+          <span>&rarr;</span>
+        </a>
+      </div>
+    </aside>
 
-      <!-- Right Panels (Scrollable Workspace) -->
-      <main class="flex-grow overflow-y-auto bg-transparent p-6 lg:p-10 space-y-12 relative">
-        <!-- Top Section: Console Output -->
-        <section
-          class="p-2"
-        >
-          <div class="flex justify-between items-center mb-3 select-none">
-            <span
-              class="text-xs font-bold text-slate-900 uppercase tracking-wider"
-              >K-mer Profiler Output Console</span
-            >
+    <!-- Collapsible Sibling Toggle Button -->
+    <button
+      id="sidebar-toggle"
+      class="absolute top-1/2 -translate-y-1/2 bg-white border border-slate-200 text-slate-500 hover:text-slate-800 h-8 w-4 rounded-r-md shadow-sm flex items-center justify-center cursor-pointer transition-all duration-300 z-40 select-none"
+      style="left: 18rem"
+    >
+      &lsaquo;
+    </button>
+
+    <!-- Right Panels (Scrollable Workspace) -->
+    <main class="flex-grow overflow-y-auto bg-transparent p-6 lg:p-10 space-y-8 relative">
+      
+      <!-- Module Title Header -->
+      <div class="space-y-2">
+        <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest block">Module 2 &bull; Patterns</span>
+        <h1 class="text-3xl lg:text-4xl font-extralight tracking-tighter text-slate-900">Overlapping K-mer Profiler</h1>
+        <p class="text-xs text-slate-500 italic">Author: ChakradhwajB &bull; Extracting fixed-length sliding window $k$-mers, calculating frequency distributions, and identifying repetitive genomic signatures.</p>
+      </div>
+
+      <!-- Resources Section -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Resources</h2>
+        <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
+          <a href="https://en.wikipedia.org/wiki/K-mer" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
             <div class="flex items-center space-x-2">
-              <span class="text-[10px] font-semibold text-slate-400"
-                >Most Frequent:
-                <span
-                  id="frequent-badge"
-                  class="text-[11px] font-bold text-indigo-650 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded shadow-sm"
-                  >-</span
-                ></span
-              >
+              <span class="bg-slate-100 text-slate-800 font-bold px-2 py-0.5 rounded text-[10px]">WIKIPEDIA</span>
+              <span class="font-semibold text-slate-800">K-mer Genomic Substring Theory</span>
+              <span class="text-amber-500">★</span>
             </div>
-          </div>
+            <span class="text-slate-500">Reference Background</span>
+          </a>
+        </div>
+      </section>
 
-          <div class="bg-white border border-slate-200 rounded-sm p-4">
-            <pre
-              id="output-console"
-              class="w-full font-mono text-xs leading-normal select-all bg-slate-900 text-slate-300 p-4 border border-slate-950 rounded-sm overflow-y-auto max-h-48 whitespace-pre-wrap"
-            >
-Perform analysis to generate k-mer frequencies.</pre
-            >
-          </div>
-        </section>
-
-        <!-- Bottom Section: Histogram Visualizer -->
-        <section
-          class="p-2 flex flex-col"
-        >
-          <div class="flex justify-between items-center mb-3 select-none">
-            <span
-              class="text-xs font-bold text-slate-900 uppercase tracking-wider"
-              >K-mer Frequency Distribution Histogram</span
-            >
-            <span
-              class="text-[9px] font-semibold text-slate-400 bg-slate-50 px-2 py-0.5 rounded border border-slate-200"
-              >Live Frequency Distribution</span
-            >
-          </div>
-
-          <div
-            id="visualizer-container"
-            class="border border-slate-200 rounded-sm overflow-x-auto bg-slate-50 p-4 flex flex-col justify-center min-h-[220px]"
-          >
-            <div
-              class="text-slate-400 text-xs font-semibold text-center"
-              id="visualizer-placeholder"
-            >
-              Histogram charts populate here after analysis.
-            </div>
-            <div
-              id="histogram-bars"
-              class="w-full flex items-end justify-start space-x-2 overflow-x-auto h-48 pt-6 hidden"
-            >
-              <!-- Custom HTML bars injected here -->
-            </div>
-          </div>
-        </section>
-
-        <!-- Educational Article -->
-        <section
-          class="p-2 space-y-4"
-        >
-          <h2 class="text-2xl font-thin tracking-tighter text-slate-900">
-            Educational Guide: Overlapping K-mers
-          </h2>
-
-          <div class="text-[14px] leading-relaxed space-y-5 text-slate-700">
-            <h3 class="font-semibold text-slate-900 text-lg mt-6 border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2">
-              1. Motivation: Why care?
-            </h3>
+      <!-- Educational Guide Part 1 -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-8">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Educational Guide: K-mer Frequency Analysis</h2>
+        
+        <div class="text-[14px] leading-relaxed space-y-6 text-slate-700">
+          
+          <!-- 1. Motivation & Biological Background -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">1. Motivation &amp; Biological Background</h3>
             <p>
-              Comparing entire genomes base-by-base is computationally expensive and sometimes impossible if the sequences are fragmented. Instead, bioinformaticians break sequences into small, overlapping "words" of length $k$, called <strong>k-mers</strong>. By analyzing the frequency of these k-mers, we can estimate sequence similarity without alignment, identify repetitive elements, and piece together short DNA sequencing reads into full genomes using De Bruijn graphs.
+              A <strong>$k$-mer</strong> is a continuous substring of length $k$ contained within a biological sequence. Extracting overlapping $k$-mers using a sliding window of step size 1 forms the foundational pillar for alignment-free sequence analysis, <em>de novo</em> genome assembly via De Bruijn graphs, and metagenomic species identification.
             </p>
 
-            <h3 class="font-semibold text-slate-900 text-lg mt-6 border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2">
-              2. Concept &amp; Complexity
-            </h3>
-            <p>
-              For a sequence $S$ of length $N$ over an alphabet $\Sigma$, the number of possible unique k-mers is bounded by $|\Sigma|^k$.
-              The number of overlapping windows generated sequentially is $M = N - k + 1$.
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 text-xs">
+              <div class="bg-indigo-50/60 border border-indigo-150 p-3.5 rounded-md space-y-1">
+                <span class="font-bold text-xs text-indigo-900 uppercase tracking-wider block">De Bruijn Genome Assembly</span>
+                <p class="text-slate-600">
+                  Constructs assembly graphs where nodes represent $(k-1)$-mers and directed edges represent $k$-mer overlaps.
+                </p>
+              </div>
+              <div class="bg-indigo-50/60 border border-indigo-150 p-3.5 rounded-md space-y-1">
+                <span class="font-bold text-xs text-indigo-900 uppercase tracking-wider block">Metagenomic Species Profiling</span>
+                <p class="text-slate-600">
+                  Matches read $k$-mer signatures against taxonomic databases (e.g. Kraken2) for instant species identification.
+                </p>
+              </div>
+              <div class="bg-indigo-50/60 border border-indigo-150 p-3.5 rounded-md space-y-1">
+                <span class="font-bold text-xs text-indigo-900 uppercase tracking-wider block">Replication Origin ($oriC$) Mining</span>
+                <p class="text-slate-600">
+                  Identifies hyper-frequent $DnaA$ box motifs where bacterial DNA replication initiation occurs.
+                </p>
+              </div>
+            </div>
+
+            <p class="mt-3 text-xs text-slate-500 italic">
+              <strong>Historical Origin:</strong> Pioneered for genome assembly by Pavel A. Pevzner, Haixu Tang, and Michael S. Waterman in 2001, replacing traditional overlap-layout-consensus methods with $k$-mer Eulerian paths.
             </p>
+          </div>
+
+          <!-- 2. Mathematical Formulation & Sliding Window Theory -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">2. Mathematical Formulation &amp; Sliding Window Theory</h3>
             <p>
-              The occurrence frequency of a specific k-mer pattern $P$ is mathematically expressed using the summation:
-              $$\text{Freq}(P) = \sum_{i=0}^{N-k} I(S[i \dots i+k-1] == P)$$
-              where $I$ is an indicator function returning 1 if true, 0 otherwise.
+              Given a sequence $S = s_1 s_2 \dots s_N$ of length $N$ over alphabet $\Sigma$ ($|\Sigma| = 4$ for DNA), the multiset of extracted overlapping $k$-mers $\mathcal{K}_k(S)$ is defined as:
             </p>
-            <ul class="list-disc pl-5 space-y-1 mb-2">
-              <li>
-                <strong>Time Complexity:</strong> $\mathcal{O}(N \cdot k)$ — We slice $N - k + 1$ overlapping windows. Each string slice and hash takes $\mathcal{O}(k)$ time.
-              </li>
-              <li>
-                <strong>Space Complexity:</strong> $\mathcal{O}(N \cdot k)$ — In the worst case, every k-mer is unique, requiring memory proportional to the number of windows times their length.
-              </li>
+            <div class="bg-slate-50 p-4 border border-slate-200 rounded-sm font-mono text-center my-3 text-xs shadow-inner">
+              $$\mathcal{K}_k(S) = \{ S[i \dots i+k-1] \mid 1 \le i \le N - k + 1 \}$$
+            </div>
+
+            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mt-4 mb-2">Fundamental Combinatorial Formulas</h4>
+            <ul class="list-disc pl-5 space-y-1 text-xs text-slate-700 font-mono">
+              <li>Total extracted $k$-mers: $C(N, k) = \max(0, N - k + 1)$</li>
+              <li>Maximum possible distinct $k$-mers for alphabet size $|\Sigma|$: $|\Sigma|^k = 4^k$</li>
             </ul>
 
-            <h3 class="font-semibold text-slate-900 text-lg mt-6 border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2">
-              3. Worked Example
-            </h3>
-            <p>
-              Let's find all 3-mers ($k=3$) in the sequence $S = \text{"GATTACA"}$.
-              We slide a window of size 3 from left to right:
+            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mt-4 mb-2">Frequency Distribution Function</h4>
+            <p class="text-xs">
+              The frequency $f(w)$ of a specific $k$-mer word $w \in \Sigma^k$ is given by:
             </p>
-            <div class="bg-slate-50 p-2 rounded-sm font-mono text-xs border border-slate-200 text-slate-600 ml-2 border-l-4 border-l-indigo-400">
-GATTACA
----      (GAT)
- ---     (ATT)
-  ---    (TTA)
-   ---   (TAC)
-    ---  (ACA)
+            <div class="bg-slate-50 p-3 border border-slate-200 rounded-sm font-mono text-center my-2 text-xs">
+              $$f(w) = \sum_{i=1}^{N-k+1} \mathbb{I}\Big(S[i \dots i+k-1] = w\Big)$$
             </div>
-            <p>
-              The resulting dictionary of frequencies is: 
-              <code class="font-mono text-[12px] font-bold text-indigo-600">{"GAT": 1, "ATT": 1, "TTA": 1, "TAC": 1, "ACA": 1}</code>
+
+            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mt-4 mb-2">Formal Time &amp; Space Complexity Analysis</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+              <div class="bg-slate-50 p-3.5 border border-slate-200 rounded-md">
+                <span class="font-bold text-slate-900 block mb-1">Time Complexity: $\mathcal{O}(N \cdot k)$</span>
+                Sliding a window across $N - k + 1$ positions. String slicing takes $\mathcal{O}(k)$ time per position. (Note: 2-bit rolling hash reduces this to $\mathcal{O}(N)$).
+              </div>
+              <div class="bg-slate-50 p-3.5 border border-slate-200 rounded-md">
+                <span class="font-bold text-slate-900 block mb-1">Space Complexity: $\mathcal{O}(\min(N-k+1, 4^k) \cdot k)$</span>
+                Stores up to $\min(N-k+1, 4^k)$ unique $k$-mer keys in a hash table dictionary.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Interactive K-mer Profiler Workspace -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-6">
+        <div class="flex justify-between items-center select-none">
+          <h2 class="text-2xl font-thin tracking-tighter text-slate-900">K-mer Frequency Distribution</h2>
+          <div class="flex items-center space-x-3 text-[11px] font-bold text-slate-500">
+            <span>Most Frequent: <span id="frequent-badge" class="text-sm font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 shadow-sm">-</span></span>
+          </div>
+        </div>
+
+        <!-- Monospace Output Console -->
+        <div id="output-console" class="w-full font-mono-seq text-xs leading-normal select-all bg-slate-900 text-slate-300 p-4 border border-slate-950 rounded-md overflow-y-auto max-h-36 shadow-inner">
+          Run profiler to inspect k-mer counts...
+        </div>
+
+        <!-- Frequency Histogram Container -->
+        <div class="border border-slate-200 rounded-md bg-slate-50 p-4 min-h-[160px] flex items-center justify-center">
+          <div id="visualizer-placeholder" class="text-slate-400 text-xs font-semibold w-full text-center py-4">
+            Run profiler to view k-mer frequency bar chart.
+          </div>
+          <div id="histogram-bars" class="w-full hidden flex items-end space-x-2 h-40"></div>
+        </div>
+
+        <!-- Inputs & Parameter Control Panel (Underneath Visualization) -->
+        <div class="mt-4 p-5 bg-slate-50/80 border border-slate-200 rounded-xl space-y-4 shadow-xs">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Sequence &amp; K-mer Parameters</h3>
+            <span id="base-count" class="text-[10px] text-slate-500 font-mono font-bold">Bases: 22</span>
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Target DNA Sequence</label>
+            <textarea id="sequence-input" rows="3" class="w-full font-mono text-xs px-3 py-2 border border-slate-300 rounded-md uppercase resize-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white shadow-inner" placeholder="e.g. ACGTACGT">ACGAAATACGATACGAAATACG</textarea>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">K-mer Length ($k$)</label>
+              <input type="number" id="kmer-k" value="3" min="1" max="20" class="w-full text-xs px-3 py-2 border border-slate-300 rounded-md bg-white font-mono shadow-inner">
+            </div>
+            <div class="flex items-end">
+              <button id="run-btn" class="w-full py-2 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-md text-xs transition-all shadow-xs cursor-pointer flex items-center justify-center space-x-2">
+                <span>Profile K-mers</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Educational Guide Part 2 -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-8">
+        <div class="text-[14px] leading-relaxed space-y-6 text-slate-700">
+          
+          <!-- 3. Worked Example -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">3. Step-by-Step Worked Example &amp; Window Trace</h3>
+            <p class="text-xs font-semibold text-slate-800">
+              Target Sequence: <code class="font-mono text-indigo-600 font-bold">S = "ACGAAATACG"</code> ($N = 10$), $k$-mer length $k = 3$.
+            </p>
+            <p class="text-xs text-slate-600 mt-1">
+              Total expected $k$-mer windows $= N - k + 1 = 10 - 3 + 1 = \mathbf{8}$.
             </p>
 
-            <h3 class="font-semibold text-slate-900 text-lg mt-6 border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2">
-              4. Python Code
-            </h3>
-            <p>Here is how to extract overlapping k-mers using an optimized dictionary-based single-pass scanner:</p>
+            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mt-3 mb-2">Step-by-Step Sliding Window Trace</h4>
+            <div class="bg-slate-50 p-3 rounded-sm font-mono text-xs border border-slate-200 text-slate-700 mt-2 border-l-4 border-l-indigo-500 overflow-x-auto">
+              <table class="min-w-full text-center border-collapse">
+                <thead>
+                  <tr class="border-b border-slate-300">
+                    <th class="p-1.5 font-bold text-slate-900">Window Index $i$</th>
+                    <th class="p-1.5 font-bold text-slate-900">Subsequence $S[i \dots i+2]$</th>
+                    <th class="p-1.5 font-bold text-slate-900">Extracted 3-mer</th>
+                    <th class="p-1.5 font-bold text-slate-900">Updated Dictionary Count</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b border-slate-200">
+                    <td class="p-1.5">1</td>
+                    <td class="p-1.5 font-bold text-indigo-600">ACG</td>
+                    <td class="p-1.5 font-bold">ACG</td>
+                    <td class="p-1.5 text-slate-700">ACG: 1</td>
+                  </tr>
+                  <tr class="border-b border-slate-200">
+                    <td class="p-1.5">2</td>
+                    <td class="p-1.5 font-bold text-indigo-600">CGA</td>
+                    <td class="p-1.5 font-bold">CGA</td>
+                    <td class="p-1.5 text-slate-700">CGA: 1</td>
+                  </tr>
+                  <tr class="border-b border-slate-200">
+                    <td class="p-1.5">3</td>
+                    <td class="p-1.5 font-bold text-indigo-600">GAA</td>
+                    <td class="p-1.5 font-bold">GAA</td>
+                    <td class="p-1.5 text-slate-700">GAA: 1</td>
+                  </tr>
+                  <tr class="border-b border-slate-200">
+                    <td class="p-1.5">4</td>
+                    <td class="p-1.5 font-bold text-indigo-600">AAA</td>
+                    <td class="p-1.5 font-bold">AAA</td>
+                    <td class="p-1.5 text-slate-700">AAA: 1</td>
+                  </tr>
+                  <tr class="border-b border-slate-200">
+                    <td class="p-1.5">5</td>
+                    <td class="p-1.5 font-bold text-indigo-600">AAT</td>
+                    <td class="p-1.5 font-bold">AAT</td>
+                    <td class="p-1.5 text-slate-700">AAT: 1</td>
+                  </tr>
+                  <tr class="border-b border-slate-200">
+                    <td class="p-1.5">6</td>
+                    <td class="p-1.5 font-bold text-indigo-600">ATA</td>
+                    <td class="p-1.5 font-bold">ATA</td>
+                    <td class="p-1.5 text-slate-700">ATA: 1</td>
+                  </tr>
+                  <tr class="border-b border-slate-200">
+                    <td class="p-1.5">7</td>
+                    <td class="p-1.5 font-bold text-indigo-600">TAC</td>
+                    <td class="p-1.5 font-bold">TAC</td>
+                    <td class="p-1.5 text-slate-700">TAC: 1</td>
+                  </tr>
+                  <tr>
+                    <td class="p-1.5">8</td>
+                    <td class="p-1.5 font-bold text-emerald-600">ACG</td>
+                    <td class="p-1.5 font-bold text-emerald-600">ACG</td>
+                    <td class="p-1.5 font-bold text-emerald-600">ACG: 2 (Duplicate found!)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p class="mt-2 text-xs font-mono bg-slate-900 text-slate-200 p-2.5 rounded">
+              Most Frequent $k$-mer Signature: "ACG" (Frequency: 2)
+            </p>
+          </div>
+
+          <!-- 4. Production-Ready Python Implementation -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">4. Python 3 Reference Implementation</h3>
+            <p class="text-xs mb-2">Production-ready Python module with canonical $k$-mer profiling and frequency spectrum analysis:</p>
 
             <div class="relative group mt-1">
               <button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); this.textContent = 'Copied!'; setTimeout(() => this.textContent = 'Copy', 2000)" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-sm text-[9px] font-bold tracking-wide transition-all duration-150 shadow-sm cursor-pointer select-none">Copy</button>
-              <pre class="bg-slate-50 border border-slate-200 text-slate-700 p-3.5 pr-12 rounded-sm font-mono text-xs overflow-x-auto leading-relaxed"><span class="text-pink-600">def</span> <span class="text-sky-600">count_kmers</span>(sequence, k):
-    frequencies = {}
-    n = <span class="text-sky-600">len</span>(sequence)
-    
-    <span class="text-slate-500 italic"># Slide a window of size k across the sequence</span>
-    <span class="text-pink-600">for</span> i <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(n - k + <span class="text-orange-600">1</span>):
-        kmer = sequence[i : i + k]
-        <span class="text-pink-600">if</span> kmer <span class="text-pink-600">in</span> frequencies:
-            frequencies[kmer] += <span class="text-orange-600">1</span>
-        <span class="text-pink-600">else:</span>
-            frequencies[kmer] = <span class="text-orange-600">1</span>
-            
-    <span class="text-pink-600">return</span> frequencies</pre>
-            </div>
+              <pre class="bg-white border border-slate-200 text-slate-700 p-3.5 pr-12 rounded-sm font-mono text-xs overflow-x-auto leading-relaxed"><span class="text-pink-600">from</span> collections <span class="text-pink-600">import</span> Counter
+<span class="text-pink-600">from</span> typing <span class="text-pink-600">import</span> Dict, List, Tuple
 
-            <h3 class="font-semibold text-slate-900 text-lg mt-6 border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2">
-              5. Practice Problems
-            </h3>
-            <div class="space-y-3">
-              <div class="bg-emerald-50 border border-emerald-100 p-3 rounded-sm">
-                <span class="text-[9px] font-bold text-emerald-600 uppercase tracking-widest block mb-1">Warm-up</span>
-                <p class="text-[11px] text-slate-700">Given the sequence <code class="font-mono text-[12px] font-bold text-indigo-600">"ATATATA"</code>, what are all the unique 3-mers and their respective counts? Try to work it out by hand.</p>
-              <button onclick="window.loadSandboxChallenge(this)" class="mt-2 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-2.5 py-1 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider">Try in Sandbox &rarr;</button>
-            </div>
-              <div class="bg-indigo-50 border border-indigo-100 p-3 rounded-sm">
-                <span class="text-[9px] font-bold text-indigo-600 uppercase tracking-widest block mb-1">Core</span>
-                <p class="text-[11px] text-slate-700">Write a function <code class="font-mono text-[12px] font-bold text-indigo-600">find_most_frequent_kmers(seq, k)</code> that builds on the counter above to return a list of the k-mer(s) that appear the most times in the sequence.</p>
-              <button onclick="window.loadSandboxChallenge(this)" class="mt-2 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-2.5 py-1 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider">Try in Sandbox &rarr;</button>
-            </div>
-              <div class="bg-rose-50 border border-rose-100 p-3 rounded-sm">
-                <span class="text-[9px] font-bold text-rose-600 uppercase tracking-widest block mb-1">Extension</span>
-                <p class="text-[11px] text-slate-700">Modify the k-mer counter to count a k-mer and its Watson-Crick reverse complement as the <em>same entity</em>. This is often necessary when analyzing unstranded DNA sequencing data.</p>
-              <button onclick="window.loadSandboxChallenge(this)" class="mt-2 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-2.5 py-1 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider">Try in Sandbox &rarr;</button>
-            </div>
+<span class="text-pink-600">def</span> <span class="text-sky-600">get_canonical_kmer</span>(kmer: <span class="text-sky-600">str</span>) -> <span class="text-sky-600">str</span>:
+    <span class="text-slate-500 italic">"""Returns lexicographically smallest representation between k-mer and its reverse complement."""</span>
+    comp_map = str.maketrans(<span class="text-teal-700">'ATCGatcg'</span>, <span class="text-teal-700">'TAGCtagc'</span>)
+    rev_comp = kmer.translate(comp_map)[::-<span class="text-orange-600">1</span>]
+    <span class="text-pink-600">return</span> <span class="text-sky-600">min</span>(kmer, rev_comp)
+
+<span class="text-pink-600">def</span> <span class="text-sky-600">profile_kmers</span>(
+    sequence: <span class="text-sky-600">str</span>, 
+    k: <span class="text-sky-600">int</span>, 
+    canonical: <span class="text-sky-600">bool</span> = <span class="text-orange-600">False</span>
+) -> Dict[<span class="text-sky-600">str</span>, <span class="text-sky-600">int</span>]:
+    <span class="text-slate-500 italic">"""
+    Extracts overlapping k-mers from sequence and calculates frequency distribution.
+
+    Args:
+        sequence (str): Target DNA, RNA, or protein sequence string.
+        k (int): Length of sliding window k-mer substring.
+        canonical (bool): If True, collapses double-stranded k-mers with reverse complements.
+
+    Returns:
+        Dict[str, int]: Mapping of k-mer strings to integer frequency counts.
+    """</span>
+    seq_clean = sequence.upper().strip()
+    n = <span class="text-sky-600">len</span>(seq_clean)
+
+    <span class="text-pink-600">if</span> k &lt;= <span class="text-orange-600">0</span> <span class="text-pink-600">or</span> k > n:
+        <span class="text-pink-600">return</span> {}
+
+    kmer_counts: Counter = Counter()
+
+    <span class="text-pink-600">for</span> i <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(n - k + <span class="text-orange-600">1</span>):
+        kmer = seq_clean[i:i+k]
+        <span class="text-pink-600">if</span> canonical:
+            kmer = get_canonical_kmer(kmer)
+        kmer_counts[kmer] += <span class="text-orange-600">1</span>
+
+    <span class="text-pink-600">return</span> <span class="text-sky-600">dict</span>(kmer_counts)
+
+<span class="text-pink-600">def</span> <span class="text-sky-600">find_most_frequent_kmers</span>(sequence: <span class="text-sky-600">str</span>, k: <span class="text-sky-600">int</span>) -> Tuple[List[<span class="text-sky-600">str</span>], <span class="text-sky-600">int</span>]:
+    <span class="text-slate-500 italic">"""Identifies the most frequent k-mer(s) and their maximum count."""</span>
+    counts = profile_kmers(sequence, k)
+    <span class="text-pink-600">if</span> <span class="text-pink-600">not</span> counts:
+        <span class="text-pink-600">return</span> [], <span class="text-orange-600">0</span>
+
+    max_freq = <span class="text-sky-600">max</span>(counts.values())
+    most_frequent = [kmer <span class="text-pink-600">for</span> kmer, freq <span class="text-pink-600">in</span> counts.items() <span class="text-pink-600">if</span> freq == max_freq]
+
+    <span class="text-pink-600">return</span> most_frequent, max_freq</pre>
             </div>
           </div>
-        </section>
-              <!-- Module Progress Control -->
+        </div>
+      </section>
+
+      <!-- Practice Problems Section -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Curated Practice Problems</h2>
+        <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
+          <a href="https://rosalind.info/problems/ba1b/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">ROSALIND</span>
+              <span class="font-semibold text-slate-800">BA1B - Find the Most Frequent k-mers in a String</span>
+              <span class="text-slate-400 text-[10px]">&bull; Easy</span>
+            </div>
+            <span class="text-indigo-600 font-semibold hover:underline">Solve Problem &rarr;</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Module Progress Control -->
       <section class="bg-indigo-50/40 backdrop-blur-md border border-indigo-100 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 flex flex-col md:flex-row items-center justify-between select-none">
         <div>
           <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Module Complete?</h2>
@@ -469,28 +582,29 @@ GATTACA
       <div id="sandbox-container"></div>
       <div id="quiz-container"></div>
     </main>
-    </div>
 
-    <script src="../src/app.js"></script>
-    <script src="../src/kmers.js"></script>
-    <script>
-      // Collapsible Sidebar logic
-      const sidebar = document.getElementById("sidebar");
-      const toggleBtn = document.getElementById("sidebar-toggle");
-      if (sidebar && toggleBtn) {
-        toggleBtn.addEventListener("click", () => {
-          sidebar.classList.toggle("sidebar-collapsed");
-          if (sidebar.classList.contains("sidebar-collapsed")) {
-            toggleBtn.innerHTML = "&rsaquo;";
-            toggleBtn.style.left = "0.25rem";
-          } else {
-            toggleBtn.innerHTML = "&lsaquo;";
-            toggleBtn.style.left = "19.25rem";
-          }
-        });
-      }
-    </script>
-    <script src="../src/quiz.js"></script>
+  </div>
+
+  <script src="../src/app.js"></script>
+  <script src="../src/kmers.js"></script>
+  <script>
+    // Collapsible Sidebar logic
+    const sidebar = document.getElementById("sidebar");
+    const toggleBtn = document.getElementById("sidebar-toggle");
+    if (sidebar && toggleBtn) {
+      toggleBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("sidebar-collapsed");
+        if (sidebar.classList.contains("sidebar-collapsed")) {
+          toggleBtn.innerHTML = "&rsaquo;";
+          toggleBtn.style.left = "0.25rem";
+        } else {
+          toggleBtn.innerHTML = "&lsaquo;";
+          toggleBtn.style.left = "17.25rem";
+        }
+      });
+    }
+  </script>
+  <script src="../src/quiz.js"></script>
   <script src="../src/sandbox.js"></script>
 
   <!-- Floating Sandbox Jump -->
