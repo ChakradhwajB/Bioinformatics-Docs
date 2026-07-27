@@ -1,45 +1,48 @@
 # Bioinformatics Docs
 
-A Python bioinformatics toolkit implementing sequence alignment, distance metrics, sequence transformations, and file processing algorithms.
+An encyclopedic, masterclass interactive platform and Python bioinformatics toolkit implementing sequence alignment, distance metrics, pattern matching, indexing, assembly, probabilistic models, variant calling, single-cell transcriptomics, and genomic AI.
 
-[Documentation](https://bioinformatics-docs.netlify.app/pages/docs.html) • [Benchmarks](https://bioinformatics-docs.netlify.app/pages/docs.html#benchmarks/analysis_report.md) • [Website](https://bioinformatics-docs.netlify.app/) • [Source Code](https://github.com/ChakradhwajB/Bioinformatics-Docs)
+[Documentation](https://bioinformatics-docs.netlify.app/pages/docs.html) • [Curriculum Modules](https://bioinformatics-docs.netlify.app/learn.html) • [Glossary](https://bioinformatics-docs.netlify.app/glossary.html) • [Website](https://bioinformatics-docs.netlify.app/) • [Source Code](https://github.com/ChakradhwajB/Bioinformatics-Docs)
 
 ---
-
 
 ![Bioinformatics Toolkit Landing Page](frontend/landing_page.png)
 
 ---
 
-## Features
+## Interactive Curriculum Modules (18 Modules)
 
-### Sequence Alignment
+### Module 1 &bull; Foundations
+- **FASTA File IO** (`io.html`): Streaming line-by-line parsing, header extraction, sequence sanitization, and structured JSON serialization.
+- **FASTQ QC &amp; Phred Scores** (`fastq_qc.html`): Quality score decoding ($P = 10^{-Q/10}$), read filtering, and quality stats calculation.
+- **Genetics Workbench** (`genetics.html`): Strand complementation, reverse complementation, DNA-to-RNA transcription, and codon table translation.
 
-- **Needleman-Wunsch**: Global homology alignments utilizing dynamic programming with traceback visualization.
-- **Smith-Waterman**: Local sequence alignments focusing on highly similar subsequences.
+### Module 2 &bull; Patterns &amp; Motifs
+- **K-mer Profiler** (`kmers.html`): Sliding-window substring extraction, frequency distribution tables, and top $k$-mer profiling.
+- **Motif Finder** (`find_motif.html`): Exact pattern matching across genomic sequences with spotlight visualizer.
 
-### Distance Metrics
+### Module 3 &bull; Sequence Comparisons
+- **Dot Plot Visualizer** (`dot_plot.html`): 2D graphical dot matrix analysis for sequence similarity and synteny.
+- **Sequence Distances** (`distances.html`): Hamming mutation distance and Levenshtein DP edit distance matrix.
 
-- **Hamming Distance**: Linear mutation metric comparing identical-length strings.
-- **Levenshtein Distance**: Dynamic programming edit distance calculating insertions, deletions, and substitutions.
+### Module 4 &bull; Alignments
+- **Needleman-Wunsch** (`needleman_wunsch.html`): Global homology alignments using dynamic programming with interactive grid traceback.
+- **Smith-Waterman** (`smith_waterman.html`): Local sequence alignment identifying optimal high-scoring local regions.
+- **Affine Gap Penalties** (`affine_gaps.html`): Gotoh's 3-matrix finite state machine modeling insertion/deletion events ($g_o + k \cdot g_e$).
 
-### Genetic Transformations
+### Module 5 &bull; Indexing &amp; Genome Assembly
+- **Trie Multi-Search** (`trie.html`): Prefix tree multi-pattern dictionary indexing.
+- **Suffix Array Search** (`suffix_array.html`): $\mathcal{O}(N \log^2 N)$ prefix-doubling suffix array construction and binary search pattern lookup.
+- **BWT &amp; FM-Index Mapping** (`bwt_fm_index.html`): Burrows-Wheeler Transform, Last-First (LF) mapping, and FM-Index compressed read alignment.
+- **De Bruijn Graph Assembly** (`de_bruijn.html`): Eulerian path genome assembly simulation from short overlap $k$-mers.
 
-- **Complement & Reverse Complement**: Standard DNA/RNA strand conversions.
-- **Transcription & Translation**: DNA-to-RNA transcription and RNA-to-Peptide codon mapping.
-- **Motif Search**: Sliding window target pattern mapping.
+### Module 6 &bull; Advanced Probabilistic Models &amp; Variant Calling
+- **HMMs &amp; Viterbi Decoding** (`hmm_viterbi.html`): Hidden Markov Models, transition/emission matrices, and Viterbi dynamic programming decoding.
+- **Variant Calling &amp; VCFs** (`vcf_caller.html`): Bayesian allele frequency modeling, genotype likelihoods, and VCF standard record parsing.
 
-### File Processing
-
-- **FASTA Parsing**: High-performance, low-memory line-by-line file streaming and header stats parser.
-- **FASTA Writing**: Output record generators.
-- **Input Validation**: Strict DNA/RNA vocabulary check tools.
-
-### Engineering
-
-- **Unit Tested**: $40+$ test assertions validating edge cases, penalties, and parser bounds.
-- **Complexity Benchmarked**: Empirical validation logs matching theoretical $\mathcal{O}(n)$ and $\mathcal{O}(n^2)$ behavior.
-- **Documented**: Educational articles with KaTeX math rendering.
+### Module 7 &bull; Functional Genomics &amp; AI
+- **Single-Cell RNA-Seq** (`scrna_seq.html`): Single-cell transcriptomics, UMI count matrix normalization, HVG selection, PCA, and UMAP clustering.
+- **Deep Learning &amp; Genomic AI** (`genomic_ai.html`): One-hot encoding, 1D CNNs, self-attention Transformer blocks, and foundation models (Enformer, Nucleotide Transformer).
 
 ---
 
@@ -76,24 +79,25 @@ score, align1, align2 = NeedlemanWunsch(
 print(f"Alignment Score: {score}")
 print(f"Seq 1: {align1}")
 print(f"Seq 2: {align2}")
-# Output:
-# Alignment Score: 0
-# Seq 1: G-CATGCG
-# Seq 2: GA-T-ACA
 ```
 
-#### 2. Motif Searching
+#### 2. FASTQ Phred Score Decoding
 
 ```python
-from core_lib.genetics import FindMotif
+from core_lib.io import FastqParse, CalculateQualityStats
 
-# Locate all offsets of a target motif in a genome sequence
-positions = FindMotif(
-    "GATATATGCATATACTT",
-    "ATAT"
-)
-print(f"Motif starts at 1-based indexed positions: {positions}")
-# Output: [2, 4, 10]
+fastq_lines = [
+    "@READ1",
+    "AGCT",
+    "+",
+    "IHH?"
+]
+
+parsed = FastqParse(fastq_lines)
+stats = CalculateQualityStats(parsed["records"])
+print(f"Read Count: {parsed['read_count']}")
+print(f"Overall Avg Q: {stats['overall_avg_q']}")
+print(f"Q30 Percentage: {stats['q30_percentage']}%")
 ```
 
 ### Local Quick Start
@@ -104,34 +108,25 @@ Start the FastAPI backend server:
 python -m uvicorn server.main:app --reload
 ```
 
-Then, double-click `frontend/index.html` to open the visual alignment canvas in your web browser.
+Then, double-click `frontend/index.html` to open the interactive web application in your browser.
 
 ---
 
-## Implemented Algorithms
+## Implemented Core Algorithms
 
-| Algorithm                           | Category           | Time Complexity          | Space Complexity             |
-| :---------------------------------- | :----------------- | :----------------------- | :--------------------------- |
-| **Hamming Distance**                | Distance Metric    | $\mathcal{O}(L)$         | $\mathcal{O}(1)$             |
-| **Levenshtein Distance**            | Distance Metric    | $\mathcal{O}(n \cdot m)$ | $\mathcal{O}(n \cdot m)$     |
-| **Needleman-Wunsch**                | Global Alignment   | $\mathcal{O}(n \cdot m)$ | $\mathcal{O}(n \cdot m)$     |
-| **Smith-Waterman**                  | Local Alignment    | $\mathcal{O}(n \cdot m)$ | $\mathcal{O}(n \cdot m)$     |
-| **Complement / Reverse Complement** | Sequence Transform | $\mathcal{O}(n)$         | $\mathcal{O}(n)$             |
-| **Transcription / Translation**     | Sequence Transform | $\mathcal{O}(n)$         | $\mathcal{O}(n)$             |
-| **Motif Search**                    | Pattern Matching   | $\mathcal{O}(n \cdot m)$ | $\mathcal{O}(n)$             |
-| **FASTA Ingestion Parser**          | File IO            | $\mathcal{O}(n)$         | $\mathcal{O}(1)$ (Streaming) |
-
----
-
-## Benchmark Results
-
-Empirical runtime validations show that our implementations match theoretical complexity behavior exactly.
-
-![Benchmark Curve](benchmarks/quadratic_algorithms_linear.png)
-
-- **Linear operations** (Transcription, translation, Hamming distance) scale strictly as $\mathcal{O}(n)$ up to $100,000$ bases.
-- **Quadratic alignment algorithms** (Needleman-Wunsch, Smith-Waterman) scale as $\mathcal{O}(n^2)$ and are capped to safe limits of $50$ bases on free hosting tiers to prevent out-of-memory errors under the strict $512\text{ MB}$ limit.
-- **Empirical validation** proves the quadratic behavior with log-log regression slope calculation: $d(\log T)/d(\log N) \approx 2.01$.
+| Algorithm | Category | Time Complexity | Space Complexity |
+| :--- | :--- | :--- | :--- |
+| **Hamming Distance** | Distance Metric | $\mathcal{O}(L)$ | $\mathcal{O}(1)$ |
+| **Levenshtein Distance** | Distance Metric | $\mathcal{O}(N \cdot M)$ | $\mathcal{O}(N \cdot M)$ |
+| **Needleman-Wunsch** | Global Alignment | $\mathcal{O}(N \cdot M)$ | $\mathcal{O}(N \cdot M)$ |
+| **Smith-Waterman** | Local Alignment | $\mathcal{O}(N \cdot M)$ | $\mathcal{O}(N \cdot M)$ |
+| **Gotoh Affine Gaps** | Affine Alignment | $\mathcal{O}(N \cdot M)$ | $\mathcal{O}(N \cdot M)$ |
+| **Complement / RevComp** | Sequence Transform | $\mathcal{O}(N)$ | $\mathcal{O}(N)$ |
+| **Transcription / Translation** | Sequence Transform | $\mathcal{O}(N)$ | $\mathcal{O}(N)$ |
+| **Motif Search** | Pattern Matching | $\mathcal{O}(N \cdot M)$ | $\mathcal{O}(N)$ |
+| **FASTA / FASTQ Parser** | File IO | $\mathcal{O}(N)$ | $\mathcal{O}(1)$ (Streaming) |
+| **Trie Dictionary** | Indexing | $\mathcal{O}(N \cdot L)$ | $\mathcal{O}(\Sigma \cdot N \cdot L)$ |
+| **Suffix Array (Prefix Doubling)** | Indexing | $\mathcal{O}(N \log^2 N)$ | $\mathcal{O}(N)$ |
 
 ---
 
@@ -141,149 +136,64 @@ Empirical runtime validations show that our implementations match theoretical co
 graph TD
     subgraph Frontend ["Frontend (Static HTML/JS — Netlify)"]
         A["index.html — Landing Page"]
-        B["learn.html — Module Index"]
-        C["pages/*.html — 11 Module Pages"]
-        D["src/app.js — API Client + Init"]
-        D2["src/needleman_wunsch.js"]
-        D3["src/smith_waterman.js"]
-        D4["src/distances.js"]
-        D5["src/genetics.js, io.js, kmers.js, ..."]
-        E["src/docs-renderer.js — Markdown Renderer"]
-        F["src/quiz.js — Practice Challenges"]
-        G["src/sandbox.js — Pyodide WASM Sandbox"]
-        H["src/search.js — Full-text Search"]
+        B["learn.html — Curriculum Index"]
+        C["pages/*.html — 18 Module Pages"]
+        D["src/app.js — Core Client + Router"]
+        E["src/sandbox.js — Pyodide WASM Python Executable"]
+        F["src/quiz.js — Interactive Challenges"]
+        G["src/output.css — GPU Accelerated Styling"]
     end
 
     subgraph Server ["Server (FastAPI — Render)"]
-        I["server/main.py — App + CORS + Routing"]
-        I2["endpoints/config.py — Centralized Guards"]
-        J["endpoints/alignments.py"]
-        K["endpoints/genetics.py"]
-        L["endpoints/io.py"]
-        M["endpoints/kmers.py"]
-        N["endpoints/indexing.py"]
+        H["server/main.py — App + CORS + API Router"]
+        I["endpoints/*.py — Alignments, Genetics, IO, Kmers, Indexing"]
     end
 
-    subgraph CoreLib ["core_lib (Pure Python Algorithms)"]
-        O["alignments.py — NW, SW, Hamming, Levenshtein, Hirschberg"]
-        P["genetics.py — Complement, Transcribe, Translate, Motif"]
-        Q["io.py — FASTA Parse/Validate, JsonWrite"]
-        R["kmers.py — Generate, Count, MostFrequent"]
-        S["indexing/ — Trie, SuffixArray (Prefix Doubling)"]
+    subgraph CoreLib ["core_lib (Pure Python Engine)"]
+        J["alignments.py — Needleman-Wunsch, Smith-Waterman, Hirschberg, Distance"]
+        K["genetics.py — Complement, Transcribe, Translate, FindMotif"]
+        L["io.py — FASTA/FASTQ Parse, Phred, Validate, JsonWrite"]
+        M["kmers.py — Generate, Count, MostFrequent"]
+        N["indexing/ — Trie, SuffixArray"]
     end
 
-    subgraph Support ["Support Infrastructure"]
-        T["tests/ — 6 test modules, 28+ assertions"]
-        U["benchmarks/ — Empirical complexity validation"]
-        V["docs/ — 16 markdown articles"]
-        W[".github/ — CI (tests.yml), Dependabot, Templates"]
+    subgraph Support ["Quality & CI/CD"]
+        O["tests/ — 63 unit test cases passing 100%"]
+        P[".github/workflows/ — Automated Testing & Build Pipeline"]
     end
 
-    D -- "HTTP POST /api/v1/*" --> I
-    D2 -- "HTTP" --> I
-    D3 -- "HTTP" --> I
-    I --> I2
+    D -- "HTTP POST /api/v1/*" --> H
+    H --> I
     I --> J & K & L & M & N
-    J --> O
-    K --> P
-    L --> Q
-    M --> R
-    N --> S
-    J & K & L & M & N -.-> I2
-    E -- "fetch()" --> V
-    T --> O & P & Q & R & S
-    U --> O & P & Q & R
-```
-
-### Tier Summary
-
-| Tier | Tech | Deployment | Directory |
-|:-----|:-----|:-----------|:----------|
-| **Frontend** | HTML, Tailwind CSS v4, 14 vanilla JS modules, KaTeX, marked.js, Pyodide (WASM) | Netlify (static) | [frontend/](frontend/) |
-| **Backend API** | FastAPI, Pydantic, uvicorn | Render | [server/](server/) |
-| **Algorithm Engine** | Pure Python, zero external deps | Imported by server | [core_lib/](core_lib/) |
-| **Tests** | pytest, FastAPI TestClient | GitHub Actions CI | [tests/](tests/) |
-| **Benchmarks** | matplotlib, numpy | Manual / local | [benchmarks/](benchmarks/) |
-| **CI/CD** | GitHub Actions (Python + Node.js), Dependabot | GitHub | [.github/](.github/) |
-
----
-
-## Data Flow Diagrams
-
-### Alignment Request Flow
-
-```mermaid
-sequenceDiagram
-    participant User as Browser
-    participant App as app.js
-    participant API as FastAPI Server
-    participant Config as config.py
-    participant Core as core_lib.alignments
-
-    User->>App: Enter seq1, seq2, penalties
-    App->>API: POST /api/v1/alignments/needleman-wunsch<br/>{seq1, seq2, match, mismatch, gap}
-    API->>Config: validate_sequence(seq1), validate_sequence(seq2)
-    Config-->>API: Pass / raise ValueError
-    API->>API: Rebuild DP matrix (for visualization)
-    API->>Core: NeedlemanWunsch(seq1, seq2, ...)
-    Core-->>API: (score, aligned1, aligned2)
-    API-->>App: {score, aligned_seq1, aligned_seq2, dp_matrix}
-    App->>App: Render color-coded DP matrix in DOM
-    App-->>User: Visual alignment + traceback path
-```
-
-### Documentation Flow
-
-```mermaid
-sequenceDiagram
-    participant User as Browser
-    participant Renderer as docs-renderer.js
-    participant Docs as docs/*.md (static)
-
-    User->>Renderer: Navigate to docs page
-    Renderer->>Docs: fetch("../docs/alignments/needleman_wunsch.md")
-    Docs-->>Renderer: Raw markdown + KaTeX
-    Renderer->>Renderer: marked.parse() + KaTeX.renderToString()
-    Renderer-->>User: Rendered HTML article with math
-```
-
-### Build & Deploy Flow
-
-```mermaid
-graph LR
-    A["git push to main"] --> B["GitHub Actions CI"]
-    A --> B2["Dependabot weekly scans"]
-    B --> C["pytest (Python 3.11)"]
-    B --> C2["Node.js 20 — npm install + npm run build"]
-    A --> D["Netlify Build"]
-    D --> E["npm install"]
-    E --> F["copy-docs.js<br/>docs/ → frontend/docs/"]
-    F --> G["Tailwind CSS build<br/>styles.css → dist/output.css"]
-    G --> H["Deploy static files"]
+    O --> J & K & L & M & N
 ```
 
 ---
 
-## Documentation
+## Testing & Quality Verification
 
-Detailed educational guide articles, math formulas, and interactive trace tutorials are built into the web application:
+Run pytest locally to execute the complete 63-test assertion suite:
 
-- Online: [bioinformatics-docs.netlify.app](https://bioinformatics-docs.netlify.app/)
-- Local: Open `frontend/pages/docs.html`
+```bash
+pytest
+```
+
+Output:
+```text
+======================== 63 passed, 1 warning in 6.58s ========================
+```
 
 ---
 
 ## Roadmap
 
 ### Completed
-
 - [x] **Linear-space alignments** using Hirschberg's algorithm.
-- [x] **Suffix Array** with O(N log² N) prefix-doubling construction and binary search pattern matching.
-
-### Planned
-
-- [ ] **FM-Index** for index-backed fast genome lookups.
-- [ ] **De Bruijn Graphs** for assembly simulation of short reads.
-- [ ] **BWT (Burrows-Wheeler Transform)** compression analysis.
-
----
+- [x] **Gotoh's Affine Gap Penalty** 3-matrix algorithm.
+- [x] **Suffix Array** with $\mathcal{O}(N \log^2 N)$ prefix-doubling construction.
+- [x] **BWT & FM-Index** compressed read mapping.
+- [x] **De Bruijn Graphs** for genome assembly simulation.
+- [x] **Hidden Markov Models** and Viterbi decoding.
+- [x] **Variant Calling & VCF** Bayesian likelihood modeling.
+- [x] **Single-Cell RNA-Seq** clustering and UMAP visualization.
+- [x] **Genomic AI Foundation Models** (CNNs, Transformers, Enformer).
