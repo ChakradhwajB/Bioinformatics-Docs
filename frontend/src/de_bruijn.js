@@ -41,7 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
   if (nextBtn) nextBtn.addEventListener("click", stepNext);
   if (resetBtn) resetBtn.addEventListener("click", stepReset);
 
-  window.addEventListener("resize", renderGraphCanvas);
+  let resizeTimeout;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(renderGraphCanvas, 100);
+  });
 
   runDeBruijn();
 });
