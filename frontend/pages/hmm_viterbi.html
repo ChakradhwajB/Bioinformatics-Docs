@@ -105,20 +105,20 @@
       <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
         <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Resources</h2>
         <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
-          <a href="https://pubmed.ncbi.nlm.nih.gov/24712435/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
-            <div class="flex items-center space-x-2">
-              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">CAMBRIDGE UNIV PRESS</span>
-              <span class="font-semibold text-slate-800">Biological Sequence Analysis: Probabilistic Models of Proteins and Nucleic Acids (Durbin et al., 1998)</span>
-              <span class="text-amber-500">★</span>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/24712435/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors gap-3">
+            <div class="flex items-center space-x-2 min-w-0 flex-1">
+              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px] shrink-0">CAMBRIDGE UNIV PRESS</span>
+              <span class="font-semibold text-slate-800 truncate">Biological Sequence Analysis: Probabilistic Models of Proteins and Nucleic Acids (Durbin et al., 1998)</span>
+              <span class="text-amber-500 shrink-0">★</span>
             </div>
-            <span class="text-slate-500">Definitive HMM Textbook</span>
+            <span class="text-slate-500 shrink-0 hidden sm:inline">Definitive HMM Textbook</span>
           </a>
-          <a href="https://pubmed.ncbi.nlm.nih.gov/10852837/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
-            <div class="flex items-center space-x-2">
-              <span class="bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded text-[10px]">IEEE PROCEEDINGS</span>
-              <span class="font-semibold text-slate-800">A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition (Rabiner, 1989)</span>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/10852837/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors gap-3">
+            <div class="flex items-center space-x-2 min-w-0 flex-1">
+              <span class="bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded text-[10px] shrink-0">IEEE PROCEEDINGS</span>
+              <span class="font-semibold text-slate-800 truncate">A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition (Rabiner, 1989)</span>
             </div>
-            <span class="text-slate-500">Foundational HMM Paper</span>
+            <span class="text-slate-500 shrink-0 hidden sm:inline">Foundational HMM Paper</span>
           </a>
         </div>
       </section>
@@ -176,7 +176,7 @@
             <p class="text-xs">
               The joint probability of observing sequence $x = (x_1, \dots, x_L)$ along a hidden state path $\pi = (\pi_1, \dots, \pi_L)$ is:
             </p>
-            <div class="bg-slate-900 text-slate-200 p-4 rounded-xl font-mono text-xs text-center my-3 shadow-inner">
+            <div class="bg-slate-50/80 border border-slate-200 text-slate-800 p-4 rounded-xl font-mono text-xs text-center my-3 shadow-xs">
               $$P(x, \pi) = \pi_0(\pi_1) e_{\pi_1}(x_1) \prod_{i=2}^L a_{\pi_{i-1}\pi_i} e_{\pi_i}(x_i)$$
             </div>
           </div>
@@ -214,7 +214,7 @@
             <p class="text-xs">
               Multiplying thousands of small probabilities ($P < 1.0$) causes floating-point underflow to zero. Transforming calculations into log-space replaces multiplication with addition:
             </p>
-            <div class="bg-slate-900 text-slate-200 p-5 rounded-xl font-mono text-xs text-center my-3 shadow-inner">
+            <div class="bg-slate-50/80 border border-slate-200 text-slate-800 p-5 rounded-xl font-mono text-xs text-center my-3 shadow-xs">
               $$v(k, i) = \log e_k(x_i) + \max_{l \in Q} \left( v(l, i-1) + \log a_{lk} \right)$$
             </div>
           </div>
@@ -239,7 +239,7 @@
 
         <div class="bg-slate-50 border border-slate-200 rounded-sm p-4 flex flex-col items-center justify-center space-y-2">
           <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">Most Probable Hidden State Path ($\pi^*$)</span>
-          <div id="viterbi-path" class="w-full flex font-mono-seq text-xs overflow-x-auto p-4 bg-slate-900 text-emerald-400 rounded-sm shadow-inner font-bold tracking-widest justify-center"></div>
+          <div id="viterbi-path" class="w-full flex font-mono-seq text-xs overflow-x-auto p-4 bg-slate-50/80 border border-slate-200 text-indigo-950 rounded-sm shadow-xs font-bold tracking-widest justify-center"></div>
         </div>
 
         <div id="viterbi-table-container" class="border border-slate-200 rounded-sm overflow-x-auto bg-slate-50 p-4"></div>

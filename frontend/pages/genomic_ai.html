@@ -105,20 +105,20 @@
       <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
         <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Resources</h2>
         <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
-          <a href="https://www.nature.com/articles/s41592-021-01252-x" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
-            <div class="flex items-center space-x-2">
-              <span class="bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded text-[10px]">NATURE METHODS</span>
-              <span class="font-semibold text-slate-800">Effective gene expression prediction from sequence by integrating long-range interactions (Enformer) (Avsec et al., 2021)</span>
-              <span class="text-amber-500">★</span>
+          <a href="https://www.nature.com/articles/s41592-021-01252-x" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors gap-3">
+            <div class="flex items-center space-x-2 min-w-0 flex-1">
+              <span class="bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded text-[10px] shrink-0">NATURE METHODS</span>
+              <span class="font-semibold text-slate-800 truncate">Effective gene expression prediction from sequence by integrating long-range interactions (Enformer) (Avsec et al., 2021)</span>
+              <span class="text-amber-500 shrink-0">★</span>
             </div>
-            <span class="text-slate-500">Enformer Paper</span>
+            <span class="text-slate-500 shrink-0 hidden sm:inline">Enformer Paper</span>
           </a>
-          <a href="https://www.biorxiv.org/content/10.1101/2023.01.11.523679v1" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
-            <div class="flex items-center space-x-2">
-              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">INSTITUT CURIE</span>
-              <span class="font-semibold text-slate-800">The Nucleotide Transformer: Building and Evaluating Foundation Models for Human Genomics (Dalla-Torre et al., 2023)</span>
+          <a href="https://www.biorxiv.org/content/10.1101/2023.01.11.523679v1" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors gap-3">
+            <div class="flex items-center space-x-2 min-w-0 flex-1">
+              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px] shrink-0">INSTITUT CURIE</span>
+              <span class="font-semibold text-slate-800 truncate">The Nucleotide Transformer: Building and Evaluating Foundation Models for Human Genomics (Dalla-Torre et al., 2023)</span>
             </div>
-            <span class="text-slate-500">Nucleotide Transformer Paper</span>
+            <span class="text-slate-500 shrink-0 hidden sm:inline">Nucleotide Transformer Paper</span>
           </a>
         </div>
       </section>
@@ -168,7 +168,7 @@
               1D Convolutional Neural Network (CNN) filters $W \in \mathbb{R}^{k \times 4}$ act as learnable Position Weight Matrices (PWMs) scanning along the sequence:
             </p>
 
-            <div class="bg-slate-900 text-slate-200 p-5 rounded-xl font-mono text-xs text-center my-4 shadow-inner">
+            <div class="bg-slate-50/80 border border-slate-200 text-slate-800 p-5 rounded-xl font-mono text-xs text-center my-4 shadow-xs">
               $$Y_i = \text{ReLU} \left( \sum_{j=1}^k \sum_{c=1}^4 W_{j, c} \cdot X_{i+j-1, c} + b \right)$$
             </div>
           </div>
@@ -257,7 +257,7 @@
                 </tbody>
               </table>
             </div>
-            <p class="mt-2 text-xs font-mono bg-slate-900 text-slate-200 p-3 rounded-sm">
+            <p class="mt-2 text-xs font-mono bg-indigo-50/80 border border-indigo-150 text-indigo-950 p-3 rounded-md shadow-xs">
               Convolution Activation: sum(W * X) + bias = +4.82 &bull; ReLU(4.82) = 4.82 (High Promoter Signal!)
             </p>
           </div>

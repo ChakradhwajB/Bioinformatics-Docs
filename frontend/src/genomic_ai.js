@@ -100,7 +100,7 @@ function renderModelOutput() {
     outputText += `Interpretation: ${promoterProb > 0.5 ? "HIGH CONFIDENCE PROMOTER REGION" : "INACTIVE INTERGENIC REGION"}\n`;
   }
 
-  outputContainer.innerHTML = `<pre class="text-emerald-400 font-mono text-xs font-bold leading-relaxed whitespace-pre-wrap bg-slate-900 p-4 rounded-xl border border-slate-950 shadow-inner">${outputText}</pre>`;
+  outputContainer.innerHTML = `<pre class="text-indigo-950 font-mono text-xs font-bold leading-relaxed whitespace-pre-wrap bg-slate-50/80 p-4 rounded-xl border border-slate-200 shadow-xs">${outputText}</pre>`;
 }
 
 function updateInspectorText() {

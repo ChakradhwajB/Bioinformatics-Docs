@@ -105,27 +105,27 @@
       <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
         <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Resources</h2>
         <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
-          <a href="https://pubmed.ncbi.nlm.nih.gov/19451168/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
-            <div class="flex items-center space-x-2">
-              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">NCBI / PUBMED</span>
-              <span class="font-semibold text-slate-800">Fast and accurate short read alignment with Burrows-Wheeler transform (Li &amp; Durbin, 2009)</span>
-              <span class="text-amber-500">★</span>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/19451168/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors gap-3">
+            <div class="flex items-center space-x-2 min-w-0 flex-1">
+              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px] shrink-0">NCBI / PUBMED</span>
+              <span class="font-semibold text-slate-800 truncate">Fast and accurate short read alignment with Burrows-Wheeler transform (Li &amp; Durbin, 2009)</span>
+              <span class="text-amber-500 shrink-0">★</span>
             </div>
-            <span class="text-slate-500">BWA Paper (PMID: 19451168)</span>
+            <span class="text-slate-500 shrink-0 hidden sm:inline">BWA Paper (PMID: 19451168)</span>
           </a>
-          <a href="https://pubmed.ncbi.nlm.nih.gov/19261174/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
-            <div class="flex items-center space-x-2">
-              <span class="bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded text-[10px]">NCBI / PUBMED</span>
-              <span class="font-semibold text-slate-800">Ultrafast and memory-efficient alignment of short DNA sequences to the human genome (Bowtie) (Langmead et al., 2009)</span>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/19261174/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors gap-3">
+            <div class="flex items-center space-x-2 min-w-0 flex-1">
+              <span class="bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded text-[10px] shrink-0">NCBI / PUBMED</span>
+              <span class="font-semibold text-slate-800 truncate">Ultrafast and memory-efficient alignment of short DNA sequences to the human genome (Bowtie) (Langmead et al., 2009)</span>
             </div>
-            <span class="text-slate-500">Bowtie Paper</span>
+            <span class="text-slate-500 shrink-0 hidden sm:inline">Bowtie Paper</span>
           </a>
-          <a href="https://ieeexplore.ieee.org/document/892127" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
-            <div class="flex items-center space-x-2">
-              <span class="bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded text-[10px]">IEEE XPLORE</span>
-              <span class="font-semibold text-slate-800">Opportunistic Data Structures with Applications (Ferragina &amp; Manzini, 2000)</span>
+          <a href="https://ieeexplore.ieee.org/document/892127" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors gap-3">
+            <div class="flex items-center space-x-2 min-w-0 flex-1">
+              <span class="bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded text-[10px] shrink-0">IEEE XPLORE</span>
+              <span class="font-semibold text-slate-800 truncate">Opportunistic Data Structures with Applications (Ferragina &amp; Manzini, 2000)</span>
             </div>
-            <span class="text-slate-500">Original FM-Index Paper</span>
+            <span class="text-slate-500 shrink-0 hidden sm:inline">Original FM-Index Paper</span>
           </a>
         </div>
       </section>
@@ -200,7 +200,7 @@
               To calculate the row index in column $F$ corresponding to position $i$ in column $L$, we evaluate the LF-mapping equation:
             </p>
 
-            <div class="bg-slate-900 text-slate-200 p-5 rounded-xl font-mono text-xs text-center my-4 shadow-inner">
+            <div class="bg-slate-50/80 border border-slate-200 text-slate-800 p-5 rounded-xl font-mono text-xs text-center my-4 shadow-xs">
               $$LF(i) = C[L[i]] + \text{Occ}(L[i], i)$$
             </div>
 
@@ -394,7 +394,7 @@
               </li>
             </ol>
 
-            <p class="mt-2 text-xs font-mono bg-slate-900 text-slate-200 p-3 rounded-sm">
+            <p class="mt-2 text-xs font-mono bg-indigo-50/80 border border-indigo-150 text-indigo-950 p-3 rounded-md shadow-xs">
               Matched Suffix Array Offsets:<br/>
               SA[2] = 3 (BAN[ANA]$)<br/>
               SA[3] = 1 (B[ANA]NA$)

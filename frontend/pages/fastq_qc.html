@@ -185,11 +185,11 @@
             <p>
               A FASTQ file consists of repeating 4-line text blocks representing single sequencing reads:
             </p>
-            <div class="bg-slate-900 text-slate-200 p-4 border border-slate-950 rounded-sm font-mono text-xs my-3 shadow-inner space-y-1">
-              <div><span class="text-emerald-400 font-bold">Line 1:</span> @SIM_HISEQ2000:1:1101:10000:20000 1:N:0:GATCAG</div>
-              <div><span class="text-indigo-400 font-bold">Line 2:</span> GATCGGAAGAGCACACGTCTGAACTCCAGTCAC</div>
-              <div><span class="text-amber-400 font-bold">Line 3:</span> +</div>
-              <div><span class="text-rose-400 font-bold">Line 4:</span> IIIIIIIIIIIIIIIIIIIIIIIIIIIHFFCCC</div>
+            <div class="bg-slate-50/80 border border-slate-200 text-slate-800 p-4 rounded-xl font-mono text-xs my-3 shadow-xs space-y-1">
+              <div><span class="text-emerald-600 font-bold">Line 1:</span> @SIM_HISEQ2000:1:1101:10000:20000 1:N:0:GATCAG</div>
+              <div><span class="text-indigo-600 font-bold">Line 2:</span> GATCGGAAGAGCACACGTCTGAACTCCAGTCAC</div>
+              <div><span class="text-amber-600 font-bold">Line 3:</span> +</div>
+              <div><span class="text-rose-600 font-bold">Line 4:</span> IIIIIIIIIIIIIIIIIIIIIIIIIIIHFFCCC</div>
             </div>
             <p class="text-xs">
               Quality characters in Line 4 use <strong>Sanger Phred+33 ASCII encoding</strong>, mapping integer quality scores $Q \in [0, 42]$ into printable ASCII characters.
@@ -413,35 +413,35 @@
 
 <span class="text-pink-600">def</span> <span class="text-sky-600">phred_to_probability</span>(q: <span class="text-sky-600">int</span>) -&gt; <span class="text-sky-600">float</span>:
     <span class="text-slate-500 italic">"""Calculates base error probability from Phred quality score P = 10^(-Q/10)"""</span>
-    <span class="text-pink-600">return</span> <span class="text-amber-400">10.0</span> ** (-q / <span class="text-amber-400">10.0</span>)
+    <span class="text-pink-600">return</span> <span class="text-orange-600">10.0</span> ** (-q / <span class="text-orange-600">10.0</span>)
 
-<span class="text-pink-400">def</span> <span class="text-sky-400">parse_fastq</span>(lines: Iterable[<span class="text-sky-400">str</span>]) -&gt; Dict[<span class="text-sky-400">str</span>, Any]:
+<span class="text-pink-600">def</span> <span class="text-sky-600">parse_fastq</span>(lines: Iterable[<span class="text-sky-600">str</span>]) -&gt; Dict[<span class="text-sky-600">str</span>, Any]:
     <span class="text-slate-500 italic">"""Parses an iterable of 4-line FASTQ records into structured read dictionaries."""</span>
-    clean_lines = [line.strip() <span class="text-pink-400">for</span> line <span class="text-pink-400">in</span> lines <span class="text-pink-400">if</span> line.strip()]
+    clean_lines = [line.strip() <span class="text-pink-600">for</span> line <span class="text-pink-600">in</span> lines <span class="text-pink-600">if</span> line.strip()]
     records = []
-    i = <span class="text-amber-400">0</span>
-    <span class="text-pink-400">while</span> i + <span class="text-amber-400">3</span> &lt; <span class="text-sky-400">len</span>(clean_lines):
-        header, seq, strand, qual = clean_lines[i:i+<span class="text-amber-400">4</span>]
-        <span class="text-pink-400">if</span> header.startswith(<span class="text-amber-400">"@"</span>) <span class="text-pink-400">and</span> strand.startswith(<span class="text-amber-400">"+"</span>):
-            scores = [<span class="text-sky-400">ord</span>(char) - <span class="text-amber-400">33</span> <span class="text-pink-400">for</span> char <span class="text-pink-400">in</span> qual]
-            avg_q = <span class="text-sky-400">sum</span>(scores) / <span class="text-sky-400">len</span>(scores) <span class="text-pink-400">if</span> scores <span class="text-pink-400">else</span> <span class="text-amber-400">0.0</span>
+    i = <span class="text-orange-600">0</span>
+    <span class="text-pink-600">while</span> i + <span class="text-orange-600">3</span> &lt; <span class="text-sky-600">len</span>(clean_lines):
+        header, seq, strand, qual = clean_lines[i:i+<span class="text-orange-600">4</span>]
+        <span class="text-pink-600">if</span> header.startswith(<span class="text-orange-600">"@"</span>) <span class="text-pink-600">and</span> strand.startswith(<span class="text-orange-600">"+"</span>):
+            scores = [<span class="text-sky-600">ord</span>(char) - <span class="text-orange-600">33</span> <span class="text-pink-600">for</span> char <span class="text-pink-600">in</span> qual]
+            avg_q = <span class="text-sky-600">sum</span>(scores) / <span class="text-sky-600">len</span>(scores) <span class="text-pink-600">if</span> scores <span class="text-pink-600">else</span> <span class="text-orange-600">0.0</span>
             records.append({
-                <span class="text-amber-400">"header"</span>: header[<span class="text-amber-400">1</span>:],
-                <span class="text-amber-400">"sequence"</span>: seq,
-                <span class="text-amber-400">"phred_scores"</span>: scores,
-                <span class="text-amber-400">"avg_quality"</span>: <span class="text-sky-400">round</span>(avg_q, <span class="text-amber-400">2</span>)
+                <span class="text-orange-600">"header"</span>: header[<span class="text-orange-600">1</span>:],
+                <span class="text-orange-600">"sequence"</span>: seq,
+                <span class="text-orange-600">"phred_scores"</span>: scores,
+                <span class="text-orange-600">"avg_quality"</span>: <span class="text-sky-600">round</span>(avg_q, <span class="text-orange-600">2</span>)
             })
-            i += <span class="text-amber-400">4</span>
-        <span class="text-pink-400">else</span>:
-            i += <span class="text-amber-400">1</span>
-    <span class="text-pink-400">return</span> {<span class="text-amber-400">"read_count"</span>: <span class="text-sky-400">len</span>(records), <span class="text-amber-400">"records"</span>: records}
+            i += <span class="text-orange-600">4</span>
+        <span class="text-pink-600">else</span>:
+            i += <span class="text-orange-600">1</span>
+    <span class="text-pink-600">return</span> {<span class="text-orange-600">"read_count"</span>: <span class="text-sky-600">len</span>(records), <span class="text-orange-600">"records"</span>: records}
 
-<span class="text-pink-400">def</span> <span class="text-sky-400">trim_low_quality</span>(sequence: <span class="text-sky-400">str</span>, phred_scores: List[<span class="text-sky-400">int</span>], min_q: <span class="text-sky-400">int</span> = <span class="text-amber-400">20</span>) -&gt; <span class="text-sky-400">str</span>:
-    <span class="text-slate-400 italic">"""Trims read sequence from 3' end until base quality &gt;= min_q"""</span>
-    idx = <span class="text-sky-400">len</span>(phred_scores)
-    <span class="text-pink-400">while</span> idx &gt; <span class="text-amber-400">0</span> <span class="text-pink-400">and</span> phred_scores[idx - <span class="text-amber-400">1</span>] &lt; min_q:
-        idx -= <span class="text-amber-400">1</span>
-    <span class="text-pink-400">return</span> sequence[:idx]</pre>
+<span class="text-pink-600">def</span> <span class="text-sky-600">trim_low_quality</span>(sequence: <span class="text-sky-600">str</span>, phred_scores: List[<span class="text-sky-600">int</span>], min_q: <span class="text-sky-600">int</span> = <span class="text-orange-600">20</span>) -&gt; <span class="text-sky-600">str</span>:
+    <span class="text-slate-500 italic">"""Trims read sequence from 3' end until base quality &gt;= min_q"""</span>
+    idx = <span class="text-sky-600">len</span>(phred_scores)
+    <span class="text-pink-600">while</span> idx &gt; <span class="text-orange-600">0</span> <span class="text-pink-600">and</span> phred_scores[idx - <span class="text-orange-600">1</span>] &lt; min_q:
+        idx -= <span class="text-orange-600">1</span>
+    <span class="text-pink-600">return</span> sequence[:idx]</pre>
             </div>
           </div>
 

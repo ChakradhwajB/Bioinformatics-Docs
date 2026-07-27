@@ -142,20 +142,20 @@
       <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
         <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Resources</h2>
         <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
-          <a href="https://en.wikipedia.org/wiki/Central_dogma_of_molecular_biology" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
-            <div class="flex items-center space-x-2">
-              <span class="bg-slate-100 text-slate-800 font-bold px-2 py-0.5 rounded text-[10px]">WIKIPEDIA</span>
-              <span class="font-semibold text-slate-800">Central Dogma of Molecular Biology Overview</span>
-              <span class="text-amber-500">★</span>
+          <a href="https://en.wikipedia.org/wiki/Central_dogma_of_molecular_biology" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors gap-3">
+            <div class="flex items-center space-x-2 min-w-0 flex-1">
+              <span class="bg-slate-100 text-slate-800 font-bold px-2 py-0.5 rounded text-[10px] shrink-0">WIKIPEDIA</span>
+              <span class="font-semibold text-slate-800 truncate">Central Dogma of Molecular Biology Overview</span>
+              <span class="text-amber-500 shrink-0">★</span>
             </div>
-            <span class="text-slate-500">Prerequisite Molecular Theory</span>
+            <span class="text-slate-500 shrink-0 hidden sm:inline">Prerequisite Molecular Theory</span>
           </a>
-          <a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
-            <div class="flex items-center space-x-2">
-              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">NCBI</span>
-              <span class="font-semibold text-slate-800">The Genetic Codes &amp; Standard Codon Table</span>
+          <a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors gap-3">
+            <div class="flex items-center space-x-2 min-w-0 flex-1">
+              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px] shrink-0">NCBI</span>
+              <span class="font-semibold text-slate-800 truncate">The Genetic Codes &amp; Standard Codon Table</span>
             </div>
-            <span class="text-slate-500">Official Specification</span>
+            <span class="text-slate-500 shrink-0 hidden sm:inline">Official Specification</span>
           </a>
         </div>
       </section>
@@ -273,9 +273,8 @@
           </div>
         </div>
 
-        <!-- High-density Monospace console block -->
         <div class="bg-slate-50 border border-slate-200 rounded-sm p-4 flex flex-col justify-start">
-          <div id="output-console" class="w-full font-mono-seq text-xs leading-normal select-all bg-slate-900 text-slate-300 p-4 border border-slate-950 rounded-sm overflow-y-auto max-h-48 shadow-inner">
+          <div id="output-console" class="w-full font-mono-seq text-xs leading-normal select-all bg-slate-50/80 text-slate-800 p-4 border border-slate-200 rounded-lg overflow-y-auto max-h-48 shadow-xs">
             Transcribed/translated output string appears here...
           </div>
         </div>
@@ -394,7 +393,7 @@
                 </tbody>
               </table>
             </div>
-            <p class="mt-2 text-xs font-mono bg-slate-900 text-slate-200 p-2.5 rounded">
+            <p class="mt-2 text-xs font-mono bg-indigo-50/80 border border-indigo-150 text-indigo-950 p-2.5 rounded-md shadow-xs">
               Final Synthesized Peptide Sequence: M-A-I-V (Stop)
             </p>
           </div>

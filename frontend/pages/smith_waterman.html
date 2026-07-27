@@ -148,27 +148,27 @@
       <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
         <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Resources</h2>
         <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
-          <a href="https://usaco.guide/gold/dp-intro" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
-            <div class="flex items-center space-x-2">
-              <span class="bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded text-[10px]">USACO GUIDE</span>
-              <span class="font-semibold text-slate-800">Introduction to Dynamic Programming (DP Basics)</span>
-              <span class="text-amber-500">★</span>
+          <a href="https://usaco.guide/gold/dp-intro" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors gap-3">
+            <div class="flex items-center space-x-2 min-w-0 flex-1">
+              <span class="bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded text-[10px] shrink-0">USACO GUIDE</span>
+              <span class="font-semibold text-slate-800 truncate">Introduction to Dynamic Programming (DP Basics)</span>
+              <span class="text-amber-500 shrink-0">★</span>
             </div>
-            <span class="text-slate-500">Prerequisite DP Concepts</span>
+            <span class="text-slate-500 shrink-0 hidden sm:inline">Prerequisite DP Concepts</span>
           </a>
-          <a href="https://pubmed.ncbi.nlm.nih.gov/7265238/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
-            <div class="flex items-center space-x-2">
-              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">NCBI / PUBMED</span>
-              <span class="font-semibold text-slate-800">Identification of Common Molecular Subsequences (Smith &amp; Waterman, 1981)</span>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/7265238/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors gap-3">
+            <div class="flex items-center space-x-2 min-w-0 flex-1">
+              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px] shrink-0">NCBI / PUBMED</span>
+              <span class="font-semibold text-slate-800 truncate">Identification of Common Molecular Subsequences (Smith &amp; Waterman, 1981)</span>
             </div>
-            <span class="text-slate-500">Original 1981 Paper (PMID: 7265238)</span>
+            <span class="text-slate-500 shrink-0 hidden sm:inline">Original 1981 Paper (PMID: 7265238)</span>
           </a>
-          <a href="https://en.wikipedia.org/wiki/Smith%E2%80%93Waterman_algorithm" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
-            <div class="flex items-center space-x-2">
-              <span class="bg-slate-100 text-slate-800 font-bold px-2 py-0.5 rounded text-[10px]">WIKIPEDIA</span>
-              <span class="font-semibold text-slate-800">Smith–Waterman Algorithm Overview</span>
+          <a href="https://en.wikipedia.org/wiki/Smith%E2%80%93Waterman_algorithm" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors gap-3">
+            <div class="flex items-center space-x-2 min-w-0 flex-1">
+              <span class="bg-slate-100 text-slate-800 font-bold px-2 py-0.5 rounded text-[10px] shrink-0">WIKIPEDIA</span>
+              <span class="font-semibold text-slate-800 truncate">Smith–Waterman Algorithm Overview</span>
             </div>
-            <span class="text-slate-500">Reference Background</span>
+            <span class="text-slate-500 shrink-0 hidden sm:inline">Reference Background</span>
           </a>
         </div>
       </section>
@@ -270,9 +270,8 @@
           </div>
         </div>
 
-        <!-- High-density Monospace console block -->
-        <div class="bg-slate-50 border border-slate-200 rounded-sm p-4 flex items-center justify-center">
-          <div class="w-full flex flex-col items-center justify-center font-mono-seq text-sm leading-normal select-all bg-slate-900 text-slate-300 p-5 border border-slate-950 rounded-sm shadow-inner font-bold">
+        <div class="bg-slate-50/80 border border-slate-200 rounded-xl p-4 flex items-center justify-center shadow-xs">
+          <div class="w-full flex flex-col items-center justify-center font-mono-seq text-sm leading-normal select-all bg-white/60 text-slate-800 p-5 border border-slate-200 rounded-lg shadow-xs font-bold">
             <div id="visual-seq1" class="flex tracking-widest mb-1"></div>
             <div id="visual-match" class="flex tracking-widest mb-1 text-slate-500 h-4"></div>
             <div id="visual-seq2" class="flex tracking-widest"></div>
@@ -482,7 +481,7 @@
               <li>Terminates at $(2, 2)$ where score hits $0$.</li>
             </ul>
 
-            <p class="mt-2 text-xs font-mono bg-slate-900 text-slate-200 p-3 rounded-sm">
+            <p class="mt-2 text-xs font-mono bg-indigo-50/80 border border-indigo-150 text-indigo-950 p-3 rounded-md shadow-xs">
               Reversed Final Local Alignment:<br/>
               S1: C T C A<br/>
               S2: - T C A<br/>
@@ -599,13 +598,13 @@
         <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Curated Practice Problems</h2>
         <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
           
-          <a href="https://rosalind.info/problems/loca/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
-            <div class="flex items-center space-x-2">
-              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">ROSALIND</span>
-              <span class="font-semibold text-slate-800">LOCA - Local Alignment with Scoring Matrix</span>
-              <span class="text-slate-400 text-[10px]">&bull; Intermediate</span>
+          <a href="https://rosalind.info/problems/loca/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors gap-3">
+            <div class="flex items-center space-x-2 min-w-0 flex-1">
+              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px] shrink-0">ROSALIND</span>
+              <span class="font-semibold text-slate-800 truncate">LOCA - Local Alignment with Scoring Matrix</span>
+              <span class="text-slate-400 text-[10px] shrink-0">&bull; Intermediate</span>
             </div>
-            <span class="text-indigo-600 font-semibold hover:underline">Solve Problem &rarr;</span>
+            <span class="text-indigo-600 font-semibold hover:underline shrink-0 hidden sm:inline">Solve Problem &rarr;</span>
           </a>
 
         </div>

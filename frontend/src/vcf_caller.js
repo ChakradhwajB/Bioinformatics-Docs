@@ -101,7 +101,7 @@ function renderVCFOutput() {
   vcfText += `chr1\t10452\trs88201\t${ref}\t${alt}\t${qualScore}\tPASS\tDP=${totalDP};AF=${altAF.toFixed(2)}\tGT\t${gt}`;
 
   let html = `<div class="space-y-4">`;
-  html += `<pre class="text-emerald-400 font-mono text-xs font-bold leading-relaxed whitespace-pre-wrap bg-slate-900 p-4 rounded-xl border border-slate-950 shadow-inner">${vcfText}</pre>`;
+  html += `<pre class="text-indigo-950 font-mono text-xs font-bold leading-relaxed whitespace-pre-wrap bg-slate-50/80 p-4 rounded-xl border border-slate-200 shadow-xs">${vcfText}</pre>`;
 
   // Read Pileup Table
   html += `<div class="bg-white border border-slate-200 rounded-xl p-4 shadow-xs">`;

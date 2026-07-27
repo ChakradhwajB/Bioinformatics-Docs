@@ -142,20 +142,20 @@
       <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
         <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Resources</h2>
         <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
-          <a href="https://usaco.guide/gold/string-roots?lang=cpp" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
-            <div class="flex items-center space-x-2">
-              <span class="bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded text-[10px]">USACO GUIDE</span>
-              <span class="font-semibold text-slate-800">Trie Data Structure &amp; Prefix Trees</span>
-              <span class="text-amber-500">★</span>
+          <a href="https://usaco.guide/gold/string-roots?lang=cpp" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors gap-3">
+            <div class="flex items-center space-x-2 min-w-0 flex-1">
+              <span class="bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded text-[10px] shrink-0">USACO GUIDE</span>
+              <span class="font-semibold text-slate-800 truncate">Trie Data Structure &amp; Prefix Trees</span>
+              <span class="text-amber-500 shrink-0">★</span>
             </div>
-            <span class="text-slate-500">Core Trie Theory</span>
+            <span class="text-slate-500 shrink-0 hidden sm:inline">Core Trie Theory</span>
           </a>
-          <a href="https://en.wikipedia.org/wiki/Trie" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
-            <div class="flex items-center space-x-2">
-              <span class="bg-slate-100 text-slate-800 font-bold px-2 py-0.5 rounded text-[10px]">WIKIPEDIA</span>
-              <span class="font-semibold text-slate-800">Trie (Prefix Tree) Standard Specification</span>
+          <a href="https://en.wikipedia.org/wiki/Trie" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors gap-3">
+            <div class="flex items-center space-x-2 min-w-0 flex-1">
+              <span class="bg-slate-100 text-slate-800 font-bold px-2 py-0.5 rounded text-[10px] shrink-0">WIKIPEDIA</span>
+              <span class="font-semibold text-slate-800 truncate">Trie (Prefix Tree) Standard Specification</span>
             </div>
-            <span class="text-slate-500">Reference Background</span>
+            <span class="text-slate-500 shrink-0 hidden sm:inline">Reference Background</span>
           </a>
         </div>
       </section>
@@ -244,7 +244,7 @@
         <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Trie Structural Visualizer</h2>
 
         <!-- Sequence Highlight Box -->
-        <div id="visualizer-box" class="w-full font-mono-seq text-xs leading-normal select-all bg-slate-900 text-slate-300 p-4 border border-slate-950 rounded-md overflow-y-auto max-h-36 shadow-inner break-all">
+        <div id="visualizer-box" class="w-full font-mono-seq text-xs leading-normal select-all bg-slate-50/80 text-slate-800 p-4 border border-slate-200 rounded-lg overflow-y-auto max-h-36 shadow-xs break-all">
           Run search to view mapped sequence matches.
         </div>
 

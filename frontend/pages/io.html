@@ -269,20 +269,20 @@
       <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
         <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Resources</h2>
         <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
-          <a href="https://en.wikipedia.org/wiki/FASTA_format" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
-            <div class="flex items-center space-x-2">
-              <span class="bg-slate-100 text-slate-800 font-bold px-2 py-0.5 rounded text-[10px]">WIKIPEDIA</span>
-              <span class="font-semibold text-slate-800">FASTA Sequence Format Standard Specification</span>
-              <span class="text-amber-500">★</span>
+          <a href="https://en.wikipedia.org/wiki/FASTA_format" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors gap-3">
+            <div class="flex items-center space-x-2 min-w-0 flex-1">
+              <span class="bg-slate-100 text-slate-800 font-bold px-2 py-0.5 rounded text-[10px] shrink-0">WIKIPEDIA</span>
+              <span class="font-semibold text-slate-800 truncate">FASTA Sequence Format Standard Specification</span>
+              <span class="text-amber-500 shrink-0">★</span>
             </div>
-            <span class="text-slate-500">Format Reference</span>
+            <span class="text-slate-500 shrink-0 hidden sm:inline">Format Reference</span>
           </a>
-          <a href="https://blast.ncbi.nlm.nih.gov/doc/blast-help/fasta.html" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
-            <div class="flex items-center space-x-2">
-              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">NCBI BLAST</span>
-              <span class="font-semibold text-slate-800">NCBI FASTA Sequence Format Guidelines</span>
+          <a href="https://blast.ncbi.nlm.nih.gov/doc/blast-help/fasta.html" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors gap-3">
+            <div class="flex items-center space-x-2 min-w-0 flex-1">
+              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px] shrink-0">NCBI BLAST</span>
+              <span class="font-semibold text-slate-800 truncate">NCBI FASTA Sequence Format Guidelines</span>
             </div>
-            <span class="text-slate-500">Official Specification</span>
+            <span class="text-slate-500 shrink-0 hidden sm:inline">Official Specification</span>
           </a>
         </div>
       </section>
@@ -397,7 +397,7 @@
             <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Parsed Header Records</h3>
             <span class="text-[11px] font-bold text-slate-500">Ingested: <span id="record-count" class="text-sm font-black text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200 shadow-sm">-</span></span>
           </div>
-          <div id="output-console" class="w-full font-mono-seq text-xs leading-normal select-all bg-slate-900 text-slate-300 p-4 border border-slate-950 rounded-md overflow-y-auto max-h-48 shadow-inner">
+          <div id="output-console" class="w-full font-mono-seq text-xs leading-normal select-all bg-slate-50/80 text-slate-800 p-4 border border-slate-200 rounded-lg overflow-y-auto max-h-48 shadow-xs">
             Uploaded FASTA file parsed header statistics output here.
           </div>
         </div>
@@ -421,7 +421,7 @@
           <div>
             <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">3. Step-by-Step Worked Example &amp; State Trace</h3>
             <p class="text-xs">Consider the following multi-record FASTA input with multiline sequence wrapping and case variations:</p>
-            <pre class="bg-slate-900 text-slate-200 p-3 border border-slate-950 rounded-sm font-mono text-xs my-2 overflow-x-auto select-all">&gt;seq1_human Hemoglobin subunit alpha
+            <pre class="bg-slate-50/80 text-slate-800 p-3 border border-slate-200 rounded-lg font-mono text-xs my-2 overflow-x-auto select-all">&gt;seq1_human Hemoglobin subunit alpha
 MVLSPADKTN
 VKAAWGKVGA
 &gt;seq2_mouse Hemoglobin subunit alpha

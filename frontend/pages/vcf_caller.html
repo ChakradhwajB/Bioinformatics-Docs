@@ -105,20 +105,20 @@
       <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
         <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Resources</h2>
         <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
-          <a href="https://pubmed.ncbi.nlm.nih.gov/21653522/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
-            <div class="flex items-center space-x-2">
-              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">NCBI / PUBMED</span>
-              <span class="font-semibold text-slate-800">The variant call format and VCFtools (Danecek et al., 2011)</span>
-              <span class="text-amber-500">★</span>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/21653522/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors gap-3">
+            <div class="flex items-center space-x-2 min-w-0 flex-1">
+              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px] shrink-0">NCBI / PUBMED</span>
+              <span class="font-semibold text-slate-800 truncate">The variant call format and VCFtools (Danecek et al., 2011)</span>
+              <span class="text-amber-500 shrink-0">★</span>
             </div>
-            <span class="text-slate-500">VCF Specification (PMID: 21653522)</span>
+            <span class="text-slate-500 shrink-0 hidden sm:inline">VCF Specification (PMID: 21653522)</span>
           </a>
-          <a href="https://pubmed.ncbi.nlm.nih.gov/21106904/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
-            <div class="flex items-center space-x-2">
-              <span class="bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded text-[10px]">NCBI / PUBMED</span>
-              <span class="font-semibold text-slate-800">A framework for variation discovery and genotyping using next-generation DNA sequencing data (DePristo et al., 2011)</span>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/21106904/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors gap-3">
+            <div class="flex items-center space-x-2 min-w-0 flex-1">
+              <span class="bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded text-[10px] shrink-0">NCBI / PUBMED</span>
+              <span class="font-semibold text-slate-800 truncate">A framework for variation discovery and genotyping using next-generation DNA sequencing data (DePristo et al., 2011)</span>
             </div>
-            <span class="text-slate-500">GATK Framework Paper</span>
+            <span class="text-slate-500 shrink-0 hidden sm:inline">GATK Framework Paper</span>
           </a>
         </div>
       </section>
@@ -168,7 +168,7 @@
               Given aligned read observations $\mathcal{D} = \{b_1, b_2, \dots, b_N\}$ with Phred quality error probabilities $e_i = 10^{-Q_i/10}$, a Bayesian variant caller evaluates candidate diploid genotypes $G \in \{AA, AB, BB\}$:
             </p>
 
-            <div class="bg-slate-900 text-slate-200 p-5 rounded-xl font-mono text-xs text-center my-4 shadow-inner">
+            <div class="bg-slate-50/80 border border-slate-200 text-slate-800 p-5 rounded-xl font-mono text-xs text-center my-4 shadow-xs">
               $$P(G \mid \mathcal{D}) = \frac{P(\mathcal{D} \mid G) \cdot P(G)}{\sum_{G'} P(\mathcal{D} \mid G') \cdot P(G')}$$
             </div>
 
@@ -268,7 +268,7 @@
                 </tbody>
               </table>
             </div>
-            <p class="mt-2 text-xs font-mono bg-slate-900 text-slate-200 p-3 rounded-sm">
+            <p class="mt-2 text-xs font-mono bg-indigo-50/80 border border-indigo-150 text-indigo-950 p-3 rounded-md shadow-xs">
               Selected Genotype: 1/1 (Homozygous Alternate G/G)<br/>
               QUAL = 99 (PASS) &bull; PL = 210,27,0
             </p>

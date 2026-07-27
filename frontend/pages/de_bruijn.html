@@ -105,27 +105,27 @@
       <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
         <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Resources</h2>
         <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
-          <a href="https://pubmed.ncbi.nlm.nih.gov/11504945/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
-            <div class="flex items-center space-x-2">
-              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">NCBI / PUBMED</span>
-              <span class="font-semibold text-slate-800">An Eulerian path approach to DNA fragment assembly (Pevzner, Tang, &amp; Waterman, 2001)</span>
-              <span class="text-amber-500">★</span>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/11504945/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors gap-3">
+            <div class="flex items-center space-x-2 min-w-0 flex-1">
+              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px] shrink-0">NCBI / PUBMED</span>
+              <span class="font-semibold text-slate-800 truncate">An Eulerian path approach to DNA fragment assembly (Pevzner, Tang, &amp; Waterman, 2001)</span>
+              <span class="text-amber-500 shrink-0">★</span>
             </div>
-            <span class="text-slate-500">Landmark Paper (PMID: 11504945)</span>
+            <span class="text-slate-500 shrink-0 hidden sm:inline">Landmark Paper (PMID: 11504945)</span>
           </a>
-          <a href="https://pubmed.ncbi.nlm.nih.gov/22505259/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
-            <div class="flex items-center space-x-2">
-              <span class="bg-indigo-100 text-indigo-800 font-bold px-2 py-0.5 rounded text-[10px]">NCBI / PUBMED</span>
-              <span class="font-semibold text-slate-800">SPAdes: a new genome assembly algorithm and its applications (Bankevich et al., 2012)</span>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/22505259/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors gap-3">
+            <div class="flex items-center space-x-2 min-w-0 flex-1">
+              <span class="bg-indigo-100 text-indigo-800 font-bold px-2 py-0.5 rounded text-[10px] shrink-0">NCBI / PUBMED</span>
+              <span class="font-semibold text-slate-800 truncate">SPAdes: a new genome assembly algorithm and its applications (Bankevich et al., 2012)</span>
             </div>
-            <span class="text-slate-500">SPAdes Assembler Paper (PMID: 22505259)</span>
+            <span class="text-slate-500 shrink-0 hidden sm:inline">SPAdes Assembler Paper (PMID: 22505259)</span>
           </a>
-          <a href="https://pubmed.ncbi.nlm.nih.gov/18349386/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
-            <div class="flex items-center space-x-2">
-              <span class="bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded text-[10px]">NCBI / PUBMED</span>
-              <span class="font-semibold text-slate-800">Velvet: Algorithms for de novo short read assembly using de Bruijn graphs (Zerbino &amp; Birney, 2008)</span>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/18349386/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors gap-3">
+            <div class="flex items-center space-x-2 min-w-0 flex-1">
+              <span class="bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded text-[10px] shrink-0">NCBI / PUBMED</span>
+              <span class="font-semibold text-slate-800 truncate">Velvet: Algorithms for de novo short read assembly using de Bruijn graphs (Zerbino &amp; Birney, 2008)</span>
             </div>
-            <span class="text-slate-500">Velvet Assembler Paper</span>
+            <span class="text-slate-500 shrink-0 hidden sm:inline">Velvet Assembler Paper</span>
           </a>
         </div>
       </section>
@@ -184,9 +184,9 @@
               In 2001, Pevzner, Tang, and Waterman introduced a breakthrough transformation: decompose reads into overlapping $k$-mers to construct a <strong>De Bruijn Graph</strong>:
             </p>
 
-            <div class="bg-slate-900 text-slate-200 p-4 rounded-xl font-mono text-xs my-3 shadow-inner space-y-1">
-              <div><span class="text-indigo-400 font-bold">Nodes (V):</span> Distinct $(k-1)$-mer sequence prefixes and suffixes.</div>
-              <div><span class="text-emerald-400 font-bold">Edges (E):</span> Directed $k$-mer reads connecting prefix $(k-1)$-mer to suffix $(k-1)$-mer.</div>
+            <div class="bg-slate-50/80 border border-slate-200 text-slate-800 p-4 rounded-xl font-mono text-xs my-3 shadow-xs space-y-1">
+              <div><span class="text-indigo-600 font-bold">Nodes (V):</span> Distinct $(k-1)$-mer sequence prefixes and suffixes.</div>
+              <div><span class="text-emerald-600 font-bold">Edges (E):</span> Directed $k$-mer reads connecting prefix $(k-1)$-mer to suffix $(k-1)$-mer.</div>
             </div>
 
             <p class="text-xs text-emerald-700 font-semibold">
@@ -296,7 +296,7 @@
                 </tbody>
               </table>
             </div>
-            <p class="mt-2 text-xs font-mono bg-slate-900 text-slate-200 p-3 rounded-sm">
+            <p class="mt-2 text-xs font-mono bg-indigo-50/80 border border-indigo-150 text-indigo-950 p-3 rounded-md shadow-xs">
               Eulerian Traversal Sequence:<br/>
               TA -&gt; AA -&gt; AT -&gt; TG -&gt; GC -&gt; CA -&gt; AT -&gt; TG -&gt; GG -&gt; GG<br/>
               Reconstructed Genome: TAATGCCATGGG

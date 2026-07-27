@@ -30,63 +30,85 @@
 <body class="bg-white text-slate-900 min-h-screen h-screen flex flex-col overflow-hidden">
   <div class="absolute top-0 z-[-2] h-screen w-full bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
   
+  <!-- Header Bar -->
   <header class="glass-nav border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] backdrop-blur-md py-3 px-6 flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0 select-none z-50">
+    <!-- Logo -->
     <div class="flex items-center space-x-2.5">
       <span class="font-bold text-slate-900 text-xs tracking-wider uppercase">Bioinformatics Docs</span>
     </div>
+    <!-- Nav links -->
     <nav class="flex items-center space-x-6 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
       <a href="../index.html" class="hover:text-slate-900 transition-colors">Home</a>
-      <a href="../learn.html" class="hover:text-slate-900 transition-colors">Curriculum Modules</a>
+      <a href="../learn.html" class="hover:text-slate-900 transition-colors">Modules</a>
       <a href="../glossary.html" class="hover:text-slate-900 transition-colors">Glossary</a>
       <a href="./docs.html" class="hover:text-indigo-700 transition-colors text-indigo-600">Documentation &rarr;</a>
+      <a href="https://github.com/ChakradhwajB/Bioinformatics-Docs" target="_blank" class="hover:text-slate-900 transition-colors flex items-center space-x-1">
+        <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.54 2.87 8.39 6.84 9.75.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.4 9.4 0 0 1 12 6.84c.85 0 1.71.12 2.51.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49C19.14 20.65 22 16.8 22 12.26 22 6.58 17.52 2 12 2z"/></svg>
+        <span>GitHub</span>
+      </a>
     </nav>
+    <!-- Server status -->
     <div class="flex items-center space-x-2 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full">
       <span id="server-status-dot" class="h-1.5 w-1.5 rounded-full bg-slate-400"></span>
       <span id="server-status-text" class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Checking...</span>
     </div>
   </header>
 
+  <!-- Workspace Shell -->
   <div class="flex-grow flex h-[calc(100vh-45px)] overflow-hidden relative">
+    
     <aside id="sidebar" class="w-72 bg-slate-50/60 backdrop-blur-md border-r border-slate-200/80 p-4 flex flex-col justify-between overflow-y-auto select-none transition-all duration-300 shrink-0 text-slate-800"></aside>
-    <button id="sidebar-toggle" class="absolute top-1/2 -translate-y-1/2 bg-white border border-slate-200 text-slate-500 hover:text-slate-800 h-8 w-4 rounded-r-md shadow-sm flex items-center justify-center cursor-pointer transition-all duration-300 z-40 select-none" style="left: 18rem">&lsaquo;</button>
 
+    <!-- Collapsible Sibling Toggle Button -->
+    <button
+      id="sidebar-toggle"
+      class="absolute top-1/2 -translate-y-1/2 bg-white border border-slate-200 text-slate-500 hover:text-slate-800 h-8 w-4 rounded-r-md shadow-sm flex items-center justify-center cursor-pointer transition-all duration-300 z-40 select-none"
+      style="left: 18rem"
+    >
+      &lsaquo;
+    </button>
+
+    <!-- Right Panels (Scrollable Workspace) -->
     <main class="flex-grow overflow-y-auto bg-transparent p-6 lg:p-10 space-y-8 relative">
+      
+      <!-- Module Title Header -->
       <div class="space-y-2">
         <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest block">Module 4 &bull; Sequence Alignment</span>
         <h1 class="text-3xl lg:text-4xl font-extralight tracking-tighter text-slate-900">Affine Gap Penalties &amp; Gotoh's Algorithm</h1>
-        <p class="text-xs text-slate-500 italic">Author: ChakradhwajB &bull; Comprehensive masterclass guide to modeling insertion/deletion events using Gotoh's 3-matrix dynamic programming optimization.</p>
+        <p class="text-xs text-slate-500 italic">Author: ChakradhwajB &bull; Modeling biologically realistic insertion/deletion events using Gotoh's 3-matrix dynamic programming optimization.</p>
       </div>
 
-      <!-- Primary Literature & Resources -->
+      <!-- Resources Section -->
       <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
-        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Primary Literature &amp; Essential References</h2>
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Resources</h2>
         <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
-          <a href="https://pubmed.ncbi.nlm.nih.gov/7151792/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
-            <div class="flex items-center space-x-2">
-              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">NCBI / PUBMED</span>
-              <span class="font-semibold text-slate-800">Gotoh, O. (1982). An improved algorithm for matching biological sequences. Journal of Molecular Biology, 162(3), 705-708.</span>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/7151792/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors gap-3">
+            <div class="flex items-center space-x-2 min-w-0 flex-1">
+              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px] shrink-0">NCBI / PUBMED</span>
+              <span class="font-semibold text-slate-800 truncate">Gotoh, O. (1982). An improved algorithm for matching biological sequences. Journal of Molecular Biology, 162(3), 705-708.</span>
+              <span class="text-amber-500 shrink-0">★</span>
             </div>
-            <span class="text-slate-500">Original Paper (PMID: 7151792) &rarr;</span>
+            <span class="text-slate-500 shrink-0 hidden sm:inline">Original Paper (PMID: 7151792)</span>
           </a>
-          <a href="https://pubmed.ncbi.nlm.nih.gov/5420325/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
-            <div class="flex items-center space-x-2">
-              <span class="bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded text-[10px]">NCBI / PUBMED</span>
-              <span class="font-semibold text-slate-800">Needleman, S. B., &amp; Wunsch, C. D. (1970). A general method applicable to the search for similarities in the amino acid sequence of two proteins. JMB 48(3), 443-453.</span>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/5420325/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors gap-3">
+            <div class="flex items-center space-x-2 min-w-0 flex-1">
+              <span class="bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded text-[10px] shrink-0">NCBI / PUBMED</span>
+              <span class="font-semibold text-slate-800 truncate">Needleman, S. B., &amp; Wunsch, C. D. (1970). A general method applicable to the search for similarities in the amino acid sequence of two proteins. JMB 48(3), 443-453.</span>
             </div>
-            <span class="text-slate-500">Foundational Global Alignment Paper &rarr;</span>
+            <span class="text-slate-500 shrink-0 hidden sm:inline">Foundational Global Alignment Paper</span>
           </a>
         </div>
       </section>
 
-      <!-- Educational Guide Part 1: Comprehensive History & Biological Foundations -->
+      <!-- Educational Guide Part 1 -->
       <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-8">
-        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Educational Guide: Comprehensive Theory of Affine Gap Alignment</h2>
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Educational Guide: Affine Gap Penalties &amp; Gotoh's Algorithm</h2>
         
         <div class="text-[14px] leading-relaxed space-y-6 text-slate-700">
           
           <!-- 1. Motivation & Biological Background -->
           <div>
-            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 pb-2 mb-3">1. Biological Motivation &amp; Evolutionary Mechanics of Indels</h3>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">1. Biological Motivation &amp; Evolutionary Mechanics of Indels</h3>
             <p>
               In molecular evolutionary biology, genetic sequences change over time through two fundamental classes of mutations: <strong>substitutions</strong> (single nucleotide transitions and transversions or amino acid point mutations) and <strong>indels</strong> (insertions and deletions). While substitutions alter single position identities without shifting sequence alignment coordinates, indels change sequence length by adding or removing nucleotides.
             </p>
@@ -124,7 +146,7 @@
 
           <!-- 2. Mathematical Formulation & Gap Models -->
           <div>
-            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 pb-2 mb-3">2. Mathematical Formulation &amp; Comparison of Gap Scoring Models</h3>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">2. Mathematical Formulation &amp; Comparison of Gap Scoring Models</h3>
             <p>
               Let $w(k)$ denote the penalty charged for a contiguous sequence gap of length $k \ge 1$. Computational biologists evaluate three distinct mathematical gap scoring models:
             </p>
@@ -152,7 +174,7 @@
 
           <!-- 3. Gotoh's Three-Matrix Finite State Machine -->
           <div>
-            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 pb-2 mb-3">3. Osamu Gotoh's Three-Matrix Finite State Machine</h3>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">3. Osamu Gotoh's Three-Matrix Finite State Machine</h3>
             <p>
               Under an affine gap model, standard Needleman-Wunsch cannot determine whether to charge $g_o$ or $g_e$ at cell $(i, j)$ without knowing whether the alignment was <em>already in a gap state</em> at position $(i-1, j)$ or $(i, j-1)$.
             </p>
@@ -160,17 +182,17 @@
               Gotoh (1982) solved this by framing sequence alignment as a 3-state Finite State Machine (FSM). The algorithm tracks three parallel DP matrices corresponding to the three alignment states:
             </p>
 
-            <div class="bg-slate-900 text-slate-200 p-5 rounded-xl font-mono text-xs space-y-4 shadow-inner my-4">
+            <div class="bg-slate-50/80 border border-slate-200 text-slate-800 p-5 rounded-xl font-mono text-xs space-y-4 shadow-xs my-4">
               <div>
-                <span class="text-indigo-400 font-bold">// State M(i, j): Align character S1[i] with character S2[j] (Match / Mismatch)</span>
+                <span class="text-indigo-600 font-bold">// State M(i, j): Align character S1[i] with character S2[j] (Match / Mismatch)</span>
                 <p class="mt-1">M(i, j) = max( M(i-1, j-1), Ix(i-1, j-1), Iy(i-1, j-1) ) + S(S1[i], S2[j])</p>
               </div>
               <div>
-                <span class="text-amber-400 font-bold">// State Ix(i, j): Align character S1[i] with gap '-' in S2 (Deletion in S1)</span>
+                <span class="text-amber-600 font-bold">// State Ix(i, j): Align character S1[i] with gap '-' in S2 (Deletion in S1)</span>
                 <p class="mt-1">Ix(i, j) = max( M(i-1, j) - g_o, Ix(i-1, j) - g_e )</p>
               </div>
               <div>
-                <span class="text-emerald-400 font-bold">// State Iy(i, j): Align gap '-' in S1 with character S2[j] (Insertion in S2)</span>
+                <span class="text-emerald-600 font-bold">// State Iy(i, j): Align gap '-' in S1 with character S2[j] (Insertion in S2)</span>
                 <p class="mt-1">Iy(i, j) = max( M(i, j-1) - g_o, Iy(i, j-1) - g_e )</p>
               </div>
             </div>
@@ -182,85 +204,10 @@
               <p>For j = 1..M: Iy(0, j) = -g_o - (j-1)*g_e, M(0, j) = -∞, Ix(0, j) = -∞</p>
             </div>
           </div>
-
-          <!-- 4. Worked Step-by-Step Example -->
-          <div>
-            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 pb-2 mb-3">4. Step-by-Step Hand-Calculated Worked Example</h3>
-            <p class="text-xs mb-3">
-              Let us trace the complete in-fill of matrices $M, I_x, I_y$ for $S_1 = \text{"HEAGAWGHEE"}$ vs $S_2 = \text{"PAWHEAE"}$ under Match = +2, Mismatch = -1, Gap Open $g_o = 3$, Gap Extend $g_e = 1$:
-            </p>
-            <div class="bg-slate-50 border border-slate-200 p-4 rounded-md text-xs space-y-2 font-mono shadow-inner">
-              <p><strong>Cell (1, 1) ['H' vs 'P']:</strong></p>
-              <p>sub('H', 'P') = -1</p>
-              <p>M(1, 1) = max(M(0,0), Ix(0,0), Iy(0,0)) + (-1) = 0 - 1 = -1</p>
-              <p>Ix(1, 1) = max(M(0,1) - 3, Ix(0,1) - 1) = max(-∞, -∞) = -4</p>
-              <p>Iy(1, 1) = max(M(1,0) - 3, Iy(1,0) - 1) = max(-∞, -4) = -4</p>
-              <p><strong>Optimal Global Alignment Result: Score = 10</strong></p>
-            </div>
-          </div>
-
-          <!-- 5. Time & Space Complexity Analysis -->
-          <div>
-            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 pb-2 mb-3">5. Time &amp; Space Complexity Analysis</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-              <div class="bg-slate-50 p-3.5 border border-slate-200 rounded-md">
-                <span class="font-bold text-slate-900 block mb-1">Time Complexity: $\mathcal{O}(N \cdot M)$</span>
-                Gotoh's algorithm performs a constant number of comparisons (3 max calls per matrix) for each of the $N \times M$ grid points, achieving optimal quadratic time.
-              </div>
-              <div class="bg-slate-50 p-3.5 border border-slate-200 rounded-md">
-                <span class="font-bold text-slate-900 block mb-1">Space Complexity: $\mathcal{O}(N \cdot M)$</span>
-                Storing all three matrices for traceback requires $\mathcal{O}(NM)$ memory. By combining Gotoh's algorithm with Hirschberg's divide-and-conquer strategy, memory can be reduced to $\mathcal{O}(N+M)$ space.
-              </div>
-            </div>
-          </div>
-
-          <!-- 6. Python 3 Reference Implementation -->
-          <div>
-            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 pb-2 mb-3">6. Production-Grade Python 3 Reference Implementation</h3>
-            <pre class="bg-slate-900 text-slate-200 p-5 rounded-xl font-mono text-xs overflow-x-auto shadow-inner"><span class="text-pink-400">def</span> <span class="text-sky-400">gotoh_affine_align</span>(seq1: <span class="text-sky-400">str</span>, seq2: <span class="text-sky-400">str</span>, match: <span class="text-sky-400">int</span> = <span class="text-amber-400">2</span>, mismatch: <span class="text-sky-400">int</span> = -<span class="text-amber-400">1</span>, g_o: <span class="text-sky-400">int</span> = <span class="text-amber-400">3</span>, g_e: <span class="text-sky-400">int</span> = <span class="text-amber-400">1</span>):
-    <span class="text-slate-400 italic">"""Gotoh's 3-matrix DP affine gap global sequence alignment."""</span>
-    n, m = <span class="text-sky-400">len</span>(seq1), <span class="text-sky-400">len</span>(seq2)
-    INF = <span class="text-amber-400">10**9</span>
-    M = [[-<span class="text-amber-400">INF</span>]*(m+<span class="text-amber-400">1</span>) <span class="text-pink-400">for</span> _ <span class="text-pink-400">in</span> <span class="text-sky-400">range</span>(n+<span class="text-amber-400">1</span>)]
-    Ix = [[-<span class="text-amber-400">INF</span>]*(m+<span class="text-amber-400">1</span>) <span class="text-pink-400">for</span> _ <span class="text-pink-400">in</span> <span class="text-sky-400">range</span>(n+<span class="text-amber-400">1</span>)]
-    Iy = [[-<span class="text-amber-400">INF</span>]*(m+<span class="text-amber-400">1</span>) <span class="text-pink-400">for</span> _ <span class="text-pink-400">in</span> <span class="text-sky-400">range</span>(n+<span class="text-amber-400">1</span>)]
-    
-    M[<span class="text-amber-400">0</span>][<span class="text-amber-400">0</span>] = <span class="text-amber-400">0</span>
-    <span class="text-pink-400">for</span> i <span class="text-pink-400">in</span> <span class="text-sky-400">range</span>(<span class="text-amber-400">1</span>, n+<span class="text-amber-400">1</span>): Ix[i][<span class="text-amber-400">0</span>] = -g_o - (i-<span class="text-amber-400">1</span>)*g_e
-    <span class="text-pink-400">for</span> j <span class="text-pink-400">in</span> <span class="text-sky-400">range</span>(<span class="text-amber-400">1</span>, m+<span class="text-amber-400">1</span>): Iy[<span class="text-amber-400">0</span>][j] = -g_o - (j-<span class="text-amber-400">1</span>)*g_e
-    
-    <span class="text-pink-400">for</span> i <span class="text-pink-400">in</span> <span class="text-sky-400">range</span>(<span class="text-amber-400">1</span>, n+<span class="text-amber-400">1</span>):
-        <span class="text-pink-400">for</span> j <span class="text-pink-400">in</span> <span class="text-sky-400">range</span>(<span class="text-amber-400">1</span>, m+<span class="text-amber-400">1</span>):
-            sub = match <span class="text-pink-400">if</span> seq1[i-<span class="text-amber-400">1</span>] == seq2[j-<span class="text-amber-400">1</span>] <span class="text-pink-400">else</span> mismatch
-            M[i][j] = <span class="text-sky-400">max</span>(M[i-<span class="text-amber-400">1</span>][j-<span class="text-amber-400">1</span>], Ix[i-<span class="text-amber-400">1</span>][j-<span class="text-amber-400">1</span>], Iy[i-<span class="text-amber-400">1</span>][j-<span class="text-amber-400">1</span>]) + sub
-            Ix[i][j] = <span class="text-sky-400">max</span>(M[i-<span class="text-amber-400">1</span>][j] - g_o, Ix[i-<span class="text-amber-400">1</span>][j] - g_e)
-            Iy[i][j] = <span class="text-sky-400">max</span>(M[i][j-<span class="text-amber-400">1</span>] - g_o, Iy[i][j-<span class="text-amber-400">1</span>] - g_e)
-            
-    best_score = <span class="text-sky-400">max</span>(M[n][m], Ix[n][m], Iy[n][m])
-    <span class="text-pink-400">return</span> best_score</pre>
-          </div>
-
-          <!-- 7. Practice Exercises -->
-          <div>
-            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 pb-2 mb-3">7. Practice Exercises &amp; ROSALIND Challenges</h3>
-            <div class="space-y-4">
-              <div class="bg-emerald-50 border border-emerald-100 p-4 rounded-sm space-y-2">
-                <span class="text-[9px] font-bold text-emerald-600 uppercase tracking-widest block">Warm-up</span>
-                <p class="text-xs text-slate-700">Compute the gap penalty $w(k)$ for a gap of length $k=5$ with $g_o=10$ and $g_e=1$ by hand.</p>
-                <button onclick="window.loadSandboxChallenge(this)" class="text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-3 py-1.5 rounded shadow-sm hover:bg-slate-50 transition-colors uppercase tracking-wider cursor-pointer">Try in Sandbox &rarr;</button>
-              </div>
-
-              <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-sm space-y-2">
-                <span class="text-[9px] font-bold text-indigo-600 uppercase tracking-widest block">Core</span>
-                <p class="text-xs text-slate-700">Write a test suite verifying that aligning "HEAGAWGHEE" and "PAWHEAE" yields score 10 under Gotoh's affine gap parameters.</p>
-                <button onclick="window.loadSandboxChallenge(this)" class="text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-3 py-1.5 rounded shadow-sm hover:bg-slate-50 transition-colors uppercase tracking-wider cursor-pointer">Try in Sandbox &rarr;</button>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
-      <!-- Section 1: Alignment Output Console -->
+      <!-- Section 1 & 2: Alignment Output & DP Grid Visualizer -->
       <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-6">
         <div class="flex justify-between items-center select-none">
           <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Optimal Alignment Output</h2>
@@ -269,8 +216,8 @@
           </div>
         </div>
 
-        <div class="bg-slate-50 border border-slate-200 rounded-sm p-4 flex items-center justify-center">
-          <div class="w-full flex flex-col items-center justify-center font-mono-seq text-sm leading-normal select-all bg-slate-900 text-slate-300 p-5 border border-slate-950 rounded-sm shadow-inner font-bold">
+        <div class="bg-slate-50/80 border border-slate-200 rounded-xl p-4 flex items-center justify-center shadow-xs">
+          <div class="w-full flex flex-col items-center justify-center font-mono-seq text-sm leading-normal select-all bg-white/60 text-slate-800 p-5 border border-slate-200 rounded-lg shadow-xs font-bold">
             <div id="visual-seq1" class="flex tracking-widest mb-1"></div>
             <div id="visual-match" class="flex tracking-widest mb-1 text-slate-500 h-4"></div>
             <div id="visual-seq2" class="flex tracking-widest"></div>
@@ -278,7 +225,6 @@
         </div>
       </section>
 
-      <!-- Section 2: Grid DP Matrix Visualizer with Player Controls -->
       <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-6 flex flex-col">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-3 select-none">
           <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Dynamic Programming Grid Matrix</h2>
@@ -341,6 +287,90 @@
         </div>
       </section>
 
+      <!-- Educational Guide Part 2 -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-8">
+        <div class="text-[14px] leading-relaxed space-y-6 text-slate-700">
+          
+          <!-- 4. Worked Step-by-Step Example -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">4. Step-by-Step Hand-Calculated Worked Example</h3>
+            <p class="text-xs mb-3">
+              Let us trace the complete in-fill of matrices $M, I_x, I_y$ for $S_1 = \text{"HEAGAWGHEE"}$ vs $S_2 = \text{"PAWHEAE"}$ under Match = +2, Mismatch = -1, Gap Open $g_o = 3$, Gap Extend $g_e = 1$:
+            </p>
+            <div class="bg-slate-50 border border-slate-200 p-4 rounded-md text-xs space-y-2 font-mono shadow-inner">
+              <p><strong>Cell (1, 1) ['H' vs 'P']:</strong></p>
+              <p>sub('H', 'P') = -1</p>
+              <p>M(1, 1) = max(M(0,0), Ix(0,0), Iy(0,0)) + (-1) = 0 - 1 = -1</p>
+              <p>Ix(1, 1) = max(M(0,1) - 3, Ix(0,1) - 1) = max(-∞, -∞) = -4</p>
+              <p>Iy(1, 1) = max(M(1,0) - 3, Iy(1,0) - 1) = max(-∞, -4) = -4</p>
+              <p><strong>Optimal Global Alignment Result: Score = 10</strong></p>
+            </div>
+          </div>
+
+          <!-- 5. Time & Space Complexity Analysis -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">5. Time &amp; Space Complexity Analysis</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+              <div class="bg-slate-50 p-3.5 border border-slate-200 rounded-md">
+                <span class="font-bold text-slate-900 block mb-1">Time Complexity: $\mathcal{O}(N \cdot M)$</span>
+                Gotoh's algorithm performs a constant number of comparisons (3 max calls per matrix) for each of the $N \times M$ grid points, achieving optimal quadratic time.
+              </div>
+              <div class="bg-slate-50 p-3.5 border border-slate-200 rounded-md">
+                <span class="font-bold text-slate-900 block mb-1">Space Complexity: $\mathcal{O}(N \cdot M)$</span>
+                Storing all three matrices for traceback requires $\mathcal{O}(NM)$ memory. By combining Gotoh's algorithm with Hirschberg's divide-and-conquer strategy, memory can be reduced to $\mathcal{O}(N+M)$ space.
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. Python 3 Reference Implementation -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">6. Production-Grade Python 3 Reference Implementation</h3>
+            <div class="relative group mt-1">
+              <button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); this.textContent = 'Copied!'; setTimeout(() => this.textContent = 'Copy', 2000)" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-sm text-[9px] font-bold tracking-wide transition-all duration-150 shadow-sm cursor-pointer select-none">Copy</button>
+              <pre class="bg-white border border-slate-200 text-slate-700 p-3.5 pr-12 rounded-sm font-mono text-xs overflow-x-auto leading-relaxed"><span class="text-pink-600">def</span> <span class="text-sky-600">gotoh_affine_align</span>(seq1: <span class="text-sky-600">str</span>, seq2: <span class="text-sky-600">str</span>, match: <span class="text-sky-600">int</span> = <span class="text-orange-600">2</span>, mismatch: <span class="text-sky-600">int</span> = -<span class="text-orange-600">1</span>, g_o: <span class="text-sky-600">int</span> = <span class="text-orange-600">3</span>, g_e: <span class="text-sky-600">int</span> = <span class="text-orange-600">1</span>):
+    <span class="text-slate-500 italic">"""Gotoh's 3-matrix DP affine gap global sequence alignment."""</span>
+    n, m = <span class="text-sky-600">len</span>(seq1), <span class="text-sky-600">len</span>(seq2)
+    INF = <span class="text-orange-600">10**9</span>
+    M = [[-<span class="text-orange-600">INF</span>]*(m+<span class="text-orange-600">1</span>) <span class="text-pink-600">for</span> _ <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(n+<span class="text-orange-600">1</span>)]
+    Ix = [[-<span class="text-orange-600">INF</span>]*(m+<span class="text-orange-600">1</span>) <span class="text-pink-600">for</span> _ <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(n+<span class="text-orange-600">1</span>)]
+    Iy = [[-<span class="text-orange-600">INF</span>]*(m+<span class="text-orange-600">1</span>) <span class="text-pink-600">for</span> _ <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(n+<span class="text-orange-600">1</span>)]
+    
+    M[<span class="text-orange-600">0</span>][<span class="text-orange-600">0</span>] = <span class="text-orange-600">0</span>
+    <span class="text-pink-600">for</span> i <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(<span class="text-orange-600">1</span>, n+<span class="text-orange-600">1</span>): Ix[i][<span class="text-orange-600">0</span>] = -g_o - (i-<span class="text-orange-600">1</span>)*g_e
+    <span class="text-pink-600">for</span> j <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(<span class="text-orange-600">1</span>, m+<span class="text-orange-600">1</span>): Iy[<span class="text-orange-600">0</span>][j] = -g_o - (j-<span class="text-orange-600">1</span>)*g_e
+    
+    <span class="text-pink-600">for</span> i <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(<span class="text-orange-600">1</span>, n+<span class="text-orange-600">1</span>):
+        <span class="text-pink-600">for</span> j <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(<span class="text-orange-600">1</span>, m+<span class="text-orange-600">1</span>):
+            sub = match <span class="text-pink-600">if</span> seq1[i-<span class="text-orange-600">1</span>] == seq2[j-<span class="text-orange-600">1</span>] <span class="text-pink-600">else</span> mismatch
+            M[i][j] = <span class="text-sky-600">max</span>(M[i-<span class="text-orange-600">1</span>][j-<span class="text-orange-600">1</span>], Ix[i-<span class="text-orange-600">1</span>][j-<span class="text-orange-600">1</span>], Iy[i-<span class="text-orange-600">1</span>][j-<span class="text-orange-600">1</span>]) + sub
+            Ix[i][j] = <span class="text-sky-600">max</span>(M[i-<span class="text-orange-600">1</span>][j] - g_o, Ix[i-<span class="text-orange-600">1</span>][j] - g_e)
+            Iy[i][j] = <span class="text-sky-600">max</span>(M[i][j-<span class="text-orange-600">1</span>] - g_o, Iy[i][j-<span class="text-orange-600">1</span>] - g_e)
+            
+    best_score = <span class="text-sky-600">max</span>(M[n][m], Ix[n][m], Iy[n][m])
+    <span class="text-pink-600">return</span> best_score</pre>
+            </div>
+          </div>
+
+          <!-- 7. Practice Exercises -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">7. Practice Exercises &amp; ROSALIND Challenges</h3>
+            <div class="space-y-4">
+              <div class="bg-emerald-50 border border-emerald-100 p-4 rounded-sm space-y-2">
+                <span class="text-[9px] font-bold text-emerald-600 uppercase tracking-widest block">Warm-up</span>
+                <p class="text-xs text-slate-700">Compute the gap penalty $w(k)$ for a gap of length $k=5$ with $g_o=10$ and $g_e=1$ by hand.</p>
+                <button onclick="window.loadSandboxChallenge(this)" class="text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-3 py-1.5 rounded shadow-sm hover:bg-slate-50 transition-colors uppercase tracking-wider cursor-pointer">Try in Sandbox &rarr;</button>
+              </div>
+
+              <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-sm space-y-2">
+                <span class="text-[9px] font-bold text-indigo-600 uppercase tracking-widest block">Core</span>
+                <p class="text-xs text-slate-700">Write a test suite verifying that aligning "HEAGAWGHEE" and "PAWHEAE" yields score 10 under Gotoh's affine gap parameters.</p>
+                <button onclick="window.loadSandboxChallenge(this)" class="text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-3 py-1.5 rounded shadow-sm hover:bg-slate-50 transition-colors uppercase tracking-wider cursor-pointer">Try in Sandbox &rarr;</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Section 8: Curated Practice Problems -->
       <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
         <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Curated Practice Problems</h2>
@@ -356,6 +386,7 @@
         </div>
       </section>
 
+      <!-- Module Completion Card -->
       <section class="bg-indigo-50/40 backdrop-blur-md border border-indigo-100 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 flex flex-col md:flex-row items-center justify-between select-none">
         <div>
           <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Module Complete?</h2>

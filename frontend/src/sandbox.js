@@ -158,27 +158,27 @@ function renderSandbox(container, sandboxData) {
   currentTestCode = sandboxData.testCode;
 
   const html = `
-    <details id="sandbox-details" class="max-w-6xl mx-auto w-full bg-slate-900 border border-slate-700 rounded-sm shadow-sm mt-6 overflow-hidden flex flex-col group">
-      <summary class="bg-slate-800 px-4 py-3 flex items-center justify-between border-b border-slate-700 cursor-pointer select-none outline-none">
-        <h3 id="sandbox-title" class="text-[11px] font-bold text-slate-300 uppercase tracking-wider flex items-center">
-          <svg class="w-4 h-4 mr-1.5 text-sky-400 transition-transform group-open:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-          Python Sandbox: ${sandboxData.title}
+    <details id="sandbox-details" class="max-w-6xl mx-auto w-full bg-white/80 border border-slate-200 rounded-xl shadow-xs mt-6 overflow-hidden flex flex-col group backdrop-blur-sm">
+      <summary class="bg-slate-50/80 px-4 py-3 flex items-center justify-between border-b border-slate-200 cursor-pointer select-none outline-none">
+        <h3 id="sandbox-title" class="text-[11px] font-bold text-slate-800 uppercase tracking-wider flex items-center">
+          <svg class="w-4 h-4 mr-1.5 text-indigo-600 transition-transform group-open:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          Interactive Python Sandbox: ${sandboxData.title}
         </h3>
-        <span class="text-[10px] font-bold text-slate-500 bg-slate-950 px-2 py-0.5 rounded uppercase tracking-wider group-open:hidden">Click to Expand</span>
+        <span class="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded uppercase tracking-wider group-open:hidden">Click to Expand</span>
       </summary>
       <div class="flex flex-col md:flex-row group-open:flex hidden group-open:!flex">
-        <div class="w-full md:w-1/2 border-r border-slate-700 relative">
-          <textarea id="python-editor" class="w-full h-48 md:h-64 bg-slate-900 text-slate-300 p-4 font-mono text-[11px] leading-relaxed resize-none focus:outline-none focus:ring-1 focus:ring-sky-500" spellcheck="false">${sandboxData.initialCode}</textarea>
+        <div class="w-full md:w-1/2 border-r border-slate-200 relative">
+          <textarea id="python-editor" class="w-full h-48 md:h-64 bg-slate-50/50 text-slate-800 p-4 font-mono text-[11px] leading-relaxed resize-none focus:outline-none focus:ring-1 focus:ring-indigo-500" spellcheck="false">${sandboxData.initialCode}</textarea>
         </div>
-        <div class="w-full md:w-1/2 bg-slate-950 p-4 flex flex-col relative">
+        <div class="w-full md:w-1/2 bg-slate-50/90 p-4 flex flex-col relative">
           <div class="flex justify-between items-center mb-2">
             <span class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Console Output</span>
-            <button id="run-code-btn" class="bg-emerald-600 hover:bg-emerald-700 text-white text-[9px] font-bold py-1 px-3 rounded transition-colors uppercase tracking-wider flex items-center">
+            <button id="run-code-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white text-[9px] font-bold py-1 px-3 rounded transition-colors uppercase tracking-wider flex items-center shadow-xs">
               <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
               Run Code
             </button>
           </div>
-          <pre id="python-output" class="text-slate-400 font-mono text-[10px] whitespace-pre-wrap flex-grow overflow-y-auto">Click 'Run Code' to execute your Python script in the browser.</pre>
+          <pre id="python-output" class="text-slate-700 font-mono text-[10px] whitespace-pre-wrap flex-grow overflow-y-auto">Click 'Run Code' to execute your Python script in the browser.</pre>
         </div>
       </div>
     </details>
