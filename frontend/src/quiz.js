@@ -19,6 +19,26 @@ const QUIZ_DATA = {
       hints: ["JSON isn't compressed.", "Think about data structures.", "JSON doesn't do biological translation.", "Browsers can read text just fine."]
     }
   ],
+  "fastq_qc.html": [
+    {
+      question: "What does a Phred score of Q30 represent in terms of base call accuracy?",
+      options: ["90% accuracy", "99% accuracy", "99.9% accuracy", "99.99% accuracy"],
+      correctIndex: 2,
+      hints: ["Q10 is 90%.", "Q20 is 99%.", "Q30 means 1 error in 1,000 bases (99.9%).", "Q40 is 99.99%."]
+    },
+    {
+      question: "How are Phred quality scores encoded in line 4 of a FASTQ record?",
+      options: ["Raw integer values", "ASCII characters using Sanger Phred+33 offset", "Hexadecimal strings", "Binary bitmasks"],
+      correctIndex: 1,
+      hints: ["Not integers.", "ASCII character code minus 33.", "Not hexadecimal.", "Not binary."]
+    },
+    {
+      question: "What is the primary purpose of quality score trimming in an NGS pipeline?",
+      options: ["To convert DNA to RNA", "To remove low-confidence base calls that introduce false variants", "To speed up computer RAM", "To duplicate sequence reads"],
+      correctIndex: 1,
+      hints: ["Not transcription.", "Low Q-scores indicate high probability of sequencing errors.", "Memory is affected by read count, not quality.", "Not duplication."]
+    }
+  ],
   "genetics.html": [
     {
       question: "What is the reverse complement of 'ATGC'?",
@@ -197,6 +217,104 @@ const QUIZ_DATA = {
       options: ["Linear scan", "Binary search", "Hashing", "Dynamic programming"],
       correctIndex: 1,
       hints: ["Too slow.", "Yes, since the array is sorted.", "No.", "No."]
+    }
+  ],
+  "affine_gaps.html": [
+    {
+      question: "What is the main benefit of an affine gap penalty model over a linear gap penalty model?",
+      options: ["It is computationally faster", "It penalizes long insertions/deletions more realistically by distinguishing gap open from gap extension", "It removes the need for substitution matrices", "It only works on RNA"],
+      correctIndex: 1,
+      hints: ["No.", "Yes, biological indels occur as single multi-base events.", "No.", "No."]
+    },
+    {
+      question: "In Gotoh's algorithm for affine gap penalties, how many DP matrices are maintained simultaneously?",
+      options: ["1", "2", "3", "4"],
+      correctIndex: 2,
+      hints: ["No.", "No.", "Yes: M(i,j), Ix(i,j), and Iy(i,j).", "No."]
+    }
+  ],
+  "bwt_fm_index.html": [
+    {
+      question: "What is the primary advantage of the Burrows-Wheeler Transform (BWT) in read aligners like BWA and Bowtie?",
+      options: ["It compresses repetitive sequence text and enables fast backward search via Last-First (LF) mapping", "It translates DNA to protein automatically", "It removes quality score noise", "It generates phylogenetic trees"],
+      correctIndex: 0,
+      hints: ["Yes, BWT clusters identical characters together.", "No.", "No.", "No."]
+    },
+    {
+      question: "How is a pattern matching query executed in an FM-Index?",
+      options: ["Forward from left to right", "Backward from right to left using LF-mapping", "Random walk", "Needleman-Wunsch DP"],
+      correctIndex: 1,
+      hints: ["No.", "Yes, backward search narrows the suffix range.", "No.", "No."]
+    }
+  ],
+  "de_bruijn.html": [
+    {
+      question: "In a De Bruijn Graph for genome assembly, what do the nodes and edges represent?",
+      options: ["Nodes = individual reads, Edges = alignments", "Nodes = (k-1)-mers, Directed Edges = k-mers", "Nodes = genes, Edges = chromosomes", "Nodes = quality scores, Edges = base calls"],
+      correctIndex: 1,
+      hints: ["No, that's OLC.", "Yes, breaking reads into k-mers forms (k-1)-mer nodes.", "No.", "No."]
+    },
+    {
+      question: "What path through a De Bruijn Graph corresponds to an assembled contig sequence?",
+      options: ["Hamiltonian path", "Eulerian path (visiting every edge exactly once)", "Shortest path", "Random walk"],
+      correctIndex: 1,
+      hints: ["No, that's OLC (NP-hard).", "Yes, visiting every k-mer edge constructs the genomic sequence.", "No.", "No."]
+    }
+  ],
+  "hmm_viterbi.html": [
+    {
+      question: "What is the Viterbi algorithm used for in Hidden Markov Models?",
+      options: ["Finding the single most probable sequence of hidden states given observed data", "Calculating DNA melting temperature", "Sorting k-mers", "Building suffix trees"],
+      correctIndex: 0,
+      hints: ["Yes, DP for optimal hidden state path.", "No.", "No.", "No."]
+    },
+    {
+      question: "Which parameters define a discrete Hidden Markov Model?",
+      options: ["Match, mismatch, gap penalties", "Initial state probabilities, state transition matrix, emission probabilities", "K-mer size and count", "Phred Q-scores"],
+      correctIndex: 1,
+      hints: ["No.", "Yes: pi, A matrix, and B emission matrix.", "No.", "No."]
+    }
+  ],
+  "vcf_caller.html": [
+    {
+      question: "What does the Ti/Tv ratio measure in genomic variant calling?",
+      options: ["Ratio of Transitions (purine-purine / pyrimidine-pyrimidine) to Transversions", "Ratio of Total reads to Variant reads", "Ratio of Time to Value", "Ratio of Transcription to Translation"],
+      correctIndex: 0,
+      hints: ["Yes, human genome WGS typically has a Ti/Tv ~ 2.0-2.1.", "No.", "No.", "No."]
+    },
+    {
+      question: "Which line in a VCF 4.2 file contains the mandatory 8 core column headers (#CHROM, POS, ID, REF, ALT, QUAL, FILTER, INFO)?",
+      options: ["Line 1", "The header line starting with #CHROM", "Line 4", "The last line"],
+      correctIndex: 1,
+      hints: ["No.", "Yes, #CHROM line defines data columns.", "No.", "No."]
+    }
+  ],
+  "scrna_seq.html": [
+    {
+      question: "Why are Unique Molecular Identifiers (UMIs) used in single-cell RNA-Seq protocols?",
+      options: ["To identify cell types", "To remove PCR duplication bias and count unique mRNA molecules", "To align reads to the reference genome", "To trim adapter sequences"],
+      correctIndex: 1,
+      hints: ["No, cell barcodes do that.", "Yes, UMIs distinguish duplicate PCR reads from true transcript molecules.", "No.", "No."]
+    },
+    {
+      question: "What dimensionality reduction technique is commonly combined with UMAP for scRNA-seq cell clustering?",
+      options: ["Needleman-Wunsch", "Principal Component Analysis (PCA)", "Suffix Array SA-IS", "Gotoh's algorithm"],
+      correctIndex: 1,
+      hints: ["No.", "Yes, PCA reduces thousands of gene dimensions before UMAP/t-SNE.", "No.", "No."]
+    }
+  ],
+  "genomic_ai.html": [
+    {
+      question: "How is a DNA sequence typically encoded for input into Convolutional Neural Networks (CNNs)?",
+      options: ["ASCII strings", "One-hot encoding (4 x L matrix of binary vectors [A,C,G,T])", "Integers 1 to 100", "Floating point Phred scores"],
+      correctIndex: 1,
+      hints: ["No.", "Yes, [1,0,0,0] for A, [0,1,0,0] for C, etc.", "No.", "No."]
+    },
+    {
+      question: "What key mechanism allows Genomic Transformers (e.g. DNABERT, Nucleotide Transformer) to model long-range genomic interactions?",
+      options: ["Self-Attention Mechanism", "Binary Search", "Eulerian Path Traversal", "Hamming Distance"],
+      correctIndex: 0,
+      hints: ["Yes, attention matrices compute dependencies across thousands of base pairs.", "No.", "No.", "No."]
     }
   ]
 };

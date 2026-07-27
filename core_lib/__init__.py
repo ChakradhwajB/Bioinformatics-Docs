@@ -10,6 +10,9 @@ from .io import (
     ValidateInput,
     FastaParse,
     JsonWrite,
+    PhredToProbability,
+    FastqParse,
+    CalculateQualityStats,
 )
 
 from .genetics import Complement, ReverseComplement, Transcribe, Translate, FindMotif
@@ -40,6 +43,9 @@ __all__ = [
     "ValidateInput",
     "FastaParse",
     "JsonWrite",
+    "PhredToProbability",
+    "FastqParse",
+    "CalculateQualityStats",
     "Complement",
     "ReverseComplement",
     "Transcribe",
@@ -59,3 +65,4 @@ __all__ = [
     "BuildSuffixArray",
     "BinarySearchPattern",
 ]
+

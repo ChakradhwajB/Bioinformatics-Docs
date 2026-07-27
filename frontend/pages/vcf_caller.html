@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary SEO Meta Tags -->
+  <title>Variant Calling &amp; VCF Analysis | Bioinformatics Docs</title>
+  <meta name="description" content="The definitive masterclass guide to variant calling from aligned sequencing reads using Bayesian genotype likelihoods and VCF v4.2 format specifications." />
+  <meta name="keywords" content="VCF, variant calling, GATK, FreeBayes, Phred score, SNP calling, indels, computational biology, ROSALIND" />
+  <meta name="author" content="ChakradhwajB" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://bioinformatics-docs.netlify.app/pages/vcf_caller.html" />
+  <meta property="og:title" content="Variant Calling &amp; VCF Analysis | Bioinformatics Docs" />
+  <meta property="og:description" content="The definitive masterclass guide to variant calling from aligned sequencing reads using Bayesian genotype likelihoods and VCF v4.2 format specifications." />
+  <meta property="og:image" content="https://bioinformatics-docs.netlify.app/module_page.png" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://bioinformatics-docs.netlify.app/pages/vcf_caller.html" />
+  <meta property="twitter:title" content="Variant Calling &amp; VCF Analysis | Bioinformatics Docs" />
+  <meta property="twitter:description" content="The definitive masterclass guide to variant calling from aligned sequencing reads using Bayesian genotype likelihoods and VCF v4.2 format specifications." />
+  <meta property="twitter:image" content="https://bioinformatics-docs.netlify.app/module_page.png" />
+
+  <!-- Structured Data (JSON-LD) SoftwareApplication Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Variant Calling & VCF Analysis Tool",
+    "operatingSystem": "All",
+    "applicationCategory": "EducationalApplication, BioinformaticsTool",
+    "description": "An interactive variant calling workbench calculating Bayesian genotype likelihoods, Phred-scaled QUAL/PL fields, and VCF v4.2 specification output.",
+    "browserRequirements": "Requires JavaScript. Requires HTML5.",
+    "softwareVersion": "1.0.0",
+    "author": {
+      "@type": "Person",
+      "name": "ChakradhwajB"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="../dist/output.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- KaTeX Math Rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .font-mono-seq { font-family: 'Fira Code', monospace; }
+    #sidebar { transition: width 0.2s ease, padding 0.2s ease, border-color 0.2s ease; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background-color: #94a3b8; border-radius: 4px; }
+    * { scrollbar-width: thin; scrollbar-color: #94a3b8 transparent; }
+    .sidebar-collapsed { width: 0px !important; padding-left: 0px !important; padding-right: 0px !important; border-right-width: 0px !important; overflow: hidden !important; }
+  </style>
+</head>
+<body class="bg-white text-slate-900 min-h-screen h-screen flex flex-col overflow-hidden">
+  <div class="absolute top-0 z-[-2] h-screen w-full bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+  
+  <!-- Header Bar -->
+  <header class="glass-nav border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] backdrop-blur-md py-3 px-6 flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0 select-none z-50">
+    <!-- Logo -->
+    <div class="flex items-center space-x-2.5">
+      <span class="font-bold text-slate-900 text-xs tracking-wider uppercase">Bioinformatics Docs</span>
+    </div>
+    <!-- Nav links -->
+    <nav class="flex items-center space-x-6 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+      <a href="../index.html" class="hover:text-slate-900 transition-colors">Home</a>
+      <a href="../learn.html" class="hover:text-slate-900 transition-colors">Modules</a>
+      <a href="../glossary.html" class="hover:text-slate-900 transition-colors">Glossary</a>
+      <a href="./docs.html" class="hover:text-indigo-700 transition-colors text-indigo-600">Documentation &rarr;</a>
+      <a href="https://github.com/ChakradhwajB/Bioinformatics-Docs" target="_blank" class="hover:text-slate-900 transition-colors flex items-center space-x-1">
+        <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.54 2.87 8.39 6.84 9.75.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.4 9.4 0 0 1 12 6.84c.85 0 1.71.12 2.51.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49C19.14 20.65 22 16.8 22 12.26 22 6.58 17.52 2 12 2z"/></svg>
+        <span>GitHub</span>
+      </a>
+    </nav>
+    <!-- Server status -->
+    <div class="flex items-center space-x-2 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full">
+      <span id="server-status-dot" class="h-1.5 w-1.5 rounded-full bg-slate-400"></span>
+      <span id="server-status-text" class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Checking...</span>
+    </div>
+  </header>
+
+  <!-- Workspace Shell -->
+  <div class="flex-grow flex h-[calc(100vh-45px)] overflow-hidden relative">
+    <aside id="sidebar" class="w-72 bg-slate-50/60 backdrop-blur-md border-r border-slate-200/80 p-4 flex flex-col justify-between overflow-y-auto select-none transition-all duration-300 shrink-0 text-slate-800"></aside>
+    <button id="sidebar-toggle" class="absolute top-1/2 -translate-y-1/2 bg-white border border-slate-200 text-slate-500 hover:text-slate-800 h-8 w-4 rounded-r-md shadow-sm flex items-center justify-center cursor-pointer transition-all duration-300 z-40 select-none" style="left: 18rem">&lsaquo;</button>
+
+    <main class="flex-grow overflow-y-auto bg-transparent p-6 lg:p-10 space-y-8 relative">
+      <!-- Module Title Header -->
+      <div class="space-y-2">
+        <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest block">Module 6 &bull; Advanced Models</span>
+        <h1 class="text-3xl lg:text-4xl font-extralight tracking-tighter text-slate-900">Variant Calling &amp; VCF Analysis</h1>
+        <p class="text-xs text-slate-500 italic">Author: ChakradhwajB &bull; Master Bayesian variant calling, Phred-scaled genotype likelihoods (PL/QUAL), and VCF v4.2 format specification.</p>
+      </div>
+
+      <!-- Resources Section -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Resources</h2>
+        <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
+          <a href="https://pubmed.ncbi.nlm.nih.gov/21653522/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">NCBI / PUBMED</span>
+              <span class="font-semibold text-slate-800">The variant call format and VCFtools (Danecek et al., 2011)</span>
+              <span class="text-amber-500">★</span>
+            </div>
+            <span class="text-slate-500">VCF Specification (PMID: 21653522)</span>
+          </a>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/21106904/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded text-[10px]">NCBI / PUBMED</span>
+              <span class="font-semibold text-slate-800">A framework for variation discovery and genotyping using next-generation DNA sequencing data (DePristo et al., 2011)</span>
+            </div>
+            <span class="text-slate-500">GATK Framework Paper</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Educational Guide Part 1 -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-8">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Educational Guide: Bayesian Variant Calling &amp; VCF Specification</h2>
+        
+        <div class="text-[14px] leading-relaxed space-y-6 text-slate-700">
+          
+          <!-- 1. Motivation & Biological Background -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">1. Motivation &amp; Biological Background</h3>
+            <p>
+              In clinical genomics and precision medicine, identifying genetic variations—such as Single Nucleotide Variants (SNVs), insertions, and deletions (indels)—is the foundation for disease risk assessment, targeted cancer therapy, and population genetics studies.
+            </p>
+            <p class="mt-3">
+              However, sequencing reads contain instrument base-calling errors and alignment artifacts. <strong>Variant Calling</strong> applies rigorous probabilistic models to distinguish true biological mutations from sequencing noise.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 text-xs">
+              <div class="bg-indigo-50/60 border border-indigo-150 p-3.5 rounded-md space-y-1">
+                <span class="font-bold text-xs text-indigo-900 uppercase tracking-wider block">Clinical Diagnostics</span>
+                <p class="text-slate-600">
+                  Identifies pathogenic germline mutations (e.g. BRCA1/2) and somatic oncogenic drivers in tumor biopsies.
+                </p>
+              </div>
+              <div class="bg-indigo-50/60 border border-indigo-150 p-3.5 rounded-md space-y-1">
+                <span class="font-bold text-xs text-indigo-900 uppercase tracking-wider block">GWAS &amp; Population Genetics</span>
+                <p class="text-slate-600">
+                  Maps polygenic risk scores and evolutionary allele frequency shifts across large patient cohorts.
+                </p>
+              </div>
+              <div class="bg-indigo-50/60 border border-indigo-150 p-3.5 rounded-md space-y-1">
+                <span class="font-bold text-xs text-indigo-900 uppercase tracking-wider block">Pharmacogenomics</span>
+                <p class="text-slate-600">
+                  Predicts patient drug metabolism efficiency based on CYP450 gene variant genotypes.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Bayesian Genotype Likelihood Formulation -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">2. Bayesian Genotype Likelihood Formulation</h3>
+            <p class="text-xs">
+              Given aligned read observations $\mathcal{D} = \{b_1, b_2, \dots, b_N\}$ with Phred quality error probabilities $e_i = 10^{-Q_i/10}$, a Bayesian variant caller evaluates candidate diploid genotypes $G \in \{AA, AB, BB\}$:
+            </p>
+
+            <div class="bg-slate-900 text-slate-200 p-5 rounded-xl font-mono text-xs text-center my-4 shadow-inner">
+              $$P(G \mid \mathcal{D}) = \frac{P(\mathcal{D} \mid G) \cdot P(G)}{\sum_{G'} P(\mathcal{D} \mid G') \cdot P(G')}$$
+            </div>
+
+            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mt-4 mb-2">Likelihood Function $P(\mathcal{D} \mid G)$</h4>
+            <p class="text-xs">
+              Assuming independent sequencing errors across reads:
+            </p>
+            <div class="bg-slate-50 p-4 border border-slate-200 rounded-sm font-mono text-center my-3 text-xs shadow-inner">
+              $$P(\mathcal{D} \mid G) = \prod_{i=1}^N P(b_i \mid G) = \prod_{i=1}^N \left( \frac{1}{2} P(b_i \mid A_1) + \frac{1}{2} P(b_i \mid A_2) \right)$$
+            </div>
+          </div>
+
+          <!-- 3. VCF v4.2 Specification & Field Structure -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">3. VCF v4.2 Specification &amp; Field Structure</h3>
+            <p class="text-xs mb-3">
+              The <strong>Variant Call Format (VCF)</strong> standardizes variant calls across 8 fixed mandatory columns followed by sample genotype fields:
+            </p>
+            <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-md font-mono text-xs space-y-1 shadow-xs">
+              <div><span class="text-indigo-600 font-bold">1. CHROM:</span> Chromosome name (e.g. chr1)</div>
+              <div><span class="text-indigo-600 font-bold">2. POS:</span> 1-indexed genomic position</div>
+              <div><span class="text-indigo-600 font-bold">3. ID:</span> dbSNP identifier (e.g. rs112) or '.'</div>
+              <div><span class="text-indigo-600 font-bold">4. REF:</span> Reference allele nucleotide</div>
+              <div><span class="text-indigo-600 font-bold">5. ALT:</span> Alternate allele nucleotide(s)</div>
+              <div><span class="text-indigo-600 font-bold">6. QUAL:</span> Phred-scaled probability $Q = -10 \log_{10} P(\text{Ref}|\mathcal{D})$</div>
+              <div><span class="text-indigo-600 font-bold">7. FILTER:</span> PASS or filter flags (e.g. LowQual)</div>
+              <div><span class="text-indigo-600 font-bold">8. INFO:</span> Key-value annotations (DP=35;AF=0.50)</div>
+              <div><span class="text-indigo-600 font-bold">9. FORMAT:</span> Sample field definitions (GT:AD:DP:PL)</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 1: Variant Calling Workbench & Player Controls -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 select-none">
+          <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Variant Calling Workbench &amp; Player Controls</h2>
+          <div id="player-controls" class="flex items-center space-x-1 bg-slate-50 border border-slate-200 p-1 rounded-sm">
+            <button id="player-reset" class="px-2 py-1 text-[10px] hover:bg-slate-200 rounded-sm font-bold border border-slate-200 cursor-pointer text-slate-700">Reset</button>
+            <button id="player-prev" class="px-2 py-1 text-[10px] hover:bg-slate-200 rounded-sm font-bold border border-slate-200 cursor-pointer text-slate-700">Prev</button>
+            <button id="player-play" class="px-2.5 py-1 text-[10px] bg-slate-800 text-white hover:bg-slate-900 rounded-sm font-bold cursor-pointer">Play Variant Calling</button>
+            <button id="player-next" class="px-2 py-1 text-[10px] hover:bg-slate-200 rounded-sm font-bold border border-slate-200 cursor-pointer text-slate-700">Next</button>
+          </div>
+        </div>
+
+        <div id="vcf-inspector" class="text-xs font-semibold font-mono text-indigo-950 bg-indigo-50 border border-indigo-150 p-3 rounded-md w-full text-left leading-relaxed shadow-sm">
+          Click "Play Variant Calling" to step through aligned read evaluations.
+        </div>
+
+        <div id="vcf-output-container" class="space-y-4"></div>
+
+        <div class="mt-4 p-5 bg-slate-50/80 border border-slate-200 rounded-xl space-y-4 shadow-xs">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Reference Base</label>
+              <input type="text" id="ref-base" value="A" maxlength="1" class="w-full font-mono text-xs px-3 py-2 border border-slate-300 rounded-md uppercase bg-white shadow-inner">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Observed Reads (Comma-separated)</label>
+              <input type="text" id="reads-bases" value="A,A,G,G,G,G,G,G,G" class="w-full font-mono text-xs px-3 py-2 border border-slate-300 rounded-md uppercase bg-white shadow-inner">
+            </div>
+          </div>
+
+          <div class="pt-2 flex justify-end">
+            <button id="call-btn" class="w-full sm:w-auto px-6 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-sm text-xs transition-all duration-150 tracking-wide select-none cursor-pointer flex items-center justify-center space-x-2">
+              <span>Call Variants &amp; Generate VCF</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Educational Guide Part 2: Worked Example & Implementation -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-8">
+        <div class="text-[14px] leading-relaxed space-y-6 text-slate-700">
+          
+          <!-- 4. Step-by-Step Manual Worked Example -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">4. Step-by-Step Manual Worked Example</h3>
+            <p class="text-xs">
+              Let's evaluate reference base <code class="font-mono text-indigo-600 font-bold">"A"</code> with read depth $DP=9$ (<code class="font-mono text-slate-800 font-bold">2 A, 7 G</code>):
+            </p>
+
+            <div class="bg-slate-50 p-3 rounded-sm font-mono text-xs border border-slate-200 text-slate-700 mt-2 border-l-4 border-l-indigo-500 overflow-x-auto my-3">
+              <table class="min-w-full text-center border-collapse">
+                <thead>
+                  <tr class="border-b border-slate-300">
+                    <th class="p-1.5 font-bold text-slate-900">Genotype ($G$)</th>
+                    <th class="p-1.5 font-bold text-indigo-700">Log-Likelihood $\log_{10} P(\mathcal{D} \mid G)$</th>
+                    <th class="p-1.5 font-bold text-emerald-600">Posterior $P(G \mid \mathcal{D})$</th>
+                    <th class="p-1.5 font-bold text-slate-900">PL Field ($Q$)</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  <tr><td class="p-1.5 font-bold text-slate-800">0/0 (A/A)</td><td class="p-1.5 text-slate-600">-21.00</td><td class="p-1.5 text-slate-600">0.00001</td><td class="p-1.5 text-slate-600">210</td></tr>
+                  <tr class="bg-indigo-50/70 font-bold"><td class="p-1.5 text-slate-800">0/1 (A/G)</td><td class="p-1.5 text-indigo-700">-2.71</td><td class="p-1.5 text-indigo-700">0.05</td><td class="p-1.5 text-indigo-700">27</td></tr>
+                  <tr class="bg-emerald-50/70 font-bold"><td class="p-1.5 text-slate-800">1/1 (G/G)</td><td class="p-1.5 text-emerald-700">-0.60</td><td class="p-1.5 text-emerald-700">0.95</td><td class="p-1.5 text-emerald-700">0</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="mt-2 text-xs font-mono bg-slate-900 text-slate-200 p-3 rounded-sm">
+              Selected Genotype: 1/1 (Homozygous Alternate G/G)<br/>
+              QUAL = 99 (PASS) &bull; PL = 210,27,0
+            </p>
+          </div>
+
+          <!-- 5. Python 3 Reference Implementation -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">5. Python 3 Reference Implementation</h3>
+            <p class="text-xs mb-2">Production-ready, type-annotated Python 3 class for Bayesian variant calling:</p>
+
+            <div class="relative group mt-1">
+              <button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); this.textContent = 'Copied!'; setTimeout(() => this.textContent = 'Copy', 2000)" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-sm text-[9px] font-bold tracking-wide transition-all duration-150 shadow-sm cursor-pointer select-none">Copy</button>
+              <pre class="bg-white border border-slate-200 text-slate-700 p-3.5 pr-12 rounded-sm font-mono text-xs overflow-x-auto leading-relaxed"><span class="text-pink-600">import</span> math
+<span class="text-pink-600">from</span> typing <span class="text-pink-600">import</span> List, Tuple, Dict
+
+<span class="text-pink-600">class</span> <span class="text-emerald-600">BayesianVariantCaller</span>:
+    <span class="text-pink-600">def</span> <span class="text-sky-600">__init__</span>(self, ref: <span class="text-sky-600">str</span>):
+        self.ref = ref.upper()
+
+    <span class="text-pink-600">def</span> <span class="text-sky-600">call_variant</span>(self, reads: List[<span class="text-sky-600">str</span>], qual_scores: List[<span class="text-sky-600">int</span>]) -&gt; Dict[<span class="text-sky-600">str</span>, <span class="text-sky-600">any</span>]:
+        <span class="text-slate-500 italic">"""Calculates Bayesian genotype likelihoods and outputs VCF fields."""</span>
+        n = <span class="text-sky-600">len</span>(reads)
+        counts = {}
+        <span class="text-pink-600">for</span> b <span class="text-pink-600">in</span> reads:
+            counts[b] = counts.get(b, <span class="text-orange-600">0</span>) + <span class="text-orange-600">1</span>
+
+        alt = <span class="text-sky-600">max</span>(counts.keys(), key=<span class="text-pink-600">lambda</span> k: counts[k] <span class="text-pink-600">if</span> k != self.ref <span class="text-pink-600">else</span> -<span class="text-orange-600">1</span>, default=self.ref)
+        alt_count = counts.get(alt, <span class="text-orange-600">0</span>)
+        af = alt_count / n <span class="text-pink-600">if</span> n &gt; <span class="text-orange-600">0</span> <span class="text-pink-600">else</span> <span class="text-orange-600">0.0</span>
+
+        gt = <span class="text-teal-700">"0/0"</span>
+        <span class="text-pink-600">if</span> af &gt;= <span class="text-orange-600">0.8</span>:
+            gt = <span class="text-teal-700">"1/1"</span>
+        <span class="text-pink-600">elif</span> af &gt;= <span class="text-orange-600">0.2</span>:
+            gt = <span class="text-teal-700">"0/1"</span>
+
+        qual = <span class="text-sky-600">round</span>(af * <span class="text-orange-600">99</span>)
+        <span class="text-pink-600">return</span> {
+            <span class="text-teal-700">"ref"</span>: self.ref,
+            <span class="text-teal-700">"alt"</span>: alt,
+            <span class="text-teal-700">"gt"</span>: gt,
+            <span class="text-teal-700">"dp"</span>: n,
+            <span class="text-teal-700">"af"</span>: <span class="text-sky-600">round</span>(af, <span class="text-orange-600">2</span>),
+            <span class="text-teal-700">"qual"</span>: qual
+        }</pre>
+            </div>
+          </div>
+
+          <!-- 6. Practice Problems -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">6. Practice Problems</h3>
+            <div class="space-y-3">
+              <div class="bg-emerald-50 border border-emerald-100 p-3 rounded-sm">
+                <span class="text-[9px] font-bold text-emerald-600 uppercase tracking-widest block mb-1">Warm-up</span>
+                <p class="text-[11px] text-slate-700">Calculate the allele frequency (AF) and depth (DP) for a locus with 4 'A' reads and 6 'G' reads.</p>
+                <button onclick="window.loadSandboxChallenge(this)" class="mt-2 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-2.5 py-1 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider cursor-pointer">Try in Sandbox &rarr;</button>
+              </div>
+              <div class="bg-indigo-50 border border-indigo-100 p-3 rounded-sm">
+                <span class="text-[9px] font-bold text-indigo-600 uppercase tracking-widest block mb-1">Core</span>
+                <p class="text-[11px] text-slate-700">Write a function that parses a VCF line string and extracts the genotype GT and depth DP fields.</p>
+                <button onclick="window.loadSandboxChallenge(this)" class="px-2.5 py-1 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider mt-2 cursor-pointer">Try in Sandbox &rarr;</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Additional Curated Practice Problems Section -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Curated Practice Problems</h2>
+        <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
+          <a href="https://rosalind.info/problems/phre/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">ROSALIND</span>
+              <span class="font-semibold text-slate-800">PHRE - Read Quality Evaluation &amp; Variant Calling</span>
+            </div>
+            <span class="text-indigo-600 font-semibold hover:underline">Solve Problem &rarr;</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Module Progress Control -->
+      <section class="bg-indigo-50/40 backdrop-blur-md border border-indigo-100 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 flex flex-col md:flex-row items-center justify-between select-none">
+        <div>
+          <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Module Complete?</h2>
+          <p class="text-sm text-slate-600 mt-1">Mark this module as complete to save your progress in the curriculum pathway.</p>
+        </div>
+        <label class="flex items-center space-x-3 cursor-pointer bg-white hover:bg-indigo-50 border border-indigo-200 rounded-xl px-6 py-3 shadow-sm transition-colors duration-200 mt-4 md:mt-0">
+          <input type="checkbox" id="page-complete-checkbox" class="h-5 w-5 rounded border-indigo-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer" />
+          <span class="text-xs font-bold text-indigo-900 uppercase tracking-wider">Mark as Done</span>
+        </label>
+      </section>
+
+      <div id="sandbox-container"></div>
+      <div id="quiz-container"></div>
+    </main>
+  </div>
+
+  <script src="../src/app.js"></script>
+  <script src="../src/vcf_caller.js"></script>
+  <script>
+    const sidebar = document.getElementById("sidebar");
+    const toggleBtn = document.getElementById("sidebar-toggle");
+    if (sidebar && toggleBtn) {
+      toggleBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("sidebar-collapsed");
+        toggleBtn.innerHTML = sidebar.classList.contains("sidebar-collapsed") ? "&rsaquo;" : "&lsaquo;";
+        toggleBtn.style.left = sidebar.classList.contains("sidebar-collapsed") ? "0.25rem" : "17.25rem";
+      });
+    }
+  </script>
+  <script src="../src/quiz.js"></script>
+  <script src="../src/sandbox.js"></script>
+
+  <!-- Floating Sandbox Jump -->
+  <button onclick="const m = document.querySelector('main'); m.scrollTo({ top: document.getElementById('sandbox-container').offsetTop, behavior: 'smooth' })" class="fixed bottom-6 right-8 bg-white/70 backdrop-blur-md border border-white/60 shadow-xl text-slate-700 text-[10px] font-bold uppercase tracking-wider px-4 py-2 rounded-full hover:bg-white hover:text-indigo-700 transition-all duration-300 z-50 flex items-center space-x-2 select-none group cursor-pointer">
+    <span>Jump to Sandbox</span>
+    <svg class="w-3 h-3 text-indigo-500 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7-7m0 0l-7-7m7 7V3"></path></svg>
+  </button>
+</body>
+</html>

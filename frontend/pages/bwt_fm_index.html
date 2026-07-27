@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary SEO Meta Tags -->
+  <title>BWT &amp; FM-Index Short-Read Mapping | Bioinformatics Docs</title>
+  <meta name="description" content="An exhaustive masterclass guide to compressed full-text indexing, Burrows-Wheeler Transform (BWT), Last-First (LF) mapping, and FM-Index sub-linear time backward search for high-throughput short read mapping." />
+  <meta name="keywords" content="BWT, FM-Index, Burrows-Wheeler Transform, BWA, Bowtie, short read mapping, LF-mapping, bioinformatics masterclass, ROSALIND" />
+  <meta name="author" content="ChakradhwajB" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://bioinformatics-docs.netlify.app/pages/bwt_fm_index.html" />
+  <meta property="og:title" content="BWT &amp; FM-Index Short-Read Mapping | Bioinformatics Docs" />
+  <meta property="og:description" content="An exhaustive masterclass guide to compressed full-text indexing, Burrows-Wheeler Transform (BWT), Last-First (LF) mapping, and FM-Index sub-linear time backward search for high-throughput short read mapping." />
+  <meta property="og:image" content="https://bioinformatics-docs.netlify.app/module_page.png" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://bioinformatics-docs.netlify.app/pages/bwt_fm_index.html" />
+  <meta property="twitter:title" content="BWT &amp; FM-Index Short-Read Mapping | Bioinformatics Docs" />
+  <meta property="twitter:description" content="An exhaustive masterclass guide to compressed full-text indexing, Burrows-Wheeler Transform (BWT), Last-First (LF) mapping, and FM-Index sub-linear time backward search for high-throughput short read mapping." />
+  <meta property="twitter:image" content="https://bioinformatics-docs.netlify.app/module_page.png" />
+
+  <!-- Structured Data (JSON-LD) SoftwareApplication Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "BWT & FM-Index Short-Read Mapping Tool",
+    "operatingSystem": "All",
+    "applicationCategory": "EducationalApplication, BioinformaticsTool",
+    "description": "An interactive index visualizer executing Burrows-Wheeler Transform (BWT) construction, LF-mapping, and FM-Index backward search.",
+    "browserRequirements": "Requires JavaScript. Requires HTML5.",
+    "softwareVersion": "1.0.0",
+    "author": {
+      "@type": "Person",
+      "name": "ChakradhwajB"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="../dist/output.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- KaTeX Math Rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .font-mono-seq { font-family: 'Fira Code', monospace; }
+    #sidebar { transition: width 0.2s ease, padding 0.2s ease, border-color 0.2s ease; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background-color: #94a3b8; border-radius: 4px; }
+    * { scrollbar-width: thin; scrollbar-color: #94a3b8 transparent; }
+    .sidebar-collapsed { width: 0px !important; padding-left: 0px !important; padding-right: 0px !important; border-right-width: 0px !important; overflow: hidden !important; }
+  </style>
+</head>
+<body class="bg-white text-slate-900 min-h-screen h-screen flex flex-col overflow-hidden">
+  <div class="absolute top-0 z-[-2] h-screen w-full bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+  
+  <!-- Header Bar -->
+  <header class="glass-nav border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] backdrop-blur-md py-3 px-6 flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0 select-none z-50">
+    <!-- Logo -->
+    <div class="flex items-center space-x-2.5">
+      <span class="font-bold text-slate-900 text-xs tracking-wider uppercase">Bioinformatics Docs</span>
+    </div>
+    <!-- Nav links -->
+    <nav class="flex items-center space-x-6 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+      <a href="../index.html" class="hover:text-slate-900 transition-colors">Home</a>
+      <a href="../learn.html" class="hover:text-slate-900 transition-colors">Modules</a>
+      <a href="../glossary.html" class="hover:text-slate-900 transition-colors">Glossary</a>
+      <a href="./docs.html" class="hover:text-indigo-700 transition-colors text-indigo-600">Documentation &rarr;</a>
+      <a href="https://github.com/ChakradhwajB/Bioinformatics-Docs" target="_blank" class="hover:text-slate-900 transition-colors flex items-center space-x-1">
+        <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.54 2.87 8.39 6.84 9.75.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.4 9.4 0 0 1 12 6.84c.85 0 1.71.12 2.51.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49C19.14 20.65 22 16.8 22 12.26 22 6.58 17.52 2 12 2z"/></svg>
+        <span>GitHub</span>
+      </a>
+    </nav>
+    <!-- Server status -->
+    <div class="flex items-center space-x-2 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full">
+      <span id="server-status-dot" class="h-1.5 w-1.5 rounded-full bg-slate-400"></span>
+      <span id="server-status-text" class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Checking...</span>
+    </div>
+  </header>
+
+  <!-- Workspace Shell -->
+  <div class="flex-grow flex h-[calc(100vh-45px)] overflow-hidden relative">
+    <aside id="sidebar" class="w-72 bg-slate-50/60 backdrop-blur-md border-r border-slate-200/80 p-4 flex flex-col justify-between overflow-y-auto select-none transition-all duration-300 shrink-0 text-slate-800"></aside>
+    <button id="sidebar-toggle" class="absolute top-1/2 -translate-y-1/2 bg-white border border-slate-200 text-slate-500 hover:text-slate-800 h-8 w-4 rounded-r-md shadow-sm flex items-center justify-center cursor-pointer transition-all duration-300 z-40 select-none" style="left: 18rem">&lsaquo;</button>
+
+    <main class="flex-grow overflow-y-auto bg-transparent p-6 lg:p-10 space-y-8 relative">
+      <!-- Module Title Header -->
+      <div class="space-y-2">
+        <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest block">Module 5 &bull; Indexing &amp; Short-Read Mapping</span>
+        <h1 class="text-3xl lg:text-4xl font-extralight tracking-tighter text-slate-900">Burrows-Wheeler Transform &amp; FM-Index</h1>
+        <p class="text-xs text-slate-500 italic">Author: ChakradhwajB &bull; Master compressed full-text indexing, Last-First (LF) mapping, and sub-linear time short read alignment powering BWA and Bowtie.</p>
+      </div>
+
+      <!-- Resources Section -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Resources</h2>
+        <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
+          <a href="https://pubmed.ncbi.nlm.nih.gov/19451168/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">NCBI / PUBMED</span>
+              <span class="font-semibold text-slate-800">Fast and accurate short read alignment with Burrows-Wheeler transform (Li &amp; Durbin, 2009)</span>
+              <span class="text-amber-500">★</span>
+            </div>
+            <span class="text-slate-500">BWA Paper (PMID: 19451168)</span>
+          </a>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/19261174/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded text-[10px]">NCBI / PUBMED</span>
+              <span class="font-semibold text-slate-800">Ultrafast and memory-efficient alignment of short DNA sequences to the human genome (Bowtie) (Langmead et al., 2009)</span>
+            </div>
+            <span class="text-slate-500">Bowtie Paper</span>
+          </a>
+          <a href="https://ieeexplore.ieee.org/document/892127" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded text-[10px]">IEEE XPLORE</span>
+              <span class="font-semibold text-slate-800">Opportunistic Data Structures with Applications (Ferragina &amp; Manzini, 2000)</span>
+            </div>
+            <span class="text-slate-500">Original FM-Index Paper</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Educational Guide Part 1 -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-8">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Educational Guide: Compressed Indexing &amp; FM-Index Short-Read Mapping</h2>
+        
+        <div class="text-[14px] leading-relaxed space-y-6 text-slate-700">
+          
+          <!-- 1. Motivation & Biological Background -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">1. Motivation &amp; Biological Background</h3>
+            <p>
+              Next-Generation Sequencing (NGS) platforms such as Illumina NovaSeq and Oxford Nanopore generate hundreds of millions of short genomic DNA reads (100–150 bp) per instrument run. To discover disease-causing single-nucleotide variants, measure transcriptomic expression, or detect structural mutations, every individual read must be accurately mapped to its exact genomic locus within a 3-billion-base reference genome.
+            </p>
+            <p class="mt-3">
+              Classical dynamic programming sequence alignment algorithms (such as Needleman-Wunsch or Smith-Waterman) run in quadratic time $\mathcal{O}(N \cdot M)$. Attempting to align $10^8$ short reads of length $M=150$ against a human reference genome of length $N = 3 \times 10^9$ would require over $4.5 \times 10^{19}$ operations—consuming decades of high-performance computing cluster execution time!
+            </p>
+
+            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mt-4 mb-2">The Memory Bottleneck of Hash-Based Seed Indexes</h4>
+            <p class="text-xs">
+              Early alignment tools (such as BLAST, BLAT, and MAQ) indexed reference genomes using $k$-mer hash tables. However, storing every 15-mer position in a 3-gigabase genome requires over 12–32 GB of RAM. When scaling to multi-gigabase plant genomes or metagenomic databases, hash table memory footprints become completely intractable.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 text-xs">
+              <div class="bg-indigo-50/60 border border-indigo-150 p-3.5 rounded-md space-y-1">
+                <span class="font-bold text-xs text-indigo-900 uppercase tracking-wider block">Whole Genome Read Mapping</span>
+                <p class="text-slate-600">
+                  Aligns hundreds of millions of sequencing reads against 3-billion-base human reference genomes in under 2.5 GB RAM.
+                </p>
+              </div>
+              <div class="bg-indigo-50/60 border border-indigo-150 p-3.5 rounded-md space-y-1">
+                <span class="font-bold text-xs text-indigo-900 uppercase tracking-wider block">Metagenomics Abundance</span>
+                <p class="text-slate-600">
+                  Rapidly queries complex environmental microbiome databases containing thousands of bacterial genomes.
+                </p>
+              </div>
+              <div class="bg-indigo-50/60 border border-indigo-150 p-3.5 rounded-md space-y-1">
+                <span class="font-bold text-xs text-indigo-900 uppercase tracking-wider block">Variant Calling Pipelines</span>
+                <p class="text-slate-600">
+                  Serves as the high-throughput indexing engine powering production aligners BWA-MEM, Bowtie2, and HISAT2.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Burrows-Wheeler Transform & LF Mapping -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">2. Burrows-Wheeler Transform &amp; Last-First (LF) Mapping</h3>
+            <p>
+              Invented by Michael Burrows and David Wheeler in 1994 for data compression, the <strong>Burrows-Wheeler Transform (BWT)</strong> reorganizes a text string into runs of identical characters, making it exceptionally compressible while preserving full reversibility.
+            </p>
+            <p class="mt-2">
+              Given a text $T$ appended with a unique terminal character <code class="font-mono text-indigo-600 font-bold">"$"</code> (which is defined as lexicographically smaller than any nucleotide), the BWT is constructed by:
+            </p>
+            <ol class="list-decimal pl-5 space-y-1.5 text-xs my-3">
+              <li>Forming all $N$ cyclic rotations of $T\$$.</li>
+              <li>Sorting these rotations lexicographically to create the $N \times N$ matrix $M_{BWT}$.</li>
+              <li>Extracting the last column of $M_{BWT}$, designated as $L = BWT(T)$.</li>
+            </ol>
+
+            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mt-4 mb-2">The Last-First (LF) Mapping Property</h4>
+            <p class="text-xs">
+              The fundamental mathematical engine of the FM-Index is the <strong>Last-First (LF) Mapping Property</strong>:
+            </p>
+            <blockquote class="bg-slate-50 border-l-4 border-indigo-600 p-3 my-2 text-xs italic text-slate-700">
+              The $i$-th occurrence of character $c$ in column $L$ (the Last column) corresponds to the exact same physical occurrence of character $c$ in column $F$ (the First column).
+            </blockquote>
+
+            <p class="text-xs mt-2">
+              To calculate the row index in column $F$ corresponding to position $i$ in column $L$, we evaluate the LF-mapping equation:
+            </p>
+
+            <div class="bg-slate-900 text-slate-200 p-5 rounded-xl font-mono text-xs text-center my-4 shadow-inner">
+              $$LF(i) = C[L[i]] + \text{Occ}(L[i], i)$$
+            </div>
+
+            <ul class="list-disc pl-5 space-y-1 text-xs text-slate-600 my-2 font-mono">
+              <li>$C[c]$: The total count of characters in text $T$ that are lexicographically strictly smaller than $c$.</li>
+              <li>$\text{Occ}(c, i)$: The number of occurrences of character $c$ in column $L[0 \dots i-1]$ (up to row $i$).</li>
+            </ul>
+          </div>
+
+          <!-- 3. Mathematical Derivation of FM-Index Backward Search -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">3. Mathematical Derivation of FM-Index Backward Search</h3>
+            <p class="text-xs">
+              Traditional string matching searches left-to-right. In contrast, the FM-Index performs <strong>Backward Search</strong>, matching pattern $P = P[0 \dots m-1]$ from right to left ($P[m-1], P[m-2], \dots, P[0]$).
+            </p>
+            <p class="mt-2 text-xs">
+              Backward search tracks a row range $[\text{top}, \text{bot}]$ in the sorted $M_{BWT}$ matrix that prefix-matches the pattern query:
+            </p>
+
+            <div class="bg-slate-50 p-4 border border-slate-200 rounded-sm font-mono text-center my-4 text-xs shadow-inner space-y-2">
+              <p>$$\text{Initial Range: } \text{top}_0 = 0, \quad \text{bot}_0 = N - 1$$</p>
+              <p>$$\text{For step } k = m-1 \text{ down to } 0 \text{ with character } c = P[k]:$$</p>
+              <p>$$\text{top}_{new} = C[c] + \text{Occ}(c, \text{top})$$</p>
+              <p>$$\text{bot}_{new} = C[c] + \text{Occ}(c, \text{bot} + 1) - 1$$</p>
+            </div>
+
+            <p class="text-xs text-slate-600">
+              If $\text{top}_{new} \le \text{bot}_{new}$, all rows in index range $[\text{top}, \text{bot}]$ match suffix $P[k \dots m-1]$. If $\text{top} > \text{bot}$, the pattern does not exist in reference genome $T$.
+            </p>
+          </div>
+
+          <!-- 4. Time & Space Complexity Analysis -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">4. Time &amp; Space Complexity Analysis</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+              <div class="bg-slate-50 p-3.5 border border-slate-200 rounded-md">
+                <span class="font-bold text-slate-900 block mb-1">Search Time Complexity: $\mathcal{O}(|P|)$</span>
+                Backward search matches each character of query pattern $P$ in constant time $\mathcal{O}(1)$ via $C$ and $\text{Occ}$ array lookups, completely independent of reference genome size $N$.
+              </div>
+              <div class="bg-slate-50 p-3.5 border border-slate-200 rounded-md">
+                <span class="font-bold text-slate-900 block mb-1">Index Space Complexity: $\mathcal{O}(N)$</span>
+                By sampling the Occ matrix and Suffix Array at fixed intervals (e.g., every 32 positions), the human genome index occupies less than 2.5 GB of RAM.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 1 & 2: Interactive Workbench (Read Mapping & Visual Matrix) -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-6">
+        <div class="flex justify-between items-center select-none">
+          <h2 class="text-2xl font-thin tracking-tighter text-slate-900">BWT &amp; FM-Index Read Mapping Workbench</h2>
+          <button id="sample-btn" class="text-[10px] font-bold text-indigo-600 hover:text-indigo-800 uppercase tracking-wider">Load Sample Data</button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl text-center space-y-1">
+            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">Matches Found</span>
+            <span id="match-count" class="text-2xl font-black text-indigo-600">-</span>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl text-center space-y-1">
+            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">BWT Range</span>
+            <span id="bwt-range" class="text-lg font-mono font-bold text-slate-800">-</span>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl text-center space-y-1">
+            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">Genome Positions</span>
+            <span id="genome-positions" class="text-sm font-mono font-bold text-emerald-600">-</span>
+          </div>
+        </div>
+
+        <div id="bwt-table-container" class="border border-slate-200 rounded-sm overflow-x-auto bg-slate-50 p-4"></div>
+
+        <div class="mt-4 p-5 bg-slate-50/80 border border-slate-200 rounded-xl space-y-4 shadow-xs">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Reference Genome ($T$)</label>
+              <input type="text" id="reference-text" value="BANANA$" class="w-full font-mono text-xs px-3 py-2 border border-slate-300 rounded-md uppercase bg-white shadow-inner">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Search Pattern ($P$)</label>
+              <input type="text" id="pattern-text" value="ANA" class="w-full font-mono text-xs px-3 py-2 border border-slate-300 rounded-md uppercase bg-white shadow-inner">
+            </div>
+          </div>
+
+          <div class="pt-2 flex justify-end">
+            <button id="search-btn" class="w-full sm:w-auto px-6 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-sm text-xs transition-all duration-150 tracking-wide select-none cursor-pointer flex items-center justify-center space-x-2">
+              <span>Execute FM-Index Backward Search</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Educational Guide Part 2: Worked Examples & Code -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-8">
+        <div class="text-[14px] leading-relaxed space-y-6 text-slate-700">
+          
+          <!-- 5. Step-by-Step Worked Example -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">5. Step-by-Step Worked Example &amp; LF-Mapping Trace</h3>
+            <p class="text-xs">
+              Consider reference text $T = \text{"BANANA\$"}$ ($N=7$). Sorted matrix $M_{BWT}$ and $BWT(T) = \text{"ANNB\$AA"}$:
+            </p>
+            
+            <div class="bg-slate-50 p-3 rounded-sm font-mono text-xs border border-slate-200 text-slate-700 mt-2 border-l-4 border-l-indigo-500 overflow-x-auto my-3">
+              <table class="min-w-full text-center border-collapse">
+                <thead>
+                  <tr class="border-b border-slate-300">
+                    <th class="p-1.5 font-bold text-slate-900">Row ($i$)</th>
+                    <th class="p-1.5 font-bold text-slate-900">SA[$i$]</th>
+                    <th class="p-1.5 font-bold text-indigo-700">F (First)</th>
+                    <th class="p-1.5 font-bold text-slate-700">Rotated String ($T$)</th>
+                    <th class="p-1.5 font-bold text-emerald-600">L (BWT)</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  <tr>
+                    <td class="p-1.5 text-slate-400">0</td>
+                    <td class="p-1.5 font-bold text-slate-700">6</td>
+                    <td class="p-1.5 font-bold text-indigo-700">$</td>
+                    <td class="p-1.5 text-slate-600">$BANANA</td>
+                    <td class="p-1.5 font-bold text-emerald-600 bg-emerald-50/50">A</td>
+                  </tr>
+                  <tr class="bg-indigo-50/70 font-bold">
+                    <td class="p-1.5 text-slate-400">1</td>
+                    <td class="p-1.5 text-indigo-700">5</td>
+                    <td class="p-1.5 text-indigo-700">A</td>
+                    <td class="p-1.5 text-slate-800">A$BANAN</td>
+                    <td class="p-1.5 text-emerald-600 bg-emerald-50/50">N</td>
+                  </tr>
+                  <tr class="bg-indigo-50/70 font-bold">
+                    <td class="p-1.5 text-slate-400">2</td>
+                    <td class="p-1.5 text-indigo-700">3</td>
+                    <td class="p-1.5 text-indigo-700">A</td>
+                    <td class="p-1.5 text-slate-800">ANA$BAN</td>
+                    <td class="p-1.5 text-emerald-600 bg-emerald-50/50">N</td>
+                  </tr>
+                  <tr class="bg-indigo-50/70 font-bold">
+                    <td class="p-1.5 text-slate-400">3</td>
+                    <td class="p-1.5 text-indigo-700">1</td>
+                    <td class="p-1.5 text-indigo-700">A</td>
+                    <td class="p-1.5 text-slate-800">ANANA$B</td>
+                    <td class="p-1.5 text-emerald-600 bg-emerald-50/50">B</td>
+                  </tr>
+                  <tr>
+                    <td class="p-1.5 text-slate-400">4</td>
+                    <td class="p-1.5 text-slate-700">0</td>
+                    <td class="p-1.5 font-bold text-indigo-700">B</td>
+                    <td class="p-1.5 text-slate-600">BANANA$</td>
+                    <td class="p-1.5 font-bold text-emerald-600 bg-emerald-50/50">$</td>
+                  </tr>
+                  <tr>
+                    <td class="p-1.5 text-slate-400">5</td>
+                    <td class="p-1.5 text-slate-700">4</td>
+                    <td class="p-1.5 font-bold text-indigo-700">N</td>
+                    <td class="p-1.5 text-slate-600">NA$BANA</td>
+                    <td class="p-1.5 font-bold text-emerald-600 bg-emerald-50/50">A</td>
+                  </tr>
+                  <tr>
+                    <td class="p-1.5 text-slate-400">6</td>
+                    <td class="p-1.5 text-slate-700">2</td>
+                    <td class="p-1.5 font-bold text-indigo-700">N</td>
+                    <td class="p-1.5 text-slate-600">NANA$BA</td>
+                    <td class="p-1.5 font-bold text-emerald-600 bg-emerald-50/50">A</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mt-4 mb-2">Backward Search Execution for $P = \text{"ANA"}$</h4>
+            <ol class="list-decimal pl-5 space-y-1.5 text-xs text-slate-700">
+              <li>
+                <strong>Initialize:</strong> $\text{top}_0 = 0, \text{bot}_0 = 6$.
+              </li>
+              <li>
+                <strong>Step 1 ($c = P[2] = \text{'A'}$):</strong><br/>
+                $\text{top}_1 = C[\text{'A'}] + \text{Occ}(\text{'A'}, 0) = 1 + 0 = 1$.<br/>
+                $\text{bot}_1 = C[\text{'A'}] + \text{Occ}(\text{'A'}, 7) - 1 = 1 + 3 - 1 = 3$.<br/>
+                Range = $[1, 3]$ (3 matching suffixes starting with <code class="font-mono text-indigo-600 font-bold">"A"</code>).
+              </li>
+              <li>
+                <strong>Step 2 ($c = P[1] = \text{'N'}$):</strong><br/>
+                $\text{top}_2 = C[\text{'N'}] + \text{Occ}(\text{'N'}, 1) = 5 + 0 = 5$.<br/>
+                $\text{bot}_2 = C[\text{'N'}] + \text{Occ}(\text{'N'}, 4) - 1 = 5 + 2 - 1 = 6$.<br/>
+                Range = $[5, 6]$ (2 matching suffixes starting with <code class="font-mono text-indigo-600 font-bold">"NA"</code>).
+              </li>
+              <li>
+                <strong>Step 3 ($c = P[0] = \text{'A'}$):</strong><br/>
+                $\text{top}_3 = C[\text{'A'}] + \text{Occ}(\text{'A'}, 5) = 1 + 1 = 2$.<br/>
+                $\text{bot}_3 = C[\text{'A'}] + \text{Occ}(\text{'A'}, 7) - 1 = 1 + 3 - 1 = 3$.<br/>
+                Range = $[2, 3]$ (2 matching occurrences of <code class="font-mono text-indigo-600 font-bold">"ANA"</code>).
+              </li>
+            </ol>
+
+            <p class="mt-2 text-xs font-mono bg-slate-900 text-slate-200 p-3 rounded-sm">
+              Matched Suffix Array Offsets:<br/>
+              SA[2] = 3 (BAN[ANA]$)<br/>
+              SA[3] = 1 (B[ANA]NA$)
+            </p>
+          </div>
+
+          <!-- 6. Traceback & Position Reconstruction -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">6. Traceback &amp; Suffix Array Position Reconstruction</h3>
+            <p class="text-xs">
+              Once backward search completes and returns range $[\text{top}, \text{bot}]$, the physical 0-indexed positions in reference genome $T$ are retrieved by reading $\text{SA}[i]$ for $i \in [\text{top}, \text{bot}]$.
+            </p>
+          </div>
+
+          <!-- 7. Python 3 Reference Implementation -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">7. Python 3 Reference Implementation</h3>
+            <p class="text-xs mb-2">Production-ready, type-annotated Python 3 class implementing BWT, $C[]$ table, $\text{Occ}$ tally matrix, and sub-linear backward search:</p>
+
+            <div class="relative group mt-1">
+              <button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); this.textContent = 'Copied!'; setTimeout(() => this.textContent = 'Copy', 2000)" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-sm text-[9px] font-bold tracking-wide transition-all duration-150 shadow-sm cursor-pointer select-none">Copy</button>
+              <pre class="bg-white border border-slate-200 text-slate-700 p-3.5 pr-12 rounded-sm font-mono text-xs overflow-x-auto leading-relaxed"><span class="text-pink-600">from</span> typing <span class="text-pink-600">import</span> List, Dict, Tuple
+
+<span class="text-pink-600">class</span> <span class="text-emerald-600">FMIndex</span>:
+    <span class="text-pink-600">def</span> <span class="text-sky-600">__init__</span>(self, reference: <span class="text-sky-600">str</span>):
+        <span class="text-pink-600">if</span> <span class="text-pink-600">not</span> reference.endswith(<span class="text-teal-700">"$"</span>):
+            reference += <span class="text-teal-700">"$"</span>
+        self.ref = reference
+        self.sa = self._build_suffix_array(reference)
+        self.bwt = <span class="text-teal-700">""</span>.join(reference[i - <span class="text-orange-600">1</span>] <span class="text-pink-600">for</span> i <span class="text-pink-600">in</span> self.sa)
+        self.C, self.Occ = self._build_tally_tables(self.bwt)
+
+    <span class="text-pink-600">def</span> <span class="text-sky-600">_build_suffix_array</span>(self, text: <span class="text-sky-600">str</span>) -&gt; List[<span class="text-sky-600">int</span>]:
+        <span class="text-slate-500 italic">"""Constructs the Suffix Array of text."""</span>
+        <span class="text-pink-600">return</span> <span class="text-sky-600">sorted</span>(<span class="text-sky-600">range</span>(<span class="text-sky-600">len</span>(text)), key=<span class="text-pink-600">lambda</span> i: text[i:])
+
+    <span class="text-pink-600">def</span> <span class="text-sky-600">_build_tally_tables</span>(self, bwt: <span class="text-sky-600">str</span>) -&gt; Tuple[Dict[<span class="text-sky-600">str</span>, <span class="text-sky-600">int</span>], Dict[<span class="text-sky-600">str</span>, List[<span class="text-sky-600">int</span>]]]:
+        <span class="text-slate-500 italic">"""Builds C[] smaller-character count and Occ[][] tally matrix."""</span>
+        alphabet = <span class="text-sky-600">sorted</span>(<span class="text-sky-600">list</span>(<span class="text-sky-600">set</span>(bwt)))
+        C = {}
+        total = <span class="text-orange-600">0</span>
+        <span class="text-pink-600">for</span> char <span class="text-pink-600">in</span> alphabet:
+            C[char] = total
+            total += bwt.count(char)
+
+        Occ = {char: [<span class="text-orange-600">0</span>] * (<span class="text-sky-600">len</span>(bwt) + <span class="text-orange-600">1</span>) <span class="text-pink-600">for</span> char <span class="text-pink-600">in</span> alphabet}
+        <span class="text-pink-600">for</span> i, char <span class="text-pink-600">in</span> <span class="text-sky-600">enumerate</span>(bwt):
+            <span class="text-pink-600">for</span> c <span class="text-pink-600">in</span> alphabet:
+                Occ[c][i + <span class="text-orange-600">1</span>] = Occ[c][i] + (<span class="text-orange-600">1</span> <span class="text-pink-600">if</span> c == char <span class="text-pink-600">else</span> <span class="text-orange-600">0</span>)
+
+        <span class="text-pink-600">return</span> C, Occ
+
+    <span class="text-pink-600">def</span> <span class="text-sky-600">search</span>(self, pattern: <span class="text-sky-400">str</span>) -&gt; List[<span class="text-sky-400">int</span>]:
+        <span class="text-slate-500 italic">"""
+        Executes sub-linear O(|P|) FM-Index backward search.
+        Returns list of 0-indexed genomic positions.
+        """</span>
+        top, bot = <span class="text-orange-600">0</span>, <span class="text-sky-600">len</span>(self.bwt) - <span class="text-orange-600">1</span>
+        <span class="text-pink-600">for</span> char <span class="text-pink-600">in</span> <span class="text-sky-600">reversed</span>(pattern):
+            <span class="text-pink-600">if</span> char <span class="text-pink-600">not in</span> self.C:
+                <span class="text-pink-600">return</span> []
+            top = self.C[char] + self.Occ[char][top]
+            bot = self.C[char] + self.Occ[char][bot + <span class="text-orange-600">1</span>] - <span class="text-orange-600">1</span>
+            <span class="text-pink-600">if</span> top &gt; bot:
+                <span class="text-pink-600">return</span> []
+
+        <span class="text-pink-600">return</span> <span class="text-sky-600">sorted</span>([self.sa[i] <span class="text-pink-600">for</span> i <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(top, bot + <span class="text-orange-600">1</span>)])</pre>
+            </div>
+          </div>
+
+          <!-- 8. Practice Problems -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">8. Practice Problems</h3>
+            <div class="space-y-3">
+              <div class="bg-emerald-50 border border-emerald-100 p-3 rounded-sm">
+                <span class="text-[9px] font-bold text-emerald-600 uppercase tracking-widest block mb-1">Warm-up</span>
+                <p class="text-[11px] text-slate-700">Compute $BWT(\text{"GATTACA\$"})$ by constructing the sorted matrix of cyclic rotations by hand.</p>
+                <button onclick="window.loadSandboxChallenge(this)" class="mt-2 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-2.5 py-1 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider cursor-pointer">Try in Sandbox &rarr;</button>
+              </div>
+              <div class="bg-indigo-50 border border-indigo-100 p-3 rounded-sm">
+                <span class="text-[9px] font-bold text-indigo-600 uppercase tracking-widest block mb-1">Core</span>
+                <p class="text-[11px] text-slate-700">Write an LF-mapping function that reconstructs the original string $T$ from $BWT(T)$ without storing the suffix array.</p>
+                <button onclick="window.loadSandboxChallenge(this)" class="px-2.5 py-1 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider mt-2 cursor-pointer">Try in Sandbox &rarr;</button>
+              </div>
+              <div class="bg-rose-50 border border-rose-100 p-3 rounded-sm">
+                <span class="text-[9px] font-bold text-rose-600 uppercase tracking-widest block mb-1">Extension</span>
+                <p class="text-[11px] text-slate-700">Modify the backward search algorithm to allow up to 1 mismatch (inexact pattern matching) using a backtracking recursive branch.</p>
+                <button onclick="window.loadSandboxChallenge(this)" class="mt-2 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-2.5 py-1 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider cursor-pointer">Try in Sandbox &rarr;</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Additional Curated Practice Problems Section -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Curated Practice Problems</h2>
+        <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
+          <a href="https://rosalind.info/problems/ba9i/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">ROSALIND</span>
+              <span class="font-semibold text-slate-800">BA9I - Construct the Burrows-Wheeler Transform of a String</span>
+            </div>
+            <span class="text-indigo-600 font-semibold hover:underline">Solve Problem &rarr;</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Module Progress Control -->
+      <section class="bg-indigo-50/40 backdrop-blur-md border border-indigo-100 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 flex flex-col md:flex-row items-center justify-between select-none">
+        <div>
+          <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Module Complete?</h2>
+          <p class="text-sm text-slate-600 mt-1">Mark this module as complete to save your progress in the curriculum pathway.</p>
+        </div>
+        <label class="flex items-center space-x-3 cursor-pointer bg-white hover:bg-indigo-50 border border-indigo-200 rounded-xl px-6 py-3 shadow-sm transition-colors duration-200 mt-4 md:mt-0">
+          <input type="checkbox" id="page-complete-checkbox" class="h-5 w-5 rounded border-indigo-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer" />
+          <span class="text-xs font-bold text-indigo-900 uppercase tracking-wider">Mark as Done</span>
+        </label>
+      </section>
+
+      <div id="sandbox-container"></div>
+      <div id="quiz-container"></div>
+    </main>
+  </div>
+
+  <script src="../src/app.js"></script>
+  <script src="../src/bwt_fm_index.js"></script>
+  <script>
+    const sidebar = document.getElementById("sidebar");
+    const toggleBtn = document.getElementById("sidebar-toggle");
+    if (sidebar && toggleBtn) {
+      toggleBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("sidebar-collapsed");
+        toggleBtn.innerHTML = sidebar.classList.contains("sidebar-collapsed") ? "&rsaquo;" : "&lsaquo;";
+        toggleBtn.style.left = sidebar.classList.contains("sidebar-collapsed") ? "0.25rem" : "17.25rem";
+      });
+    }
+  </script>
+  <script src="../src/quiz.js"></script>
+  <script src="../src/sandbox.js"></script>
+
+  <button onclick="const m = document.querySelector('main'); m.scrollTo({ top: document.getElementById('sandbox-container').offsetTop, behavior: 'smooth' })" class="fixed bottom-6 right-8 bg-white/70 backdrop-blur-md border border-white/60 shadow-xl text-slate-700 text-[10px] font-bold uppercase tracking-wider px-4 py-2 rounded-full hover:bg-white hover:text-indigo-700 transition-all duration-300 z-50 flex items-center space-x-2 select-none group cursor-pointer">
+    <span>Jump to Sandbox</span>
+    <svg class="w-3 h-3 text-indigo-500 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7-7m0 0l-7-7m7 7V3"></path></svg>
+  </button>
+</body>
+</html>

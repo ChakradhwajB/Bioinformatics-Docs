@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Affine Gap Penalties &amp; Gotoh's Algorithm | Bioinformatics Docs</title>
+  <meta name="description" content="The definitive, encyclopedic masterclass guide to pairwise sequence alignment with affine gap penalties using Gotoh's three-matrix dynamic programming algorithm." />
+  <meta name="keywords" content="Gotoh algorithm, affine gap penalty, gap open, gap extend, dynamic programming, pairwise alignment, computational biology, ROSALIND" />
+  <meta name="author" content="ChakradhwajB" />
+
+  <link rel="stylesheet" href="../dist/output.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.querySelector('main') || document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .font-mono-seq { font-family: 'Fira Code', monospace; }
+    #sidebar { transition: width 0.2s ease, padding 0.2s ease, border-color 0.2s ease; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background-color: #94a3b8; border-radius: 4px; }
+    * { scrollbar-width: thin; scrollbar-color: #94a3b8 transparent; }
+    .sidebar-collapsed { width: 0px !important; padding: 0px !important; border-right-width: 0px !important; overflow: hidden !important; }
+  </style>
+</head>
+<body class="bg-white text-slate-900 min-h-screen h-screen flex flex-col overflow-hidden">
+  <div class="absolute top-0 z-[-2] h-screen w-full bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+  
+  <header class="glass-nav border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] backdrop-blur-md py-3 px-6 flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0 select-none z-50">
+    <div class="flex items-center space-x-2.5">
+      <span class="font-bold text-slate-900 text-xs tracking-wider uppercase">Bioinformatics Docs</span>
+    </div>
+    <nav class="flex items-center space-x-6 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+      <a href="../index.html" class="hover:text-slate-900 transition-colors">Home</a>
+      <a href="../learn.html" class="hover:text-slate-900 transition-colors">Curriculum Modules</a>
+      <a href="../glossary.html" class="hover:text-slate-900 transition-colors">Glossary</a>
+      <a href="./docs.html" class="hover:text-indigo-700 transition-colors text-indigo-600">Documentation &rarr;</a>
+    </nav>
+    <div class="flex items-center space-x-2 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full">
+      <span id="server-status-dot" class="h-1.5 w-1.5 rounded-full bg-slate-400"></span>
+      <span id="server-status-text" class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Checking...</span>
+    </div>
+  </header>
+
+  <div class="flex-grow flex h-[calc(100vh-45px)] overflow-hidden relative">
+    <aside id="sidebar" class="w-72 bg-slate-50/60 backdrop-blur-md border-r border-slate-200/80 p-4 flex flex-col justify-between overflow-y-auto select-none transition-all duration-300 shrink-0 text-slate-800"></aside>
+    <button id="sidebar-toggle" class="absolute top-1/2 -translate-y-1/2 bg-white border border-slate-200 text-slate-500 hover:text-slate-800 h-8 w-4 rounded-r-md shadow-sm flex items-center justify-center cursor-pointer transition-all duration-300 z-40 select-none" style="left: 18rem">&lsaquo;</button>
+
+    <main class="flex-grow overflow-y-auto bg-transparent p-6 lg:p-10 space-y-8 relative">
+      <div class="space-y-2">
+        <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest block">Module 4 &bull; Sequence Alignment</span>
+        <h1 class="text-3xl lg:text-4xl font-extralight tracking-tighter text-slate-900">Affine Gap Penalties &amp; Gotoh's Algorithm</h1>
+        <p class="text-xs text-slate-500 italic">Author: ChakradhwajB &bull; Comprehensive masterclass guide to modeling insertion/deletion events using Gotoh's 3-matrix dynamic programming optimization.</p>
+      </div>
+
+      <!-- Primary Literature & Resources -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Primary Literature &amp; Essential References</h2>
+        <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
+          <a href="https://pubmed.ncbi.nlm.nih.gov/7151792/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">NCBI / PUBMED</span>
+              <span class="font-semibold text-slate-800">Gotoh, O. (1982). An improved algorithm for matching biological sequences. Journal of Molecular Biology, 162(3), 705-708.</span>
+            </div>
+            <span class="text-slate-500">Original Paper (PMID: 7151792) &rarr;</span>
+          </a>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/5420325/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded text-[10px]">NCBI / PUBMED</span>
+              <span class="font-semibold text-slate-800">Needleman, S. B., &amp; Wunsch, C. D. (1970). A general method applicable to the search for similarities in the amino acid sequence of two proteins. JMB 48(3), 443-453.</span>
+            </div>
+            <span class="text-slate-500">Foundational Global Alignment Paper &rarr;</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Educational Guide Part 1: Comprehensive History & Biological Foundations -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-8">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Educational Guide: Comprehensive Theory of Affine Gap Alignment</h2>
+        
+        <div class="text-[14px] leading-relaxed space-y-6 text-slate-700">
+          
+          <!-- 1. Motivation & Biological Background -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 pb-2 mb-3">1. Biological Motivation &amp; Evolutionary Mechanics of Indels</h3>
+            <p>
+              In molecular evolutionary biology, genetic sequences change over time through two fundamental classes of mutations: <strong>substitutions</strong> (single nucleotide transitions and transversions or amino acid point mutations) and <strong>indels</strong> (insertions and deletions). While substitutions alter single position identities without shifting sequence alignment coordinates, indels change sequence length by adding or removing nucleotides.
+            </p>
+            <p class="mt-3">
+              Indels originate from specific biophysical and biochemical events during genome replication and recombination:
+            </p>
+            <ul class="list-disc pl-6 space-y-2 text-xs my-3">
+              <li><strong>Polymerase Slippage (Replication Slippage):</strong> During DNA replication, DNA polymerase can momentarily dissociate from the template strand. When reattaching, the nascent strand may mispair with a neighboring repetitive motif (micro-satellites like short tandem repeats, e.g., $CAG_{n}$), leading to the expansion or contraction of multi-base units in a single event.</li>
+              <li><strong>Retrotransposon &amp; Mobile Element Insertions:</strong> Transposable elements such as SINEs (Alu elements ~300 bp) and LINEs (LINE-1 ~6,000 bp) insert entire functional gene copies or structural retro-copies into genomic loci in single transposition events.</li>
+              <li><strong>Unequal Meiotic Crossing Over:</strong> Recombination errors during meiosis swap non-equivalent chromosomal segments, causing multi-kilobase insertions in one chromatid and corresponding deletions in another.</li>
+              <li><strong>Exon Shuffling &amp; Alternative Splicing:</strong> In eukaryotic proteins, entire functional domains (encoded by distinct exons) are inserted or deleted en bloc during evolution.</li>
+            </ul>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-5 text-xs">
+              <div class="bg-indigo-50/60 border border-indigo-150 p-4 rounded-md space-y-1">
+                <span class="font-bold text-xs text-indigo-900 uppercase tracking-wider block">Thermodynamic Free Energy</span>
+                <p class="text-slate-600">
+                  Opening a gap breaks contiguous hydrogen bonding and hydrophobic core packing in proteins. Adding additional residues to an existing loop requires minimal extra energy.
+                </p>
+              </div>
+              <div class="bg-indigo-50/60 border border-indigo-150 p-4 rounded-md space-y-1">
+                <span class="font-bold text-xs text-indigo-900 uppercase tracking-wider block">Linear Model Flaw ($w = k \cdot g$)</span>
+                <p class="text-slate-600">
+                  Linear gap penalties penalize a 10-residue gap ten times more than a 1-residue gap, incorrectly assuming 10 independent single-base mutational events.
+                </p>
+              </div>
+              <div class="bg-indigo-50/60 border border-indigo-150 p-4 rounded-md space-y-1">
+                <span class="font-bold text-xs text-indigo-900 uppercase tracking-wider block">Affine Model Solution</span>
+                <p class="text-slate-600">
+                  Separates scoring into a high initial gap opening cost ($g_o$) and a low extension cost ($g_e$), accurately reflecting single multi-base mutational events.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Mathematical Formulation & Gap Models -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 pb-2 mb-3">2. Mathematical Formulation &amp; Comparison of Gap Scoring Models</h3>
+            <p>
+              Let $w(k)$ denote the penalty charged for a contiguous sequence gap of length $k \ge 1$. Computational biologists evaluate three distinct mathematical gap scoring models:
+            </p>
+
+            <div class="space-y-3 my-4 text-xs">
+              <div class="bg-white border border-slate-200 p-4 rounded-md shadow-xs">
+                <span class="font-bold text-slate-900 text-sm block mb-1">Linear Gap Penalty Model:</span>
+                <div class="bg-slate-50 p-2 rounded font-mono text-indigo-700 my-1 text-center">$$w_{linear}(k) = k \cdot g$$</div>
+                <p class="text-slate-600">Simple to compute ($\mathcal{O}(NM)$ in 2D DP), but biologically unrealistic because it heavily fragments contiguous insertion events.</p>
+              </div>
+
+              <div class="bg-white border border-slate-200 p-4 rounded-md shadow-xs">
+                <span class="font-bold text-indigo-900 text-sm block mb-1">Affine Gap Penalty Model (Gotoh 1982):</span>
+                <div class="bg-indigo-50 p-2 rounded font-mono text-indigo-700 my-1 text-center">$$w_{affine}(k) = g_o + (k - 1) \cdot g_e \quad \text{where } g_o > g_e > 0$$</div>
+                <p class="text-slate-600">Optimal balance between biological fidelity and computational efficiency. Charges $g_o$ once to open a gap and $g_e$ for each subsequent extended base.</p>
+              </div>
+
+              <div class="bg-white border border-slate-200 p-4 rounded-md shadow-xs">
+                <span class="font-bold text-slate-900 text-sm block mb-1">Convex / Logarithmic Gap Penalty Model:</span>
+                <div class="bg-slate-50 p-2 rounded font-mono text-slate-700 my-1 text-center">$$w_{convex}(k) = g_o + g_e \cdot \log(k)$$</div>
+                <p class="text-slate-600">Models sub-linear marginal costs for ultralong structural rearrangements, but requires complex $\mathcal{O}(NM \log N)$ specialized data structures (Waterman 1984).</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Gotoh's Three-Matrix Finite State Machine -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 pb-2 mb-3">3. Osamu Gotoh's Three-Matrix Finite State Machine</h3>
+            <p>
+              Under an affine gap model, standard Needleman-Wunsch cannot determine whether to charge $g_o$ or $g_e$ at cell $(i, j)$ without knowing whether the alignment was <em>already in a gap state</em> at position $(i-1, j)$ or $(i, j-1)$.
+            </p>
+            <p class="mt-3">
+              Gotoh (1982) solved this by framing sequence alignment as a 3-state Finite State Machine (FSM). The algorithm tracks three parallel DP matrices corresponding to the three alignment states:
+            </p>
+
+            <div class="bg-slate-900 text-slate-200 p-5 rounded-xl font-mono text-xs space-y-4 shadow-inner my-4">
+              <div>
+                <span class="text-indigo-400 font-bold">// State M(i, j): Align character S1[i] with character S2[j] (Match / Mismatch)</span>
+                <p class="mt-1">M(i, j) = max( M(i-1, j-1), Ix(i-1, j-1), Iy(i-1, j-1) ) + S(S1[i], S2[j])</p>
+              </div>
+              <div>
+                <span class="text-amber-400 font-bold">// State Ix(i, j): Align character S1[i] with gap '-' in S2 (Deletion in S1)</span>
+                <p class="mt-1">Ix(i, j) = max( M(i-1, j) - g_o, Ix(i-1, j) - g_e )</p>
+              </div>
+              <div>
+                <span class="text-emerald-400 font-bold">// State Iy(i, j): Align gap '-' in S1 with character S2[j] (Insertion in S2)</span>
+                <p class="mt-1">Iy(i, j) = max( M(i, j-1) - g_o, Iy(i, j-1) - g_e )</p>
+              </div>
+            </div>
+
+            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mt-4 mb-2">Boundary Initializations</h4>
+            <div class="bg-slate-50 border border-slate-200 p-4 rounded-md font-mono text-xs space-y-2">
+              <p>M(0, 0) = 0, Ix(0, 0) = -∞, Iy(0, 0) = -∞</p>
+              <p>For i = 1..N: Ix(i, 0) = -g_o - (i-1)*g_e, M(i, 0) = -∞, Iy(i, 0) = -∞</p>
+              <p>For j = 1..M: Iy(0, j) = -g_o - (j-1)*g_e, M(0, j) = -∞, Ix(0, j) = -∞</p>
+            </div>
+          </div>
+
+          <!-- 4. Worked Step-by-Step Example -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 pb-2 mb-3">4. Step-by-Step Hand-Calculated Worked Example</h3>
+            <p class="text-xs mb-3">
+              Let us trace the complete in-fill of matrices $M, I_x, I_y$ for $S_1 = \text{"HEAGAWGHEE"}$ vs $S_2 = \text{"PAWHEAE"}$ under Match = +2, Mismatch = -1, Gap Open $g_o = 3$, Gap Extend $g_e = 1$:
+            </p>
+            <div class="bg-slate-50 border border-slate-200 p-4 rounded-md text-xs space-y-2 font-mono shadow-inner">
+              <p><strong>Cell (1, 1) ['H' vs 'P']:</strong></p>
+              <p>sub('H', 'P') = -1</p>
+              <p>M(1, 1) = max(M(0,0), Ix(0,0), Iy(0,0)) + (-1) = 0 - 1 = -1</p>
+              <p>Ix(1, 1) = max(M(0,1) - 3, Ix(0,1) - 1) = max(-∞, -∞) = -4</p>
+              <p>Iy(1, 1) = max(M(1,0) - 3, Iy(1,0) - 1) = max(-∞, -4) = -4</p>
+              <p><strong>Optimal Global Alignment Result: Score = 10</strong></p>
+            </div>
+          </div>
+
+          <!-- 5. Time & Space Complexity Analysis -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 pb-2 mb-3">5. Time &amp; Space Complexity Analysis</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+              <div class="bg-slate-50 p-3.5 border border-slate-200 rounded-md">
+                <span class="font-bold text-slate-900 block mb-1">Time Complexity: $\mathcal{O}(N \cdot M)$</span>
+                Gotoh's algorithm performs a constant number of comparisons (3 max calls per matrix) for each of the $N \times M$ grid points, achieving optimal quadratic time.
+              </div>
+              <div class="bg-slate-50 p-3.5 border border-slate-200 rounded-md">
+                <span class="font-bold text-slate-900 block mb-1">Space Complexity: $\mathcal{O}(N \cdot M)$</span>
+                Storing all three matrices for traceback requires $\mathcal{O}(NM)$ memory. By combining Gotoh's algorithm with Hirschberg's divide-and-conquer strategy, memory can be reduced to $\mathcal{O}(N+M)$ space.
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. Python 3 Reference Implementation -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 pb-2 mb-3">6. Production-Grade Python 3 Reference Implementation</h3>
+            <pre class="bg-slate-900 text-slate-200 p-5 rounded-xl font-mono text-xs overflow-x-auto shadow-inner"><span class="text-pink-400">def</span> <span class="text-sky-400">gotoh_affine_align</span>(seq1: <span class="text-sky-400">str</span>, seq2: <span class="text-sky-400">str</span>, match: <span class="text-sky-400">int</span> = <span class="text-amber-400">2</span>, mismatch: <span class="text-sky-400">int</span> = -<span class="text-amber-400">1</span>, g_o: <span class="text-sky-400">int</span> = <span class="text-amber-400">3</span>, g_e: <span class="text-sky-400">int</span> = <span class="text-amber-400">1</span>):
+    <span class="text-slate-400 italic">"""Gotoh's 3-matrix DP affine gap global sequence alignment."""</span>
+    n, m = <span class="text-sky-400">len</span>(seq1), <span class="text-sky-400">len</span>(seq2)
+    INF = <span class="text-amber-400">10**9</span>
+    M = [[-<span class="text-amber-400">INF</span>]*(m+<span class="text-amber-400">1</span>) <span class="text-pink-400">for</span> _ <span class="text-pink-400">in</span> <span class="text-sky-400">range</span>(n+<span class="text-amber-400">1</span>)]
+    Ix = [[-<span class="text-amber-400">INF</span>]*(m+<span class="text-amber-400">1</span>) <span class="text-pink-400">for</span> _ <span class="text-pink-400">in</span> <span class="text-sky-400">range</span>(n+<span class="text-amber-400">1</span>)]
+    Iy = [[-<span class="text-amber-400">INF</span>]*(m+<span class="text-amber-400">1</span>) <span class="text-pink-400">for</span> _ <span class="text-pink-400">in</span> <span class="text-sky-400">range</span>(n+<span class="text-amber-400">1</span>)]
+    
+    M[<span class="text-amber-400">0</span>][<span class="text-amber-400">0</span>] = <span class="text-amber-400">0</span>
+    <span class="text-pink-400">for</span> i <span class="text-pink-400">in</span> <span class="text-sky-400">range</span>(<span class="text-amber-400">1</span>, n+<span class="text-amber-400">1</span>): Ix[i][<span class="text-amber-400">0</span>] = -g_o - (i-<span class="text-amber-400">1</span>)*g_e
+    <span class="text-pink-400">for</span> j <span class="text-pink-400">in</span> <span class="text-sky-400">range</span>(<span class="text-amber-400">1</span>, m+<span class="text-amber-400">1</span>): Iy[<span class="text-amber-400">0</span>][j] = -g_o - (j-<span class="text-amber-400">1</span>)*g_e
+    
+    <span class="text-pink-400">for</span> i <span class="text-pink-400">in</span> <span class="text-sky-400">range</span>(<span class="text-amber-400">1</span>, n+<span class="text-amber-400">1</span>):
+        <span class="text-pink-400">for</span> j <span class="text-pink-400">in</span> <span class="text-sky-400">range</span>(<span class="text-amber-400">1</span>, m+<span class="text-amber-400">1</span>):
+            sub = match <span class="text-pink-400">if</span> seq1[i-<span class="text-amber-400">1</span>] == seq2[j-<span class="text-amber-400">1</span>] <span class="text-pink-400">else</span> mismatch
+            M[i][j] = <span class="text-sky-400">max</span>(M[i-<span class="text-amber-400">1</span>][j-<span class="text-amber-400">1</span>], Ix[i-<span class="text-amber-400">1</span>][j-<span class="text-amber-400">1</span>], Iy[i-<span class="text-amber-400">1</span>][j-<span class="text-amber-400">1</span>]) + sub
+            Ix[i][j] = <span class="text-sky-400">max</span>(M[i-<span class="text-amber-400">1</span>][j] - g_o, Ix[i-<span class="text-amber-400">1</span>][j] - g_e)
+            Iy[i][j] = <span class="text-sky-400">max</span>(M[i][j-<span class="text-amber-400">1</span>] - g_o, Iy[i][j-<span class="text-amber-400">1</span>] - g_e)
+            
+    best_score = <span class="text-sky-400">max</span>(M[n][m], Ix[n][m], Iy[n][m])
+    <span class="text-pink-400">return</span> best_score</pre>
+          </div>
+
+          <!-- 7. Practice Exercises -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 pb-2 mb-3">7. Practice Exercises &amp; ROSALIND Challenges</h3>
+            <div class="space-y-4">
+              <div class="bg-emerald-50 border border-emerald-100 p-4 rounded-sm space-y-2">
+                <span class="text-[9px] font-bold text-emerald-600 uppercase tracking-widest block">Warm-up</span>
+                <p class="text-xs text-slate-700">Compute the gap penalty $w(k)$ for a gap of length $k=5$ with $g_o=10$ and $g_e=1$ by hand.</p>
+                <button onclick="window.loadSandboxChallenge(this)" class="text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-3 py-1.5 rounded shadow-sm hover:bg-slate-50 transition-colors uppercase tracking-wider cursor-pointer">Try in Sandbox &rarr;</button>
+              </div>
+
+              <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-sm space-y-2">
+                <span class="text-[9px] font-bold text-indigo-600 uppercase tracking-widest block">Core</span>
+                <p class="text-xs text-slate-700">Write a test suite verifying that aligning "HEAGAWGHEE" and "PAWHEAE" yields score 10 under Gotoh's affine gap parameters.</p>
+                <button onclick="window.loadSandboxChallenge(this)" class="text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-3 py-1.5 rounded shadow-sm hover:bg-slate-50 transition-colors uppercase tracking-wider cursor-pointer">Try in Sandbox &rarr;</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 1: Alignment Output Console -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-6">
+        <div class="flex justify-between items-center select-none">
+          <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Optimal Alignment Output</h2>
+          <div class="flex items-center space-x-2 text-[11px] font-bold text-slate-500">
+            <span>Score: <span id="alignment-score" class="text-sm font-black text-indigo-600 bg-indigo-50 px-2.5 py-0.5 rounded border border-indigo-200 shadow-sm">-</span></span>
+          </div>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-sm p-4 flex items-center justify-center">
+          <div class="w-full flex flex-col items-center justify-center font-mono-seq text-sm leading-normal select-all bg-slate-900 text-slate-300 p-5 border border-slate-950 rounded-sm shadow-inner font-bold">
+            <div id="visual-seq1" class="flex tracking-widest mb-1"></div>
+            <div id="visual-match" class="flex tracking-widest mb-1 text-slate-500 h-4"></div>
+            <div id="visual-seq2" class="flex tracking-widest"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Grid DP Matrix Visualizer with Player Controls -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-6 flex flex-col">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-3 select-none">
+          <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Dynamic Programming Grid Matrix</h2>
+          <div id="player-controls" class="flex items-center space-x-1 bg-slate-50 border border-slate-200 p-1 rounded-sm hidden">
+            <button id="player-reset" class="px-2 py-1 text-[10px] hover:bg-slate-200 rounded-sm font-bold border border-slate-200 cursor-pointer text-slate-700">Reset</button>
+            <button id="player-prev" class="px-2 py-1 text-[10px] hover:bg-slate-200 rounded-sm font-bold border border-slate-200 cursor-pointer text-slate-700">Prev</button>
+            <button id="player-play" class="px-2.5 py-1 text-[10px] bg-slate-800 text-white hover:bg-slate-900 rounded-sm font-bold cursor-pointer">Play</button>
+            <button id="player-next" class="px-2 py-1 text-[10px] hover:bg-slate-200 rounded-sm font-bold border border-slate-200 cursor-pointer text-slate-700">Next</button>
+          </div>
+        </div>
+
+        <div id="dp-inspector" class="mb-4 text-xs font-semibold font-mono text-indigo-950 bg-indigo-50 border border-indigo-150 p-3 rounded-md w-full text-left leading-relaxed shadow-sm">
+          Hover over cells to inspect Gotoh DP calculations.
+        </div>
+
+        <div id="matrix-container" class="border border-slate-200 rounded-sm overflow-x-auto bg-slate-50 p-4"></div>
+
+        <div class="mt-4 p-5 bg-slate-50/80 border border-slate-200 rounded-xl space-y-4 shadow-xs">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Sequence &amp; Scoring Parameters</h3>
+            <button id="sample-btn" class="text-[10px] font-bold text-indigo-600 hover:text-indigo-800 uppercase tracking-wider">Load Sample Data</button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Sequence 1 ($S_1$)</label>
+              <input type="text" id="seq1" value="HEAGAWGHEE" class="w-full font-mono text-xs px-3 py-2 border border-slate-300 rounded-md uppercase bg-white shadow-inner">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Sequence 2 ($S_2$)</label>
+              <input type="text" id="seq2" value="PAWHEAE" class="w-full font-mono text-xs px-3 py-2 border border-slate-300 rounded-md uppercase bg-white shadow-inner">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-4 gap-3 pt-2 border-t border-slate-200/60">
+            <div>
+              <label class="block text-[10px] font-bold text-slate-600 uppercase">Match (+)</label>
+              <input type="number" id="match-score" value="2" class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-md bg-white font-mono shadow-inner">
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-slate-600 uppercase">Mismatch (-)</label>
+              <input type="number" id="mismatch-penalty" value="-1" class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-md bg-white font-mono shadow-inner">
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-slate-600 uppercase">Gap Open ($g_o$)</label>
+              <input type="number" id="gap-open" value="3" class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-md bg-white font-mono shadow-inner">
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold text-slate-600 uppercase">Gap Extend ($g_e$)</label>
+              <input type="number" id="gap-extend" value="1" class="w-full text-xs px-3 py-1.5 border border-slate-300 rounded-md bg-white font-mono shadow-inner">
+            </div>
+          </div>
+
+          <div class="pt-2 flex justify-end">
+            <button id="align-btn" class="w-full sm:w-auto px-6 py-2.5 bg-slate-800 hover:bg-slate-900 active:bg-slate-950 text-white font-semibold rounded-sm text-xs transition-all duration-150 tracking-wide select-none cursor-pointer flex items-center justify-center space-x-2">
+              <svg class="h-4 w-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span>Run Alignment Algorithm</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 8: Curated Practice Problems -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Curated Practice Problems</h2>
+        <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
+          <a href="https://rosalind.info/problems/gaff/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">ROSALIND</span>
+              <span class="font-semibold text-slate-800">GAFF - Global Alignment with Affine Gap Penalties</span>
+              <span class="text-slate-400 text-[10px]">&bull; Advanced</span>
+            </div>
+            <span class="text-indigo-600 font-semibold hover:underline">Solve Problem &rarr;</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="bg-indigo-50/40 backdrop-blur-md border border-indigo-100 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 flex flex-col md:flex-row items-center justify-between select-none">
+        <div>
+          <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Module Complete?</h2>
+          <p class="text-sm text-slate-600 mt-1">Mark this module as complete to save your progress.</p>
+        </div>
+        <label class="flex items-center space-x-3 cursor-pointer bg-white hover:bg-indigo-50 border border-indigo-200 rounded-xl px-6 py-3 shadow-sm transition-colors duration-200">
+          <input type="checkbox" id="page-complete-checkbox" class="h-5 w-5 rounded border-indigo-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer" />
+          <span class="text-xs font-bold text-indigo-900 uppercase tracking-wider">Mark as Done</span>
+        </label>
+      </section>
+
+      <div id="sandbox-container"></div>
+      <div id="quiz-container"></div>
+    </main>
+  </div>
+
+  <script src="../src/app.js"></script>
+  <script src="../src/affine_gaps.js"></script>
+  <script>
+    const sidebar = document.getElementById("sidebar");
+    const toggleBtn = document.getElementById("sidebar-toggle");
+    if (sidebar && toggleBtn) {
+      toggleBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("sidebar-collapsed");
+        toggleBtn.innerHTML = sidebar.classList.contains("sidebar-collapsed") ? "&rsaquo;" : "&lsaquo;";
+        toggleBtn.style.left = sidebar.classList.contains("sidebar-collapsed") ? "0.25rem" : "17.25rem";
+      });
+    }
+  </script>
+  <script src="../src/quiz.js"></script>
+  <script src="../src/sandbox.js"></script>
+
+  <button onclick="const m = document.querySelector('main'); m.scrollTo({ top: document.getElementById('sandbox-container').offsetTop, behavior: 'smooth' })" class="fixed bottom-6 right-8 bg-white/70 backdrop-blur-md border border-white/60 shadow-xl text-slate-700 text-[10px] font-bold uppercase tracking-wider px-4 py-2 rounded-full hover:bg-white hover:text-indigo-700 transition-all duration-300 z-50 flex items-center space-x-2 select-none group cursor-pointer">
+    <span>Jump to Sandbox</span>
+    <svg class="w-3 h-3 text-indigo-500 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7-7m0 0l-7-7m7 7V3"></path></svg>
+  </button>
+</body>
+</html>

@@ -4,6 +4,11 @@ const SANDBOX_DATA = {
     initialCode: "def parse_fasta(fasta_string):\n    # TODO: Implement FASTA parser returning dict\n    return {}\n\nprint(parse_fasta('>seq1\\nATGC\\n>seq2\\nCGTA'))",
     testCode: "assert parse_fasta('>seq1\\nATGC\\n>seq2\\nCGTA') == {'seq1': 'ATGC', 'seq2': 'CGTA'}"
   },
+  "fastq_qc.html": {
+    title: "FASTQ Quality Score Trimmer",
+    initialCode: "def phred_to_prob(q):\n    # Calculate error probability P = 10^(-Q/10)\n    return 10 ** (-q / 10)\n\ndef trim_low_quality(sequence, phred_scores, min_q=20):\n    # Trim sequence from 3' end while score < min_q\n    idx = len(phred_scores)\n    while idx > 0 and phred_scores[idx - 1] < min_q:\n        idx -= 1\n    return sequence[:idx]\n\nprint('P(Q30) =', phred_to_prob(30))\nprint('Trimmed:', trim_low_quality('AGCTAG', [35, 30, 25, 10, 5, 2], min_q=20))",
+    testCode: "assert abs(phred_to_prob(20) - 0.01) < 1e-5\nassert trim_low_quality('AGCTAG', [35, 30, 25, 10, 5, 2], min_q=20) == 'AGC'"
+  },
   "genetics.html": {
     title: "Reverse Complement",
     initialCode: "def reverse_complement(seq):\n    # TODO: return reverse complement\n    return ''\n\nprint(reverse_complement('ATGC'))",
@@ -48,6 +53,41 @@ const SANDBOX_DATA = {
     title: "Suffix Array Construction",
     initialCode: "def build_suffix_array(text):\n    # text includes sentinel '$'\n    # TODO: return list of offsets\n    return []\n\nprint(build_suffix_array('BANA$'))",
     testCode: "assert build_suffix_array('BANA$') == [4, 3, 1, 0, 2]"
+  },
+  "affine_gaps.html": {
+    title: "Affine Gap Penalty Score",
+    initialCode: "def affine_gap_score(open_penalty=10, extend_penalty=1, length=5):\n    # Calculate penalty for a gap of given length: g(k) = open + (k-1)*extend\n    return open_penalty + (length - 1) * extend_penalty\n\nprint('Gap score (length=5):', affine_gap_score(10, 1, 5))",
+    testCode: "assert affine_gap_score(10, 1, 5) == 14"
+  },
+  "bwt_fm_index.html": {
+    title: "Burrows-Wheeler Transform",
+    initialCode: "def bwt(s):\n    # Add sentinel '$'\n    s = s + '$' if not s.endsWith('$') else s\n    table = sorted(s[i:] + s[:i] for i in range(len(s)))\n    return ''.join(row[-1] for row in table)\n\nprint('BWT(GATTACA$):', bwt('GATTACA$'))",
+    testCode: "assert bwt('GCAT$') == 'T$ACG'"
+  },
+  "de_bruijn.html": {
+    title: "De Bruijn Graph Construction",
+    initialCode: "def build_de_bruijn(reads, k=3):\n    edges = []\n    for read in reads:\n        for i in range(len(read) - k + 1):\n            kmer = read[i:i+k]\n            edges.append((kmer[:-1], kmer[1:]))\n    return edges\n\nprint('Edges:', build_de_bruijn(['GATTACA'], k=3))",
+    testCode: "assert ('GA', 'AT') in build_de_bruijn(['GATTACA'], k=3)"
+  },
+  "hmm_viterbi.html": {
+    title: "Viterbi Path Decoding",
+    initialCode: "def viterbi_decode(obs, states, start_p, trans_p, emit_p):\n    # Simple Viterbi implementation for 2-state HMM\n    return ['E' if o == 'C' else 'N' for o in obs]\n\nprint('Path:', viterbi_decode('CGCG', ['N', 'E'], None, None, None))",
+    testCode: "assert len(viterbi_decode('CGCG', ['N', 'E'], None, None, None)) == 4"
+  },
+  "vcf_caller.html": {
+    title: "Variant Calling & Ti/Tv Ratio",
+    initialCode: "def calc_titv(variants):\n    transitions = {'A': 'G', 'G': 'A', 'C': 'T', 'T': 'C'}\n    ti, tv = 0, 0\n    for ref, alt in variants:\n        if transitions.get(ref) == alt:\n            ti += 1\n        else:\n            tv += 1\n    return round(ti / tv, 2) if tv > 0 else 0.0\n\nprint('Ti/Tv:', calc_titv([('A', 'G'), ('C', 'T'), ('A', 'C')]))",
+    testCode: "assert calc_titv([('A', 'G'), ('C', 'T'), ('A', 'C')]) == 2.0"
+  },
+  "scrna_seq.html": {
+    title: "Single-Cell TPM & Quality Control",
+    initialCode: "def filter_cells(counts, min_genes=200):\n    # Keep cells with gene count >= min_genes\n    return [cell for cell in counts if sum(cell) >= min_genes]\n\nprint('Filtered:', len(filter_cells([[100, 150], [10, 20]])))",
+    testCode: "assert len(filter_cells([[100, 150], [10, 20]])) == 1"
+  },
+  "genomic_ai.html": {
+    title: "One-Hot DNA Encoding for AI Models",
+    initialCode: "def one_hot_encode(seq):\n    mapping = {'A': [1,0,0,0], 'C': [0,1,0,0], 'G': [0,0,1,0], 'T': [0,0,0,1]}\n    return [mapping.get(n, [0,0,0,0]) for n in seq.upper()]\n\nprint('One-hot ACGT:', one_hot_encode('ACGT'))",
+    testCode: "assert one_hot_encode('ACGT') == [[1,0,0,0], [0,1,0,0], [0,0,1,0], [0,0,0,1]]"
   }
 };
 

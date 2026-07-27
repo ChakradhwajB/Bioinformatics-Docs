@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary SEO Meta Tags -->
+  <title>FASTQ Quality Control &amp; Phred Score Analysis | Bioinformatics Docs</title>
+  <meta name="description" content="Calculate and visualize base quality score distributions, parse 4-line FASTQ records, evaluate base-call error probabilities, and simulate quality score trimming." />
+  <meta name="keywords" content="FASTQ, Phred quality score, NGS, quality control, sequencing reads, read trimming, Sanger Phred+33" />
+  <meta name="author" content="ChakradhwajB" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://bioinformatics-docs.netlify.app/pages/fastq_qc.html" />
+  <meta property="og:title" content="FASTQ Quality Control &amp; Phred Score Analysis | Bioinformatics Docs" />
+  <meta property="og:description" content="Calculate and visualize base quality score distributions, parse 4-line FASTQ records, evaluate base-call error probabilities, and simulate quality score trimming." />
+  <meta property="og:image" content="https://bioinformatics-docs.netlify.app/module_page.png" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://bioinformatics-docs.netlify.app/pages/fastq_qc.html" />
+  <meta property="twitter:title" content="FASTQ Quality Control &amp; Phred Score Analysis | Bioinformatics Docs" />
+  <meta property="twitter:description" content="Calculate and visualize base quality score distributions, parse 4-line FASTQ records, evaluate base-call error probabilities, and simulate quality score trimming." />
+  <meta property="twitter:image" content="https://bioinformatics-docs.netlify.app/module_page.png" />
+
+  <!-- Structured Data (JSON-LD) SoftwareApplication Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "FASTQ Quality Control & Phred Score Analysis Tool",
+    "operatingSystem": "All",
+    "applicationCategory": "EducationalApplication, BioinformaticsTool",
+    "description": "An interactive quality control workbench evaluating Phred score distributions, base error probabilities, and read trimming simulations.",
+    "browserRequirements": "Requires JavaScript. Requires HTML5.",
+    "softwareVersion": "1.0.0",
+    "author": {
+      "@type": "Person",
+      "name": "ChakradhwajB"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="../dist/output.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- KaTeX Math Rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .font-mono-seq { font-family: 'Fira Code', monospace; }
+    #sidebar { transition: width 0.2s ease, padding 0.2s ease, border-color 0.2s ease; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background-color: #94a3b8; border-radius: 4px; }
+    * { scrollbar-width: thin; scrollbar-color: #94a3b8 transparent; }
+    .sidebar-collapsed { width: 0px !important; padding-left: 0px !important; padding-right: 0px !important; border-right-width: 0px !important; overflow: hidden !important; }
+  </style>
+</head>
+<body class="bg-white text-slate-900 min-h-screen h-screen flex flex-col overflow-hidden">
+  <div class="absolute top-0 z-[-2] h-screen w-full bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+  
+  <!-- Header Bar -->
+  <header class="glass-nav border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] backdrop-blur-md py-3 px-6 flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0 select-none z-50">
+    <!-- Logo -->
+    <div class="flex items-center space-x-2.5">
+      <span class="font-bold text-slate-900 text-xs tracking-wider uppercase">Bioinformatics Docs</span>
+    </div>
+    <!-- Nav links -->
+    <nav class="flex items-center space-x-6 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+      <a href="../index.html" class="hover:text-slate-900 transition-colors">Home</a>
+      <a href="../learn.html" class="hover:text-slate-900 transition-colors">Modules</a>
+      <a href="../glossary.html" class="hover:text-slate-900 transition-colors">Glossary</a>
+      <a href="./docs.html" class="hover:text-indigo-700 transition-colors text-indigo-600">Documentation &rarr;</a>
+      <a href="https://github.com/ChakradhwajB/Bioinformatics-Docs" target="_blank" class="hover:text-slate-900 transition-colors flex items-center space-x-1">
+        <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.54 2.87 8.39 6.84 9.75.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.4 9.4 0 0 1 12 6.84c.85 0 1.71.12 2.51.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49C19.14 20.65 22 16.8 22 12.26 22 6.58 17.52 2 12 2z"/></svg>
+        <span>GitHub</span>
+      </a>
+    </nav>
+    <!-- Server status -->
+    <div class="flex items-center space-x-2 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-full">
+      <span id="server-status-dot" class="h-1.5 w-1.5 rounded-full bg-slate-400"></span>
+      <span id="server-status-text" class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Checking...</span>
+    </div>
+  </header>
+
+  <!-- Workspace Shell -->
+  <div class="flex-grow flex h-[calc(100vh-45px)] overflow-hidden relative">
+    
+    <aside id="sidebar" class="w-72 bg-slate-50/60 backdrop-blur-md border-r border-slate-200/80 p-4 flex flex-col justify-between overflow-y-auto select-none transition-all duration-300 shrink-0 text-slate-800"></aside>
+
+    <!-- Collapsible Sibling Toggle Button -->
+    <button
+      id="sidebar-toggle"
+      class="absolute top-1/2 -translate-y-1/2 bg-white border border-slate-200 text-slate-500 hover:text-slate-800 h-8 w-4 rounded-r-md shadow-sm flex items-center justify-center cursor-pointer transition-all duration-300 z-40 select-none"
+      style="left: 18rem"
+    >
+      &lsaquo;
+    </button>
+
+    <!-- Right Panels (Scrollable Workspace) -->
+    <main class="flex-grow overflow-y-auto bg-transparent p-6 lg:p-10 space-y-8 relative">
+      
+      <!-- Module Title Header -->
+      <div class="space-y-2">
+        <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest block">Module 1 &bull; Foundations</span>
+        <h1 class="text-3xl lg:text-4xl font-extralight tracking-tighter text-slate-900">FASTQ Quality Control &amp; Phred Scores</h1>
+        <p class="text-xs text-slate-500 italic">Author: ChakradhwajB &bull; Parse 4-line FASTQ records, evaluate base quality score distributions, and simulate quality score trimming.</p>
+      </div>
+
+      <!-- Resources Section -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Resources</h2>
+        <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
+          <a href="https://pubmed.ncbi.nlm.nih.gov/20015947/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">NCBI / PUBMED</span>
+              <span class="font-semibold text-slate-800">The Sanger FASTQ file format for sequences with quality scores (Cock et al., 2010)</span>
+              <span class="text-amber-500">★</span>
+            </div>
+            <span class="text-slate-500">Sanger Phred+33 Standard (PMID: 20015947)</span>
+          </a>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/9521110/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded text-[10px]">NCBI / PUBMED</span>
+              <span class="font-semibold text-slate-800">Base-Calling of Automated Sequencer Traces Using Phred (Ewing &amp; Green, 1998)</span>
+            </div>
+            <span class="text-slate-500">Original Phred Paper (PMID: 9521110)</span>
+          </a>
+          <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded text-[10px]">BABRAHAM INSTITUTE</span>
+              <span class="font-semibold text-slate-800">FastQC High-Throughput Sequence Quality Control Software (Andrews, S., 2010)</span>
+            </div>
+            <span class="text-slate-500">Industry Benchmark Tool</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Educational Guide Part 1: Background & Theory -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-8">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Educational Guide: High-Throughput Quality Control &amp; Phred Scoring</h2>
+        
+        <div class="text-[14px] leading-relaxed space-y-6 text-slate-700">
+          
+          <!-- 1. Motivation & Biological Background -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">1. Motivation &amp; Biological Background</h3>
+            <p>
+              Next-Generation Sequencing (NGS) platforms such as <strong>Illumina sequencing-by-synthesis</strong> and <strong>Oxford Nanopore direct RNA/DNA sequencing</strong> generate billions of short biological sequence reads per instrument run. However, raw physical signals—fluorescent intensity pulses or ionic current disruptions—are prone to optical noise, phasing de-synchronization, and chemistry degradation over cycle length.
+            </p>
+            <p class="mt-3">
+              To distinguish true genetic variants (SNPs and indels) from instrument error artifacts, every sequence base is accompanied by a quantitative probability score indicating base-calling confidence.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 text-xs">
+              <div class="bg-indigo-50/60 border border-indigo-150 p-3.5 rounded-md space-y-1">
+                <span class="font-bold text-xs text-indigo-900 uppercase tracking-wider block">Variant Calling Accuracy</span>
+                <p class="text-slate-600">
+                  Filtering out low-quality bases ($Q < 20$) prevents false-positive single nucleotide polymorphism (SNP) calls in medical diagnostics.
+                </p>
+              </div>
+              <div class="bg-indigo-50/60 border border-indigo-150 p-3.5 rounded-md space-y-1">
+                <span class="font-bold text-xs text-indigo-900 uppercase tracking-wider block">De Novo Assembly</span>
+                <p class="text-slate-600">
+                  Erroneous low-frequency k-mers generated by dirty reads clutter De Bruijn graphs with dead-end tips and false bubble paths.
+                </p>
+              </div>
+              <div class="bg-indigo-50/60 border border-indigo-150 p-3.5 rounded-md space-y-1">
+                <span class="font-bold text-xs text-indigo-900 uppercase tracking-wider block">Alignment MAPQ</span>
+                <p class="text-slate-600">
+                  Read mappers use per-base quality scores to calculate global mapping quality ($MAPQ$) against reference genomes.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. The 4-Line FASTQ Standard -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">2. The 4-Line FASTQ Format Standard</h3>
+            <p>
+              A FASTQ file consists of repeating 4-line text blocks representing single sequencing reads:
+            </p>
+            <div class="bg-slate-900 text-slate-200 p-4 border border-slate-950 rounded-sm font-mono text-xs my-3 shadow-inner space-y-1">
+              <div><span class="text-emerald-400 font-bold">Line 1:</span> @SIM_HISEQ2000:1:1101:10000:20000 1:N:0:GATCAG</div>
+              <div><span class="text-indigo-400 font-bold">Line 2:</span> GATCGGAAGAGCACACGTCTGAACTCCAGTCAC</div>
+              <div><span class="text-amber-400 font-bold">Line 3:</span> +</div>
+              <div><span class="text-rose-400 font-bold">Line 4:</span> IIIIIIIIIIIIIIIIIIIIIIIIIIIHFFCCC</div>
+            </div>
+            <p class="text-xs">
+              Quality characters in Line 4 use <strong>Sanger Phred+33 ASCII encoding</strong>, mapping integer quality scores $Q \in [0, 42]$ into printable ASCII characters.
+            </p>
+          </div>
+
+          <!-- 3. Mathematical Derivations of Phred Quality Scores -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">3. Mathematical Derivation of Phred Quality Scores ($Q$)</h3>
+            <p class="text-xs">
+              The Phred quality score $Q$ is defined logarithmically relative to base-call error probability $P_e = P(\text{Base Call is Wrong})$:
+            </p>
+
+            <div class="bg-slate-50 p-4 border border-slate-200 rounded-sm font-mono text-center my-4 text-xs shadow-inner">
+              $$Q = -10 \log_{10} P_e \quad \Longleftrightarrow \quad P_e = 10^{-Q / 10}$$
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mt-4 text-xs text-center">
+              <div class="bg-rose-50 border border-rose-200 p-3 rounded-md">
+                <div class="font-bold text-rose-900">Q10 Score</div>
+                <div class="text-base font-extrabold text-rose-600 mt-0.5">90.0% Accuracy</div>
+                <div class="text-[10px] text-rose-700 mt-1">$P_e = 0.1000$ (1 in 10)</div>
+              </div>
+              <div class="bg-amber-50 border border-amber-200 p-3 rounded-md">
+                <div class="font-bold text-amber-900">Q20 Score</div>
+                <div class="text-base font-extrabold text-amber-600 mt-0.5">99.0% Accuracy</div>
+                <div class="text-[10px] text-amber-700 mt-1">$P_e = 0.0100$ (1 in 100)</div>
+              </div>
+              <div class="bg-emerald-50 border border-emerald-200 p-3 rounded-md">
+                <div class="font-bold text-emerald-900">Q30 Score</div>
+                <div class="text-base font-extrabold text-emerald-600 mt-0.5">99.9% Accuracy</div>
+                <div class="text-[10px] text-emerald-700 mt-1">$P_e = 0.0010$ (1 in 1,000)</div>
+              </div>
+              <div class="bg-indigo-50 border border-indigo-200 p-3 rounded-md">
+                <div class="font-bold text-indigo-900">Q40 Score</div>
+                <div class="text-base font-extrabold text-indigo-600 mt-0.5">99.99% Accuracy</div>
+                <div class="text-[10px] text-indigo-700 mt-1">$P_e = 0.0001$ (1 in 10,000)</div>
+              </div>
+            </div>
+
+            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mt-4 mb-2">Expected Errors in a Read</h4>
+            <p class="text-xs">
+              To calculate expected error count $E$ across a read of length $L$:
+            </p>
+            <div class="bg-slate-50 p-3 border border-slate-200 rounded-sm font-mono text-center my-2 text-xs">
+              $$E = \sum_{i=1}^L P_{e, i} = \sum_{i=1}^L 10^{-Q_i / 10}$$
+            </div>
+          </div>
+
+          <!-- 4. ASCII Encoding Standards -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">4. ASCII Encoding Standards (Phred+33 vs Phred+64)</h3>
+            <p class="text-xs">
+              To store integer quality scores ($Q \in [0, 93]$) compactly without introducing whitespace separators between numbers, every integer score is mapped to a single ASCII character using an offset:
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs my-4">
+              <div class="bg-white border border-slate-200 p-4 rounded-md shadow-xs">
+                <span class="font-bold text-indigo-900 text-sm block mb-1">Sanger / Illumina 1.8+ (Phred+33):</span>
+                <p class="text-slate-600 mb-2">Offset = +33. Uses printable ASCII characters from <code class="font-mono font-bold text-indigo-600">'!'</code> (ASCII 33, $Q=0$) up to <code class="font-mono font-bold text-indigo-600">'~'</code> (ASCII 126, $Q=93$).</p>
+                <div class="bg-indigo-50 p-2 rounded font-mono text-indigo-700 text-center">$$Q = \text{ord}(\text{char}) - 33$$</div>
+              </div>
+              <div class="bg-white border border-slate-200 p-4 rounded-md shadow-xs">
+                <span class="font-bold text-slate-900 text-sm block mb-1">Legacy Illumina 1.3 / 1.5 (Phred+64):</span>
+                <p class="text-slate-600 mb-2">Offset = +64. Uses printable ASCII characters from <code class="font-mono font-bold text-slate-800">'@'</code> (ASCII 64, $Q=0$) up to <code class="font-mono font-bold text-slate-800">'h'</code> (ASCII 104, $Q=40$).</p>
+                <div class="bg-slate-50 p-2 rounded font-mono text-slate-700 text-center">$$Q = \text{ord}(\text{char}) - 64$$</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. FastQC Diagnostic Metrics -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">5. FastQC Quality Assurance Metrics</h3>
+            <p class="text-xs mb-3">
+              <strong>FastQC</strong> evaluates raw sequencing reads across key diagnostic modules prior to alignment:
+            </p>
+            <div class="space-y-3 text-xs">
+              <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-md">
+                <span class="font-bold text-slate-900 block mb-1">1. Per Base Sequence Quality</span>
+                Shows boxplots of Phred quality scores across all read positions (1 to $L$). Quality typically drops near the 3' end due to fluorophore degradation and phasing.
+              </div>
+              <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-md">
+                <span class="font-bold text-slate-900 block mb-1">2. Per Sequence GC Content</span>
+                Plots the distribution of GC content per read against a theoretical normal distribution. Bimodal distributions indicate contamination or severe PCR enrichment bias.
+              </div>
+              <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-md">
+                <span class="font-bold text-slate-900 block mb-1">3. Adapter Contamination &amp; Trimming</span>
+                Detects residual Illumina TruSeq or Nextera synthetic adapter sequences resulting from short DNA fragment read-through, requiring adapter removal via tools like Cutadapt or Trimmomatic.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- INTERACTIVE WORKBENCH & VISUALIZER CANVAS -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-6">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">FASTQ Quality Control Workbench</h2>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Input Controls -->
+          <div class="lg:col-span-5 space-y-4">
+            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-4">
+              <div class="flex items-center justify-between">
+                <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Raw FASTQ Text</h3>
+                <button id="sample-fastq-btn" class="text-[10px] font-bold text-indigo-600 hover:text-indigo-800 transition-colors uppercase tracking-wider">Load Sample</button>
+              </div>
+              
+              <textarea id="fastq-input" rows="8" class="w-full font-mono-seq text-xs p-3 border border-slate-200 rounded-lg bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all resize-y" placeholder="Paste 4-line FASTQ records here..."></textarea>
+              
+              <div class="space-y-2 pt-2 border-t border-slate-100">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-semibold text-slate-700">Quality Trimming Threshold:</span>
+                  <span id="trim-cutoff-value" class="font-bold text-indigo-600">Q20</span>
+                </div>
+                <input type="range" id="trim-cutoff-slider" min="10" max="38" value="20" class="w-full accent-indigo-600 cursor-pointer">
+                <div class="flex justify-between text-[9px] text-slate-400 font-mono">
+                  <span>Q10 (90%)</span>
+                  <span>Q20 (99%)</span>
+                  <span>Q30 (99.9%)</span>
+                </div>
+              </div>
+
+              <button id="parse-fastq-btn" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs py-2.5 rounded-lg transition-colors shadow-xs">Analyze FASTQ Quality</button>
+            </div>
+          </div>
+
+          <!-- Quality Curves & Metrics -->
+          <div class="lg:col-span-7 space-y-4">
+            <div id="fastq-stats-container"></div>
+
+            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-3">
+              <div class="flex items-center justify-between">
+                <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Per-Base Quality Score Curve</h3>
+                <div class="flex items-center space-x-3 text-[10px] font-bold">
+                  <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-emerald-500 mr-1"></span> Q30+</span>
+                  <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-amber-500 mr-1"></span> Q20-Q29</span>
+                  <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-rose-500 mr-1"></span> &lt;Q20</span>
+                </div>
+              </div>
+              <div id="fastq-chart-container"></div>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-xs space-y-3">
+              <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Read Trimming Simulation</h3>
+              <div id="fastq-reads-container"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Educational Guide Part 2: Manual Example, Python Reference & Practice Problems -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-8">
+        <div class="text-[14px] leading-relaxed space-y-6 text-slate-700">
+          
+          <!-- 6. Step-by-Step Manual Worked Example -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">6. Step-by-Step Manual Worked Example</h3>
+            <p class="text-xs">
+              Let's walk through an explicit manual quality score conversion for a sample read record:
+            </p>
+            <div class="bg-slate-50 p-3 rounded-sm font-mono text-xs border border-slate-200 text-slate-700 mt-2 border-l-4 border-l-indigo-500 overflow-x-auto">
+              <table class="min-w-full text-center border-collapse">
+                <thead>
+                  <tr class="border-b border-slate-300">
+                    <th class="p-1.5 font-bold text-slate-900">Base Position</th>
+                    <th class="p-1.5 font-bold text-slate-900">Nucleotide</th>
+                    <th class="p-1.5 font-bold text-slate-900">ASCII Quality Char</th>
+                    <th class="p-1.5 font-bold text-slate-900">ASCII Ordinal</th>
+                    <th class="p-1.5 font-bold text-slate-900">Phred Score ($Q = \text{Ord} - 33$)</th>
+                    <th class="p-1.5 font-bold text-slate-900">Error Prob ($P_e$)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b border-slate-200">
+                    <td class="p-1.5 font-bold text-slate-900">1</td>
+                    <td class="p-1.5 font-bold text-indigo-600 font-mono">A</td>
+                    <td class="p-1.5 font-mono text-slate-800">'I'</td>
+                    <td class="p-1.5 font-mono text-slate-600">73</td>
+                    <td class="p-1.5 font-bold text-emerald-600 bg-emerald-50">Q40</td>
+                    <td class="p-1.5 font-mono text-slate-600">0.000100</td>
+                  </tr>
+                  <tr class="border-b border-slate-200">
+                    <td class="p-1.5 font-bold text-slate-900">2</td>
+                    <td class="p-1.5 font-bold text-indigo-600 font-mono">G</td>
+                    <td class="p-1.5 font-mono text-slate-800">'H'</td>
+                    <td class="p-1.5 font-mono text-slate-600">72</td>
+                    <td class="p-1.5 font-bold text-emerald-600 bg-emerald-50">Q39</td>
+                    <td class="p-1.5 font-mono text-slate-600">0.000125</td>
+                  </tr>
+                  <tr class="border-b border-slate-200">
+                    <td class="p-1.5 font-bold text-slate-900">3</td>
+                    <td class="p-1.5 font-bold text-indigo-600 font-mono">C</td>
+                    <td class="p-1.5 font-mono text-slate-800">'H'</td>
+                    <td class="p-1.5 font-mono text-slate-600">72</td>
+                    <td class="p-1.5 font-bold text-emerald-600 bg-emerald-50">Q39</td>
+                    <td class="p-1.5 font-mono text-slate-600">0.000125</td>
+                  </tr>
+                  <tr>
+                    <td class="p-1.5 font-bold text-slate-900">4</td>
+                    <td class="p-1.5 font-bold text-indigo-600 font-mono">T</td>
+                    <td class="p-1.5 font-mono text-slate-800">'?'</td>
+                    <td class="p-1.5 font-mono text-slate-600">63</td>
+                    <td class="p-1.5 font-bold text-emerald-600 bg-emerald-50">Q30</td>
+                    <td class="p-1.5 font-mono text-slate-600">0.001000</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="mt-2 text-xs text-slate-600">
+              Overall Read Average Phred Score: $\frac{40 + 39 + 39 + 30}{4} = \mathbf{37.00}$ (100% Q30+ bases).
+            </p>
+          </div>
+
+          <!-- 7. Python 3 Reference Implementation -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">7. Python 3 Reference Implementation</h3>
+            <p class="text-xs mb-2">Production-ready, type-annotated Python 3 code for FASTQ parsing, quality scoring, and read trimming:</p>
+
+            <div class="relative group mt-1">
+              <button onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); this.textContent = 'Copied!'; setTimeout(() => this.textContent = 'Copy', 2000)" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-sm text-[9px] font-bold tracking-wide transition-all duration-150 shadow-sm cursor-pointer select-none">Copy</button>
+              <pre class="bg-white border border-slate-200 text-slate-700 p-3.5 pr-12 rounded-sm font-mono text-xs overflow-x-auto leading-relaxed"><span class="text-pink-600">from</span> typing <span class="text-pink-600">import</span> Dict, List, Any, Iterable
+
+<span class="text-pink-600">def</span> <span class="text-sky-600">phred_to_probability</span>(q: <span class="text-sky-600">int</span>) -&gt; <span class="text-sky-600">float</span>:
+    <span class="text-slate-500 italic">"""Calculates base error probability from Phred quality score P = 10^(-Q/10)"""</span>
+    <span class="text-pink-600">return</span> <span class="text-amber-400">10.0</span> ** (-q / <span class="text-amber-400">10.0</span>)
+
+<span class="text-pink-400">def</span> <span class="text-sky-400">parse_fastq</span>(lines: Iterable[<span class="text-sky-400">str</span>]) -&gt; Dict[<span class="text-sky-400">str</span>, Any]:
+    <span class="text-slate-500 italic">"""Parses an iterable of 4-line FASTQ records into structured read dictionaries."""</span>
+    clean_lines = [line.strip() <span class="text-pink-400">for</span> line <span class="text-pink-400">in</span> lines <span class="text-pink-400">if</span> line.strip()]
+    records = []
+    i = <span class="text-amber-400">0</span>
+    <span class="text-pink-400">while</span> i + <span class="text-amber-400">3</span> &lt; <span class="text-sky-400">len</span>(clean_lines):
+        header, seq, strand, qual = clean_lines[i:i+<span class="text-amber-400">4</span>]
+        <span class="text-pink-400">if</span> header.startswith(<span class="text-amber-400">"@"</span>) <span class="text-pink-400">and</span> strand.startswith(<span class="text-amber-400">"+"</span>):
+            scores = [<span class="text-sky-400">ord</span>(char) - <span class="text-amber-400">33</span> <span class="text-pink-400">for</span> char <span class="text-pink-400">in</span> qual]
+            avg_q = <span class="text-sky-400">sum</span>(scores) / <span class="text-sky-400">len</span>(scores) <span class="text-pink-400">if</span> scores <span class="text-pink-400">else</span> <span class="text-amber-400">0.0</span>
+            records.append({
+                <span class="text-amber-400">"header"</span>: header[<span class="text-amber-400">1</span>:],
+                <span class="text-amber-400">"sequence"</span>: seq,
+                <span class="text-amber-400">"phred_scores"</span>: scores,
+                <span class="text-amber-400">"avg_quality"</span>: <span class="text-sky-400">round</span>(avg_q, <span class="text-amber-400">2</span>)
+            })
+            i += <span class="text-amber-400">4</span>
+        <span class="text-pink-400">else</span>:
+            i += <span class="text-amber-400">1</span>
+    <span class="text-pink-400">return</span> {<span class="text-amber-400">"read_count"</span>: <span class="text-sky-400">len</span>(records), <span class="text-amber-400">"records"</span>: records}
+
+<span class="text-pink-400">def</span> <span class="text-sky-400">trim_low_quality</span>(sequence: <span class="text-sky-400">str</span>, phred_scores: List[<span class="text-sky-400">int</span>], min_q: <span class="text-sky-400">int</span> = <span class="text-amber-400">20</span>) -&gt; <span class="text-sky-400">str</span>:
+    <span class="text-slate-400 italic">"""Trims read sequence from 3' end until base quality &gt;= min_q"""</span>
+    idx = <span class="text-sky-400">len</span>(phred_scores)
+    <span class="text-pink-400">while</span> idx &gt; <span class="text-amber-400">0</span> <span class="text-pink-400">and</span> phred_scores[idx - <span class="text-amber-400">1</span>] &lt; min_q:
+        idx -= <span class="text-amber-400">1</span>
+    <span class="text-pink-400">return</span> sequence[:idx]</pre>
+            </div>
+          </div>
+
+          <!-- 8. Practice Problems -->
+          <div>
+            <h3 class="font-semibold text-slate-900 text-lg border-b border-white/40 shadow-[0_1px_15px_rgba(0,0,0,0.02)] pb-2 mb-3">8. Practice Problems</h3>
+            <div class="space-y-3">
+              <div class="bg-emerald-50 border border-emerald-100 p-3 rounded-sm">
+                <span class="text-[9px] font-bold text-emerald-600 uppercase tracking-widest block mb-1">Warm-up</span>
+                <p class="text-[11px] text-slate-700">Calculate the Phred quality score Q for a base call error probability $P_e = 0.001$ by hand ($Q = -10 \log_{10} P_e$).</p>
+                <button onclick="window.loadSandboxChallenge(this)" class="mt-2 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-2.5 py-1 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider cursor-pointer">Try in Sandbox &rarr;</button>
+              </div>
+              <div class="bg-indigo-50 border border-indigo-100 p-3 rounded-sm">
+                <span class="text-[9px] font-bold text-indigo-600 uppercase tracking-widest block mb-1">Core</span>
+                <p class="text-[11px] text-slate-700">Write a function <code class="font-mono text-[12px] font-bold text-indigo-600">trim_low_quality(sequence, phred_scores, min_q=20)</code> verifying that trimming <code class="font-mono text-[12px] font-bold text-indigo-600">"AGCTAG"</code> with scores <code class="font-mono text-[12px] font-bold text-indigo-600">[35, 30, 25, 10, 5, 2]</code> yields <code class="font-mono text-[12px] font-bold text-indigo-600">"AGC"</code>.</p>
+                <button onclick="window.loadSandboxChallenge(this)" class="px-2.5 py-1 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider mt-2 cursor-pointer">Try in Sandbox &rarr;</button>
+              </div>
+              <div class="bg-rose-50 border border-rose-100 p-3 rounded-sm">
+                <span class="text-[9px] font-bold text-rose-600 uppercase tracking-widest block mb-1">Extension</span>
+                <p class="text-[11px] text-slate-700">Implement a sliding window quality trimmer (window size = 4) that calculates average Q-score across the window and cuts the read at the first window below cutoff Q20.</p>
+                <button onclick="window.loadSandboxChallenge(this)" class="mt-2 text-[9px] font-bold bg-white border border-[rgba(0,0,0,0.1)] text-slate-700 px-2.5 py-1 rounded shadow-sm hover:bg-white/50 transition-colors uppercase tracking-wider cursor-pointer">Try in Sandbox &rarr;</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Additional Curated Practice Problems Section -->
+      <section class="bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 space-y-4">
+        <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Curated Practice Problems</h2>
+        <div class="border border-slate-200 rounded-sm divide-y divide-slate-200 bg-white shadow-xs">
+          
+          <a href="https://rosalind.info/problems/filt/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">ROSALIND</span>
+              <span class="font-semibold text-slate-800">FILT - Read Quality Filtering by Phred Score</span>
+              <span class="text-slate-400 text-[10px]">&bull; Basic</span>
+            </div>
+            <span class="text-indigo-600 font-semibold hover:underline">Solve Problem &rarr;</span>
+          </a>
+
+          <a href="https://rosalind.info/problems/phre/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-indigo-100 text-indigo-800 font-bold px-2 py-0.5 rounded text-[10px]">ROSALIND</span>
+              <span class="font-semibold text-slate-800">PHRE - Read Quality Evaluation</span>
+              <span class="text-slate-400 text-[10px]">&bull; Intermediate</span>
+            </div>
+            <span class="text-indigo-600 font-semibold hover:underline">Solve Problem &rarr;</span>
+          </a>
+
+          <a href="https://rosalind.info/problems/ptra/" target="_blank" class="p-3.5 flex items-center justify-between text-xs hover:bg-slate-50 transition-colors">
+            <div class="flex items-center space-x-2">
+              <span class="bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded text-[10px]">ROSALIND</span>
+              <span class="font-semibold text-slate-800">btoa / ASCII Phred Quality Decoding</span>
+              <span class="text-slate-400 text-[10px]">&bull; Advanced</span>
+            </div>
+            <span class="text-indigo-600 font-semibold hover:underline">Solve Problem &rarr;</span>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- Module Progress Control -->
+      <section class="bg-indigo-50/40 backdrop-blur-md border border-indigo-100 shadow-[0_4px_30px_rgba(0,0,0,0.02)] rounded-2xl p-6 lg:p-8 flex flex-col md:flex-row items-center justify-between select-none">
+        <div>
+          <h2 class="text-2xl font-thin tracking-tighter text-slate-900">Module Complete?</h2>
+          <p class="text-sm text-slate-600 mt-1">Mark this module as complete to save your progress in the curriculum pathway.</p>
+        </div>
+        <label class="flex items-center space-x-3 cursor-pointer bg-white hover:bg-indigo-50 border border-indigo-200 rounded-xl px-6 py-3 shadow-sm transition-colors duration-200 mt-4 md:mt-0">
+          <input type="checkbox" id="page-complete-checkbox" class="h-5 w-5 rounded border-indigo-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer" />
+          <span class="text-xs font-bold text-indigo-900 uppercase tracking-wider">Mark as Done</span>
+        </label>
+      </section>
+
+      <div id="sandbox-container"></div>
+      <div id="quiz-container"></div>
+    </main>
+
+  </div>
+
+  <script src="../src/app.js"></script>
+  <script src="../src/fastq_qc.js"></script>
+  <script>
+    // Collapsible Sidebar logic
+    const sidebar = document.getElementById("sidebar");
+    const toggleBtn = document.getElementById("sidebar-toggle");
+    if (sidebar && toggleBtn) {
+      toggleBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("sidebar-collapsed");
+        if (sidebar.classList.contains("sidebar-collapsed")) {
+          toggleBtn.innerHTML = "&rsaquo;";
+          toggleBtn.style.left = "0.25rem";
+        } else {
+          toggleBtn.innerHTML = "&lsaquo;";
+          toggleBtn.style.left = "17.25rem";
+        }
+      });
+    }
+  </script>
+  <script src="../src/quiz.js"></script>
+  <script src="../src/sandbox.js"></script>
+
+  <!-- Floating Sandbox Jump -->
+  <button onclick="const m = document.querySelector('main'); m.scrollTo({ top: document.getElementById('sandbox-container').offsetTop, behavior: 'smooth' })" class="fixed bottom-6 right-8 bg-white/70 backdrop-blur-md border border-white/60 shadow-xl text-slate-700 text-[10px] font-bold uppercase tracking-wider px-4 py-2 rounded-full hover:bg-white hover:text-indigo-700 transition-all duration-300 z-50 flex items-center space-x-2 select-none group cursor-pointer">
+    <span>Jump to Sandbox</span>
+    <svg class="w-3 h-3 text-indigo-500 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+  </button>
+</body>
+</html>

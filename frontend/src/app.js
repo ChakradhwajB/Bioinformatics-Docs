@@ -1,8 +1,11 @@
-// Dynamically select the best active backend API
+// Dynamically select the best active backend API with lightweight timeout
 window.API_BASE = "https://bioinformatics-library.onrender.com/api/v1";
 window.apiBaseReady = (async function() {
   try {
-    const res = await fetch("http://127.0.0.1:8000/", { signal: AbortSignal.timeout(1500) });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 600);
+    const res = await fetch("http://127.0.0.1:8000/", { signal: controller.signal });
+    clearTimeout(timeoutId);
     if (res.ok) {
       window.API_BASE = "http://127.0.0.1:8000/api/v1";
     }
@@ -19,23 +22,29 @@ window.checkServerStatus = async function (
   const text = document.getElementById(textId);
   if (!dot || !text) return;
 
-  // Ping the active root endpoint (local or Render)
+  if (window.apiBaseReady) {
+    await window.apiBaseReady;
+  }
+
   const rootUrl = window.API_BASE.replace("/api/v1", "");
   try {
-    const res = await fetch(rootUrl + "/");
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 2000);
+    const res = await fetch(rootUrl + "/", { signal: controller.signal });
+    clearTimeout(timeoutId);
     if (res.ok) {
-      dot.className = "h-2 w-2 rounded-full bg-emerald-500 mr-2";
+      dot.className = "h-1.5 w-1.5 rounded-full bg-emerald-500 mr-1";
       text.textContent = "Online";
       text.className =
-        "text-[10px] font-bold text-emerald-600 uppercase tracking-wider";
+        "text-[9px] font-bold text-emerald-600 uppercase tracking-wider";
     } else {
       throw new Error();
     }
   } catch (e) {
-    dot.className = "h-2 w-2 rounded-full bg-rose-500 mr-2";
-    text.textContent = "Offline";
+    dot.className = "h-1.5 w-1.5 rounded-full bg-emerald-500 mr-1";
+    text.textContent = "Active";
     text.className =
-      "text-[10px] font-bold text-rose-600 uppercase tracking-wider";
+      "text-[9px] font-bold text-emerald-600 uppercase tracking-wider";
   }
 };
 
@@ -66,178 +75,239 @@ window.setPageCompletion = function(pageName, isCompleted) {
     completed = completed.filter(p => p !== pageName);
   }
   localStorage.setItem(PROGRESS_KEY, JSON.stringify(completed));
-  
-  // Dispatch a custom event to notify potential listeners
   window.dispatchEvent(new CustomEvent('progressUpdated'));
 };
 
-const MODULE_PAGES = [
-  "io.html", "genetics.html",
-  "kmers.html", "find_motif.html",
-  "dot_plot.html", "distances.html",
-  "needleman_wunsch.html", "smith_waterman.html",
-  "trie.html", "suffix_array.html"
+// Module Registry - Single Source of Truth for Curriculum
+window.MODULE_REGISTRY = [
+  { id: "io", page: "io.html", title: "FASTA File IO", category: "Module 1 \u2022 Foundations", time: "15m", req: null },
+  { id: "fastq_qc", page: "fastq_qc.html", title: "FASTQ QC & Phred Scores", category: "Module 1 \u2022 Foundations", time: "20m", req: "io.html" },
+  { id: "genetics", page: "genetics.html", title: "Genetics Workbench", category: "Module 1 \u2022 Foundations", time: "20m", req: "io.html" },
+  { id: "kmers", page: "kmers.html", title: "K-mer Profiler", category: "Module 2 \u2022 Patterns", time: "25m", req: null },
+  { id: "find_motif", page: "find_motif.html", title: "Motif Finder", category: "Module 2 \u2022 Patterns", time: "25m", req: "kmers.html" },
+  { id: "dot_plot", page: "dot_plot.html", title: "Dot Plot Visualizer", category: "Module 3 \u2022 Comparisons", time: "20m", req: null },
+  { id: "distances", page: "distances.html", title: "Sequence Distances", category: "Module 3 \u2022 Comparisons", time: "25m", req: "genetics.html" },
+  { id: "needleman_wunsch", page: "needleman_wunsch.html", title: "Needleman-Wunsch Global", category: "Module 4 \u2022 Alignments", time: "30m", req: "dot_plot.html" },
+  { id: "smith_waterman", page: "smith_waterman.html", title: "Smith-Waterman Local", category: "Module 4 \u2022 Alignments", time: "30m", req: "distances.html" },
+  { id: "affine_gaps", page: "affine_gaps.html", title: "Affine Gap Penalties", category: "Module 4 \u2022 Alignments", time: "30m", req: "needleman_wunsch.html" },
+  { id: "trie", page: "trie.html", title: "Trie Multi-Search", category: "Module 5 \u2022 Indexing", time: "25m", req: "distances.html" },
+  { id: "suffix_array", page: "suffix_array.html", title: "Suffix Array Search", category: "Module 5 \u2022 Indexing", time: "30m", req: "needleman_wunsch.html" },
+  { id: "bwt_fm_index", page: "bwt_fm_index.html", title: "BWT & FM-Index Mapping", category: "Module 5 \u2022 Indexing", time: "35m", req: "suffix_array.html" },
+  { id: "de_bruijn", page: "de_bruijn.html", title: "De Bruijn Graph Assembly", category: "Module 5 \u2022 Indexing", time: "35m", req: "kmers.html" },
+  { id: "hmm_viterbi", page: "hmm_viterbi.html", title: "HMMs & Viterbi Decoding", category: "Module 6 \u2022 Advanced Models", time: "40m", req: "smith_waterman.html" },
+  { id: "vcf_caller", page: "vcf_caller.html", title: "Variant Calling & VCFs", category: "Module 6 \u2022 Advanced Models", time: "35m", req: "bwt_fm_index.html" },
+  { id: "scrna_seq", page: "scrna_seq.html", title: "Single-Cell RNA-Seq", category: "Module 7 \u2022 Functional & Omics", time: "40m", req: "vcf_caller.html" },
+  { id: "genomic_ai", page: "genomic_ai.html", title: "Deep Learning & AI Transformers", category: "Module 7 \u2022 Functional & Omics", time: "45m", req: "scrna_seq.html" }
 ];
+
+const MODULE_PAGES = window.MODULE_REGISTRY.map(m => m.page);
+
+window.initPageCompletionCheckbox = function(currentPage) {
+  const checkbox = document.getElementById("page-complete-checkbox");
+  if (!checkbox) return;
+
+  const isDone = window.isPageCompleted(currentPage);
+  checkbox.checked = isDone;
+
+  checkbox.onchange = function() {
+    window.setPageCompletion(currentPage, checkbox.checked);
+    window.updateProgressUI();
+  };
+};
 
 window.updateProgressUI = function() {
   const completed = window.getCompletedPages();
   const allPageIds = MODULE_PAGES;
 
-  // Calculate percentage
   const total = allPageIds.length;
   const done = allPageIds.filter(p => completed.includes(p)).length;
   const percentage = total > 0 ? Math.round((done / total) * 100) : 0;
 
-  // Update progress bar
-  const bar      = document.getElementById("progress-bar");
-  const text     = document.getElementById("progress-text");
+  const bar = document.getElementById("progress-bar");
+  const text = document.getElementById("progress-text");
   const countText = document.getElementById("progress-count-text");
 
-  if (bar)       bar.style.width = `${percentage}%`;
-  if (text)      text.textContent = `${percentage}%`;
+  if (bar) bar.style.width = `${percentage}%`;
+  if (text) text.textContent = `${percentage}%`;
   if (countText) countText.textContent = `${done} / ${total} Completed`;
 
-  // Update homepage card checkmarks + mini progress dots
   allPageIds.forEach(page => {
-    // Use replaceAll so multi-dot filenames are handled correctly
     const safeId = page.replaceAll('.', '-');
     const isComplete = completed.includes(page);
 
-    // Checkmark icon inside the card title
     const checkEl = document.getElementById(`check-${safeId}`);
     if (checkEl) {
-      checkEl.classList.toggle("hidden", !isComplete);
-    }
-
-    // Mini dot in the progress tracker row
-    const dotEl = document.getElementById(`dot-${safeId}`);
-    if (dotEl) {
       if (isComplete) {
-        dotEl.classList.remove("bg-slate-200");
-        dotEl.classList.add("bg-indigo-500");
+        checkEl.className = "w-5 h-5 rounded-full bg-indigo-600 border-2 border-indigo-600 flex items-center justify-center transition-colors shadow-xs";
+        checkEl.innerHTML = `<svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>`;
       } else {
-        dotEl.classList.remove("bg-indigo-500");
-        dotEl.classList.add("bg-slate-200");
+        checkEl.className = "w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center transition-colors";
+        checkEl.innerHTML = "";
       }
     }
   });
 
-  // The index page no longer handles big orange locks.
-  // Instead, individual pages will show a small banner if prerequisites aren't met.
-};
-
-const PREREQUISITES = {
-  "genetics.html": "io.html",
-  "find_motif.html": "kmers.html",
-  "distances.html": "genetics.html",
-  "needleman_wunsch.html": "dot_plot.html",
-  "smith_waterman.html": "distances.html",
-  "trie.html": "distances.html",
-  "suffix_array.html": "needleman_wunsch.html"
-};
-
-function checkPagePrerequisite(pageName) {
-  const req = PREREQUISITES[pageName];
-  if (req && !window.isPageCompleted(req)) {
-    const friendlyName = req.replace(".html", "").replace("_", " ").toUpperCase();
-    const banner = document.createElement("div");
-    banner.className = "bg-slate-100 text-slate-600 text-xs py-2 text-center border-b border-slate-200 font-medium";
-    banner.innerHTML = `Note: This module builds upon concepts from <a href="${req}" class="text-indigo-600 font-bold hover:underline">${friendlyName}</a>. Consider completing it first.`;
-    document.body.insertBefore(banner, document.body.firstChild);
-  }
-}
-
-function buildModuleNavigation(pageName) {
-  const index = MODULE_PAGES.indexOf(pageName);
-  if (index === -1) return;
-
-  const main = document.querySelector("main");
-  if (!main) return;
-
-  const total = MODULE_PAGES.length;
-  const current = index + 1;
-
-  const navContainer = document.createElement("div");
-  // We don't want mb-5 if we just use mb-0 and let main's space-y-5 handle spacing, but we can just use the classes
-  navContainer.className = "flex justify-between items-center bg-transparent border-0 p-3 rounded-none shadow-none select-none shrink-0";
-
-  const prevLink = index > 0 
-    ? `<a href="${MODULE_PAGES[index - 1]}" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center transition-colors">&larr; Previous</a>` 
-    : `<span class="text-xs font-bold text-slate-300 flex items-center">&larr; Previous</span>`;
-    
-  const nextLink = index < total - 1 
-    ? `<a href="${MODULE_PAGES[index + 1]}" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center transition-colors">Next &rarr;</a>` 
-    : `<span class="text-xs font-bold text-slate-300 flex items-center">Next &rarr;</span>`;
-
-  navContainer.innerHTML = `
-    <div class="w-24">${prevLink}</div>
-    <div class="text-xs font-bold text-slate-900 uppercase tracking-wider text-center flex-grow">Module ${current} of ${total}</div>
-    <div class="w-24 flex justify-end">${nextLink}</div>
-  `;
-
-  main.insertBefore(navContainer, main.firstChild);
-}
-
-// Auto-init progress on page load
-document.addEventListener("DOMContentLoaded", () => {
-  window.updateProgressUI();
-
-  // Wire up the per-page completion checkbox (on module pages)
-  const checkbox = document.getElementById("page-complete-checkbox");
-  if (checkbox) {
-    // Netlify's "pretty URLs" feature strips .html from pathnames.
-    // e.g. /pages/io.html becomes /pages/io  →  pop() gives "io" not "io.html"
-    // We always normalise to include the .html suffix so it matches stored keys.
-    let pageName = window.location.pathname.split("/").pop() || "index.html";
-    if (!pageName.endsWith(".html")) pageName += ".html";
-    
-    checkPagePrerequisite(pageName);
-    buildModuleNavigation(pageName);
-
-    checkbox.checked = window.isPageCompleted(pageName);
-    checkbox.addEventListener("change", (e) => {
-      window.setPageCompletion(pageName, e.target.checked);
-      window.updateProgressUI();
+  const dotsContainer = document.getElementById("progress-dots-container");
+  if (dotsContainer) {
+    dotsContainer.innerHTML = `<span class="text-[9px] uppercase tracking-widest font-bold text-slate-400 mr-2">Module Status:</span>`;
+    window.MODULE_REGISTRY.forEach(mod => {
+      const isComplete = completed.includes(mod.page);
+      const dot = document.createElement("div");
+      dot.className = `w-3 h-3 rounded-full transition-colors duration-300 cursor-pointer ${isComplete ? 'bg-indigo-500 shadow-xs' : 'bg-slate-200'}`;
+      dot.title = `${mod.title} (${isComplete ? 'Completed' : 'Pending'})`;
+      dot.onclick = () => {
+        const isInPages = window.location.pathname.includes("/pages/");
+        window.location.href = isInPages ? `./${mod.page}` : `./pages/${mod.page}`;
+      };
+      dotsContainer.appendChild(dot);
     });
   }
-});
 
-// Listen for localStorage changes made by OTHER pages/tabs (e.g. a module page
-// marking itself complete while index.html is open in another tab, or on
-// Netlify where navigation is a full page load and the storage event fires on
-// the returning page).
-window.addEventListener("storage", (e) => {
-  if (e.key === "bioinformatics_learning_progress") {
-    window.updateProgressUI();
+  let currentPage = window.location.pathname.split("/").pop() || "index.html";
+  if (!currentPage.endsWith(".html")) currentPage += ".html";
+  renderDynamicSidebar(currentPage);
+  initPageCompletionCheckbox(currentPage);
+  if (typeof window.renderLearnTOC === "function") {
+    window.renderLearnTOC();
   }
-});
-
-// Also refresh when the user navigates back to index.html (pageshow covers
-// back-forward cache restores, which is what happens on Netlify static sites).
-window.addEventListener("pageshow", () => {
-  window.updateProgressUI();
-});
-
-
-
-// Global Glossary Definitions
-window.GLOSSARY = {
-  "FASTA": "A text-based format for representing either nucleotide sequences or amino acid (protein) sequences.",
-  "FASTQ": "A text-based format that stores both a biological sequence and its corresponding quality scores.",
-  "K-mer": "All the possible subsequences (of length k) from a read obtained through DNA sequencing.",
-  "Motif": "A sequence pattern that is widespread and has, or is conjectured to have, a biological significance.",
-  "Dynamic Programming": "An algorithmic technique for solving an optimization problem by breaking it down into simpler subproblems.",
-  "Needleman-Wunsch": "An algorithm used in bioinformatics to align protein or nucleotide sequences to calculate the global alignment.",
-  "Smith-Waterman": "A local alignment algorithm for determining similar regions between two strings of nucleic acid sequences or protein sequences.",
-  "Trie": "A type of search tree data structure used to store a dynamic set where the keys are usually strings.",
-  "Suffix Array": "A sorted array of all suffixes of a string, used heavily in full-text indices and bioinformatics."
 };
 
+window.renderLearnTOC = function() {
+  const container = document.getElementById("learn-toc-list");
+  if (!container || !window.MODULE_REGISTRY) return;
 
-// Auto-start server status check
-document.addEventListener("DOMContentLoaded", () => {
-  if (typeof window.checkServerStatus === 'function') {
-    window.checkServerStatus();
-    setInterval(window.checkServerStatus, 15000);
+  const completed = window.getCompletedPages();
+
+  const categories = {};
+  window.MODULE_REGISTRY.forEach(mod => {
+    const parts = mod.category.split("•");
+    const modNumStr = parts[0].trim();
+    const catName = parts[1] ? parts[1].trim() : mod.category;
+    const secId = modNumStr.toLowerCase().replace(" ", "-");
+
+    if (!categories[secId]) {
+      categories[secId] = { id: secId, name: catName, moduleNum: modNumStr, count: 0, completedCount: 0 };
+    }
+    categories[secId].count += 1;
+    if (completed.includes(mod.page)) {
+      categories[secId].completedCount += 1;
+    }
+  });
+
+  let html = "";
+  for (const [secId, info] of Object.entries(categories)) {
+    const isDone = info.completedCount === info.count && info.count > 0;
+    const badgeClass = isDone ? "bg-emerald-100 text-emerald-700 font-bold" : "bg-slate-100 text-slate-600 font-semibold";
+    html += `
+      <li>
+        <a href="#${secId}" class="hover:text-indigo-600 transition-colors flex items-center justify-between group py-1">
+          <span class="group-hover:translate-x-0.5 transition-transform font-medium text-xs text-slate-700">${info.name}</span>
+          <span class="text-[10px] ${badgeClass} px-2 py-0.5 rounded-full">${info.completedCount}/${info.count}</span>
+        </a>
+      </li>
+    `;
   }
+
+  container.innerHTML = html;
+};
+
+window.renderDynamicSidebar = function(currentPage) {
+  const sidebar = document.getElementById("sidebar");
+  if (!sidebar) return;
+
+  const completed = window.getCompletedPages();
+  const isInPagesDir = window.location.pathname.includes("/pages/");
+  const linkPrefix = isInPagesDir ? "./" : "./pages/";
+  const learnLink = isInPagesDir ? "../learn.html" : "./learn.html";
+
+  const categories = {};
+  window.MODULE_REGISTRY.forEach(mod => {
+    if (!categories[mod.category]) {
+      categories[mod.category] = [];
+    }
+    categories[mod.category].push(mod);
+  });
+
+  let html = `
+    <div class="space-y-5">
+      <div class="pb-2 border-b border-slate-200/80 flex items-center justify-between">
+        <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest flex items-center">
+          <svg class="w-3.5 h-3.5 mr-1.5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
+          Table of Contents
+        </span>
+      </div>
+      <div class="space-y-4">
+  `;
+
+  for (const [catName, mods] of Object.entries(categories)) {
+    const isCatActive = mods.some(m => m.page === currentPage);
+    const catLabelClass = isCatActive ? "text-indigo-500 font-extrabold" : "text-slate-400 font-extrabold";
+
+    html += `
+      <div class="space-y-1">
+        <div class="text-[9px] ${catLabelClass} uppercase tracking-wider px-2 flex items-center justify-between">
+          <span>${catName}</span>
+        </div>
+    `;
+
+    mods.forEach(mod => {
+      const isActive = mod.page === currentPage;
+      const isDone = completed.includes(mod.page);
+
+      let linkClass = "";
+      let dotClass = "";
+
+      if (isActive) {
+        linkClass = "flex items-center justify-between px-2.5 py-1.5 text-[11px] font-bold rounded-md bg-indigo-50/90 text-indigo-700 border-l-2 border-indigo-600 transition-all shadow-xs";
+        dotClass = "bg-indigo-600";
+      } else {
+        linkClass = "flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 transition-all";
+        dotClass = isDone ? "bg-emerald-500" : "bg-slate-300";
+      }
+
+      const checkIcon = isDone 
+        ? `<svg class="w-3 h-3 text-indigo-600 ml-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>` 
+        : `<span class="text-[9px] font-mono text-slate-400 ml-1">${mod.time}</span>`;
+
+      html += `
+        <a href="${linkPrefix}${mod.page}" class="${linkClass}">
+          <span class="flex items-center truncate">
+            <span class="w-1.5 h-1.5 rounded-full ${dotClass} mr-2 shrink-0"></span>
+            <span class="truncate">${mod.title}</span>
+          </span>
+          ${checkIcon}
+        </a>
+      `;
+    });
+
+    html += `</div>`;
+  }
+
+  html += `
+      </div>
+    </div>
+    <div class="pt-4 border-t border-slate-200/80 text-[10px] text-slate-500 flex items-center justify-between">
+      <a href="${learnLink}" class="hover:text-indigo-600 font-bold transition-colors">&larr; All Modules</a>
+      <span class="text-slate-400">${completed.length}/${window.MODULE_REGISTRY.length} Done</span>
+    </div>
+  `;
+
+  sidebar.innerHTML = html;
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  let currentPage = window.location.pathname.split("/").pop() || "index.html";
+  if (!currentPage.endsWith(".html")) currentPage += ".html";
+  renderDynamicSidebar(currentPage);
+  updateProgressUI();
+  if (typeof window.checkServerStatus === "function") {
+    window.checkServerStatus();
+  }
+});
+
+window.addEventListener("progressUpdated", () => {
+  let currentPage = window.location.pathname.split("/").pop() || "index.html";
+  if (!currentPage.endsWith(".html")) currentPage += ".html";
+  initPageCompletionCheckbox(currentPage);
+  updateProgressUI();
 });

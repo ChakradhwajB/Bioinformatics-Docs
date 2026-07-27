@@ -4,7 +4,7 @@ from fastapi import APIRouter, UploadFile, File, HTTPException
 from pydantic import BaseModel
 from typing import Dict, List
 
-from core_lib import ValidateInput, FastaParse, JsonWrite
+from core_lib import ValidateInput, FastaParse, JsonWrite, FastqParse, CalculateQualityStats
 from .config import MAX_DP_SEQUENCE_LENGTH, MAX_LINEAR_SEQUENCE_LENGTH, validate_sequence
 
 router = APIRouter()
@@ -176,3 +176,29 @@ def write_fasta_records(request: FastaWriteRequest):
         )
     except ValueError as ve:
         raise HTTPException(status_code=400, detail=str(ve))
+
+
+class FastqTextRequest(BaseModel):
+    fastq_text: str
+
+
+@router.post("/parse-fastq-text")
+def parse_fastq_text(request: FastqTextRequest):
+    """Accepts raw FASTQ text string, parses 4-line records, and calculates quality distribution metrics."""
+    if len(request.fastq_text) > MAX_FILE_SIZE:
+        raise HTTPException(
+            status_code=413,
+            detail="Text payload too large. Maximum allowed size is 2 MB."
+        )
+
+    lines = request.fastq_text.splitlines()
+    parsed = FastqParse(lines)
+    stats = CalculateQualityStats(parsed["records"])
+    
+    return {
+        "status": "success",
+        "read_count": parsed["read_count"],
+        "records": parsed["records"],
+        "stats": stats
+    }
+
