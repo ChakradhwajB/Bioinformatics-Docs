@@ -18,7 +18,8 @@
     />
     <meta name="author" content="ChakradhwajB" />
 
-    <!-- Open Graph / Facebook -->
+    <!-- Canonical URL & Open Graph / Facebook -->
+    <link rel="canonical" href="https://bioinformatics-docs.netlify.app/" />
     <meta property="og:type" content="website" />
     <meta
       property="og:url"
@@ -97,14 +98,7 @@
     <script
       defer
       src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
-      onload="
-        renderMathInElement(document.body, {
-          delimiters: [
-            { left: '$$', right: '$$', display: true },
-            { left: '$', right: '$', display: false },
-          ],
-        })
-      "
+      onload="requestAnimationFrame(() => renderMathInElement(document.querySelector('main') || document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]}))"
     ></script>
     <style>
       body {
@@ -825,26 +819,26 @@
             </ul>
           </div>
           <div class="w-full md:w-1/2">
-            <div class="bg-slate-50 rounded-lg p-6 border border-slate-200 shadow-md font-mono text-[11px] leading-relaxed text-slate-600 overflow-hidden relative transition-transform hover:-translate-y-1 hover:shadow-xl duration-300">
+            <div class="bg-white rounded-lg p-5 border border-slate-200 shadow-sm font-mono text-xs leading-relaxed text-slate-700 overflow-x-auto relative">
               <div class="pb-3 mb-3 border-b border-slate-200 text-[10px] text-slate-400 uppercase tracking-widest font-sans font-bold flex items-center justify-between">
                 <div class="flex items-center space-x-2">
-                  <svg class="w-4 h-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                  <svg class="w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                   <span>needleman_wunsch.py</span>
                 </div>
-                <span class="px-2 py-0.5 bg-white border border-slate-100 text-slate-400 rounded">Python 3.11</span>
+                <span class="px-2 py-0.5 bg-slate-50 border border-slate-200 text-slate-500 rounded text-[10px]">Python 3.11</span>
               </div>
-              <pre><code><span class="text-indigo-600 font-bold">def</span> <span class="text-slate-800 font-bold">initialize_matrix</span>(seq1, seq2, gap_penalty):
-    rows = <span class="text-indigo-600">len</span>(seq1) + <span class="text-amber-600">1</span>
-    cols = <span class="text-indigo-600">len</span>(seq2) + <span class="text-amber-600">1</span>
-    matrix = np.zeros((rows, cols), dtype=<span class="text-indigo-600">int</span>)
+              <pre class="bg-white border border-slate-200 text-slate-700 p-3.5 pr-12 rounded-sm font-mono text-xs overflow-x-auto leading-relaxed"><code><span class="text-pink-600">def</span> <span class="text-sky-600">initialize_matrix</span>(seq1: <span class="text-sky-600">str</span>, seq2: <span class="text-sky-600">str</span>, gap_penalty: <span class="text-sky-600">int</span>) -&gt; np.ndarray:
+    rows = <span class="text-sky-600">len</span>(seq1) + <span class="text-orange-600">1</span>
+    cols = <span class="text-sky-600">len</span>(seq2) + <span class="text-orange-600">1</span>
+    matrix = np.zeros((rows, cols), dtype=<span class="text-sky-600">int</span>)
     
-    <span class="text-slate-400 italic"># Initialize boundaries</span>
-    <span class="text-indigo-600 font-bold">for</span> i <span class="text-indigo-600 font-bold">in</span> <span class="text-indigo-600">range</span>(<span class="text-amber-600">1</span>, rows):
-        matrix[i][<span class="text-amber-600">0</span>] = matrix[i-<span class="text-amber-600">1</span>][<span class="text-amber-600">0</span>] + gap_penalty
-    <span class="text-indigo-600 font-bold">for</span> j <span class="text-indigo-600 font-bold">in</span> <span class="text-indigo-600">range</span>(<span class="text-amber-600">1</span>, cols):
-        matrix[<span class="text-amber-600">0</span>][j] = matrix[<span class="text-amber-600">0</span>][j-<span class="text-amber-600">1</span>] + gap_penalty
+    <span class="text-slate-500 italic"># Initialize gap penalty boundaries</span>
+    <span class="text-pink-600">for</span> i <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(<span class="text-orange-600">1</span>, rows):
+        matrix[i][<span class="text-orange-600">0</span>] = matrix[i - <span class="text-orange-600">1</span>][<span class="text-orange-600">0</span>] + gap_penalty
+    <span class="text-pink-600">for</span> j <span class="text-pink-600">in</span> <span class="text-sky-600">range</span>(<span class="text-orange-600">1</span>, cols):
+        matrix[<span class="text-orange-600">0</span>][j] = matrix[<span class="text-orange-600">0</span>][j - <span class="text-orange-600">1</span>] + gap_penalty
         
-    <span class="text-indigo-600 font-bold">return</span> matrix</code></pre>
+    <span class="text-pink-600">return</span> matrix</code></pre>
             </div>
           </div>
         </div>
