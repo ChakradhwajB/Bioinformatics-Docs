@@ -1,6 +1,6 @@
 # Bioinformatics Docs
 
-An encyclopedic, masterclass interactive platform and Python bioinformatics toolkit implementing sequence alignment, distance metrics, pattern matching, indexing, assembly, probabilistic models, variant calling, single-cell transcriptomics, and genomic AI.
+An interactive platform and Python bioinformatics toolkit implementing sequence alignment, distance metrics, pattern matching, indexing, assembly, probabilistic models, variant calling, single-cell transcriptomics, and genomic AI.
 
 [Documentation](https://bioinformatics-docs.netlify.app/pages/docs.html) • [Curriculum Modules](https://bioinformatics-docs.netlify.app/learn.html) • [Glossary](https://bioinformatics-docs.netlify.app/glossary.html) • [Website](https://bioinformatics-docs.netlify.app/) • [Source Code](https://github.com/ChakradhwajB/Bioinformatics-Docs)
 
